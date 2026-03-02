@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NovaPeptides — Premium Research Peptides</title>
+<meta name="description" content="Premium research peptides. HPLC verified. Third-party tested. Free express shipping.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:rgba(200,169,126,.2)}
+body{font-family:'DM Sans',sans-serif;background:#FAFAF7;color:#1a1a1a;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
+
+.w{max-width:1200px;margin:0 auto;padding-left:40px;padding-right:40px}
+.gold-sep{height:1px;background:linear-gradient(90deg,transparent,#C8A97E,transparent)}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:#C8A97E;display:block;margin-bottom:12px}
+
+/* buttons */
+.b{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:16px 40px;border:none;cursor:pointer;transition:all .35s;text-decoration:none;display:inline-block;text-align:center;line-height:1.2}
+.b1{background:#1a1a1a;color:#FAFAF7}.b1:hover{background:#2d2d2d;letter-spacing:.24em}
+.b2{background:transparent;color:#1a1a1a;border:1px solid #1a1a1a}.b2:hover{background:#1a1a1a;color:#FAFAF7}
+.b3{background:#C8A97E;color:#fff}.b3:hover{background:#b8965f;letter-spacing:.24em}
+
+/* nav */
+.topnav{position:sticky;top:0;z-index:500;background:rgba(250,250,247,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06)}
+.topnav .w{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nlogo{font-family:'Cormorant Garamond',serif;font-size:26px;text-decoration:none;color:#1a1a1a;font-weight:600}
+.nlogo em{font-weight:300;font-style:italic;color:#C8A97E}
+.nlinks{display:flex;align-items:center;gap:28px}
+.nlinks a{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a8580;text-decoration:none;transition:color .3s}
+.nlinks a:hover{color:#1a1a1a}
+.cart-count{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#1a1a1a;color:#FAFAF7;font-size:10px;font-weight:700;margin-left:4px;vertical-align:middle}
+
+/* whatsapp float */
+.waf{position:fixed;bottom:28px;right:28px;z-index:600;width:60px;height:60px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 28px rgba(37,211,102,.35);transition:transform .3s,box-shadow .3s}
+.waf:hover{transform:scale(1.08);box-shadow:0 10px 40px rgba(37,211,102,.45)}
+.waf svg{width:30px;height:30px}
+
+/* hero */
+.hero{padding:100px 0 80px}
+.hero h1{font-size:clamp(38px,7vw,76px);font-weight:300;line-height:1.05;letter-spacing:-.03em;margin-bottom:28px}
+.hero h1 em{font-weight:600;font-style:italic}
+.hero h1 .dot{color:#C8A97E}
+.hero p{font-size:16px;line-height:1.75;color:#6b6560;max-width:480px;margin-bottom:44px;font-weight:300}
+.hbtns{display:flex;gap:16px;flex-wrap:wrap}
+
+/* trust */
+.trust{border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06);padding:24px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.trust span{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6}
+
+/* product grid */
+.phdr{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:48px}
+.fils{display:flex;gap:8px;flex-wrap:wrap}
+.fbtn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:8px 16px;cursor:pointer;border:1px solid #d4d0c8;background:transparent;color:#8a8580;transition:all .3s}
+.fbtn.on,.fbtn:hover{background:#1a1a1a;color:#FAFAF7;border-color:#1a1a1a}
+
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(0,0,0,.05)}
+.pcard{background:#FAFAF7;padding:44px 40px;transition:transform .45s cubic-bezier(.23,1,.32,1),box-shadow .45s;position:relative}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,.06)}
+.ptag{position:absolute;top:20px;right:20px;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:4px 12px;background:#C8A97E;color:#fff}
+.pinn{display:flex;gap:32px;align-items:flex-start}
+.pico{width:100px;height:120px;flex-shrink:0;background:#F0EDE7;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background .4s}
+.pcard:hover .pico{background:#E8E3DA}
+.pico-l{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#C8A97E;letter-spacing:-.02em}
+.pico-s{font-size:8px;letter-spacing:.2em;color:#b5b0a6;text-transform:uppercase;margin-top:4px}
+.pinf{flex:1;min-width:0}
+.pinf h3{font-size:24px;font-weight:600;letter-spacing:-.01em;margin-bottom:2px}
+.pinf .psub{font-size:12px;color:#C8A97E;font-weight:500;letter-spacing:.05em;margin-bottom:10px}
+.pinf .pdesc{font-size:13px;line-height:1.65;color:#8a8580;font-weight:300;margin-bottom:16px}
+.pmeta{display:flex;gap:16px;align-items:center;margin-bottom:6px}
+.pmeta span{font-size:10px;font-weight:600;letter-spacing:.12em;color:#b5b0a6;text-transform:uppercase}
+.pftr{display:flex;align-items:center;justify-content:space-between;margin-top:16px;flex-wrap:wrap;gap:12px}
+.pprice{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600}
+.pold{font-size:13px;color:#b5b0a6;text-decoration:line-through;font-weight:300;margin-left:10px;font-family:'DM Sans',sans-serif}
+
+/* coupon banner */
+.cbanner{background:#1a1a1a;padding:60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:40px}
+.ccards{display:flex;gap:16px;flex-wrap:wrap}
+.ccard{border:1px solid rgba(200,169,126,.3);padding:20px 28px;text-align:center;min-width:160px}
+.ccard .ccode{font-size:16px;font-weight:700;color:#C8A97E;letter-spacing:.12em;margin-bottom:6px}
+.ccard .cinfo{font-size:11px;color:rgba(250,250,247,.5);line-height:1.5}
+
+/* cart drawer */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:700;opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.open{opacity:1;pointer-events:auto}
+.dr{position:fixed;top:0;right:0;bottom:0;width:460px;max-width:94vw;z-index:701;background:#FAFAF7;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.23,1,.32,1);border-left:1px solid rgba(0,0,0,.06)}
+.dr.open{transform:translateX(0)}
+.drhd{padding:28px 36px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06)}
+.drhd h2{font-size:24px;font-weight:500}
+.drcl{background:none;border:none;font-size:22px;color:#8a8580;cursor:pointer}
+.drbd{flex:1;overflow-y:auto;padding:24px 36px}
+.drft{padding:24px 36px 32px;border-top:1px solid rgba(0,0,0,.06)}
+
+.ci{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid rgba(0,0,0,.05);align-items:flex-start}
+.cithm{width:72px;height:88px;flex-shrink:0;background:#F0EDE7;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:#C8A97E}
+.cidtl{flex:1}
+.cidtl h4{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;margin-bottom:2px}
+.cidtl .cimeta{font-size:11px;color:#8a8580;letter-spacing:.05em}
+.ciqty{display:inline-flex;align-items:center;border:1px solid #d4d0c8;margin-top:12px}
+.ciqty button{width:32px;height:32px;background:none;border:none;cursor:pointer;font-size:14px;color:#1a1a1a}
+.ciqty span{width:32px;text-align:center;font-size:13px;font-weight:500}
+.cirm{font-size:11px;color:#b5b0a6;cursor:pointer;text-decoration:underline;text-underline-offset:3px;margin-left:14px;letter-spacing:.08em;background:none;border:none}
+.cipr{font-size:15px;font-weight:600;white-space:nowrap;flex-shrink:0}
+
+.srow{display:flex;justify-content:space-between;font-size:13px;color:#8a8580;margin-bottom:10px}
+.stot{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600}
+
+/* about */
+.ablock{margin-bottom:40px}
+.ablock h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px}
+.ablock p{font-size:15px;line-height:1.8;color:#6b6560;font-weight:300}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,.05);margin-top:48px}
+.sbox{background:#FAFAF7;padding:36px 24px;text-align:center}
+.sbox .sn{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin-bottom:6px}
+.sbox .sl{font-size:10px;font-weight:600;letter-spacing:.15em;color:#b5b0a6;text-transform:uppercase}
+
+/* faq */
+.fqi{border-bottom:1px solid rgba(0,0,0,.06)}
+.fqq{display:flex;justify-content:space-between;align-items:center;padding:24px 0;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:inherit}
+.fqq h3{font-size:18px;font-weight:500;padding-right:20px;color:#1a1a1a}
+.fqq .fic{font-size:18px;color:#C8A97E;flex-shrink:0;transition:transform .35s;line-height:1}
+.fqq .fic.open{transform:rotate(45deg)}
+.fqa{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.23,1,.32,1)}
+.fqa.open{max-height:300px}
+.fqa p{font-size:14px;line-height:1.75;color:#8a8580;font-weight:300;padding-bottom:24px}
+
+/* contact */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.ciblk{margin-bottom:32px}
+.ciblk .cil{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:6px}
+.ciblk p{font-size:15px;font-weight:400}
+.fg{margin-bottom:24px}
+.fg label{display:block;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#b5b0a6;margin-bottom:6px}
+.fi{font-family:'DM Sans',sans-serif;font-size:14px;padding:14px 0;background:transparent;border:none;border-bottom:1px solid #d4d0c8;color:#1a1a1a;outline:none;width:100%;transition:border-color .3s;letter-spacing:.02em}
+.fi:focus{border-bottom-color:#C8A97E}
+.fi::placeholder{color:#b5b0a6}
+textarea.fi{resize:vertical;min-height:100px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* footer */
+.ft{border-top:1px solid rgba(0,0,0,.06);margin-top:20px}
+.ftg{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;padding:60px 0}
+.ftbr .ftlogo{font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:16px}
+.ftbr .ftlogo em{font-weight:300;font-style:italic;color:#C8A97E}
+.ftbr p{font-size:13px;color:#8a8580;line-height:1.7;font-weight:300;max-width:300px}
+.ftcol h4{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px}
+.ftcol a{display:block;font-size:13px;color:#6b6560;text-decoration:none;margin-bottom:10px;transition:color .2s}
+.ftcol a:hover{color:#C8A97E}
+.ftcol p{font-size:13px;color:#6b6560;margin-bottom:10px}
+.ftleg p{font-size:11px;color:#b5b0a6;line-height:1.7}
+.ftbot{border-top:1px solid rgba(0,0,0,.06);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ftbot span{font-size:11px;color:#b5b0a6}
+
+/* animations */
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fu .7s ease both}
+
+/* responsive */
+@media(max-width:900px){
+  .pgrid{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:1fr}
+  .ftg{grid-template-columns:1fr;text-align:center}
+  .sgrid{grid-template-columns:repeat(2,1fr)}
+  .cbanner{flex-direction:column;text-align:center;padding:40px 24px}
+  .ccards{justify-content:center}
+  .frow{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .w{padding-left:20px;padding-right:20px}
+  .hero{padding:60px 0 40px}
+  .pcard{padding:28px 20px}
+  .pinn{flex-direction:column;gap:20px}
+  .pico{width:100%;height:80px;flex-direction:row;gap:12px}
+  .hsm{display:none}
+  .dr{width:100vw;max-width:100vw}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+<div class="w">
+  <a href="#" class="nlogo" onclick="go('home');return false">Nova<em>Peptides</em></a>
+  <div class="nlinks">
+    <a href="#" onclick="go('home');return false">Shop</a>
+    <a href="#" class="hsm" onclick="go('about');return false">About</a>
+    <a href="#" class="hsm" onclick="go('faq');return false">FAQ</a>
+    <a href="#" onclick="go('contact');return false">Contact</a>
+    <a href="#" onclick="openCart();return false" id="cartLink">Cart</a>
+  </div>
+</div>
+</nav>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919560397569?text=Hi%2C%20I%27m%20interested%20in%20your%20research%20peptides." target="_blank" rel="noopener" class="waf">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+</a>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="ov" id="ov" onclick="closeCart()"></div>
+<div class="dr" id="dr">
+  <div class="drhd"><h2>Your Cart</h2><button class="drcl" onclick="closeCart()">&times;</button></div>
+  <div class="drbd" id="drbd"></div>
+  <div class="drft" id="drft" style="display:none"></div>
+</div>
+
+<!-- ═══ SECTIONS ═══ -->
+
+<!-- HOME -->
+<div id="pg-home">
+<section class="hero"><div class="w">
+  <span class="lbl">Pharmaceutical-Grade Research Compounds</span>
+  <h1>The science of<br><em>precision</em><span class="dot">.</span></h1>
+  <p>HPLC-verified compounds with minimum 99% purity. Each batch third-party tested, with full certificates of analysis. Delivered in temperature-controlled packaging.</p>
+  <div class="hbtns">
+    <a href="#collection" class="b b1">View Collection</a>
+    <a href="#" class="b b2" onclick="go('about');return false">Our Standards</a>
+    <a href="https://wa.me/919560397569?text=Hi%2C%20I%20want%20to%20place%20an%20order." target="_blank" rel="noopener" class="b b3">Order on WhatsApp</a>
+  </div>
+</div></section>
+
+<div class="w trust">
+  <span>99%+ HPLC Purity</span>
+  <span>Third-Party Verified</span>
+  <span>COA Every Batch</span>
+  <span>Free Express Shipping</span>
+  <span>Secure Payments</span>
+</div>
+
+<section id="collection"><div class="w">
+  <div class="phdr">
+    <div>
+      <span class="lbl">Collection</span>
+      <h2 style="font-size:40px;letter-spacing:-.02em">Research Peptides</h2>
+    </div>
+    <div class="fils" id="fils"></div>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+</div></section>
+
+<section style="padding-bottom:100px"><div class="w">
+  <div class="cbanner">
+    <div>
+      <span class="lbl" style="color:#C8A97E">Exclusive Offers</span>
+      <h3 style="font-size:32px;color:#FAFAF7;letter-spacing:-.01em">Apply at checkout</h3>
+    </div>
+    <div class="ccards">
+      <div class="ccard"><div class="ccode">FIRST20</div><div class="cinfo">20% off first order</div></div>
+      <div class="ccard"><div class="ccode">SAVE500</div><div class="cinfo">Flat 500 off</div></div>
+      <div class="ccard"><div class="ccode">BULK15</div><div class="cinfo">15% off bulk orders</div></div>
+      <div class="ccard"><div class="ccode">RESEARCH10</div><div class="cinfo">10% research discount</div></div>
+    </div>
+  </div>
+</div></section>
+</div>
+
+<!-- ABOUT -->
+<div id="pg-about" style="display:none">
+<section><div class="w" style="max-width:760px">
+  <span class="lbl">About Us</span>
+  <h1 style="font-size:48px;font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-bottom:48px">
+    Uncompromising standards<br>in research <em style="font-weight:600">compounds</em>.
+  </h1>
+  <div class="ablock"><h3>Our Philosophy</h3><p>NovaPeptides exists at the intersection of rigorous science and refined service. We believe that researchers deserve access to compounds of the highest possible purity — without compromise, without exception.</p></div>
+  <div class="gold-sep" style="margin-bottom:40px"></div>
+  <div class="ablock"><h3>Quality Assurance</h3><p>Every batch undergoes HPLC analysis confirming 99%+ purity, mass spectrometry for molecular identity, and endotoxin screening by ISO 17025-accredited laboratories. Full Certificates of Analysis are published for complete transparency.</p></div>
+  <div class="gold-sep" style="margin-bottom:40px"></div>
+  <div class="ablock"><h3>Shipping and Handling</h3><p>Orders are dispatched within 24 hours in temperature-controlled, light-protected packaging. Complimentary express shipping is provided on all orders above 5,000, with end-to-end tracking and cold-chain integrity.</p></div>
+  <div class="gold-sep" style="margin-bottom:40px"></div>
+  <div class="ablock"><h3>Research Use</h3><p>All products are sold exclusively for in-vitro laboratory research purposes. These compounds are not approved for human or animal use and must be handled by qualified professionals in controlled environments.</p></div>
+  <div class="sgrid">
+    <div class="sbox"><div class="sn">10,000+</div><div class="sl">Orders Fulfilled</div></div>
+    <div class="sbox"><div class="sn">99.2%</div><div class="sl">Average Purity</div></div>
+    <div class="sbox"><div class="sn">60+</div><div class="sl">Compounds</div></div>
+    <div class="sbox"><div class="sn">4.8</div><div class="sl">Customer Rating</div></div>
+  </div>
+</div></section>
+</div>
+
+<!-- FAQ -->
+<div id="pg-faq" style="display:none">
+<section><div class="w" style="max-width:680px">
+  <span class="lbl">Support</span>
+  <h1 style="font-size:48px;font-weight:300;letter-spacing:-.02em;margin-bottom:48px">Frequently asked questions</h1>
+  <div id="faqlist"></div>
+</div></section>
+</div>
+
+<!-- CONTACT -->
+<div id="pg-contact" style="display:none">
+<section><div class="w" style="max-width:900px">
+  <div class="cgrid">
+    <div>
+      <span class="lbl">Contact</span>
+      <h1 style="font-size:44px;font-weight:300;letter-spacing:-.02em;margin-bottom:32px;line-height:1.15">
+        We would love to<br>hear from <em style="font-weight:500">you</em>.
+      </h1>
+      <div class="ciblk"><div class="cil">Email</div><p><a href="mailto:govindnarayangoel395@gmail.com" style="text-decoration:none">govindnarayangoel395@gmail.com</a></p></div>
+      <div class="ciblk"><div class="cil">WhatsApp</div><p><a href="https://wa.me/919560397569" target="_blank" rel="noopener" style="text-decoration:none">+91 95603 97569</a></p></div>
+      <div class="ciblk"><div class="cil">Hours</div><p>Monday - Saturday, 9AM - 7PM IST</p></div>
+      <a href="https://wa.me/919560397569?text=Hi%2C%20I%20have%20a%20question." target="_blank" rel="noopener" class="b b3" style="margin-top:12px">Chat on WhatsApp</a>
+    </div>
+    <div style="padding-top:56px">
+      <form onsubmit="return sendContact()">
+        <div class="frow">
+          <div class="fg"><label>Name *</label><input class="fi" type="text" id="cn" placeholder="Your name" required></div>
+          <div class="fg"><label>Email *</label><input class="fi" type="email" id="ce" placeholder="you@example.com" required></div>
+        </div>
+        <div class="fg"><label>Subject</label><input class="fi" type="text" id="cs" placeholder="Order inquiry, bulk pricing, etc."></div>
+        <div class="fg"><label>Message *</label><textarea class="fi" id="cm" placeholder="How can we help?" required></textarea></div>
+        <button type="submit" class="b b1">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div></section>
+</div>
+
+<!-- FOOTER -->
+<footer class="ft"><div class="w">
+  <div class="ftg">
+    <div class="ftbr">
+      <div class="ftlogo">Nova<em>Peptides</em></div>
+      <p>Premium research peptides. HPLC verified. Third-party tested. Delivered with care.</p>
+    </div>
+    <div class="ftcol">
+      <h4>Navigate</h4>
+      <a href="#" onclick="go('home');return false">Shop</a>
+      <a href="#" onclick="go('about');return false">About</a>
+      <a href="#" onclick="go('faq');return false">FAQ</a>
+      <a href="#" onclick="go('contact');return false">Contact</a>
+    </div>
+    <div class="ftcol">
+      <h4>Reach Us</h4>
+      <a href="mailto:govindnarayangoel395@gmail.com">govindnarayangoel395@gmail.com</a>
+      <a href="https://wa.me/919560397569" target="_blank" rel="noopener">+91 95603 97569</a>
+      <p>Mon - Sat, 9-7 IST</p>
+    </div>
+    <div class="ftleg">
+      <h4 style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px">Legal Notice</h4>
+      <p>All products are sold strictly for in-vitro research purposes. Not intended for human or animal consumption. These statements have not been evaluated by any regulatory authority.</p>
+    </div>
+  </div>
+  <div class="ftbot">
+    <span>2026 NovaPeptides. All rights reserved.</span>
+    <span>For research use only</span>
+  </div>
+</div></footer>
+
+<script>
+// ═══ DATA ═══
+var P=[
+{id:1,n:"BPC-157",s:"Body Protective Compound",c:"Recovery",pu:"99.1",mg:"5mg",pr:3499,wa:4999,t:"Best Seller",d:"Investigated for accelerated tissue repair, gut mucosal healing, and tendon-to-bone recovery pathways in research models."},
+{id:2,n:"Semaglutide",s:"GLP-1 Receptor Agonist",c:"Metabolic",pu:"99.4",mg:"3mg",pr:5999,wa:8499,t:"Most Popular",d:"A glucagon-like peptide studied for its role in glycemic regulation, appetite signaling, and metabolic homeostasis."},
+{id:3,n:"Tirzepatide",s:"Dual GIP/GLP-1 Agonist",c:"Metabolic",pu:"99.2",mg:"5mg",pr:7499,wa:10999,t:"New Arrival",d:"Next-generation dual incretin agonist under investigation for superior metabolic outcomes versus mono-agonist compounds."},
+{id:4,n:"Retatrutide",s:"Triple Hormone Agonist",c:"Metabolic",pu:"99.0",mg:"5mg",pr:8999,wa:12999,t:"",d:"A triple agonist targeting GLP-1, GIP, and glucagon receptors representing the frontier of metabolic research."},
+{id:5,n:"TB-500",s:"Thymosin Beta-4 Fragment",c:"Recovery",pu:"99.3",mg:"5mg",pr:2999,wa:4499,t:"",d:"Researched for wound healing acceleration, cardiac tissue repair, and systemic inflammation modulation."},
+{id:6,n:"PT-141",s:"Bremelanotide",c:"Hormonal",pu:"99.1",mg:"10mg",pr:2499,wa:3499,t:"",d:"Melanocortin receptor agonist studied for central nervous system pathways related to sexual function and desire."},
+{id:7,n:"GHK-Cu",s:"Copper Peptide Complex",c:"Anti-Aging",pu:"99.5",mg:"50mg",pr:1999,wa:2999,t:"Editors Pick",d:"Naturally occurring tripeptide researched for collagen stimulation, antioxidant defense, and dermal remodeling."},
+{id:8,n:"Ipamorelin",s:"Selective GH Secretagogue",c:"Growth",pu:"99.2",mg:"5mg",pr:2799,wa:3999,t:"",d:"A pentapeptide that selectively stimulates growth hormone release without elevating cortisol or prolactin."},
+{id:9,n:"CJC-1295",s:"Modified GHRH Analog",c:"Growth",pu:"99.0",mg:"5mg",pr:3299,wa:4799,t:"",d:"Modified growth hormone releasing hormone analog studied for sustained GH pulsatility and IGF-1 elevation."},
+{id:10,n:"Selank",s:"Synthetic Tuftsin Analog",c:"Nootropic",pu:"99.3",mg:"5mg",pr:3199,wa:4599,t:"Staff Pick",d:"A heptapeptide investigated for anxiolytic effects, cognitive enhancement, and immunomodulatory properties."}
+];
+
+var FQ=[
+{q:"What purity standards do you maintain?",a:"Every compound undergoes HPLC analysis with 99%+ purity verification. Mass spectrometry confirms molecular identity. Full Certificates of Analysis accompany each batch."},
+{q:"How is my order shipped?",a:"Orders ship within 24 hours in temperature-controlled packaging with cold chain integrity. Free express delivery on all orders with full tracking."},
+{q:"Are these products for human use?",a:"No. All compounds are sold exclusively for in-vitro laboratory research. They are not intended for human or animal consumption under any circumstances."},
+{q:"How do I place an order?",a:"Add items to your cart and contact us via WhatsApp or email. We will confirm pricing, apply any coupon codes, and arrange payment and shipping."},
+{q:"What is your return policy?",a:"Unopened products may be returned within 7 days for a full refund. Damaged shipments are replaced at no cost with priority handling."}
+];
+
+var cart=[];
+var filt="All";
+
+function fmt(n){return "\u20B9"+n.toLocaleString("en-IN")}
+function mono(nm){return nm.replace(/[-\s]/g,"").substring(0,3).toUpperCase()}
+
+// ═══ NAV ═══
+function go(id){
+  var pages=["home","about","faq","contact"];
+  for(var i=0;i<pages.length;i++){
+    document.getElementById("pg-"+pages[i]).style.display=pages[i]===id?"block":"none";
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ═══ PRODUCTS ═══
+function renderP(){
+  var cats=["All"];
+  for(var i=0;i<P.length;i++){if(cats.indexOf(P[i].c)===-1)cats.push(P[i].c);}
+
+  var fh="";
+  for(var i=0;i<cats.length;i++){
+    fh+='<button class="fbtn'+(cats[i]===filt?" on":"")+'" onclick="sf(\''+cats[i]+'\')">'+cats[i]+'</button>';
+  }
+  document.getElementById("fils").innerHTML=fh;
+
+  var list=[];
+  for(var i=0;i<P.length;i++){if(filt==="All"||P[i].c===filt)list.push(P[i]);}
+
+  var h="";
+  for(var i=0;i<list.length;i++){
+    var p=list[i];
+    var ic=false;
+    for(var j=0;j<cart.length;j++){if(cart[j].id===p.id){ic=true;break;}}
+
+    h+='<div class="pcard fu" style="animation-delay:'+(i*0.05)+'s">';
+    if(p.t)h+='<div class="ptag">'+p.t+'</div>';
+    h+='<div class="pinn">';
+    h+='<div class="pico"><span class="pico-l">'+mono(p.n)+'</span><span class="pico-s">'+p.mg+'</span></div>';
+    h+='<div class="pinf">';
+    h+='<h3>'+p.n+'</h3>';
+    h+='<div class="psub">'+p.s+'</div>';
+    h+='<p class="pdesc">'+p.d+'</p>';
+    h+='<div class="pmeta"><span>'+p.c+'</span><span style="color:#d4d0c8">&middot;</span><span>HPLC '+p.pu+'%</span></div>';
+    h+='<div class="pftr">';
+    h+='<div><span class="pprice">'+fmt(p.pr)+'</span><span class="pold">'+fmt(p.wa)+'</span></div>';
+    h+='<button class="b '+(ic?"b2":"b1")+'" style="padding:10px 24px;font-size:10px" onclick="ac('+p.id+')">'+(ic?"Added":"Add to Cart")+'</button>';
+    h+='</div></div></div></div>';
+  }
+  document.getElementById("pgrid").innerHTML=h;
+}
+
+function sf(c){filt=c;renderP();}
+
+// ═══ CART ═══
+function ac(id){
+  var p=null;
+  for(var i=0;i<P.length;i++){if(P[i].id===id){p=P[i];break;}}
+  var ex=null;
+  for(var i=0;i<cart.length;i++){if(cart[i].id===id){ex=cart[i];break;}}
+  if(ex){ex.q++;}else{cart.push({id:p.id,n:p.n,mg:p.mg,pu:p.pu,pr:p.pr,q:1});}
+  ub();rc();renderP();
+}
+
+function rm(id){
+  var nc=[];
+  for(var i=0;i<cart.length;i++){if(cart[i].id!==id)nc.push(cart[i]);}
+  cart=nc;ub();rc();renderP();
+}
+
+function cq(id,d){
+  for(var i=0;i<cart.length;i++){
+    if(cart[i].id===id){cart[i].q=Math.max(1,cart[i].q+d);break;}
+  }
+  ub();rc();
+}
+
+function ub(){
+  var n=0;for(var i=0;i<cart.length;i++)n+=cart[i].q;
+  var link=document.getElementById("cartLink");
+  if(n>0){link.innerHTML='Cart <span class="cart-count">'+n+'</span>';}
+  else{link.innerHTML='Cart';}
+}
+
+function openCart(){
+  document.getElementById("ov").classList.add("open");
+  document.getElementById("dr").classList.add("open");
+  rc();
+}
+function closeCart(){
+  document.getElementById("ov").classList.remove("open");
+  document.getElementById("dr").classList.remove("open");
+}
+
+function rc(){
+  var bd=document.getElementById("drbd");
+  var ft=document.getElementById("drft");
+
+  if(cart.length===0){
+    bd.innerHTML='<div style="text-align:center;padding:80px 0"><p style="font-family:Cormorant Garamond,serif;font-size:20px;font-style:italic;color:#b5b0a6;margin-bottom:24px">Your cart is empty</p><button class="b b2" onclick="closeCart();go(\'home\')">Browse Collection</button></div>';
+    ft.style.display="none";
+    return;
+  }
+
+  var h="";
+  for(var i=0;i<cart.length;i++){
+    var it=cart[i];
+    h+='<div class="ci">';
+    h+='<div class="cithm">'+mono(it.n)+'</div>';
+    h+='<div class="cidtl"><h4>'+it.n+'</h4><div class="cimeta">'+it.mg+' &middot; '+it.pu+'% HPLC</div>';
+    h+='<div style="margin-top:12px;display:flex;align-items:center"><div class="ciqty">';
+    h+='<button onclick="cq('+it.id+',-1)">&minus;</button>';
+    h+='<span>'+it.q+'</span>';
+    h+='<button onclick="cq('+it.id+',1)">+</button>';
+    h+='</div><button class="cirm" onclick="rm('+it.id+')">Remove</button></div></div>';
+    h+='<div class="cipr">'+fmt(it.pr*it.q)+'</div>';
+    h+='</div>';
+  }
+  bd.innerHTML=h;
+
+  var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
+
+  var wm="Hi, I would like to place an order:%0A%0A";
+  for(var i=0;i<cart.length;i++){
+    var c=cart[i];
+    wm+=c.n+" ("+c.mg+") x"+c.q+" - "+fmt(c.pr*c.q)+"%0A";
+  }
+  wm+="%0ASubtotal: "+fmt(sub)+"%0A%0APlease confirm availability and payment details.";
+
+  var f='';
+  f+='<div class="srow"><span>Subtotal</span><span>'+fmt(sub)+'</span></div>';
+  f+='<div class="srow"><span>Shipping</span><span style="color:#7a9a6d">Complimentary</span></div>';
+  f+='<div class="gold-sep" style="margin:16px 0"></div>';
+  f+='<div class="stot"><span>Total</span><span>'+fmt(sub)+'</span></div>';
+  f+='<a href="https://wa.me/919560397569?text='+wm+'" target="_blank" rel="noopener" class="b b3" style="width:100%;margin-top:24px">Order on WhatsApp</a>';
+  f+='<a href="mailto:govindnarayangoel395@gmail.com?subject=NovaPeptides%20Order&body='+wm.replace(/%0A/g,"%0D%0A")+'" class="b b2" style="width:100%;margin-top:10px">Order via Email</a>';
+  f+='<p style="font-size:10px;color:#b5b0a6;text-align:center;margin-top:12px">We will confirm your order and share payment details</p>';
+  ft.innerHTML=f;
+  ft.style.display="block";
+}
+
+// ═══ FAQ ═══
+function renderFQ(){
+  var h="";
+  for(var i=0;i<FQ.length;i++){
+    h+='<div class="fqi">';
+    h+='<button class="fqq" onclick="tf('+i+')">';
+    h+='<h3>'+FQ[i].q+'</h3>';
+    h+='<span class="fic" id="fi'+i+'">+</span>';
+    h+='</button>';
+    h+='<div class="fqa" id="fa'+i+'"><p>'+FQ[i].a+'</p></div>';
+    h+='</div>';
+  }
+  document.getElementById("faqlist").innerHTML=h;
+}
+
+function tf(i){
+  var el=document.getElementById("fa"+i);
+  var ic=document.getElementById("fi"+i);
+  var isOpen=el.classList.contains("open");
+  for(var j=0;j<FQ.length;j++){
+    document.getElementById("fa"+j).classList.remove("open");
+    document.getElementById("fi"+j).classList.remove("open");
+  }
+  if(!isOpen){el.classList.add("open");ic.classList.add("open");}
+}
+
+// ═══ CONTACT ═══
+function sendContact(){
+  var nm=document.getElementById("cn").value;
+  var em=document.getElementById("ce").value;
+  var su=document.getElementById("cs").value||"Website Inquiry";
+  var ms=document.getElementById("cm").value;
+  if(!nm||!em||!ms){alert("Please fill in all required fields.");return false;}
+  var body="Name: "+nm+"%0D%0AEmail: "+em+"%0D%0A%0D%0A"+encodeURIComponent(ms);
+  window.location.href="mailto:govindnarayangoel395@gmail.com?subject="+encodeURIComponent("NovaPeptides - "+su)+"&body="+body;
+  return false;
+}
+
+// ═══ INIT ═══
+renderP();
+renderFQ();
+</script>
+</body>
+</html>
