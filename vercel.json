@@ -1,4 +1,10 @@
 {
   "buildCommand": "",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/coa", "destination": "/coa.html" },
+    { "source": "/contact", "destination": "/contact.html" }
+  ]
 }

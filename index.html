@@ -255,19 +255,19 @@ textarea.fi{resize:vertical;min-height:100px}
 <body>
 <div class="pb" id="promoBanner"><div class="pb-inner" id="promoInner"></div></div>
 <nav class="bn"><div class="w">
-<a href="#" class="nl" onclick="go('home');return false"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
+<a href="/" class="nl"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
 <div class="nk">
-<a href="#" onclick="go('home');return false">Home</a>
+<a href="/" onclick="go('home');return false">Home</a>
 <div class="nav-dd"><a href="#" onclick="go('shop');return false" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="#" onclick="sf('All');return false">All Peptides</a><a href="#" onclick="sf('Metabolic');return false">Metabolic / GLP-1</a><a href="#" onclick="sf('Recovery');return false">Recovery</a><a href="#" onclick="sf('Growth');return false">Growth Hormone</a><a href="#" onclick="sf('Anti-Aging');return false">Anti-Aging</a><a href="#" onclick="sf('Nootropic');return false">Nootropic</a><a href="#" onclick="sf('Immune');return false">Immune</a><a href="#" onclick="sf('Recovery Blend');return false">Blends</a><a href="#" onclick="sf('Supplies');return false">Supplies</a></div></div>
-<a href="#" class="hm" onclick="go('coa');return false">COA</a>
-<a href="#" class="hm" onclick="go('about');return false">About</a>
-<a href="#" onclick="go('contact');return false">Contact</a>
+<a href="/coa">COA</a>
+<a href="/about">About</a>
+<a href="/contact">Contact</a>
 <a href="#" onclick="openCart();return false" id="cL">Cart</a>
 </div>
 <button class="ham" id="hamBtn" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </div></nav>
 <div class="mob-nav" id="mobNav">
-<a href="#" onclick="go('home');closeMob();return false">Home</a>
+<a href="/" onclick="closeMob()">Home</a>
 <a href="#" onclick="go('shop');closeMob();return false">All Peptides</a>
 <div class="mob-sub">
 <a href="#" onclick="sf('Metabolic');closeMob();return false">Metabolic / GLP-1</a>
@@ -278,10 +278,10 @@ textarea.fi{resize:vertical;min-height:100px}
 <a href="#" onclick="sf('Immune');closeMob();return false">Immune</a>
 <a href="#" onclick="sf('Supplies');closeMob();return false">Supplies</a>
 </div>
-<a href="#" onclick="go('coa');closeMob();return false">COA</a>
-<a href="#" onclick="go('about');closeMob();return false">About</a>
+<a href="/coa" onclick="closeMob()">COA</a>
+<a href="/about" onclick="closeMob()">About</a>
 <a href="#" onclick="go('calc');closeMob();return false">Dosage Calculator</a>
-<a href="#" onclick="go('contact');closeMob();return false">Contact</a>
+<a href="/contact" onclick="closeMob()">Contact</a>
 <a href="#" onclick="openCart();closeMob();return false">Cart</a>
 </div>
 
@@ -464,7 +464,7 @@ textarea.fi{resize:vertical;min-height:100px}
 <footer class="ft"><div class="w">
 <div class="ftg">
 <div class="ftb" style="text-align:center"><div class="fl2"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</div><p style="max-width:400px;margin:0 auto">Premium research peptides. HPLC verified. Third-party tested. 99%+ purity guaranteed.</p></div>
-<div class="ftc"><h4>Navigate</h4><a href="#" onclick="go('home');return false">Home</a><a href="#" onclick="go('shop');return false">Peptides</a><a href="#" onclick="go('coa');return false">COA</a><a href="#" onclick="go('about');return false">About</a><a href="#" onclick="go('calc');return false">Calculator</a><a href="#" onclick="go('contact');return false">Contact</a></div>
+<div class="ftc"><h4>Navigate</h4><a href="/">Home</a><a href="#" onclick="go('shop');return false">Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="#" onclick="go('calc');return false">Calculator</a><a href="/contact">Contact</a></div>
 <div class="ftc"><h4>Reach Us</h4><a href="mailto:support@athenabiolabs.com">support@athenabiolabs.com</a><a href="https://wa.me/919560397569" target="_blank" rel="noopener">+91 95603 97569</a><p>Mon - Sat, 9-7 IST</p></div>
 <div class="ftl"><h4 style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px">Legal Notice</h4><p>All products are sold strictly for in-vitro research purposes. Not intended for human or animal consumption.</p></div>
 </div>
@@ -779,7 +779,12 @@ function sendC(){
 
 rFQ();calcRecon();
 
-
+// Handle ?cat= query param from static pages
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var cat=params.get('cat');
+  if(cat){sf(cat);}
+})();
 
 // PROMO BANNER CYCLING
 var promos=[
