@@ -609,15 +609,17 @@ textarea.fi{resize:vertical;min-height:100px}
 var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
 
 var P=[
-{id:1,n:"Semaglutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1500}]},
-{id:2,n:"Tirzepatide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1900},{sp:"20mg × 10 vials",ds:"20mg",pr:2500}]},
-{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2400},{sp:"20mg × 10 vials",ds:"20mg",pr:3990}]},
-{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1800}]},
-{id:5,n:"TB-500",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:3200}]},
-{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2700}]},
-{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg × 10 vials",ds:"50mg",pr:1000}]},
-{id:11,n:"CJC-1295 (no DAC)",c:"GH",v:[{sp:"5mg × 10 vials",ds:"5mg",pr:2500}]},
-{id:12,n:"CJC+IPA Combo",c:"GH",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2700}]}
+{id:1,n:"Semaglutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1600}]},
+{id:2,n:"Tirzepatide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2000},{sp:"20mg × 10 vials",ds:"20mg",pr:2650}]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2550},{sp:"20mg × 10 vials",ds:"20mg",pr:4200}]},
+{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1900}]},
+{id:5,n:"TB-500",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:3400}]},
+{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2900}]},
+{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg × 10 vials",ds:"50mg",pr:1050}]},
+{id:11,n:"CJC-1295 (no DAC)",c:"GH",v:[{sp:"5mg × 10 vials",ds:"5mg",pr:2650}]},
+{id:12,n:"CJC+IPA Combo",c:"GH",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2900}]},
+{id:13,n:"KLOW Blend",c:"Healing & Recovery",v:[{sp:"80mg × 10 vials",ds:"80mg",pr:3990}]},
+{id:14,n:"BAC Water",c:"Supplies",v:[{sp:"10ml × 1 vial",ds:"10ml",pr:299}]}
 ];
 
 var FQ=[
@@ -1100,14 +1102,17 @@ var PI={
 "NAD+":{desc:"Critical coenzyme in every cell, essential for energy metabolism, DNA repair, and sirtuin activation. Levels decline significantly with age. Injectable NAD+ bypasses oral bioavailability limitations of precursors.",dose:"100 - 500mg 1-3x weekly, IV/subcutaneous",mw:"663.43 g/mol",seq:"Nicotinamide adenine dinucleotide",cat:"Anti-Aging"},
 "Selank":{desc:"Synthetic heptapeptide analog of tuftsin with anxiolytic effects comparable to benzodiazepines without sedation or dependence. Modulates GABA, serotonin, dopamine systems while enhancing BDNF.",dose:"250 - 500mcg 1-2x daily, intranasal",mw:"751.85 g/mol",seq:"Thr-Lys-Pro-Arg-Pro-Gly-Pro",cat:"Nootropic"},
 "Semax":{desc:"Synthetic ACTH(4-10) analog with demonstrated nootropic and neuroprotective properties. Enhances BDNF and NGF expression, improves cognitive function, and provides neuroprotection against oxidative stress.",dose:"200 - 600mcg 1-2x daily, intranasal",mw:"813.93 g/mol",seq:"Met-Glu-His-Phe-Pro-Gly-Pro",cat:"Nootropic"},
-"Sterile / BAC Water":{desc:"Bacteriostatic water contains 0.9% benzyl alcohol as preservative, enabling multi-use reconstitution over 28 days. Essential supply for proper peptide reconstitution. Sterile water for single-use applications.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies"}
+"Sterile / BAC Water":{desc:"Bacteriostatic water contains 0.9% benzyl alcohol as preservative, enabling multi-use reconstitution over 28 days. Essential supply for proper peptide reconstitution. Sterile water for single-use applications.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies"},
+"KLOW Blend":{desc:"Advanced recovery and skin blend combining TB-500, BPC-157, GHK-Cu, and KPV. Pairs systemic tissue repair with localised healing, anti-inflammatory action via KPV, and copper-peptide skin regeneration for a comprehensive research protocol.",dose:"Per component protocol, subcutaneous",mw:"Blend",seq:"TB-500 + BPC-157 + GHK-Cu + KPV",cat:"Healing & Recovery"},
+"BAC Water":{desc:"Bacteriostatic water (0.9% benzyl alcohol) in a sterile 10ml vial. The standard reconstitution medium for research peptides — preservative allows multi-draw use over 28 days without contamination risk.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies"}
 };
 
 var IMG={
 "Semaglutide":"semaglutide.png","Tirzepatide":"tirzepatide.png","Retatrutide":"retatrutide.jpg",
 "BPC-157":"bpc-157.png","TB-500":"tb-500.png","BPC+TB Combo":"bpc157tb500.png","GHK-Cu":"ghk-cu.png",
 "CJC-1295 (no DAC)":"cjc-no-dac.png","CJC+IPA Combo":"cjc_1295.png",
-"NAD+":"nad.jpg","Selank":"selank.jpg","Semax":"semax.jpg","Sterile / BAC Water":"bac-water.png"
+"NAD+":"nad.jpg","Selank":"selank.jpg","Semax":"semax.jpg","Sterile / BAC Water":"bac-water.png",
+"KLOW Blend":"klow.png","BAC Water":"bac-water.png"
 };
 var IMGPOS={};
 function imgSrc(n){var f=IMG[n]||"placeholder";return "img/"+f+(f.indexOf(".")>-1?"":".jpg");}
