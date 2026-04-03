@@ -324,7 +324,7 @@ textarea.fi{resize:vertical;min-height:100px}
 <a href="/" class="nl"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
 <div class="nk">
 <a href="/" onclick="go('home');return false">Home</a>
-<div class="nav-dd"><a href="#" onclick="go('shop');return false" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="#" onclick="sf('All');return false">All Peptides</a><a href="#" onclick="sf('Metabolic');return false">Metabolic / GLP-1</a><a href="#" onclick="sf('Recovery');return false">Recovery</a><a href="#" onclick="sf('Growth');return false">Growth Hormone</a><a href="#" onclick="sf('Anti-Aging');return false">Anti-Aging</a><a href="#" onclick="sf('Nootropic');return false">Nootropic</a><a href="#" onclick="sf('Immune');return false">Immune</a><a href="#" onclick="sf('Recovery Blend');return false">Blends</a><a href="#" onclick="sf('Supplies');return false">Supplies</a></div></div>
+<div class="nav-dd"><a href="#" onclick="go('shop');return false" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="#" onclick="sf('All');return false">All Peptides</a><a href="#" onclick="sf('Weight Loss');return false">Weight Loss</a><a href="#" onclick="sf('Healing & Recovery');return false">Healing &amp; Recovery</a><a href="#" onclick="sf('Skin & Anti-Aging');return false">Skin &amp; Anti-Aging</a><a href="#" onclick="sf('GH');return false">GH</a></div></div>
 <a href="/coa">COA</a>
 <a href="/about">About</a>
 <a href="/contact">Contact</a>
@@ -336,13 +336,10 @@ textarea.fi{resize:vertical;min-height:100px}
 <a href="/" onclick="closeMob()">Home</a>
 <a href="#" onclick="go('shop');closeMob();return false">All Peptides</a>
 <div class="mob-sub">
-<a href="#" onclick="sf('Metabolic');closeMob();return false">Metabolic / GLP-1</a>
-<a href="#" onclick="sf('Recovery');closeMob();return false">Recovery</a>
-<a href="#" onclick="sf('Growth');closeMob();return false">Growth Hormone</a>
-<a href="#" onclick="sf('Anti-Aging');closeMob();return false">Anti-Aging</a>
-<a href="#" onclick="sf('Nootropic');closeMob();return false">Nootropic</a>
-<a href="#" onclick="sf('Immune');closeMob();return false">Immune</a>
-<a href="#" onclick="sf('Supplies');closeMob();return false">Supplies</a>
+<a href="#" onclick="sf('Weight Loss');closeMob();return false">Weight Loss</a>
+<a href="#" onclick="sf('Healing & Recovery');closeMob();return false">Healing &amp; Recovery</a>
+<a href="#" onclick="sf('Skin & Anti-Aging');closeMob();return false">Skin &amp; Anti-Aging</a>
+<a href="#" onclick="sf('GH');closeMob();return false">GH</a>
 </div>
 <a href="/coa" onclick="closeMob()">COA</a>
 <a href="/about" onclick="closeMob()">About</a>
@@ -404,24 +401,6 @@ textarea.fi{resize:vertical;min-height:100px}
 <div class="stat-item"><div class="stat-num">COA</div><div class="stat-lbl">Every Batch, On Request</div></div>
 </div>
 </div></section>
-
-<!-- SCIENCE IMAGERY STRIP -->
-<section class="sci-strip reveal">
-<div class="sci-grid">
-<div class="sci-img-cell">
-<img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=75" alt="HPLC laboratory analysis" loading="lazy" onerror="this.remove()">
-<div class="sci-overlay"><span class="sci-cap">HPLC-Verified Purity</span></div>
-</div>
-<div class="sci-img-cell">
-<img src="https://images.unsplash.com/photo-1579165466741-7f35e4755182?auto=format&fit=crop&w=800&q=75" alt="Independent laboratory testing" loading="lazy" onerror="this.remove()">
-<div class="sci-overlay"><span class="sci-cap">Third-Party Tested</span></div>
-</div>
-<div class="sci-img-cell">
-<img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=75" alt="Cold-chain temperature controlled shipping" loading="lazy" onerror="this.remove()">
-<div class="sci-overlay"><span class="sci-cap">Cold-Chain Shipping</span></div>
-</div>
-</div>
-</section>
 
 <!-- HOW IT WORKS -->
 <section class="sec-warm" style="padding:80px 0;margin-top:0"><div class="w">
@@ -631,17 +610,15 @@ textarea.fi{resize:vertical;min-height:100px}
 var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
 
 var P=[
-{id:1,n:"Semaglutide",c:"Weight Loss",v:[
-  {sp:"10mg × 10 vials",ds:"10mg",pr:11880,bk:10098}
-]},
-{id:2,n:"Tirzepatide",c:"Weight Loss",v:[
-  {sp:"10mg × 10 vials",ds:"10mg",pr:11880,bk:10098},
-  {sp:"20mg × 10 vials",ds:"20mg",pr:22430,bk:19065}
-]},
-{id:3,n:"Retatrutide",c:"Weight Loss",v:[
-  {sp:"10mg × 10 vials",ds:"10mg",pr:21110,bk:17944},
-  {sp:"20mg × 10 vials",ds:"20mg",pr:39590,bk:33651}
-]}
+{id:1,n:"Semaglutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1500}]},
+{id:2,n:"Tirzepatide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1900},{sp:"20mg × 10 vials",ds:"20mg",pr:2500}]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2400},{sp:"20mg × 10 vials",ds:"20mg",pr:3990}]},
+{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1800}]},
+{id:5,n:"TB-500",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:3200}]},
+{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2700}]},
+{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg × 10 vials",ds:"50mg",pr:1000}]},
+{id:11,n:"CJC-1295 (no DAC)",c:"GH",v:[{sp:"5mg × 10 vials",ds:"5mg",pr:2500}]},
+{id:12,n:"CJC+IPA Combo",c:"GH",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2700}]}
 ];
 
 var FQ=[
@@ -694,9 +671,7 @@ function renderCard(p,i){
   h+='<h3 style="font-size:18px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em">'+p.n+'</h3>';
   if(p.v.length>1) h+='<div style="font-size:11px;color:#8a8580;margin-bottom:8px">'+p.v.length+' strengths available</div>';
   h+='<div style="display:flex;align-items:center;justify-content:space-between">';
-  h+='<div><span class="pp" style="font-size:18px">'+priceRange+'</span>';
-  if(p.v.length===1) h+='<span class="po" style="font-size:11px">'+fmt(v.wa)+'</span>';
-  h+='</div>';
+  h+='<div><span class="pp" style="font-size:18px">'+priceRange+'</span></div>';
   h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E">Select options \u203a</span>';
   h+='</div></div></div>';
   return h;
@@ -987,7 +962,7 @@ function subEmail(e){
 rFQ();calcRecon();
 
 // FEATURED PEPTIDES ON HOME
-var featIds=[1,2,3]; // Semaglutide, Tirzepatide, Retatrutide
+var featIds=[1,2,3,4,5,8]; // Semaglutide, Tirzepatide, Retatrutide, BPC-157, TB-500, GHK-Cu
 function renderFeat(){
   var h="";
   for(var i=0;i<featIds.length;i++){
@@ -1092,14 +1067,15 @@ setTimeout(function(){showSP();setInterval(showSP,36000);},8000);
 var PI={
 "Semaglutide":{desc:"A GLP-1 receptor agonist with 94% homology to native GLP-1. Its albumin-binding fatty acid chain extends half-life to ~7 days, enabling weekly dosing. Studied for glucose-dependent insulin secretion, glucagon suppression, and central appetite regulation.",dose:"0.25 - 2.4mg weekly, subcutaneous",mw:"4113.58 g/mol",seq:"GLP-1 analog (31 AA)",cat:"Metabolic"},
 "Tirzepatide":{desc:"First-in-class dual GIP/GLP-1 receptor agonist. The dual mechanism produces synergistic metabolic effects exceeding mono-agonists, with significant research interest in glycemic control, weight management, and lipid profiles.",dose:"2.5 - 15mg weekly, subcutaneous",mw:"4813.45 g/mol",seq:"GIP/GLP-1 dual agonist (39 AA)",cat:"Metabolic"},
-"Retarutide":{desc:"Novel triple agonist targeting GLP-1, GIP, and glucagon receptors simultaneously. The glucagon component adds thermogenic and lipolytic effects, representing a potential advancement over dual agonists.",dose:"1 - 12mg weekly, subcutaneous",mw:"~4400 g/mol",seq:"Triple agonist (39 AA)",cat:"Metabolic"},
-"BPC 157":{desc:"A 15-amino-acid peptide derived from human gastric juice. Extensively studied for accelerated healing of tendons, ligaments, muscle, and bone. Promotes angiogenesis and modulates nitric oxide pathways.",dose:"200 - 500mcg 1-2x daily, subcutaneous",mw:"1419.53 g/mol",seq:"Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",cat:"Recovery"},
-"TB 500":{desc:"A 43-amino-acid peptide central to tissue repair and regeneration. Sequesters actin monomers, promotes cell migration, and has demonstrated effects on cardiac tissue repair and inflammation reduction.",dose:"2 - 5mg 2x weekly (loading), subcutaneous",mw:"4963.50 g/mol",seq:"Thymosin Beta-4 (43 AA)",cat:"Recovery"},
-"GHK-CU":{desc:"A naturally occurring tripeptide-copper complex. Over 4,000 genes modulated by GHK-Cu have been identified, with effects including collagen synthesis, antioxidant enzyme upregulation, and dermal fibroblast promotion.",dose:"1 - 2mg daily, subcutaneous",mw:"340.38 g/mol",seq:"Gly-His-Lys:Cu(2+)",cat:"Anti-Aging"},
+"Retatrutide":{desc:"Novel triple agonist targeting GLP-1, GIP, and glucagon receptors simultaneously. The glucagon component adds thermogenic and lipolytic effects, representing a potential advancement over dual agonists.",dose:"1 - 12mg weekly, subcutaneous",mw:"~4400 g/mol",seq:"Triple agonist (39 AA)",cat:"Weight Loss"},
+"BPC-157":{desc:"A 15-amino-acid peptide derived from human gastric juice. Extensively studied for accelerated healing of tendons, ligaments, muscle, and bone. Promotes angiogenesis and modulates nitric oxide pathways.",dose:"200 - 500mcg 1-2x daily, subcutaneous",mw:"1419.53 g/mol",seq:"Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",cat:"Healing & Recovery"},
+"TB-500":{desc:"A 43-amino-acid peptide central to tissue repair and regeneration. Sequesters actin monomers, promotes cell migration, and has demonstrated effects on cardiac tissue repair and inflammation reduction.",dose:"2 - 5mg 2x weekly (loading), subcutaneous",mw:"4963.50 g/mol",seq:"Thymosin Beta-4 (43 AA)",cat:"Healing & Recovery"},
+"BPC+TB Combo":{desc:"Pre-blended stack of BPC-157 and TB-500. Combines BPC-157's site-specific healing with TB-500's systemic actin-sequestering and anti-inflammatory effects for comprehensive tissue regeneration research.",dose:"Per protocol, subcutaneous",mw:"Blend",seq:"BPC-157 + TB-500",cat:"Healing & Recovery"},
+"GHK-Cu":{desc:"A naturally occurring tripeptide-copper complex. Over 4,000 genes modulated by GHK-Cu have been identified, with effects including collagen synthesis, antioxidant enzyme upregulation, and dermal fibroblast promotion.",dose:"1 - 2mg daily, subcutaneous",mw:"340.38 g/mol",seq:"Gly-His-Lys:Cu(2+)",cat:"Skin & Anti-Aging"},
 "KLOW Blend (TB+BPC+GHK+KPV)":{desc:"Advanced recovery blend combining TB-500 (10mg), BPC-157 (10mg), GHK-Cu (50mg), and KPV (10mg). Adds immune modulation via KPV to the GLOW recovery stack.",dose:"Per protocol, subcutaneous",mw:"Blend",seq:"TB-500 + BPC-157 + GHK-Cu + KPV",cat:"Recovery Blend"},
 "Tesamorelin":{desc:"A synthetic analog of growth hormone releasing factor (GRF 1-44). Stimulates pituitary somatotroph cells to release endogenous growth hormone. Researched for visceral fat reduction and GH axis modulation.",dose:"1 - 2mg daily, subcutaneous",mw:"5135.89 g/mol",seq:"GRF analog (44 AA)",cat:"Growth"},
-"CJC-1295 (no DAC)":{desc:"Synthetic GHRH analog with ~30 min half-life producing acute GH pulses mimicking natural physiology. Commonly paired with GHRP peptides for synergistic pulsatile GH release.",dose:"100 - 200mcg 1-3x daily, subcutaneous",mw:"3367.97 g/mol",seq:"GHRH analog (29 AA, mod.)",cat:"Growth"},
-"CJC-1295 + Ipamorelin":{desc:"Pre-blended combination of CJC-1295 (no DAC) and Ipamorelin. Synergistic GH release through simultaneous GHRH and ghrelin receptor activation, producing amplified pulsatile GH output.",dose:"100 - 300mcg combined, 1-3x daily, subcutaneous",mw:"Blend",seq:"CJC-1295 + Ipamorelin",cat:"Growth"},
+"CJC-1295 (no DAC)":{desc:"Synthetic GHRH analog with ~30 min half-life producing acute GH pulses mimicking natural physiology. Commonly paired with GHRP peptides for synergistic pulsatile GH release.",dose:"100 - 200mcg 1-3x daily, subcutaneous",mw:"3367.97 g/mol",seq:"GHRH analog (29 AA, mod.)",cat:"GH"},
+"CJC+IPA Combo":{desc:"Pre-blended combination of CJC-1295 (no DAC) and Ipamorelin. Synergistic GH release through simultaneous GHRH and ghrelin receptor activation, producing amplified pulsatile GH output.",dose:"100 - 300mcg combined, 1-3x daily, subcutaneous",mw:"Blend",seq:"CJC-1295 + Ipamorelin",cat:"GH"},
 "NAD+":{desc:"Critical coenzyme in every cell, essential for energy metabolism, DNA repair, and sirtuin activation. Levels decline significantly with age. Injectable NAD+ bypasses oral bioavailability limitations of precursors.",dose:"100 - 500mg 1-3x weekly, IV/subcutaneous",mw:"663.43 g/mol",seq:"Nicotinamide adenine dinucleotide",cat:"Anti-Aging"},
 "Selank":{desc:"Synthetic heptapeptide analog of tuftsin with anxiolytic effects comparable to benzodiazepines without sedation or dependence. Modulates GABA, serotonin, dopamine systems while enhancing BDNF.",dose:"250 - 500mcg 1-2x daily, intranasal",mw:"751.85 g/mol",seq:"Thr-Lys-Pro-Arg-Pro-Gly-Pro",cat:"Nootropic"},
 "Semax":{desc:"Synthetic ACTH(4-10) analog with demonstrated nootropic and neuroprotective properties. Enhances BDNF and NGF expression, improves cognitive function, and provides neuroprotection against oxidative stress.",dose:"200 - 600mcg 1-2x daily, intranasal",mw:"813.93 g/mol",seq:"Met-Glu-His-Phe-Pro-Gly-Pro",cat:"Nootropic"},
@@ -1107,11 +1083,9 @@ var PI={
 };
 
 var IMG={
-"Semaglutide":"semaglutide","Tirzepatide":"tirzepatide","Retarutide":"retatrutide",
-"BPC 157":"bpc-157","TB 500":"tb-500","GHK-CU":"ghk-cu",
-"KLOW Blend (TB+BPC+GHK+KPV)":"klow",
-"Tesamorelin":"tesamorelin","CJC-1295 (no DAC)":"cjc-no-dac",
-"CJC-1295 + Ipamorelin":"cjc_1295.png",
+"Semaglutide":"semaglutide","Tirzepatide":"tirzepatide","Retatrutide":"retatrutide",
+"BPC-157":"bpc-157","TB-500":"tb-500","BPC+TB Combo":"bpc157tb500","GHK-Cu":"ghk-cu",
+"CJC-1295 (no DAC)":"cjc-no-dac","CJC+IPA Combo":"cjc_1295",
 "NAD+":"nad","Selank":"selank","Semax":"semax","Sterile / BAC Water":"bac-water"
 };
 var IMGPOS={};
