@@ -28,6 +28,8 @@ function trackEvent(evName,params){
   try{fbq('track',evName,params||{});}catch(e){}
 }
 </script>
+<!-- Supabase JS client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <!-- Razorpay Checkout -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -606,12 +608,19 @@ textarea.fi{resize:vertical;min-height:100px}
 <div class="fg"><label>Subject</label><input class="fi" type="text" id="cs" placeholder="Order inquiry, bulk pricing, etc."></div>
 <div class="fg"><label>Message *</label><textarea class="fi" id="cmsg" placeholder="How can we help?" required></textarea></div>
 <button type="submit" class="b b1">Send Message</button>
+<p id="cFormMsg" style="font-size:12px;color:#7a9a6d;margin-top:12px;min-height:18px"></p>
 </form></div></div></div></section></div>
 
 <!-- FOOTER -->
 <footer class="ft"><div class="w">
 <div class="ftg">
-<div class="ftb" style="text-align:center"><div class="fl2"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</div><p style="max-width:400px;margin:0 auto">Premium research peptides. HPLC verified. Third-party tested. 99%+ purity guaranteed.</p></div>
+<div class="ftb" style="text-align:center"><div class="fl2"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</div><p style="max-width:400px;margin:0 auto">Premium research peptides. HPLC verified. Third-party tested. 99%+ purity guaranteed.</p>
+<form onsubmit="subEmail(event)" style="display:flex;gap:8px;max-width:320px;margin:20px auto 0">
+<input id="subEmail" type="email" placeholder="Get new peptide updates" style="flex:1;font-family:'DM Sans',sans-serif;font-size:12px;padding:10px 12px;border:1px solid #d4d0c8;background:transparent;outline:none;color:#1a1a1a" required>
+<button id="subBtn" type="submit" class="b b3" style="padding:10px 20px;font-size:9px;white-space:nowrap;letter-spacing:.12em">Subscribe</button>
+</form>
+<p id="subMsg" style="font-size:10px;color:#b5b0a6;margin-top:8px;min-height:16px;text-align:center"></p>
+</div>
 <div class="ftc"><h4>Navigate</h4><a href="/">Home</a><a href="#" onclick="go('shop');return false">Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="#" onclick="go('calc');return false">Calculator</a><a href="/contact">Contact</a></div>
 <div class="ftc"><h4>Reach Us</h4><a href="mailto:support@athenabiolabs.com">support@athenabiolabs.com</a><a href="https://wa.me/919560397569" target="_blank" rel="noopener">+91 95603 97569</a><p>Mon - Sat, 9-7 IST</p></div>
 <div class="ftl"><h4 style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px">Legal Notice</h4><p>All products are sold strictly for in-vitro research purposes. Not intended for human or animal consumption.</p></div>
@@ -620,6 +629,9 @@ textarea.fi{resize:vertical;min-height:100px}
 </div></footer>
 
 <script>
+// Supabase
+var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
+
 var P=[
 {id:1,n:"Semaglutide",c:"Metabolic",v:[{sp:"5mg*10vials",ds:"5mg",pr:740,bk:630,wa:1030},{sp:"10mg*10vials",ds:"10mg",pr:1160,bk:950,wa:1620},{sp:"15mg*10vials",ds:"15mg",pr:1470,bk:1260,wa:2050},{sp:"20mg*10vials",ds:"20mg",pr:1680,bk:1470,wa:2350},{sp:"30mg*10vials",ds:"30mg",pr:2310,bk:1890,wa:3230}]},
 {id:2,n:"Tirzepatide",c:"Metabolic",v:[{sp:"5mg*10vials",ds:"5mg",pr:840,bk:740,wa:1170},{sp:"10mg*10vials",ds:"10mg",pr:1050,bk:950,wa:1470},{sp:"15mg*10vials",ds:"15mg",pr:1470,bk:1260,wa:2050},{sp:"20mg*10vials",ds:"20mg",pr:1790,bk:1470,wa:2500},{sp:"30mg*10vials",ds:"30mg",pr:2210,bk:1890,wa:3090},{sp:"40mg*10vials",ds:"40mg",pr:2730,bk:2310,wa:3820},{sp:"50mg*10vials",ds:"50mg",pr:4200,bk:3780,wa:5880},{sp:"60mg*10vials",ds:"60mg",pr:4620,bk:4200,wa:6460}]},
@@ -910,12 +922,44 @@ function tF(i){
 
 // CONTACT
 function sendC(){
-  var nm=document.getElementById("cn").value,em=document.getElementById("ce").value;
-  var su=document.getElementById("cs").value||"Website Inquiry",ms=document.getElementById("cmsg").value;
+  var nm=document.getElementById("cn").value.trim();
+  var em=document.getElementById("ce").value.trim();
+  var su=(document.getElementById("cs").value||"Website Inquiry").trim();
+  var ms=document.getElementById("cmsg").value.trim();
   if(!nm||!em||!ms){alert("Please fill in all required fields.");return false;}
-  var body="Name: "+nm+"%0D%0AEmail: "+em+"%0D%0A%0D%0A"+encodeURIComponent(ms);
-  window.location.href="mailto:support@athenabiolabs.com?subject="+encodeURIComponent("AthenaBioLabs - "+su)+"&body="+body;
+  var btn=document.querySelector('#pg-contact button[type=submit]');
+  var msgEl=document.getElementById("cFormMsg");
+  btn.disabled=true;btn.textContent='Sending\u2026';
+  SUPA.from('contact_submissions').insert({name:nm,email:em,subject:su,message:ms})
+    .then(function(r){
+      btn.disabled=false;
+      if(r.error){
+        // fallback: open mailto
+        var body="Name: "+nm+"%0D%0AEmail: "+em+"%0D%0A%0D%0A"+encodeURIComponent(ms);
+        window.location.href="mailto:support@athenabiolabs.com?subject="+encodeURIComponent("AthenaBioLabs - "+su)+"&body="+body;
+      } else {
+        btn.textContent='Message Sent';
+        if(msgEl)msgEl.textContent="Thank you — we'll reply within 24 hours.";
+        document.querySelector('#pg-contact form').reset();
+        setTimeout(function(){btn.textContent='Send Message';if(msgEl)msgEl.textContent='';},5000);
+      }
+    });
   return false;
+}
+// EMAIL SUBSCRIBE
+function subEmail(e){
+  e.preventDefault();
+  var em=document.getElementById("subEmail").value.trim();
+  var btn=document.getElementById("subBtn"),msg=document.getElementById("subMsg");
+  if(!em)return;
+  btn.disabled=true;btn.textContent='\u2026';
+  SUPA.from('subscribers').insert({email:em})
+    .then(function(r){
+      btn.disabled=false;btn.textContent='Subscribe';
+      if(r.error&&r.error.code==='23505'){msg.textContent="You're already on the list.";}
+      else if(r.error){msg.textContent="Something went wrong. Try again.";}
+      else{msg.textContent="You're in — we'll be in touch.";document.getElementById("subEmail").value='';}
+    });
 }
 
 rFQ();calcRecon();
