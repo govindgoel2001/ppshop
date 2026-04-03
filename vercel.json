@@ -2,8 +2,8 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/coa", "destination": "/coa.html" },
-    { "source": "/contact", "destination": "/contact.html" }
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/coa", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" }
   ]
 }
