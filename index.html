@@ -379,17 +379,15 @@ textarea.fi{resize:vertical;min-height:100px}
 <div class="hb">
 <a href="#" class="b b1" onclick="go('shop');return false">Browse All Peptides</a>
 <a href="#" class="b b2" onclick="go('calc');return false">Dosage Calculator</a>
-<a href="https://wa.me/919560397569?text=Hi%2C%20I%20want%20to%20place%20an%20order." target="_blank" rel="noopener" class="b b3">Order on WhatsApp</a>
+</div>
+<div style="display:flex;align-items:center;gap:10px;margin-top:20px">
+<span style="font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#b5b0a6">Accepted:</span>
+<span style="font-size:11px;font-weight:500;color:#6b6560;background:#F0EDE7;padding:5px 14px;letter-spacing:.04em">UPI &amp; Bank Transfer</span>
+<span style="font-size:11px;font-weight:500;color:#6b6560;background:#F0EDE7;padding:5px 14px;letter-spacing:.04em">Cards via Razorpay</span>
 </div>
 </div>
 <div class="hr-imgs">
-<div class="hr-mosaic">
-<img src="img/retatrutide.jpg" alt="Retatrutide research peptide" class="hr-main-vial">
-<div class="hr-accent-col">
-<img src="img/tirzepatide.jpg" alt="Tirzepatide" class="hr-accent-img">
-<img src="img/semaglutide.jpg" alt="Semaglutide" class="hr-accent-img">
-</div>
-</div>
+<img src="img/retatrutide.jpg" alt="Retatrutide research peptide" class="hr-hero-img">
 </div>
 </div>
 </div></section>
@@ -415,11 +413,11 @@ textarea.fi{resize:vertical;min-height:100px}
 <div class="sci-overlay"><span class="sci-cap">HPLC-Verified Purity</span></div>
 </div>
 <div class="sci-img-cell">
-<img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=75" alt="Pharmaceutical grade research" loading="lazy" onerror="this.remove()">
+<img src="https://images.unsplash.com/photo-1579165466741-7f35e4755182?auto=format&fit=crop&w=800&q=75" alt="Independent laboratory testing" loading="lazy" onerror="this.remove()">
 <div class="sci-overlay"><span class="sci-cap">Third-Party Tested</span></div>
 </div>
 <div class="sci-img-cell">
-<img src="https://images.unsplash.com/photo-1614308457447-65db13c90f17?auto=format&fit=crop&w=600&q=75" alt="Temperature-controlled storage" loading="lazy" onerror="this.remove()">
+<img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=75" alt="Cold-chain temperature controlled shipping" loading="lazy" onerror="this.remove()">
 <div class="sci-overlay"><span class="sci-cap">Cold-Chain Shipping</span></div>
 </div>
 </div>
@@ -434,15 +432,15 @@ textarea.fi{resize:vertical;min-height:100px}
 </div>
 <div class="steps-grid">
 <div class="step-card reveal">
-<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=600&q=70" alt="Research laboratory" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
+<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=70" alt="Browse and select peptides" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
 <div class="step-num">01</div><h3>Browse &amp; Select</h3><p>Filter by category or search by compound. Full scientific data, COA details, and multiple strengths available for every peptide in our catalogue.</p>
 </div>
 <div class="step-card reveal reveal-d1">
-<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=70" alt="Secure order" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
-<div class="step-num">02</div><h3>Order Securely</h3><p>Pay via Razorpay, UPI, cards, or send your order on WhatsApp. Discount codes auto-applied. Order confirmation within minutes.</p>
+<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=70" alt="Secure payment" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
+<div class="step-num">02</div><h3>Order Securely</h3><p>Pay via UPI, bank transfer, or card through Razorpay. Discount codes auto-applied. Order confirmation within minutes.</p>
 </div>
 <div class="step-card reveal reveal-d2">
-<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=600&q=70" alt="Temperature controlled delivery" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
+<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=70" alt="Cold-chain temperature controlled delivery" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
 <div class="step-num">03</div><h3>Cold-Chain Delivered</h3><p>Shipped in temperature-controlled packaging with real-time tracking. Complimentary express delivery on every order, India-wide.</p>
 </div>
 </div>
@@ -633,27 +631,24 @@ textarea.fi{resize:vertical;min-height:100px}
 var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
 
 var P=[
-{id:1,n:"Semaglutide",c:"Metabolic",v:[{sp:"5mg*10vials",ds:"5mg",pr:740,bk:630,wa:1030},{sp:"10mg*10vials",ds:"10mg",pr:1160,bk:950,wa:1620},{sp:"15mg*10vials",ds:"15mg",pr:1470,bk:1260,wa:2050},{sp:"20mg*10vials",ds:"20mg",pr:1680,bk:1470,wa:2350},{sp:"30mg*10vials",ds:"30mg",pr:2310,bk:1890,wa:3230}]},
-{id:2,n:"Tirzepatide",c:"Metabolic",v:[{sp:"5mg*10vials",ds:"5mg",pr:840,bk:740,wa:1170},{sp:"10mg*10vials",ds:"10mg",pr:1050,bk:950,wa:1470},{sp:"15mg*10vials",ds:"15mg",pr:1470,bk:1260,wa:2050},{sp:"20mg*10vials",ds:"20mg",pr:1790,bk:1470,wa:2500},{sp:"30mg*10vials",ds:"30mg",pr:2210,bk:1890,wa:3090},{sp:"40mg*10vials",ds:"40mg",pr:2730,bk:2310,wa:3820},{sp:"50mg*10vials",ds:"50mg",pr:4200,bk:3780,wa:5880},{sp:"60mg*10vials",ds:"60mg",pr:4620,bk:4200,wa:6460}]},
-{id:3,n:"Retarutide",c:"Metabolic",v:[{sp:"5mg*10vials",ds:"5mg",pr:1050,bk:840,wa:1470},{sp:"10mg*10vials",ds:"10mg",pr:1890,bk:1680,wa:2640},{sp:"15mg*10vials",ds:"15mg",pr:2630,bk:2310,wa:3680},{sp:"20mg*10vials",ds:"20mg",pr:3150,bk:2520,wa:4410},{sp:"30mg*10vials",ds:"30mg",pr:4200,bk:3150,wa:5880},{sp:"50mg*10vials",ds:"50mg",pr:6930,bk:5880,wa:9700},{sp:"60mg*10vials",ds:"60mg",pr:9660,bk:9450,wa:13520}]},
-{id:4,n:"BPC 157",c:"Recovery",v:[{sp:"5mg*10vials",ds:"5mg",pr:840,bk:630,wa:1170},{sp:"10mg*10vials",ds:"10mg",pr:1470,bk:1260,wa:2050}]},
-{id:5,n:"TB 500",c:"Recovery",v:[{sp:"2mg*10vials",ds:"2mg",pr:840,bk:740,wa:1170},{sp:"5mg*10vials",ds:"5mg",pr:2000,bk:1580,wa:2800},{sp:"10mg*10vials",ds:"10mg",pr:3360,bk:2730,wa:4700}]},
-{id:7,n:"KLOW Blend (TB+BPC+GHK+KPV)",c:"Recovery Blend",v:[{sp:"80mg*10vials",ds:"80mg",pr:3990,bk:2940,wa:5580}]},
-{id:8,n:"GHK-CU",c:"Anti-Aging",v:[{sp:"50mg*10vials",ds:"50mg",pr:740,bk:630,wa:1030},{sp:"100mg*10vials",ds:"100mg",pr:1260,bk:1050,wa:1760}]},
-{id:9,n:"NAD+",c:"Anti-Aging",v:[{sp:"100mg*10vials",ds:"100mg",pr:840,bk:630,wa:1170},{sp:"500mg*10vials",ds:"500mg",pr:1680,bk:1260,wa:2350},{sp:"1000mg*10vials",ds:"1000mg",pr:2940,bk:2310,wa:4110}]},
-{id:11,n:"CJC-1295 (no DAC)",c:"Growth",v:[{sp:"2mg*10vials",ds:"2mg",pr:840,bk:740,wa:1170},{sp:"5mg*10vials",ds:"5mg",pr:1790,bk:1580,wa:2500},{sp:"10mg*10vials",ds:"10mg",pr:3360,bk:3150,wa:4700}]},
-{id:12,n:"CJC-1295 + Ipamorelin",c:"Growth",v:[{sp:"10mg*10vials",ds:"10mg (5+5)",pr:2310,bk:2000,wa:3230}]},
-{id:14,n:"Tesamorelin",c:"Growth",v:[{sp:"2mg*10vials",ds:"2mg",pr:1160,bk:1160,wa:1620},{sp:"5mg*10vials",ds:"5mg",pr:2310,bk:2310,wa:3230},{sp:"10mg*10vials",ds:"10mg",pr:4200,bk:4200,wa:5880},{sp:"20mg*10vials",ds:"20mg",pr:7350,bk:7350,wa:10290}]},
-{id:17,n:"Selank",c:"Nootropic",v:[{sp:"5mg*10vials",ds:"5mg",pr:1160,bk:990,wa:1620},{sp:"10mg*10vials",ds:"10mg",pr:2000,bk:1790,wa:2800}]},
-{id:18,n:"Semax",c:"Nootropic",v:[{sp:"5mg*10vials",ds:"5mg",pr:1160,bk:990,wa:1620},{sp:"10mg*10vials",ds:"10mg",pr:2000,bk:1850,wa:2800}]},
-{id:21,n:"Sterile / BAC Water",c:"Supplies",v:[{sp:"3ml*10vials",ds:"3ml",pr:170,bk:170,wa:230},{sp:"10ml*10vials",ds:"10ml",pr:210,bk:210,wa:290}]}
+{id:1,n:"Semaglutide",c:"Weight Loss",v:[
+  {sp:"10mg × 10 vials",ds:"10mg",pr:11880,bk:10098}
+]},
+{id:2,n:"Tirzepatide",c:"Weight Loss",v:[
+  {sp:"10mg × 10 vials",ds:"10mg",pr:11880,bk:10098},
+  {sp:"20mg × 10 vials",ds:"20mg",pr:22430,bk:19065}
+]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[
+  {sp:"10mg × 10 vials",ds:"10mg",pr:21110,bk:17944},
+  {sp:"20mg × 10 vials",ds:"20mg",pr:39590,bk:33651}
+]}
 ];
 
 var FQ=[
 {q:"What purity standards do you maintain?",a:"Every peptide undergoes HPLC analysis with 99%+ purity verification. Mass spectrometry confirms molecular identity. Full Certificates of Analysis accompany each batch."},
 {q:"How is my order shipped?",a:"Orders ship within 24 hours in temperature-controlled packaging with cold chain integrity. Free express delivery on all orders with full tracking."},
 {q:"Are these products for human use?",a:"No. All peptides are sold exclusively for in-vitro laboratory research. They are not intended for human or animal consumption under any circumstances."},
-{q:"How do I place an order?",a:"Add items to your cart and contact us via WhatsApp or email. We will confirm pricing, apply any coupon codes, and arrange payment and shipping."},
+{q:"How do I place an order?",a:"Add items to your cart and pay via UPI, bank transfer, or card through Razorpay. For bank transfers, email your UTR reference to support@athenabiolabs.com with your shipping address. We dispatch within 24 hours of payment confirmation."},
 {q:"Do I get the research eBook?",a:"Yes. Every order includes our comprehensive Peptide Research Guide PDF - over 15 chapters covering peptide science, reconstitution protocols, dosage references, and more."},
 {q:"What is your return policy?",a:"Unopened products may be returned within 7 days for a full refund. Damaged shipments are replaced at no cost with priority handling."},
 {q:"How do coupon codes work?",a:"Enter your code at checkout. FIRST10 gives 10% off your first order, and BULK15 gives 15% off orders above Rs 20,000 (auto-applied when your cart qualifies)."}
@@ -822,10 +817,19 @@ function rC(){
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;500</div></div><a href="https://topmate.io/YOUR_USERNAME" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
   h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payNow('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay Now &middot; '+fmt(total)+'</button>';
   h+='<div style="display:flex;gap:8px;margin-top:8px">';
-  h+='<a href="https://wa.me/919560397569?text='+wm+ebookNote+'" target="_blank" rel="noopener" class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="trackEvent(\'InitiateCheckout\',{value:'+total+',currency:\'INR\',num_items:cart.length})">WhatsApp</a>';
-  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email</a>';
+  h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="showBankDetails()">Bank / UPI Transfer</button>';
+  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
   h+='</div>';
-  h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking</span></div>';
+  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px;line-height:2">';
+  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Bank Transfer / UPI Details</p>';
+  h+='<p><b>UPI ID:</b> YOUR_UPI_ID@bank</p>';
+  h+='<p><b>Account Name:</b> AthenaBioLabs</p>';
+  h+='<p><b>Account No:</b> YOUR_ACCOUNT_NUMBER</p>';
+  h+='<p><b>IFSC:</b> YOUR_IFSC_CODE</p>';
+  h+='<p style="margin-top:6px;font-size:10px;color:#8a8580;line-height:1.6">After transferring, email your UTR / reference number to <b>support@athenabiolabs.com</b> with your shipping address.</p>';
+  h+='<button onclick="confirmBankTransfer('+total+')" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
+  h+='</div>';
+  h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking &middot; Bank Transfer</span></div>';
   h+='</div>';
   bd.innerHTML=h;
 }
@@ -846,18 +850,14 @@ function payNow(amount){
     description:desc,
     image:"", // Add your logo URL here if you want
     handler:function(response){
-      // Payment successful
       trackEvent('Purchase',{value:amount,currency:'INR',transaction_id:response.razorpay_payment_id});
-      // Send order details to WhatsApp with payment ID
-      var msg="Payment successful!%0APayment ID: "+response.razorpay_payment_id+"%0A%0AOrder:%0A";
-      for(var i=0;i<cart.length;i++){var c=cart[i];msg+=c.n+" ("+c.ds+") x"+c.q+" - "+fmt(c.pr*c.q)+"%0A";}
-      if(coupon) msg+="Coupon: "+coupon+"%0A";
-      msg+="Total Paid: "+fmt(amount)+"%0A";
-      if(includeEbook) msg+="%0APlease include the free Peptide Research Guide eBook.";
-      msg+="%0A%0APlease confirm shipping details.";
-      // Show success and redirect to WhatsApp
-      alert("Payment successful! Payment ID: "+response.razorpay_payment_id+"\\n\\nRedirecting to WhatsApp to confirm shipping details.");
-      window.open("https://wa.me/919560397569?text="+msg,"_blank");
+      var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
+      SUPA.from('orders').insert({
+        items:items,total:amount,coupon:coupon||null,
+        payment_method:'razorpay',payment_id:response.razorpay_payment_id,
+        status:'paid',ebook:includeEbook
+      }).then(function(){});
+      alert("Payment confirmed!\n\nPayment ID: "+response.razorpay_payment_id+"\n\nYour order is confirmed. We'll dispatch within 24 hours. Check your email for details.");
       cart=[];uB();rC();closeCart();
     },
     prefill:{},
@@ -868,14 +868,36 @@ function payNow(amount){
   try{
     var rzp=new Razorpay(options);
     rzp.on('payment.failed',function(response){
-      alert("Payment failed. Please try again or use WhatsApp to place your order.");
+      alert("Payment failed. Please try again, or use Bank / UPI Transfer to place your order.");
       trackEvent('PaymentFailed',{value:amount,currency:'INR'});
     });
     rzp.open();
     trackEvent('InitiateCheckout',{value:amount,currency:'INR',num_items:cart.length});
   }catch(e){
-    alert("Payment gateway is being set up. Please use WhatsApp or Email to place your order for now.");
+    alert("Payment gateway loading. Please use Bank / UPI Transfer or email support@athenabiolabs.com to place your order.");
   }
+}
+
+// BANK TRANSFER
+function showBankDetails(){
+  var el=document.getElementById("bankInfo");
+  if(el)el.style.display=el.style.display==='none'?'block':'none';
+}
+function confirmBankTransfer(amount){
+  var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
+  var btn=event.target;btn.disabled=true;btn.textContent='Saving\u2026';
+  SUPA.from('orders').insert({
+    items:items,total:amount,coupon:coupon||null,
+    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook
+  }).then(function(r){
+    btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
+    if(r.error){
+      alert("Please email support@athenabiolabs.com with your UTR number and we'll confirm your order manually.");
+    } else {
+      alert("Order logged! Please email your UTR / transaction reference to support@athenabiolabs.com with your shipping address. We'll dispatch within 24 hours of payment verification.");
+      cart=[];uB();rC();closeCart();
+    }
+  });
 }
 
 // DOSAGE CALCULATOR
@@ -965,7 +987,7 @@ function subEmail(e){
 rFQ();calcRecon();
 
 // FEATURED PEPTIDES ON HOME
-var featIds=[1,2,4,5,8,9]; // Semaglutide, Tirzepatide, BPC-157, TB-500, GHK-CU, NAD+
+var featIds=[1,2,3]; // Semaglutide, Tirzepatide, Retatrutide
 function renderFeat(){
   var h="";
   for(var i=0;i<featIds.length;i++){
