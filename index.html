@@ -285,11 +285,34 @@ textarea.fi{resize:vertical;min-height:100px}
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:none}
 .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+/* Hero vial mosaic */
+.hr-mosaic{display:grid;grid-template-columns:1fr 118px;gap:8px;height:480px}
+.hr-main-vial{grid-row:1/3;width:100%;height:100%;object-fit:contain;background:linear-gradient(160deg,#f8f7f4,#ede8e2);display:block;padding:20px}
+.hr-accent-col{display:grid;grid-template-rows:1fr 1fr;gap:8px}
+.hr-accent-img{width:100%;height:100%;object-fit:contain;background:#f0ede7;display:block;padding:10px}
+/* Science imagery strip */
+.sci-strip{overflow:hidden;margin-top:80px}
+.sci-grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;height:300px}
+.sci-img-cell{overflow:hidden;position:relative;background:#EDE8E2}
+.sci-img-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s cubic-bezier(.23,1,.32,1)}
+.sci-img-cell:hover img{transform:scale(1.06)}
+.sci-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(26,26,26,.5));display:flex;align-items:flex-end;padding:20px 24px}
+.sci-cap{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(250,250,247,.85)}
+/* Step card image */
+.step-img-wrap{margin:-44px -36px 32px;height:180px;overflow:hidden;background:#d8d2c8}
+.step-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s ease}
+.step-card:hover .step-img-wrap img{transform:scale(1.05)}
+/* Atmospheric dark banner */
+.atm-banner{position:relative;overflow:hidden;background:#161412;padding:80px 0}
+.atm-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.2;transition:opacity 1s}
+.atm-inner{position:relative;z-index:1;max-width:620px}
 @media(max-width:900px){
   .hr-grid{grid-template-columns:1fr}.hr-imgs{display:none}
   .steps-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}
   .feat-grid{grid-template-columns:1fr!important}
+  .sci-grid{grid-template-columns:1fr}.sci-img-cell:not(:nth-child(2)){display:none}
 }
+@media(max-width:600px){.sci-strip{display:none}.atm-banner{padding:52px 0}}
 </style>
 
 </head>
@@ -358,7 +381,13 @@ textarea.fi{resize:vertical;min-height:100px}
 </div>
 </div>
 <div class="hr-imgs">
-<img src="img/retatrutide.jpg" alt="Retatrutide research peptide" class="hr-hero-img">
+<div class="hr-mosaic">
+<img src="img/retatrutide.jpg" alt="Retatrutide research peptide" class="hr-main-vial">
+<div class="hr-accent-col">
+<img src="img/tirzepatide.jpg" alt="Tirzepatide" class="hr-accent-img">
+<img src="img/semaglutide.jpg" alt="Semaglutide" class="hr-accent-img">
+</div>
+</div>
 </div>
 </div>
 </div></section>
@@ -376,19 +405,57 @@ textarea.fi{resize:vertical;min-height:100px}
 </div>
 </div></section>
 
+<!-- SCIENCE IMAGERY STRIP -->
+<section class="sci-strip reveal">
+<div class="sci-grid">
+<div class="sci-img-cell">
+<img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=75" alt="HPLC laboratory analysis" loading="lazy" onerror="this.remove()">
+<div class="sci-overlay"><span class="sci-cap">HPLC-Verified Purity</span></div>
+</div>
+<div class="sci-img-cell">
+<img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=75" alt="Pharmaceutical grade research" loading="lazy" onerror="this.remove()">
+<div class="sci-overlay"><span class="sci-cap">Third-Party Tested</span></div>
+</div>
+<div class="sci-img-cell">
+<img src="https://images.unsplash.com/photo-1614308457447-65db13c90f17?auto=format&fit=crop&w=600&q=75" alt="Temperature-controlled storage" loading="lazy" onerror="this.remove()">
+<div class="sci-overlay"><span class="sci-cap">Cold-Chain Shipping</span></div>
+</div>
+</div>
+</section>
+
 <!-- HOW IT WORKS -->
-<section class="sec-warm" style="padding:80px 0;margin-top:80px"><div class="w">
+<section class="sec-warm" style="padding:80px 0;margin-top:0"><div class="w">
 <div style="text-align:center">
 <span class="lb reveal">The Process</span>
 <h2 class="reveal reveal-d1" style="font-size:clamp(28px,4vw,42px);font-weight:300;letter-spacing:-.025em;margin-bottom:10px">From research to delivery</h2>
 <p class="reveal reveal-d2" style="font-size:14px;color:#6b6560;max-width:460px;margin:0 auto;font-weight:300">Three steps. Uncompromising quality at every one.</p>
 </div>
 <div class="steps-grid">
-<div class="step-card reveal"><div class="step-num">01</div><h3>Browse &amp; Select</h3><p>Filter by category or search by compound. Full scientific data, COA details, and multiple strengths available for every peptide in our catalogue.</p></div>
-<div class="step-card reveal reveal-d1"><div class="step-num">02</div><h3>Order Securely</h3><p>Pay via Razorpay, UPI, cards, or send your order on WhatsApp. Discount codes auto-applied. Order confirmation within minutes.</p></div>
-<div class="step-card reveal reveal-d2"><div class="step-num">03</div><h3>Cold-Chain Delivered</h3><p>Shipped in temperature-controlled packaging with real-time tracking. Complimentary express delivery on every order, India-wide.</p></div>
+<div class="step-card reveal">
+<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=600&q=70" alt="Research laboratory" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
+<div class="step-num">01</div><h3>Browse &amp; Select</h3><p>Filter by category or search by compound. Full scientific data, COA details, and multiple strengths available for every peptide in our catalogue.</p>
+</div>
+<div class="step-card reveal reveal-d1">
+<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=70" alt="Secure order" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
+<div class="step-num">02</div><h3>Order Securely</h3><p>Pay via Razorpay, UPI, cards, or send your order on WhatsApp. Discount codes auto-applied. Order confirmation within minutes.</p>
+</div>
+<div class="step-card reveal reveal-d2">
+<div class="step-img-wrap"><img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=600&q=70" alt="Temperature controlled delivery" loading="lazy" onerror="this.closest('.step-img-wrap').style.display='none'"></div>
+<div class="step-num">03</div><h3>Cold-Chain Delivered</h3><p>Shipped in temperature-controlled packaging with real-time tracking. Complimentary express delivery on every order, India-wide.</p>
+</div>
 </div>
 </div></section>
+
+<!-- ATMOSPHERIC DARK BANNER -->
+<section class="atm-banner reveal">
+<div class="atm-banner-bg" style="background-image:url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1400&q=70')"></div>
+<div class="w"><div class="atm-inner">
+<span class="lb" style="color:rgba(200,169,126,.75)">Our Standard</span>
+<h2 style="font-size:clamp(28px,4vw,52px);font-weight:300;color:#FAFAF7;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px">Purity you can measure.<br><em>Science you can trust.</em></h2>
+<p style="font-size:14px;color:rgba(250,250,247,.5);line-height:1.85;max-width:440px;font-weight:300;margin-bottom:28px">Every peptide we ship comes with a full Certificate of Analysis from an independent third-party laboratory. No exceptions. No compromises.</p>
+<a href="#" class="b" style="background:transparent;color:#FAFAF7;border:1px solid rgba(250,250,247,.3);font-size:10px;padding:14px 36px" onclick="go('about');return false">Our Quality Process &rarr;</a>
+</div></div>
+</section>
 
 <section style="padding:60px 0"><div class="w" style="max-width:700px;text-align:center">
 <span class="lb">Expert Guidance</span>
