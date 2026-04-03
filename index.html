@@ -462,8 +462,8 @@ textarea.fi{resize:vertical;min-height:100px}
 <section class="offers-section"><div class="w"><div class="offers">
 <div><p style="font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#C8A97E;margin-bottom:4px">Exclusive Offers</p><p style="font-size:13px;color:rgba(250,250,247,.5)">Auto-applied at checkout</p></div>
 <div class="offers-codes">
-<div class="offers-code"><b>FIRST10</b><span>10% off first order</span></div>
-<div class="offers-code"><b>BULK15</b><span>15% off orders 20k+</span></div>
+<div class="offers-code"><b>FIRST5</b><span>5% off first order</span></div>
+<div class="offers-code"><b>BULK10</b><span>10% off orders 20k+</span></div>
 </div></div></div></section>
 </div>
 
@@ -628,10 +628,20 @@ var FQ=[
 {q:"How do I place an order?",a:"Add items to your cart and pay via UPI, bank transfer, or card through Razorpay. For bank transfers, email your UTR reference to support@athenabiolabs.com with your shipping address. We dispatch within 24 hours of payment confirmation."},
 {q:"Do I get the research eBook?",a:"Yes. Every order includes our comprehensive Peptide Research Guide PDF - over 15 chapters covering peptide science, reconstitution protocols, dosage references, and more."},
 {q:"What is your return policy?",a:"Unopened products may be returned within 7 days for a full refund. Damaged shipments are replaced at no cost with priority handling."},
-{q:"How do coupon codes work?",a:"Enter your code at checkout. FIRST10 gives 10% off your first order, and BULK15 gives 15% off orders above Rs 20,000 (auto-applied when your cart qualifies)."}
+{q:"How do coupon codes work?",a:"Enter your code at checkout. FIRST5 gives 5% off your first order, and BULK10 gives 10% off orders above Rs 20,000 (auto-applied when your cart qualifies)."}
 ];
 
 var cart=[],filt="All",srch="",selV={},coupon="",couponMsg="",includeEbook=true;
+
+// Cart persistence
+function saveCart(){try{localStorage.setItem('abl_cart',JSON.stringify(cart));}catch(e){}}
+function loadCart(){try{var c=localStorage.getItem('abl_cart');if(c)cart=JSON.parse(c);}catch(e){}}
+loadCart();
+
+// Visitor ID + discount tracking
+var VID=(function(){var id=localStorage.getItem('abl_vid');if(!id){id='v_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);localStorage.setItem('abl_vid',id);}return id;})();
+var usedFirst=false;
+SUPA.from('coupon_usage').select('id').eq('visitor_id',VID).eq('code','FIRST5').maybeSingle().then(function(r){if(r&&r.data)usedFirst=true;});
 
 function fmt(n){return "\u20B9"+n.toLocaleString("en-IN")}
 function mono(nm){return nm.replace(/[-\s\+\(\)]/g,"").substring(0,3).toUpperCase()}
@@ -648,7 +658,7 @@ function aC2(id,vi,d){
       break;
     }
   }
-  uB();rC();rP();
+  saveCart();uB();rC();rP();
 }
 
 function go(id){
@@ -708,15 +718,15 @@ function aC(id){
   for(var i=0;i<cart.length;i++){if(cart[i].id===id&&cart[i].vi===vi){ex=cart[i];break;}}
   if(ex)ex.q++;else cart.push({id:p.id,vi:vi,n:p.n,sp:v.sp,ds:v.ds,pr:v.pr,q:1});
   trackEvent('AddToCart',{content_name:p.n,content_category:p.c,value:v.pr,currency:'INR'});
-  uB();rC();rP();
+  saveCart();uB();rC();rP();
 }
 function rm(id,vi){
   var nc=[];for(var i=0;i<cart.length;i++){if(!(cart[i].id===id&&cart[i].vi===vi))nc.push(cart[i]);}
-  cart=nc;uB();rC();rP();
+  cart=nc;saveCart();uB();rC();rP();
 }
 function cQ(id,vi,d){
   for(var i=0;i<cart.length;i++){if(cart[i].id===id&&cart[i].vi===vi){cart[i].q=Math.max(1,cart[i].q+d);break;}}
-  uB();rC();
+  saveCart();uB();rC();
 }
 function uB(){
   var n=0;for(var i=0;i<cart.length;i++)n+=cart[i].q;
@@ -733,19 +743,22 @@ function applyCoupon(){
   var code=(document.getElementById("cpIn").value||"").trim().toUpperCase();
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
   coupon="";couponMsg="";
-  if(code==="FIRST10"){coupon="FIRST10";couponMsg='<span style="color:#7a9a6d">FIRST10 applied: 10% off</span>';}
-  else if(code==="BULK15"){
-    if(sub>=20000){coupon="BULK15";couponMsg='<span style="color:#7a9a6d">BULK15 applied: 15% off</span>';}
-    else couponMsg='<span style="color:#c44">BULK15 requires order above Rs 20,000</span>';
+  if(code==="FIRST5"){
+    if(usedFirst){couponMsg='<span style="color:#c44">FIRST5 has already been used on this device</span>';}
+    else{coupon="FIRST5";couponMsg='<span style="color:#7a9a6d">FIRST5 applied: 5% off your first order</span>';}
+  }
+  else if(code==="BULK10"){
+    if(sub>=20000){coupon="BULK10";couponMsg='<span style="color:#7a9a6d">BULK10 applied: 10% off</span>';}
+    else couponMsg='<span style="color:#c44">BULK10 requires order above Rs 20,000</span>';
   }
   else if(code) couponMsg='<span style="color:#c44">Invalid coupon code</span>';
   rC();
 }
 function calcDiscount(sub){
-  if(coupon==="FIRST10") return Math.round(sub*0.10);
-  if(coupon==="BULK15"&&sub>=20000) return Math.round(sub*0.15);
-  // Auto-apply BULK15 on 20k+
-  if(!coupon&&sub>=20000){coupon="BULK15";couponMsg='<span style="color:#7a9a6d">BULK15 auto-applied: 15% off (order 20k+)</span>';return Math.round(sub*0.15);}
+  if(coupon==="FIRST5") return Math.round(sub*0.05);
+  if(coupon==="BULK10"&&sub>=20000) return Math.round(sub*0.10);
+  // Auto-apply BULK10 on 20k+
+  if(!coupon&&sub>=20000){coupon="BULK10";couponMsg='<span style="color:#7a9a6d">BULK10 auto-applied: 10% off (order 20k+)</span>';return Math.round(sub*0.10);}
   return 0;
 }
 
@@ -830,10 +843,11 @@ function payNow(amount){
       SUPA.from('orders').insert({
         items:items,total:amount,coupon:coupon||null,
         payment_method:'razorpay',payment_id:response.razorpay_payment_id,
-        status:'paid',ebook:includeEbook
+        status:'paid',ebook:includeEbook,visitor_id:VID
       }).then(function(){});
+      if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
       alert("Payment confirmed!\n\nPayment ID: "+response.razorpay_payment_id+"\n\nYour order is confirmed. We'll dispatch within 24 hours. Check your email for details.");
-      cart=[];uB();rC();closeCart();
+      cart=[];saveCart();uB();rC();closeCart();
     },
     prefill:{},
     theme:{color:"#C8A97E"},
@@ -863,14 +877,15 @@ function confirmBankTransfer(amount){
   var btn=event.target;btn.disabled=true;btn.textContent='Saving\u2026';
   SUPA.from('orders').insert({
     items:items,total:amount,coupon:coupon||null,
-    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook
+    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,visitor_id:VID
   }).then(function(r){
     btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
     if(r.error){
       alert("Please email support@athenabiolabs.com with your UTR number and we'll confirm your order manually.");
     } else {
+      if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
       alert("Order logged! Please email your UTR / transaction reference to support@athenabiolabs.com with your shipping address. We'll dispatch within 24 hours of payment verification.");
-      cart=[];uB();rC();closeCart();
+      cart=[];saveCart();uB();rC();closeCart();
     }
   });
 }
@@ -1035,8 +1050,8 @@ initReveal();
 
 // PROMO BANNER CYCLING
 var promos=[
-  {code:"FIRST10",txt:"10% off your first order"},
-  {code:"BULK15",txt:"15% off orders above Rs 20,000"}
+  {code:"FIRST5",txt:"5% off your first order"},
+  {code:"BULK10",txt:"10% off orders above Rs 20,000"}
 ];
 var promoIdx=0;
 function cyclePromo(){
