@@ -376,6 +376,7 @@ textarea.fi{resize:vertical;min-height:100px}
 <div class="hb">
 <a href="#" class="b b1" onclick="go('shop');return false">Browse All Peptides</a>
 <a href="#" class="b b2" onclick="go('calc');return false">Dosage Calculator</a>
+<a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="b b3">Book Your Consultation</a>
 </div>
 <div style="display:flex;align-items:center;gap:10px;margin-top:20px">
 <span style="font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#b5b0a6">Accepted:</span>
@@ -384,7 +385,7 @@ textarea.fi{resize:vertical;min-height:100px}
 </div>
 </div>
 <div class="hr-imgs">
-<img src="img/retatrutide.jpg" alt="Retatrutide research peptide" class="hr-hero-img">
+<img src="img/retatrutide.png" alt="Retatrutide research peptide" class="hr-hero-img">
 </div>
 </div>
 </div></section>
@@ -535,7 +536,6 @@ textarea.fi{resize:vertical;min-height:100px}
 <div><label>Select Peptide</label>
 <select id="ds-sel" onchange="showDose()">
 <option value="">-- Choose peptide --</option>
-<option value="Semaglutide|0.25 - 2.4mg|Weekly|SC">Semaglutide</option>
 <option value="Tirzepatide|2.5 - 15mg|Weekly|SC">Tirzepatide</option>
 <option value="Retatrutide|1 - 12mg|Weekly|SC">Retatrutide</option>
 <option value="BPC-157|200 - 500mcg|1-2x daily|SC">BPC-157</option>
@@ -609,7 +609,6 @@ textarea.fi{resize:vertical;min-height:100px}
 var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
 
 var P=[
-{id:1,n:"Semaglutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1600}]},
 {id:2,n:"Tirzepatide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2000},{sp:"20mg × 10 vials",ds:"20mg",pr:2650}]},
 {id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2550},{sp:"20mg × 10 vials",ds:"20mg",pr:4200}]},
 {id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1900}]},
@@ -981,7 +980,7 @@ function subEmail(e){
 rFQ();calcRecon();
 
 // FEATURED PEPTIDES ON HOME
-var featIds=[1,2,3,4,5,8]; // Semaglutide, Tirzepatide, Retatrutide, BPC-157, TB-500, GHK-Cu
+var featIds=[2,3,4,5,8]; // Tirzepatide, Retatrutide, BPC-157, TB-500, GHK-Cu
 function renderFeat(){
   var h="";
   for(var i=0;i<featIds.length;i++){
@@ -1088,7 +1087,6 @@ function showSP(){
 setTimeout(function(){showSP();setInterval(showSP,36000);},8000);
 
 var PI={
-"Semaglutide":{desc:"A GLP-1 receptor agonist with 94% homology to native GLP-1. Its albumin-binding fatty acid chain extends half-life to ~7 days, enabling weekly dosing. Studied for glucose-dependent insulin secretion, glucagon suppression, and central appetite regulation.",dose:"0.25 - 2.4mg weekly, subcutaneous",mw:"4113.58 g/mol",seq:"GLP-1 analog (31 AA)",cat:"Metabolic"},
 "Tirzepatide":{desc:"First-in-class dual GIP/GLP-1 receptor agonist. The dual mechanism produces synergistic metabolic effects exceeding mono-agonists, with significant research interest in glycemic control, weight management, and lipid profiles.",dose:"2.5 - 15mg weekly, subcutaneous",mw:"4813.45 g/mol",seq:"GIP/GLP-1 dual agonist (39 AA)",cat:"Metabolic"},
 "Retatrutide":{desc:"Novel triple agonist targeting GLP-1, GIP, and glucagon receptors simultaneously. The glucagon component adds thermogenic and lipolytic effects, representing a potential advancement over dual agonists.",dose:"1 - 12mg weekly, subcutaneous",mw:"~4400 g/mol",seq:"Triple agonist (39 AA)",cat:"Weight Loss"},
 "BPC-157":{desc:"A 15-amino-acid peptide derived from human gastric juice. Extensively studied for accelerated healing of tendons, ligaments, muscle, and bone. Promotes angiogenesis and modulates nitric oxide pathways.",dose:"200 - 500mcg 1-2x daily, subcutaneous",mw:"1419.53 g/mol",seq:"Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",cat:"Healing & Recovery"},
@@ -1108,7 +1106,7 @@ var PI={
 };
 
 var IMG={
-"Semaglutide":"semaglutide.png","Tirzepatide":"tirzepatide.png","Retatrutide":"retatrutide.jpg",
+"Tirzepatide":"tirzepatide.png","Retatrutide":"retatrutide.png",
 "BPC-157":"bpc-157.png","TB-500":"tb-500.png","BPC+TB Combo":"bpc157tb500.png","GHK-Cu":"ghk-cu.png",
 "CJC-1295 (no DAC)":"cjc-no-dac.png","CJC+IPA Combo":"cjc_1295.png",
 "NAD+":"nad.jpg","Selank":"selank.jpg","Semax":"semax.jpg","Sterile / BAC Water":"bac-water.png",
