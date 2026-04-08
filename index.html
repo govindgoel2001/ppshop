@@ -703,10 +703,8 @@ function saveCart(){try{localStorage.setItem('abl_cart',JSON.stringify(cart));}c
 function loadCart(){try{var c=localStorage.getItem('abl_cart');if(c)cart=JSON.parse(c);}catch(e){}}
 loadCart();
 
-// Visitor ID + discount tracking
-var VID=(function(){var id=localStorage.getItem('abl_vid');if(!id){id='v_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);localStorage.setItem('abl_vid',id);}return id;})();
-var usedFirst=false;
-SUPA.from('coupon_usage').select('id').eq('visitor_id',VID).eq('code','FIRST5').maybeSingle().then(function(r){if(r&&r.data)usedFirst=true;});
+// Verified email for FIRST5 (set after OTP confirmed)
+var verifiedEmail='';
 
 function fmt(n){return "\u20B9"+n.toLocaleString("en-IN")}
 function mono(nm){return nm.replace(/[-\s\+\(\)]/g,"").substring(0,3).toUpperCase()}
@@ -812,13 +810,99 @@ function toggleMob(){var n=document.getElementById("mobNav"),b=document.getEleme
 function closeMob(){document.getElementById("mobNav").classList.remove("open");document.getElementById("hamBtn").classList.remove("open");}
 
 // COUPON LOGIC
+// OTP MODAL — shown when FIRST5 is entered
+function showOtpModal(){
+  var existing=document.getElementById('otpOverlay');
+  if(existing) existing.remove();
+  var ov=document.createElement('div');
+  ov.id='otpOverlay';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  ov.innerHTML=`
+    <div style="background:#FAFAF7;max-width:420px;width:100%;padding:36px 32px;position:relative">
+      <button onclick="document.getElementById('otpOverlay').remove()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#999">&times;</button>
+      <p style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#C8A97E;margin-bottom:4px">Verify your email</p>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin:0 0 8px">Unlock FIRST5</h2>
+      <p style="font-size:13px;color:#8a8580;line-height:1.6;margin-bottom:24px">We'll send a 6-digit code to your email. One-time use per address.</p>
+      <div id="otpStep1">
+        <label style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#555;display:block;margin-bottom:6px">Email address</label>
+        <input id="otpEmail" type="email" placeholder="you@example.com" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #d4cfc9;background:#fff;font-size:13px;margin-bottom:12px">
+        <button onclick="sendOtp()" class="b b1" style="width:100%;padding:14px">Send Code</button>
+        <p id="otpMsg1" style="font-size:12px;margin-top:10px;min-height:16px"></p>
+      </div>
+      <div id="otpStep2" style="display:none">
+        <p style="font-size:13px;color:#555;margin-bottom:16px">Enter the 6-digit code sent to <span id="otpEmailShow" style="color:#1a1a1a;font-weight:600"></span></p>
+        <label style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#555;display:block;margin-bottom:6px">Verification code</label>
+        <input id="otpCode" type="text" inputmode="numeric" maxlength="6" placeholder="000000" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #d4cfc9;background:#fff;font-size:20px;letter-spacing:.3em;text-align:center;margin-bottom:12px">
+        <button onclick="verifyOtp()" class="b b1" style="width:100%;padding:14px">Verify &amp; Apply Discount</button>
+        <p id="otpMsg2" style="font-size:12px;margin-top:10px;min-height:16px"></p>
+        <button onclick="document.getElementById('otpStep1').style.display='block';document.getElementById('otpStep2').style.display='none'" style="background:none;border:none;font-size:11px;color:#8a8580;text-decoration:underline;cursor:pointer;margin-top:6px">Use a different email</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(ov);
+}
+
+function sendOtp(){
+  var em=document.getElementById('otpEmail').value.trim();
+  var msg=document.getElementById('otpMsg1');
+  var btn=document.querySelector('#otpStep1 button');
+  if(!em||!em.includes('@')){msg.style.color='#c44';msg.textContent='Please enter a valid email.';return;}
+  btn.disabled=true;btn.textContent='Sending\u2026';msg.textContent='';
+  fetch('/api/send-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      btn.disabled=false;btn.textContent='Send Code';
+      if(d.alreadyUsed){
+        msg.style.color='#c44';
+        msg.textContent='FIRST5 has already been used with this email.';
+      } else if(d.sent){
+        document.getElementById('otpEmailShow').textContent=em;
+        document.getElementById('otpStep1').style.display='none';
+        document.getElementById('otpStep2').style.display='block';
+      } else {
+        msg.style.color='#c44';
+        msg.textContent=d.error||'Something went wrong. Please try again.';
+      }
+    })
+    .catch(function(){btn.disabled=false;btn.textContent='Send Code';msg.style.color='#c44';msg.textContent='Network error. Please try again.';});
+}
+
+function verifyOtp(){
+  var em=document.getElementById('otpEmail').value.trim();
+  var otp=document.getElementById('otpCode').value.trim();
+  var msg=document.getElementById('otpMsg2');
+  var btn=document.querySelector('#otpStep2 button');
+  if(otp.length!==6){msg.style.color='#c44';msg.textContent='Enter the 6-digit code.';return;}
+  btn.disabled=true;btn.textContent='Verifying\u2026';msg.textContent='';
+  fetch('/api/verify-coupon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,otp:otp,code:'FIRST5'})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      btn.disabled=false;btn.textContent='Verify & Apply Discount';
+      if(d.valid){
+        verifiedEmail=em;
+        coupon='FIRST5';
+        couponMsg='<span style="color:#7a9a6d">FIRST5 applied: 5% off your first order</span>';
+        document.getElementById('otpOverlay').remove();
+        rC(); // re-render cart
+      } else {
+        msg.style.color='#c44';
+        msg.textContent=d.error||'Verification failed. Please try again.';
+      }
+    })
+    .catch(function(){btn.disabled=false;btn.textContent='Verify & Apply Discount';msg.style.color='#c44';msg.textContent='Network error. Please try again.';});
+}
+
+function recordCouponUsage(email,code,orderId){
+  fetch('/api/record-coupon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,code:code,order_id:orderId||null})}).catch(function(){});
+}
+
 function applyCoupon(){
   var code=(document.getElementById("cpIn").value||"").trim().toUpperCase();
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
   coupon="";couponMsg="";
   if(code==="FIRST5"){
-    if(usedFirst){couponMsg='<span style="color:#c44">FIRST5 has already been used on this device</span>';}
-    else{coupon="FIRST5";couponMsg='<span style="color:#7a9a6d">FIRST5 applied: 5% off your first order</span>';}
+    if(verifiedEmail){coupon="FIRST5";couponMsg='<span style="color:#7a9a6d">FIRST5 applied: 5% off your first order</span>';rC();return;}
+    showOtpModal();return;
   }
   else if(code==="BULK10"){
     if(sub>=20000){coupon="BULK10";couponMsg='<span style="color:#7a9a6d">BULK10 applied: 10% off</span>';}
@@ -916,9 +1000,9 @@ function payNow(amount){
       SUPA.from('orders').insert({
         items:items,total:amount,coupon:coupon||null,
         payment_method:'razorpay',payment_id:response.razorpay_payment_id,
-        status:'paid',ebook:includeEbook,visitor_id:VID
+        status:'paid',ebook:includeEbook,email:verifiedEmail||null
       }).then(function(){});
-      if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
+      if(coupon==='FIRST5'&&verifiedEmail){recordCouponUsage(verifiedEmail,'FIRST5',response.razorpay_payment_id);}
       alert("Payment confirmed!\n\nPayment ID: "+response.razorpay_payment_id+"\n\nYour order is confirmed. We'll dispatch within 24 hours. Check your email for details.");
       cart=[];saveCart();uB();rC();closeCart();
     },
@@ -950,13 +1034,13 @@ function confirmBankTransfer(amount){
   var btn=event.target;btn.disabled=true;btn.textContent='Saving\u2026';
   SUPA.from('orders').insert({
     items:items,total:amount,coupon:coupon||null,
-    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,visitor_id:VID
+    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,email:verifiedEmail||null
   }).then(function(r){
     btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
     if(r.error){
       alert("Please email support@athenabiolabs.com with your UTR number and we'll confirm your order manually.");
     } else {
-      if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
+      if(coupon==='FIRST5'&&verifiedEmail){recordCouponUsage(verifiedEmail,'FIRST5',null);}
       alert("Order logged! Please email your UTR / transaction reference to support@athenabiolabs.com with your shipping address. We'll dispatch within 24 hours of payment verification.");
       cart=[];saveCart();uB();rC();closeCart();
     }
