@@ -1,9 +1,9 @@
 // api/record-coupon.js
-// POST { email: string, code: string, order_id: string }
-// Called after payment is confirmed — permanently records coupon usage.
-// Requires the OTP to have been verified first (verified: true in email_otps).
+// POST { email: string, code: string, order_id?: string }
+// Permanently records coupon usage after payment. Requires prior OTP verification.
 
 import { createClient } from '@supabase/supabase-js';
+import { validateEmail, validateCouponCode } from './_lib/validate.js';
 
 const supa = createClient(
   process.env.SUPABASE_URL,
@@ -14,14 +14,15 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { email, code, order_id } = req.body || {};
-  if (!email || !code) {
-    return res.status(400).json({ error: 'Missing fields' });
+
+  if (!validateEmail(email) || !validateCouponCode(code)) {
+    return res.status(400).json({ error: 'Invalid request.' });
   }
 
   const em = email.toLowerCase().trim();
-  const cd = code.toUpperCase();
+  const cd = code.trim().toUpperCase();
 
-  // Confirm OTP was verified (prevents recording without verification)
+  // Confirm OTP was verified — prevents recording without going through verification
   const { data: otpRecord } = await supa
     .from('email_otps')
     .select('verified')
@@ -32,7 +33,7 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'Email not verified.' });
   }
 
-  // Guard against double-recording
+  // Idempotent — if already recorded, return success
   const { data: existing } = await supa
     .from('coupon_usage')
     .select('id')
@@ -41,12 +42,17 @@ export default async function handler(req, res) {
     .maybeSingle();
 
   if (existing) {
-    return res.status(200).json({ recorded: true }); // idempotent
+    return res.status(200).json({ recorded: true });
   }
+
+  // Sanitise order_id — alphanumeric + hyphens only, max 100 chars
+  const safeOrderId = typeof order_id === 'string'
+    ? order_id.replace(/[^a-zA-Z0-9_\-]/g, '').slice(0, 100)
+    : null;
 
   const { error } = await supa
     .from('coupon_usage')
-    .insert({ email: em, code: cd, order_id: order_id || null });
+    .insert({ email: em, code: cd, order_id: safeOrderId });
 
   if (error) {
     console.error('record-coupon error:', error);
