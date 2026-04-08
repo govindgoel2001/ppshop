@@ -1,82 +1,54 @@
 // api/send-otp.js
 // POST { email: string }
-// Generates a 6-digit OTP, stores in Supabase, sends via Resend.
-// Rate limited: 3 sends/email/hour, 10 sends/IP/10min.
 
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { otpEmailLimiter, otpIpLimiter } from './_lib/ratelimit.js';
+import { checkEmailRateLimit, recordOtpAttempt } from './_lib/ratelimit.js';
 import { validateEmail, getIp } from './_lib/validate.js';
 
-const supa = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+const supa = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { email } = req.body || {};
-
-  if (!validateEmail(email)) {
-    return res.status(400).json({ error: 'Invalid email address.' });
-  }
+  if (!validateEmail(email)) return res.status(400).json({ error: 'Invalid email address.' });
 
   const em = email.toLowerCase().trim();
   const ip = getIp(req);
 
-  // Rate limit by IP first (cheapest check)
-  const { success: ipOk } = await otpIpLimiter.limit(ip);
-  if (!ipOk) {
-    return res.status(429).json({ error: 'Too many requests. Please wait a few minutes.' });
-  }
-
-  // Rate limit by email
-  const { success: emailOk } = await otpEmailLimiter.limit(em);
-  if (!emailOk) {
+  // Rate limit: max 3 OTPs per email per hour
+  const allowed = await checkEmailRateLimit(em);
+  if (!allowed) {
     return res.status(429).json({ error: 'Too many codes sent to this email. Try again in an hour.' });
   }
 
-  // Check if email is blocked (bounced / abused)
+  // Check if email is blocked
   const { data: blocked } = await supa
-    .from('blocked_emails')
-    .select('email')
-    .eq('email', em)
-    .maybeSingle();
-
-  if (blocked) {
-    // Return same response as "sent" to avoid leaking block status
-    return res.status(200).json({ sent: true });
-  }
+    .from('blocked_emails').select('email').eq('email', em).maybeSingle();
+  if (blocked) return res.status(200).json({ sent: true }); // silent block
 
   // Check if already used FIRST5
   const { data: existing } = await supa
-    .from('coupon_usage')
-    .select('id')
-    .eq('email', em)
-    .eq('code', 'FIRST5')
-    .maybeSingle();
+    .from('coupon_usage').select('id').eq('email', em).eq('code', 'FIRST5').maybeSingle();
+  if (existing) return res.status(200).json({ alreadyUsed: true });
 
-  if (existing) {
-    return res.status(200).json({ alreadyUsed: true });
-  }
-
-  // Generate OTP — expires in 10 min
+  // Generate OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString();
 
   const { error: dbErr } = await supa
     .from('email_otps')
-    .upsert(
-      { email: em, otp, expires_at: expiresAt, verified: false },
-      { onConflict: 'email' }
-    );
+    .upsert({ email: em, otp, expires_at: expiresAt, verified: false }, { onConflict: 'email' });
 
   if (dbErr) {
     console.error('OTP upsert error:', dbErr);
     return res.status(500).json({ error: 'Failed to generate OTP. Please try again.' });
   }
+
+  // Record attempt for rate limiting
+  await recordOtpAttempt(em, 'send', ip);
 
   const { error: emailErr } = await resend.emails.send({
     from: 'AthenaBioLabs <noreply@athenabiolabs.com>',

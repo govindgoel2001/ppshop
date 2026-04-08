@@ -63,6 +63,23 @@ alter table blocked_emails enable row level security;
 -- No public policies: service key only.
 
 -- ─────────────────────────────────────────────
+-- otp_attempts: rate limiting log (send + verify)
+-- ─────────────────────────────────────────────
+create table if not exists otp_attempts (
+  id         bigint generated always as identity primary key,
+  email      text not null,
+  type       text not null, -- 'send' or 'verify'
+  ip         text,
+  created_at timestamptz not null default now()
+);
+
+alter table otp_attempts enable row level security;
+-- No public policies: service key only.
+
+-- Auto-clean records older than 24 hours via a scheduled Supabase function (optional)
+-- or just let it grow — it'll be tiny at your traffic volume.
+
+-- ─────────────────────────────────────────────
 -- Indexes for performance
 -- ─────────────────────────────────────────────
 create index if not exists coupon_usage_email_idx on coupon_usage (email);

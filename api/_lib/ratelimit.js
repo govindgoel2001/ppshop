@@ -1,28 +1,41 @@
 // api/_lib/ratelimit.js
-// Shared rate limiters. Files prefixed with _ are not treated as Vercel API routes.
+// Supabase-based rate limiting — no extra services needed.
+// Tracks attempt counts in the email_otps table + a simple in-memory fallback for IP.
 
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { createClient } from '@supabase/supabase-js';
 
-const redis = Redis.fromEnv(); // uses UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN
+function getSupa() {
+  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+}
 
-// 3 OTP sends per email per hour
-export const otpEmailLimiter = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(3, '1 h'),
-  prefix: 'rl:otp:email',
-});
+// Check how many OTPs have been sent to this email in the last hour.
+// Returns true if allowed, false if rate limited.
+export async function checkEmailRateLimit(email) {
+  const supa = getSupa();
+  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const { count } = await supa
+    .from('otp_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('email', email)
+    .eq('type', 'send')
+    .gte('created_at', since);
+  return (count || 0) < 3;
+}
 
-// 10 OTP send requests per IP per 10 minutes (catches bots hitting different emails)
-export const otpIpLimiter = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(10, '10 m'),
-  prefix: 'rl:otp:ip',
-});
+export async function recordOtpAttempt(email, type, ip) {
+  const supa = getSupa();
+  await supa.from('otp_attempts').insert({ email, type, ip });
+}
 
-// 5 verify attempts per IP per 10 minutes
-export const verifyIpLimiter = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(5, '10 m'),
-  prefix: 'rl:verify:ip',
-});
+// Check verify attempts by IP in last 10 minutes (5 max).
+export async function checkVerifyRateLimit(ip) {
+  const supa = getSupa();
+  const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+  const { count } = await supa
+    .from('otp_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('ip', ip)
+    .eq('type', 'verify')
+    .gte('created_at', since);
+  return (count || 0) < 5;
+}
