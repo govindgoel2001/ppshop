@@ -35,6 +35,7 @@ function trackEvent(evName,params){
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -324,7 +325,7 @@ textarea.fi{resize:vertical;min-height:100px}
 <a href="/" class="nl"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
 <div class="nk">
 <a href="/" onclick="go('home');return false">Home</a>
-<div class="nav-dd"><a href="#" onclick="go('shop');return false" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="#" onclick="sf('All');return false">All Peptides</a><a href="#" onclick="sf('Weight Loss');return false">Weight Loss</a><a href="#" onclick="sf('Healing & Recovery');return false">Healing &amp; Recovery</a><a href="#" onclick="sf('Skin & Anti-Aging');return false">Skin &amp; Anti-Aging</a><a href="#" onclick="sf('GH');return false">GH</a></div></div>
+<div class="nav-dd"><a href="/catalogue" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="/catalogue">All Peptides</a><a href="/catalogue?cat=Weight+Loss">Weight Loss</a><a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a><a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a><a href="/catalogue?cat=GH">Growth Hormone</a></div></div>
 <a href="/coa" onclick="go('coa');return false">COA</a>
 <a href="/about" onclick="go('about');return false">About</a>
 <a href="/contact" onclick="go('contact');return false">Contact</a>
@@ -334,7 +335,7 @@ textarea.fi{resize:vertical;min-height:100px}
 </div></nav>
 <div class="mob-nav" id="mobNav">
 <a href="/" onclick="go('home');closeMob();return false">Home</a>
-<a href="#" onclick="go('shop');closeMob();return false">All Peptides</a>
+<a href="/catalogue" onclick="closeMob()">All Peptides</a>
 <div class="mob-sub">
 <a href="#" onclick="sf('Weight Loss');closeMob();return false">Weight Loss</a>
 <a href="#" onclick="sf('Healing & Recovery');closeMob();return false">Healing &amp; Recovery</a>
@@ -374,7 +375,7 @@ textarea.fi{resize:vertical;min-height:100px}
 <p>HPLC-verified peptides with 99%+ purity. Each batch third-party tested. Full COA included. Temperature-controlled shipping.</p>
 <div class="hr-proof"><div class="hr-proof-dots"><span></span><span></span><span></span></div><p>99%+ HPLC purity &mdash; COA included with every batch</p></div>
 <div class="hb">
-<a href="#" class="b b1" onclick="go('shop');return false">Browse All Peptides</a>
+<a href="/catalogue" class="b b1">Browse All Peptides</a>
 <a href="#" class="b b2" onclick="go('calc');return false">Dosage Calculator</a>
 <a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="b b3">Book Your Consultation</a>
 </div>
@@ -389,22 +390,20 @@ textarea.fi{resize:vertical;min-height:100px}
 </div>
 </div>
 </div></section>
-<div class="w tr">
-<span>99%+ HPLC Purity</span><span>Third-Party Verified</span><span>COA Every Batch</span><span>Free Express Shipping</span>
+<!-- STATS BAR - DARK PREMIUM -->
+<section class="sp-bar">
+<div class="w">
+<div class="sp-bar-grid reveal">
+<div class="sp-bar-item"><div class="sp-bar-num">99%+</div><div class="sp-bar-lbl">HPLC Purity Guaranteed</div></div>
+<div class="sp-bar-item"><div class="sp-bar-num">24h</div><div class="sp-bar-lbl">Dispatch Turnaround</div></div>
+<div class="sp-bar-item"><div class="sp-bar-num">COA</div><div class="sp-bar-lbl">With Every Order</div></div>
+<div class="sp-bar-item"><div class="sp-bar-num">Free</div><div class="sp-bar-lbl">eBook Included</div></div>
 </div>
-
-<!-- STATS COUNTERS -->
-<section style="padding:80px 0 0"><div class="w">
-<div class="stat-grid reveal">
-<div class="stat-item"><div class="stat-num">99%+</div><div class="stat-lbl">HPLC Purity Guaranteed</div></div>
-<div class="stat-item"><div class="stat-num">14</div><div class="stat-lbl">Peptides Available</div></div>
-<div class="stat-item"><div class="stat-num">24h</div><div class="stat-lbl">Dispatch Turnaround</div></div>
-<div class="stat-item"><div class="stat-num">COA</div><div class="stat-lbl">Every Batch, On Request</div></div>
 </div>
-</div></section>
+</section>
 
 <!-- HOW IT WORKS -->
-<section class="sec-warm" style="padding:80px 0;margin-top:0"><div class="w">
+<section class="sec-warm" style="padding:60px 0;margin-top:0"><div class="w">
 <div style="text-align:center">
 <span class="lb reveal">The Process</span>
 <h2 class="reveal reveal-d1" style="font-size:clamp(28px,4vw,42px);font-weight:300;letter-spacing:-.025em;margin-bottom:10px">From research to delivery</h2>
@@ -437,7 +436,7 @@ textarea.fi{resize:vertical;min-height:100px}
 </div></div>
 </section>
 
-<section style="padding:60px 0"><div class="w" style="max-width:700px;text-align:center">
+<section style="padding:48px 0"><div class="w" style="max-width:700px;text-align:center">
 <span class="lb">Expert Guidance</span>
 <h2 style="font-size:32px;letter-spacing:-.02em;margin-bottom:12px">Book a Research Consultation</h2>
 <p style="font-size:14px;color:#6b6560;line-height:1.7;margin-bottom:24px">Not sure which peptides fit your research protocol? Our team offers 1-on-1 consultations to help you design your study, understand reconstitution, and select the right products.</p>
@@ -452,13 +451,38 @@ textarea.fi{resize:vertical;min-height:100px}
 </div></section>
 
 <!-- FEATURED PEPTIDES -->
-<section style="padding:80px 0"><div class="w">
+<section style="padding:60px 0"><div class="w">
 <div class="ph reveal">
 <div><span class="lb">Most Ordered</span><h2 style="font-size:clamp(26px,4vw,38px);font-weight:300;letter-spacing:-.025em;margin-top:4px">Research Essentials</h2></div>
-<a href="#" class="b b2" style="padding:12px 28px;font-size:10px;align-self:flex-end" onclick="go('shop');return false">View All &rarr;</a>
+<a href="/catalogue" class="b b2" style="padding:12px 28px;font-size:10px;align-self:flex-end">View All &rarr;</a>
 </div>
 <div class="feat-grid" id="featGrid"></div>
 </div></section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+<div class="w">
+<span class="lb reveal">What Researchers Say</span>
+<h2 class="reveal reveal-d1">Trusted across India &amp; beyond</h2>
+<div class="test-grid">
+<div class="test-card reveal">
+<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p>"Exceptional purity — the COA matched spec perfectly. Tirzepatide reconstituted cleanly, no particulate. Dispatch was same-day. This is now my go-to supplier."</p>
+<div class="test-author"><strong>Dr. R. Sharma</strong><span>Research Director, Mumbai</span></div>
+</div>
+<div class="test-card reveal reveal-d1">
+<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p>"BPC-157 and TB-500 arrived beautifully packaged, clearly labelled, and with all relevant data. The free research guide was genuinely useful — not filler content."</p>
+<div class="test-author"><strong>A. Mehta</strong><span>Sports Science Researcher, Bangalore</span></div>
+</div>
+<div class="test-card reveal reveal-d2">
+<div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p>"Ordered GHK-Cu for a collagen synthesis study. The mass spec data was thorough and the team answered my protocol questions within the hour. Exactly what I needed."</p>
+<div class="test-author"><strong>P. Kaur</strong><span>Dermatology Researcher, Delhi</span></div>
+</div>
+</div>
+</div>
+</section>
 
 <section class="offers-section"><div class="w"><div class="offers">
 <div><p style="font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#C8A97E;margin-bottom:4px">Exclusive Offers</p><p style="font-size:13px;color:rgba(250,250,247,.5)">Auto-applied at checkout</p></div>
@@ -588,37 +612,78 @@ textarea.fi{resize:vertical;min-height:100px}
 </form></div></div></div></section></div>
 
 <!-- FOOTER -->
-<footer class="ft"><div class="w">
+<footer class="ft-enhanced"><div class="w">
 <div class="ftg">
-<div class="ftb" style="text-align:center"><div class="fl2"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</div><p style="max-width:400px;margin:0 auto">Premium research peptides. HPLC verified. Third-party tested. 99%+ purity guaranteed.</p>
-<form onsubmit="subEmail(event)" style="display:flex;gap:8px;max-width:320px;margin:20px auto 0">
-<input id="subEmail" type="email" placeholder="Get new peptide updates" style="flex:1;font-family:'DM Sans',sans-serif;font-size:12px;padding:10px 12px;border:1px solid #d4d0c8;background:transparent;outline:none;color:#1a1a1a" required>
-<button id="subBtn" type="submit" class="b b3" style="padding:10px 20px;font-size:9px;white-space:nowrap;letter-spacing:.12em">Subscribe</button>
+<div class="ftb">
+<div class="ft-brand-name"><em>Athena</em>BioLabs</div>
+<p>Premium research peptides. HPLC verified. Third-party tested. COA with every order. India-wide cold-chain delivery.</p>
+<div class="ft-newsletter">
+<p>Research updates &amp; new arrivals</p>
+<form onsubmit="subEmail(event)">
+<input id="subEmail" type="email" placeholder="your@email.com" required>
+<button id="subBtn" type="submit">Subscribe</button>
 </form>
-<p id="subMsg" style="font-size:10px;color:#b5b0a6;margin-top:8px;min-height:16px;text-align:center"></p>
+<p id="subMsg" style="min-height:16px"></p>
 </div>
-<div class="ftc"><h4>Navigate</h4><a href="/">Home</a><a href="#" onclick="go('shop');return false">Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="#" onclick="go('calc');return false">Calculator</a><a href="/contact">Contact</a></div>
-<div class="ftc"><h4>Reach Us</h4><a href="mailto:support@athenabiolabs.com">support@athenabiolabs.com</a><p>Mon - Sat, 9-7 IST</p></div>
-<div class="ftl"><h4 style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px">Legal Notice</h4><p>All products are sold strictly for in-vitro research purposes. Not intended for human or animal consumption.</p></div>
 </div>
-<div class="fbt"><span>2026 AthenaBioLabs. All rights reserved.</span><span>For research use only</span></div>
-</div></footer>
+<div class="ftc">
+<h4>Quick Links</h4>
+<a href="/" onclick="go('home');return false">Home</a>
+<a href="/catalogue">All Peptides</a>
+<a href="/coa" onclick="go('coa');return false">Certificates of Analysis</a>
+<a href="/about" onclick="go('about');return false">About Us</a>
+<a href="#" onclick="go('calc');return false">Dosage Calculator</a>
+<a href="/contact" onclick="go('contact');return false">Contact</a>
+</div>
+<div class="ftc">
+<h4>Categories</h4>
+<a href="#" onclick="sf('Weight Loss');return false">Weight Loss</a>
+<a href="#" onclick="sf('Healing &amp; Recovery');return false">Healing &amp; Recovery</a>
+<a href="#" onclick="sf('Skin &amp; Anti-Aging');return false">Skin &amp; Anti-Aging</a>
+<a href="#" onclick="sf('GH');return false">Growth Hormone</a>
+<a href="#" onclick="sf('Supplies');return false">Supplies</a>
+</div>
+<div class="ftc">
+<h4>Legal &amp; Policies</h4>
+<a href="/about" onclick="go('about');return false">Research Disclaimer</a>
+<a href="mailto:support@athenabiolabs.com?subject=Privacy%20Inquiry">Privacy Policy</a>
+<a href="mailto:support@athenabiolabs.com?subject=Terms%20Inquiry">Terms of Service</a>
+<a href="mailto:support@athenabiolabs.com?subject=Shipping%20Inquiry">Shipping Policy</a>
+<a href="mailto:support@athenabiolabs.com?subject=Return%20Inquiry">Refund Policy</a>
+<a href="mailto:support@athenabiolabs.com">support@athenabiolabs.com</a>
+</div>
+</div>
+<div class="gs"></div>
+</div>
+<div class="ft-disclaimer"><div class="w">
+<p>&#169; 2026 AthenaBioLabs. All rights reserved. &nbsp;&middot;&nbsp; All products are sold exclusively for in-vitro research purposes. Not intended for human or animal use. Not intended to diagnose, treat, cure, or prevent any disease. &nbsp;&middot;&nbsp; For research use only.</p>
+</div></div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" id="stickyCta">
+<a href="/catalogue" class="sca-shop">Shop Peptides</a>
+<a href="https://wa.me/919560397569" target="_blank" rel="noopener" class="sca-wa">WhatsApp</a>
+</div>
 
 <script>
 // Supabase
 var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
 
+// Slug map for product URLs
+var SLUG_MAP={2:'tirzepatide',3:'retatrutide',4:'bpc-157',5:'tb-500',6:'bpc-tb-combo',8:'ghk-cu',11:'cjc-1295-no-dac',12:'cjc-ipa-combo',13:'klow-blend',14:'bac-water'};
+
 var P=[
-{id:2,n:"Tirzepatide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2000},{sp:"20mg × 10 vials",ds:"20mg",pr:2650}]},
-{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2550},{sp:"20mg × 10 vials",ds:"20mg",pr:4200}]},
-{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:1900}]},
-{id:5,n:"TB-500",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:3400}]},
-{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2900}]},
-{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg × 10 vials",ds:"50mg",pr:1050}]},
-{id:11,n:"CJC-1295 (no DAC)",c:"GH",v:[{sp:"5mg × 10 vials",ds:"5mg",pr:2650}]},
-{id:12,n:"CJC+IPA Combo",c:"GH",v:[{sp:"10mg × 10 vials",ds:"10mg",pr:2900}]},
-{id:13,n:"KLOW Blend",c:"Healing & Recovery",v:[{sp:"80mg × 10 vials",ds:"80mg",pr:3990}]},
-{id:14,n:"BAC Water",c:"Supplies",v:[{sp:"10ml × 1 vial",ds:"10ml",pr:299}]}
+{id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2400},{sp:"20mg per vial",ds:"20mg",pr:3800}]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2899},{sp:"20mg per vial",ds:"20mg",pr:4500}]},
+{id:4,n:"BPC-157",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:1990}]},
+{id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3400}]},
+{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3200}]},
+{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg per vial",ds:"50mg",pr:1500}]},
+{id:11,n:"CJC-1295 (no DAC)",c:"GH",oos:true,v:[{sp:"5mg per vial",ds:"5mg",pr:2800}]},
+{id:12,n:"CJC+IPA Combo",c:"GH",oos:true,v:[{sp:"CJC-1295 5mg + Ipamorelin 5mg",ds:"10mg",pr:3750}]},
+{id:13,n:"KLOW Blend",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 10mg + TB-500 10mg + KPV 10mg + GHK-Cu 50mg",ds:"80mg",pr:3990}]},
+{id:14,n:"BAC Water",c:"Supplies",oos:true,v:[{sp:"1ml per vial",ds:"1ml",pr:799}]}
 ];
 
 var FQ=[
@@ -675,7 +740,7 @@ function go(id){
 function renderCard(p,i){
   var sel=selV[p.id]||0,v=p.v[sel];
   var priceRange=p.v.length>1?fmt(p.v[0].pr)+' \u2013 '+fmt(p.v[p.v.length-1].pr):fmt(v.pr);
-  var h='<div class="pc fu" style="animation-delay:'+Math.min(i*0.04,0.5)+'s;padding:0;cursor:pointer" onclick="openPDP('+p.id+')">';
+  var h='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc fu" style="animation-delay:'+Math.min(i*0.04,0.5)+'s;padding:0;cursor:pointer;text-decoration:none;color:inherit" onclick="return true">';
   h+='<div style="background:linear-gradient(180deg,#f8f7f4,#f0ede7);overflow:hidden;height:200px;display:flex;align-items:center;justify-content:center">';
   h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:200px;object-fit:contain;'+imgStyle(p.n)+'" onerror="this.outerHTML=\'<div style=text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:36px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
   h+='</div>';
@@ -684,9 +749,14 @@ function renderCard(p,i){
   h+='<h3 style="font-size:18px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em">'+p.n+'</h3>';
   if(p.v.length>1) h+='<div style="font-size:11px;color:#8a8580;margin-bottom:8px">'+p.v.length+' strengths available</div>';
   h+='<div style="display:flex;align-items:center;justify-content:space-between">';
-  h+='<div><span class="pp" style="font-size:18px">'+priceRange+'</span></div>';
-  h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E">Select options \u203a</span>';
-  h+='</div></div></div>';
+  if(p.oos){
+    h+='<div><span class="pp" style="font-size:18px;color:#b5b0a6">'+priceRange+'</span></div>';
+    h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;background:#f0ede7;padding:4px 10px;border-radius:3px">Out of Stock</span>';
+  } else {
+    h+='<div><span class="pp" style="font-size:18px">'+priceRange+'</span></div>';
+    h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E">Select options \u203a</span>';
+  }
+  h+='</div></div></a>';
   return h;
 }
 function rP(){
@@ -805,7 +875,7 @@ function rC(){
     h+='<div style="margin-top:12px;padding:12px 16px;background:#F0EDE7;display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;color:#8a8580">Peptide Research Guide eBook</span><button onclick="includeEbook=true;rC()" style="font-family:DM Sans,sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;padding:5px 12px;background:#1a1a1a;color:#FAFAF7;border:none;cursor:pointer">+ Add Free eBook</button></div>';
   }
   var ebookNote=includeEbook?"%0A%0APlease include the free Peptide Research Guide eBook.":"";
-  h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;500</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
+  h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
   h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payNow('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay Now &middot; '+fmt(total)+'</button>';
   h+='<div style="display:flex;gap:8px;margin-top:8px">';
   h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="showBankDetails()">Bank / UPI Transfer</button>';
@@ -988,7 +1058,7 @@ function renderFeat(){
     if(!p)continue;
     var v=p.v[0];
     var delay=Math.min(i*0.08,0.48);
-    h+='<div class="pc reveal" style="animation-delay:'+delay+'s;padding:0;cursor:pointer" onclick="openPDP('+p.id+')">';
+    h+='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc reveal" style="animation-delay:'+delay+'s;padding:0;cursor:pointer;text-decoration:none;color:inherit">';
     h+='<div style="background:linear-gradient(180deg,#f8f7f4,#f0ede7);overflow:hidden;height:190px;display:flex;align-items:center;justify-content:center">';
     h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:190px;object-fit:contain;'+imgStyle(p.n)+'" onerror="this.outerHTML=\'<span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span>\'">';
     h+='</div>';
@@ -996,9 +1066,14 @@ function renderFeat(){
     h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';
     h+='<h3 style="font-size:17px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em">'+p.n+'</h3>';
     h+='<div style="display:flex;align-items:center;justify-content:space-between">';
-    h+='<span class="pp" style="font-size:18px">'+fmt(v.pr)+'</span>';
-    h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E">View &rsaquo;</span>';
-    h+='</div></div></div>';
+    if(p.oos){
+      h+='<span class="pp" style="font-size:18px;color:#b5b0a6">'+fmt(v.pr)+'</span>';
+      h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;background:#f0ede7;padding:4px 10px;border-radius:3px">Out of Stock</span>';
+    } else {
+      h+='<span class="pp" style="font-size:18px">'+fmt(v.pr)+'</span>';
+      h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E">View &rsaquo;</span>';
+    }
+    h+='</div></div></a>';
   }
   var fg=document.getElementById("featGrid");
   if(fg){fg.innerHTML=h;initReveal();}
@@ -1140,7 +1215,8 @@ function openPDP(id){
   h+='<h1 style="font-size:32px;margin-bottom:4px">'+p.n+'</h1>';
   h+='<div class="pdp-cat" style="margin-bottom:16px">'+info.cat+' &middot; 99%+ HPLC Purity</div>';
   // price
-  h+='<div style="margin-bottom:20px"><span class="pp" style="font-size:36px">'+fmt(v.pr)+'</span><span style="font-size:11px;color:#b5b0a6;margin-left:8px">per box</span></div>';
+  h+='<div style="margin-bottom:8px"><span class="pp" style="font-size:36px">'+fmt(v.pr)+'</span><span style="font-size:11px;color:#b5b0a6;margin-left:8px">per vial</span></div>';
+  h+='<div style="font-size:12px;color:#8a8580;margin-bottom:20px;letter-spacing:.02em">'+v.sp+'</div>';
   // variant selector
   h+='<div style="margin-bottom:20px"><div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Strength</div><div class="vr" style="margin:0">';
   for(var k=0;k<p.v.length;k++){
