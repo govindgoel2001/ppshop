@@ -1,6 +1,6 @@
 // api/_lib/ratelimit.js
 // Supabase-based rate limiting — no extra services needed.
-// Tracks attempt counts in the email_otps table + a simple in-memory fallback for IP.
+// Tracks attempt counts in theemail_otps table + a simple in-memory fallback for IP.
 
 import { createClient } from '@supabase/supabase-js';
 
