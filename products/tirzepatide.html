@@ -24,7 +24,7 @@
 <!-- PostHog Analytics -->
 <script>
 !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString()+" (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||([]));
-posthog.init("YOUR_POSTHOG_KEY",{api_host:"https://us.i.posthog.com",person_profiles:"identified_only"})
+posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https://us.i.posthog.com",person_profiles:"identified_only"})
 </script>
 
 </head>
@@ -38,7 +38,7 @@ posthog.init("YOUR_POSTHOG_KEY",{api_host:"https://us.i.posthog.com",person_prof
 <a href="/" class="nl"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
 <div class="nk">
 <a href="/">Home</a>
-<a href="/#shop">Peptides</a>
+<a href="/catalogue">Peptides</a>
 <a href="/coa">COA</a>
 <a href="/about">About</a>
 <a href="/contact">Contact</a>
@@ -50,7 +50,7 @@ posthog.init("YOUR_POSTHOG_KEY",{api_host:"https://us.i.posthog.com",person_prof
 <!-- MOBILE NAV -->
 <div class="mob-nav" id="mobNav">
 <a href="/" onclick="closeMob()">Home</a>
-<a href="/#shop" onclick="closeMob()">All Peptides</a>
+<a href="/catalogue" onclick="closeMob()">All Peptides</a>
 <a href="/coa" onclick="closeMob()">COA</a>
 <a href="/about" onclick="closeMob()">About</a>
 <a href="/contact" onclick="closeMob()">Contact</a>
@@ -94,18 +94,18 @@ posthog.init("YOUR_POSTHOG_KEY",{api_host:"https://us.i.posthog.com",person_prof
 <div class="ftc">
 <h4>Quick Links</h4>
 <a href="/">Home</a>
-<a href="/#shop">All Peptides</a>
+<a href="/catalogue">All Peptides</a>
 <a href="/coa">Certificates of Analysis</a>
 <a href="/about">About Us</a>
 <a href="/contact">Contact</a>
 </div>
 <div class="ftc">
 <h4>Categories</h4>
-<a href="/?cat=Weight%20Loss">Weight Loss</a>
-<a href="/?cat=Healing%20%26%20Recovery">Healing &amp; Recovery</a>
-<a href="/?cat=Skin%20%26%20Anti-Aging">Skin &amp; Anti-Aging</a>
-<a href="/?cat=GH">Growth Hormone</a>
-<a href="/?cat=Supplies">Supplies</a>
+<a href="/catalogue?cat=Weight%20Loss">Weight Loss</a>
+<a href="/catalogue?cat=Healing%20%26%20Recovery">Healing &amp; Recovery</a>
+<a href="/catalogue?cat=Skin%20%26%20Anti-Aging">Skin &amp; Anti-Aging</a>
+<a href="/catalogue?cat=GH">GH</a>
+<a href="/catalogue?cat=Supplies">Supplies</a>
 </div>
 <div class="ftc">
 <h4>Legal</h4>
@@ -124,8 +124,8 @@ posthog.init("YOUR_POSTHOG_KEY",{api_host:"https://us.i.posthog.com",person_prof
 </footer>
 
 <!-- STICKY MOBILE CTA -->
-<div class="sticky-cta">
-<a href="/#shop" class="sca-shop">Shop All Peptides</a>
+<div class="sticky-cta pdp-cta">
+<a href="/catalogue" class="sca-shop">Shop All Peptides</a>
 <a href="https://wa.me/919560397569" target="_blank" rel="noopener" class="sca-wa">WhatsApp</a>
 </div>
 

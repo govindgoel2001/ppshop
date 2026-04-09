@@ -30,15 +30,15 @@ export default async function handler(req, res) {
 
   const { data: used } = await supa
     .from('coupon_usage').select('id').eq('email', em).eq('code', cd).maybeSingle();
-  if (used) return res.status(200).json({ error: 'This coupon has already been used with this email.' });
+  if (used) return res.status(409).json({ error: 'This coupon has already been used with this email.' });
 
   const { data: record } = await supa
     .from('email_otps').select('otp, expires_at, verified').eq('email', em).maybeSingle();
 
-  if (!record) return res.status(200).json({ error: 'No code found for this email. Please request a new one.' });
-  if (record.verified) return res.status(200).json({ error: 'Code already used. Please request a new one.' });
-  if (new Date(record.expires_at) < new Date()) return res.status(200).json({ error: 'Code expired. Please request a new one.' });
-  if (record.otp !== otp.trim()) return res.status(200).json({ error: 'Incorrect code. Please try again.' });
+  if (!record) return res.status(404).json({ error: 'No code found for this email. Please request a new one.' });
+  if (record.verified) return res.status(409).json({ error: 'Code already used. Please request a new one.' });
+  if (new Date(record.expires_at) < new Date()) return res.status(410).json({ error: 'Code expired. Please request a new one.' });
+  if (record.otp !== otp.trim()) return res.status(400).json({ error: 'Incorrect code. Please try again.' });
 
   await supa.from('email_otps').update({ verified: true }).eq('email', em);
 

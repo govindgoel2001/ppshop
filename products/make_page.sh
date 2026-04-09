@@ -40,7 +40,7 @@ cat > C:/Users/govin/ppshop/products/${SLUG}.html << EOF
 <footer class="ft-enhanced"><div class="w"><div class="ftg">
 <div class="ftb"><div class="ft-brand-name"><em>Athena</em>BioLabs</div><p>Premium research peptides. HPLC verified. COA with every order.</p></div>
 <div class="ftc"><h4>Quick Links</h4><a href="/">Home</a><a href="/#shop">All Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="/contact">Contact</a></div>
-<div class="ftc"><h4>Categories</h4><a href="/?cat=Weight%20Loss">Weight Loss</a><a href="/?cat=Healing%20%26%20Recovery">Healing &amp; Recovery</a><a href="/?cat=Skin%20%26%20Anti-Aging">Skin &amp; Anti-Aging</a><a href="/?cat=GH">Growth Hormone</a></div>
+<div class="ftc"><h4>Categories</h4><a href="/?cat=Weight%20Loss">Weight Loss</a><a href="/?cat=Healing%20%26%20Recovery">Healing &amp; Recovery</a><a href="/?cat=Skin%20%26%20Anti-Aging">Skin &amp; Anti-Aging</a><a href="/?cat=GH">GH</a></div>
 <div class="ftc"><h4>Legal</h4><a href="/about">Research Disclaimer</a><a href="mailto:support@athenabiolabs.com">support@athenabiolabs.com</a></div>
 </div><div class="gs"></div></div>
 <div class="ft-disclaimer"><div class="w"><p>&#169; 2026 AthenaBioLabs. For in-vitro research use only.</p></div></div>

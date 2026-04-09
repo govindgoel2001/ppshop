@@ -204,7 +204,7 @@ function rC(){
   h+='<p><b>Account No:</b> YOUR_ACCOUNT_NUMBER</p>';
   h+='<p><b>IFSC:</b> YOUR_IFSC_CODE</p>';
   h+='<p style="margin-top:6px;font-size:10px;color:#8a8580;line-height:1.6">After transferring, email your UTR / reference number to <b>support@athenabiolabs.com</b> with your shipping address.</p>';
-  h+='<button onclick="confirmBankTransfer('+total+')" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
+  h+='<button onclick="confirmBankTransfer('+total+',this)" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
   h+='</div>';
   h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking &middot; Bank Transfer</span></div>';
   h+='</div>';
@@ -244,9 +244,9 @@ function showBankDetails(){
   var el=document.getElementById("bankInfo");
   if(el)el.style.display=el.style.display==='none'?'block':'none';
 }
-function confirmBankTransfer(amount){
+function confirmBankTransfer(amount,btn){
   var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-  var btn=event.target;btn.disabled=true;btn.textContent='Saving\u2026';
+  btn.disabled=true;btn.textContent='Saving\u2026';
   SUPA.from('orders').insert({items:items,total:amount,coupon:coupon||null,payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,visitor_id:VID}).then(function(r){
     btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
     if(r.error){alert("Please email support@athenabiolabs.com with your UTR number.");}

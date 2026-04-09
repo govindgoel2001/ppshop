@@ -278,6 +278,8 @@ textarea.fi{resize:vertical;min-height:100px}
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:580;background:#FAFAF7;border-top:1px solid rgba(0,0,0,.08);padding:12px 20px;gap:10px}
 .sticky-cta a{flex:1;text-align:center;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:14px 20px;text-decoration:none}
 .sticky-cta .sca-shop{background:#1a1a1a;color:#FAFAF7}
+.sticky-cta .sca-wa{background:#25D366;color:#fff}
+@media(max-width:600px){.sticky-cta.pdp-cta{display:flex}}
 /* Draggable floating WhatsApp button */
 .wa-fab{position:fixed;bottom:90px;right:20px;z-index:600;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);cursor:grab;touch-action:none;transition:box-shadow .2s;user-select:none;-webkit-user-select:none}
 .wa-fab:active{cursor:grabbing;box-shadow:0 6px 24px rgba(37,211,102,.5)}
@@ -351,3 +353,56 @@ textarea.fi{resize:vertical;min-height:100px}
 @media(max-width:900px){.pg{grid-template-columns:repeat(2,1fr)!important}.cg{grid-template-columns:1fr}.ftg{grid-template-columns:1fr;text-align:center}.sg{grid-template-columns:repeat(2,1fr)}.cb{flex-direction:column;text-align:center;padding:40px 24px}.cds{justify-content:center}.fw{grid-template-columns:1fr}.dg{grid-template-columns:1fr}#coaGrid{grid-template-columns:1fr!important}}
 @media(max-width:700px){.pdp-top{grid-template-columns:1fr}.pdp-img{min-height:300px;position:static}}
 @media(max-width:600px){.w{padding-left:20px;padding-right:20px}.hr{padding:60px 0 40px}.pc{padding:0}.pg{grid-template-columns:1fr!important}.nk{display:none}.ham{display:flex}.dr{width:100vw;max-width:100vw}.sp-toast{left:12px;right:12px;max-width:none;bottom:90px}.pb span,.pb b{font-size:9px}.offers{flex-direction:column;text-align:center;padding:24px 20px}.offers-codes{justify-content:center}.hb{flex-direction:column}.hb .b{width:100%;text-align:center}.offers-section{padding-bottom:20px!important}.ftg{padding:32px 0!important}.fl{flex-wrap:nowrap;overflow-x:auto}}
+
+/* =====================
+   MOBILE REFINEMENTS
+   ===================== */
+
+/* Fix mobile nav overlay gap on pages with promo banner */
+.has-promo .mob-nav{top:106px}
+
+@media(max-width:600px){
+  /* --- Touch targets (min ~44px tap area) --- */
+  .vb{min-height:40px;padding:10px 14px;font-size:10px}
+  .cq button{width:40px;height:40px;font-size:16px}
+  .acb{height:48px}
+  .acb .acb-qty button{width:40px}
+  .fb{padding:10px 16px}
+  .cr{min-height:36px;display:inline-flex;align-items:center;padding:0 4px;font-size:11px}
+
+  /* --- Cart drawer --- */
+  .dh{padding:20px}
+  .db{padding:16px 20px}
+
+  /* --- Product detail page --- */
+  .pdp-info h1{font-size:26px}
+  .pdp-tabs-nav{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .tab-btn{padding:14px 16px;white-space:nowrap;flex-shrink:0;font-size:9px}
+  .pdp-page{padding:32px 0 100px}
+
+  /* --- General page spacing --- */
+  .page-content{padding:48px 0}
+
+  /* --- FAQ --- */
+  .fa.op{max-height:600px}
+  .fq h3{font-size:16px}
+
+  /* --- Dosage calc --- */
+  .dc{padding:20px}
+
+  /* --- Consultation card --- */
+  .consult-card{flex-wrap:wrap;gap:10px}
+  .consult-btn{width:100%;text-align:center;padding:12px;margin-top:4px}
+
+  /* --- Coupon --- */
+  .cui input,.cui button{font-size:14px}
+  .cui input{padding:12px}
+  .cui button{padding:12px 16px}
+
+  /* --- Stats bar --- */
+  .sp-bar-item{padding:28px 16px}
+  .sp-bar-num{font-size:36px}
+
+  /* --- Footer links wider tap area --- */
+  .ftc a{padding:5px 0;margin-bottom:6px}
+}
