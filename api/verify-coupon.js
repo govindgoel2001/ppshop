@@ -1,5 +1,5 @@
 // api/verify-coupon.js
-// POST { email: string, otp: string, code: string }
+// POST { email: string, otp: string code: string }
 
 import { createClient } from '@supabase/supabase-js';
 import { checkVerifyRateLimit, recordOtpAttempt } from './_lib/ratelimit.js';
