@@ -358,7 +358,7 @@ function renderProductPage(pid){
   h+='</div>';
   h+='<div class="pdp-info">';
   h+='<h1>'+p.n+'</h1>';
-  h+='<div class="pdp-cat">'+info.cat+' &middot; 99%+ HPLC Purity</div>';
+  h+='<div class="pdp-cat">'+info.cat+(p.n!=='BAC Water'?' &middot; 99%+ HPLC Purity':'')+'</div>';
   h+='<div style="margin-bottom:8px"><span class="pp" style="font-size:36px">'+fmt(v.pr)+'</span><span style="font-size:11px;color:#b5b0a6;margin-left:8px">per vial</span></div>';
   h+='<div style="font-size:12px;color:#8a8580;margin-bottom:20px;letter-spacing:.02em">'+v.sp+'</div>';
   // variant selector
@@ -383,7 +383,7 @@ function renderProductPage(pid){
   }
   // trust badges
   h+='<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px">';
-  h+='<div style="font-size:10px;color:#8a8580;display:flex;align-items:center;gap:4px"><span style="color:#7a9a6d">&#10003;</span> 99%+ Purity</div>';
+  if(p.n!=='BAC Water')h+='<div style="font-size:10px;color:#8a8580;display:flex;align-items:center;gap:4px"><span style="color:#7a9a6d">&#10003;</span> 99%+ Purity</div>';
   h+='<div style="font-size:10px;color:#8a8580;display:flex;align-items:center;gap:4px"><span style="color:#7a9a6d">&#10003;</span> Third-Party Tested</div>';
   h+='<div style="font-size:10px;color:#8a8580;display:flex;align-items:center;gap:4px"><span style="color:#7a9a6d">&#10003;</span> Free Shipping</div>';
   h+='</div>';
@@ -404,9 +404,8 @@ function renderProductPage(pid){
   h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Category</td><td class="td-val">'+info.cat+'</td></tr>';
   h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Molecular Weight</td><td class="td-val">'+info.mw+'</td></tr>';
   h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Sequence</td><td class="td-val" style="word-break:break-all;font-size:12px">'+info.seq+'</td></tr>';
-  h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Purity</td><td class="td-val">&ge;99% (HPLC verified)</td></tr>';
-  h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Form</td><td class="td-val">White lyophilized powder</td></tr>';
-  h+='<tr><td class="td-lbl">Storage</td><td class="td-val">-20&deg;C (lyophilized) / 2-8&deg;C (reconstituted)</td></tr>';
+  if(p.n!=='BAC Water'){h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Purity</td><td class="td-val">&ge;99% (HPLC verified)</td></tr>';h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Form</td><td class="td-val">White lyophilized powder</td></tr>';}
+  h+='<tr><td class="td-lbl">Storage</td><td class="td-val">'+(p.n==='BAC Water'?'2-8&deg;C':'-20&deg;C (lyophilized) / 2-8&deg;C (reconstituted)')+'</td></tr>';
   h+='</table></div>';
   h+='<div id="tabC3" class="tab-content" style="display:none">';
   h+='<div style="background:#F7F5F2;padding:16px 20px;margin-bottom:12px"><p style="font-size:13px;line-height:1.8;color:#6b6560"><strong style="color:#1a1a1a">Research Reference:</strong> '+info.dose+'</p></div>';
