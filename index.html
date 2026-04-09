@@ -334,6 +334,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <div class="nav-dd"><a href="/catalogue" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="/catalogue">All Peptides</a><a href="/catalogue?cat=Weight+Loss">Weight Loss</a><a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a><a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a><a href="/catalogue?cat=GH">GH</a></div></div>
 <a href="/coa" onclick="go('coa');return false">COA</a>
 <a href="/about" onclick="go('about');return false">About</a>
+<a href="/calculator">Calculator</a>
 <a href="/contact" onclick="go('contact');return false">Contact</a>
 <a href="#" onclick="openCart();return false" id="cL">Cart</a>
 </div>
@@ -343,14 +344,14 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <a href="/" onclick="go('home');closeMob();return false">Home</a>
 <a href="/catalogue" onclick="closeMob()">All Peptides</a>
 <div class="mob-sub">
-<a href="#" onclick="sf('Weight Loss');closeMob();return false">Weight Loss</a>
-<a href="#" onclick="sf('Healing & Recovery');closeMob();return false">Healing &amp; Recovery</a>
-<a href="#" onclick="sf('Skin & Anti-Aging');closeMob();return false">Skin &amp; Anti-Aging</a>
-<a href="#" onclick="sf('GH');closeMob();return false">GH</a>
+<a href="/catalogue?cat=Weight+Loss" onclick="closeMob()">Weight Loss</a>
+<a href="/catalogue?cat=Healing+%26+Recovery" onclick="closeMob()">Healing &amp; Recovery</a>
+<a href="/catalogue?cat=Skin+%26+Anti-Aging" onclick="closeMob()">Skin &amp; Anti-Aging</a>
+<a href="/catalogue?cat=GH" onclick="closeMob()">GH</a>
 </div>
 <a href="/coa" onclick="go('coa');closeMob();return false">COA</a>
 <a href="/about" onclick="go('about');closeMob();return false">About</a>
-<a href="/calculator">Dosage Calculator</a>
+<a href="/calculator" onclick="closeMob()">Calculator</a>
 <a href="/contact" onclick="go('contact');closeMob();return false">Contact</a>
 <a href="#" onclick="openCart();closeMob();return false">Cart</a>
 </div>
@@ -379,7 +380,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <div class="hr-proof"><div class="hr-proof-dots"><span></span><span></span><span></span></div><p>99%+ HPLC purity &mdash; COA included with every batch</p></div>
 <div class="hb">
 <a href="/catalogue" class="b b1">Browse All Peptides</a>
-<a href="#" class="b b2" href="/calculator">Dosage Calculator</a>
+<a href="/calculator" class="b b2">Dosage Calculator</a>
 <a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="b b3">Book Your Consultation</a>
 </div>
 <div style="display:flex;align-items:center;gap:10px;margin-top:20px">
@@ -1109,20 +1110,19 @@ function sendC(){
   var btn=document.querySelector('#pg-contact button[type=submit]');
   var msgEl=document.getElementById("cFormMsg");
   btn.disabled=true;btn.textContent='Sending\u2026';
-  SUPA.from('contact_submissions').insert({name:nm,email:em,subject:su,message:ms})
-    .then(function(r){
-      btn.disabled=false;
-      if(r.error){
-        // fallback: open mailto
-        var body="Name: "+nm+"%0D%0AEmail: "+em+"%0D%0A%0D%0A"+encodeURIComponent(ms);
-        window.location.href="mailto:support@athenabiolabs.com?subject="+encodeURIComponent("AthenaBioLabs - "+su)+"&body="+body;
-      } else {
-        btn.textContent='Message Sent';
-        if(msgEl)msgEl.textContent="Thank you — we'll reply within 24 hours.";
-        document.querySelector('#pg-contact form').reset();
-        setTimeout(function(){btn.textContent='Send Message';if(msgEl)msgEl.textContent='';},5000);
-      }
-    });
+  // Build mailto link as primary delivery
+  var mailBody="Name: "+nm+"\nEmail: "+em+"\n\n"+ms;
+  var mailUrl="mailto:support@athenabiolabs.com?subject="+encodeURIComponent("AthenaBioLabs - "+su)+"&body="+encodeURIComponent(mailBody);
+  // Try logging to Supabase, but don't depend on it
+  try{
+    SUPA.from('contact_submissions').insert({name:nm,email:em,subject:su,message:ms}).then(function(){}).catch(function(){});
+  }catch(e){}
+  // Open mailto
+  window.open(mailUrl,'_blank')||window.location.assign(mailUrl);
+  btn.disabled=false;btn.textContent='Message Sent';
+  if(msgEl)msgEl.innerHTML='Your email client should open. If not, email us directly at <a href="mailto:support@athenabiolabs.com" style="color:#C8A97E">support@athenabiolabs.com</a>';
+  document.querySelector('#pg-contact form').reset();
+  setTimeout(function(){btn.textContent='Send Message';},5000);
   return false;
 }
 // EMAIL SUBSCRIBE

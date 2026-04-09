@@ -24,16 +24,10 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <a href="/" class="nl"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
 <div class="nk">
 <a href="/">Home</a>
-<div class="nav-dd"><span class="nav-dd-trigger" style="font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a8580;cursor:pointer">Peptides &#9662;</span>
-<div class="nav-dd-menu">
-<a href="/catalogue">All Peptides</a>
-<a href="/catalogue?cat=Weight+Loss">Weight Loss</a>
-<a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a>
-<a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a>
-<a href="/catalogue?cat=GH">GH</a>
-</div></div>
+<div class="nav-dd"><a href="/catalogue" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="/catalogue">All Peptides</a><a href="/catalogue?cat=Weight+Loss">Weight Loss</a><a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a><a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a><a href="/catalogue?cat=GH">GH</a></div></div>
 <a href="/coa">COA</a>
 <a href="/about">About</a>
+<a href="/calculator">Calculator</a>
 <a href="/contact" class="active">Contact</a>
 </div>
 <button class="ham" id="hamBtn" onclick="toggleMob()"><span></span><span></span><span></span></button>
@@ -50,25 +44,8 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </div>
 <a href="/coa" onclick="closeMob()">COA</a>
 <a href="/about" onclick="closeMob()">About</a>
+<a href="/calculator" onclick="closeMob()">Calculator</a>
 <a href="/contact" onclick="closeMob()">Contact</a>
-</div>
-
-
-
-<main class="page-content">
-<section><div class="w" style="max-width:900px"><div class="cg">
-<div>
-<span class="lb">Contact</span>
-<h1 style="font-size:44px;font-weight:300;letter-spacing:-.02em;margin-bottom:32px;line-height:1.15">We would love to<br>hear from <em style="font-weight:500">you</em>.</h1>
-<div class="ib"><div class="il">Email</div><p><a href="mailto:support@athenabiolabs.com" style="text-decoration:none">support@athenabiolabs.com</a></p></div>
-<div class="ib"><div class="il">Hours</div><p>Monday - Saturday, 9AM - 7PM IST</p></div>
-<a href="https://wa.me/919560397569?text=Hi%2C%20I%20have%20a%20question." target="_blank" rel="noopener" class="b b3" style="margin-top:12px">Chat on WhatsApp</a>
-</div>
-<div style="padding-top:56px">
-<form onsubmit="return sendC()">
-<div class="fw">
-<div class="fg"><label>Name *</label><input class="fi" type="text" id="cn" placeholder="Your name" required></div>
-<div class="fg"><label>Email *</label><input class="fi" type="email" id="ce" placeholder="you@example.com" required></div>
 </div>
 <div class="fg"><label>Subject</label><input class="fi" type="text" id="cs" placeholder="Order inquiry, bulk pricing, etc."></div>
 <div class="fg"><label>Message *</label><textarea class="fi" id="cmsg" placeholder="How can we help?" required></textarea></div>
@@ -108,15 +85,14 @@ function sendC(){
   if(!n||!e||!m){fb.style.color='#c44';fb.textContent='Please fill in all required fields.';return false;}
   var btn=document.querySelector('button[type=submit]');
   btn.disabled=true;btn.textContent='Sending\u2026';
-  SUPA.from('contact_submissions').insert({name:n,email:e,subject:s,message:m}).then(function(r){
-    btn.disabled=false;btn.textContent='Send Message';
-    if(r&&r.error){
-      fb.style.color='#c44';fb.textContent='Something went wrong. Please email us directly at support@athenabiolabs.com';
-    } else {
-      fb.style.color='#7a9a6d';fb.textContent='Message received. We\u2019ll respond within 24 hours.';
-      document.querySelector('form').reset();
-    }
-  });
+  var mailBody="Name: "+n+"\nEmail: "+e+"\n\n"+m;
+  var mailUrl="mailto:support@athenabiolabs.com?subject="+encodeURIComponent("AthenaBioLabs - "+s)+"&body="+encodeURIComponent(mailBody);
+  try{SUPA.from('contact_submissions').insert({name:n,email:e,subject:s,message:m}).then(function(){}).catch(function(){});}catch(ex){}
+  window.open(mailUrl,'_blank')||window.location.assign(mailUrl);
+  btn.disabled=false;btn.textContent='Message Sent';
+  fb.style.color='#7a9a6d';fb.innerHTML='Your email client should open. If not, email us at <a href="mailto:support@athenabiolabs.com" style="color:#C8A97E">support@athenabiolabs.com</a>';
+  document.querySelector('form').reset();
+  setTimeout(function(){btn.textContent='Send Message';},5000);
   return false;
 }
 </script>

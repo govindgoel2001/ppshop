@@ -26,13 +26,24 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <div class="pb" id="promoBanner"><div class="pb-inner" id="promoInner"></div></div>
 <nav class="bn"><div class="w">
 <a href="/" class="nl"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
-<div class="nk"><a href="/">Home</a><a href="/catalogue">Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="/contact">Contact</a><a href="#" onclick="openCart();return false" id="cL">Cart</a></div>
+<div class="nk"><a href="/">Home</a><div class="nav-dd"><a href="/catalogue" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="/catalogue">All Peptides</a><a href="/catalogue?cat=Weight+Loss">Weight Loss</a><a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a><a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a><a href="/catalogue?cat=GH">GH</a></div></div><a href="/coa">COA</a><a href="/about">About</a><a href="/calculator">Calculator</a><a href="/contact">Contact</a><a href="#" onclick="openCart();return false" id="cL">Cart</a></div>
 <button class="ham" id="hamBtn" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </div></nav>
 <div class="mob-nav" id="mobNav">
-<a href="/" onclick="closeMob()">Home</a><a href="/catalogue" onclick="closeMob()">All Peptides</a><a href="/coa" onclick="closeMob()">COA</a><a href="/about" onclick="closeMob()">About</a><a href="/contact" onclick="closeMob()">Contact</a><a href="#" onclick="openCart();closeMob();return false">Cart</a>
+<a href="/" onclick="closeMob()">Home</a>
+<a href="/catalogue" onclick="closeMob()">All Peptides</a>
+<div class="mob-sub">
+<a href="/catalogue?cat=Weight+Loss" onclick="closeMob()">Weight Loss</a>
+<a href="/catalogue?cat=Healing+%26+Recovery" onclick="closeMob()">Healing &amp; Recovery</a>
+<a href="/catalogue?cat=Skin+%26+Anti-Aging" onclick="closeMob()">Skin &amp; Anti-Aging</a>
+<a href="/catalogue?cat=GH" onclick="closeMob()">GH</a>
 </div>
-
+<a href="/coa" onclick="closeMob()">COA</a>
+<a href="/about" onclick="closeMob()">About</a>
+<a href="/calculator" onclick="closeMob()">Calculator</a>
+<a href="/contact" onclick="closeMob()">Contact</a>
+<a href="#" onclick="openCart();closeMob();return false">Cart</a>
+</div>
 <div class="sp-toast" id="spToast"><div class="sp-dot"></div><div class="sp-txt" id="spTxt"></div><button class="sp-close" onclick="document.getElementById('spToast').classList.remove('show')">&times;</button></div>
 <div class="ov" id="ov" onclick="closeCart()"></div>
 <div class="dr" id="dr"><div class="dh"><h2>Your Cart</h2><button class="dx" onclick="closeCart()">&times;</button></div><div class="db" id="dB"></div><div class="df" id="dF" style="display:none"></div></div>

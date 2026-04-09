@@ -342,7 +342,7 @@ function renderProductPage(pid){
   var info=PI[p.n]||{desc:"Premium research-grade compound. HPLC verified.",dose:"Refer to published literature",mw:"See COA",seq:"See COA",cat:p.c};
   var sel=selV[p.id]||0;
   var v=p.v[sel];
-  trackEvent('ViewContent',{content_name:p.n,content_category:p.c,value:v.pr,currency:'INR'});
+  if(!window._pdpTracked||window._pdpTracked!==p.id){window._pdpTracked=p.id;trackEvent('ViewContent',{content_name:p.n,content_category:p.c,value:v.pr,currency:'INR'});}
 
   var catUrl=encodeURIComponent(p.c);
   var h='<div class="pdp-breadcrumb">';
@@ -416,7 +416,16 @@ function renderProductPage(pid){
   h+='<div class="pdp-disclaimer"><p>All products are for in-vitro research use only. Not for human or animal consumption. Not intended to diagnose, treat, cure, or prevent any disease.</p></div>';
 
   var wrap=document.getElementById("pdpContent");
-  if(wrap){wrap.innerHTML=h;initReveal();}
+  if(wrap){
+    // Prevent layout shift: lock height during re-render
+    var scrollY=window.scrollY||window.pageYOffset;
+    wrap.style.minHeight=wrap.offsetHeight+'px';
+    wrap.innerHTML=h;
+    // Restore scroll and release height lock after paint
+    window.scrollTo(0,scrollY);
+    requestAnimationFrame(function(){wrap.style.minHeight='';});
+    initReveal();
+  }
 
   // Related products
   renderRelated(p);
