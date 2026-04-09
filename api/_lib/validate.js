@@ -1,5 +1,5 @@
 // api/_lib/validate.js
-// Shared input validation helpers.
+// Shared input validation helpers
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const OTP_RE = /^\d{6}$/;
