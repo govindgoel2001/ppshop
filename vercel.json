@@ -6,6 +6,7 @@
     { "source": "/coa", "destination": "/index.html" },
     { "source": "/contact", "destination": "/index.html" },
     { "source": "/shop", "destination": "/index.html" },
-    { "source": "/catalogue", "destination": "/catalogue.html" }
+    { "source": "/catalogue", "destination": "/catalogue.html" },
+    { "source": "/calculator", "destination": "/calculator.html" }
   ]
 }
