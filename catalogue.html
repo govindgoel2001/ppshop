@@ -131,9 +131,8 @@
 </footer>
 
 <!-- STICKY MOBILE CTA -->
-<div class="sticky-cta">
-<a href="https://wa.me/919560397569" target="_blank" rel="noopener" class="sca-wa">WhatsApp Us</a>
-<a href="#" onclick="openCart();return false" class="sca-shop">View Cart</a>
+<div class="sticky-cta" id="stickyCta" style="display:none">
+<a href="#" onclick="openCart();return false" class="sca-shop" id="stickyCartBtn">View Cart (0)</a>
 </div>
 
 <!-- COOKIE BANNER -->
@@ -223,12 +222,25 @@ function doSearch() {
   if (cat) filt = cat;
 })();
 
+function updateStickyCart(){
+  var total=cart.reduce(function(s,i){return s+i.qty;},0);
+  var el=document.getElementById('stickyCta');
+  var btn=document.getElementById('stickyCartBtn');
+  if(!el)return;
+  if(total>0){el.style.display='flex';btn.textContent='View Cart ('+total+')';}
+  else{el.style.display='none';}
+}
+
 // Init
 cyclePromo();
 setInterval(cyclePromo, 4000);
 setTimeout(function(){showSP(); setInterval(showSP, 36000);}, 8000);
 uB();
 renderCatalogue();
+updateStickyCart();
+// Patch aC to also update sticky cart
+var _origAC=window.aC;
+window.aC=function(){_origAC.apply(this,arguments);updateStickyCart();};
 if (!getCookie('cookie_consent')) { document.getElementById('cookieBanner').style.display = 'block'; }
 </script>
 </body>
