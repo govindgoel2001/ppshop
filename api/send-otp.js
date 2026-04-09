@@ -51,7 +51,7 @@ export default async function handler(req, res) {
   await recordOtpAttempt(em, 'send', ip);
 
   const { error: emailErr } = await resend.emails.send({
-    from: 'AthenaBioLabs <noreply@athenabiolabs.com>',
+    from: 'AthenaBioLabs <support@athenabiolabs.com>',
     to: em,
     subject: 'Your verification code — AthenaBioLabs',
     html: `

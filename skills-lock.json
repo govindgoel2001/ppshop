@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "skills": {
+    "ai-image-generation": {
+      "source": "inferen-sh/skills",
+      "sourceType": "github",
+      "computedHash": "9ee6d37669b89f87bb0b1e1f89bf06cca35d69d461786a3fb847b07c4f2c8375"
+    },
+    "nano-banana": {
+      "source": "kkoppenhaver/cc-nano-banana",
+      "sourceType": "github",
+      "computedHash": "15cf9497d277d916a33fbd60fd0eee6f84498e312de42fe8a71beeb3d757e3a6"
+    },
+    "supabase-postgres-best-practices": {
+      "source": "supabase/agent-skills",
+      "sourceType": "github",
+      "computedHash": "e3ba3d760c5f4cc43b02a91fb8924f726c7818f95cc35d79d0a606ca622b72f5"
+    }
+  }
+}
