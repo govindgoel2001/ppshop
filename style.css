@@ -283,10 +283,7 @@ textarea.fi{resize:vertical;min-height:100px}
 .sticky-cta .sca-shop{background:#1a1a1a;color:#FAFAF7}
 .sticky-cta .sca-wa{background:#25D366;color:#fff}
 
-/* Draggable floating WhatsApp button */
-.wa-fab{position:fixed;bottom:90px;right:20px;z-index:600;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);cursor:grab;touch-action:none;transition:box-shadow .2s;user-select:none;-webkit-user-select:none}
-.wa-fab:active{cursor:grabbing;box-shadow:0 6px 24px rgba(37,211,102,.5)}
-.wa-fab svg{width:26px;height:26px;fill:#fff;pointer-events:none}
+
 
 /* Enhanced footer */
 .ft-enhanced{background:#FAFAF7;border-top:1px solid rgba(0,0,0,.06)}
