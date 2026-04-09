@@ -354,7 +354,7 @@ function renderProductPage(pid){
 
   h+='<div class="pdp-top">';
   h+='<div class="pdp-img">';
-  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;max-height:400px;object-fit:contain;display:block;" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
+  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="height:400px;width:auto;max-width:100%;display:block;margin:0 auto;" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
   h+='</div>';
   h+='<div class="pdp-info">';
   h+='<h1>'+p.n+'</h1>';
