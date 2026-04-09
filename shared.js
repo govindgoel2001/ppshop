@@ -17,7 +17,7 @@ var P=[
 {id:11,n:"CJC-1295 (no DAC)",c:"GH",oos:true,v:[{sp:"5mg per vial",ds:"5mg",pr:2800}]},
 {id:12,n:"CJC+IPA Combo",c:"GH",oos:true,v:[{sp:"CJC-1295 5mg + Ipamorelin 5mg",ds:"10mg",pr:3750}]},
 {id:13,n:"KLOW Blend",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 10mg + TB-500 10mg + KPV 10mg + GHK-Cu 50mg",ds:"80mg",pr:3990}]},
-{id:14,n:"BAC Water",c:"Supplies",oos:true,v:[{sp:"1ml per vial",ds:"1ml",pr:799}]}
+{id:14,n:"BAC Water",c:"Supplies",v:[{sp:"1ml per vial",ds:"1ml",pr:799}]}
 ];
 
 var PI={
@@ -354,7 +354,7 @@ function renderProductPage(pid){
 
   h+='<div class="pdp-top">';
   h+='<div class="pdp-img">';
-  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;max-height:380px;object-fit:contain;'+imgStyle(p.n)+'" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
+  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;height:380px;object-fit:cover;object-position:center top;" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
   h+='</div>';
   h+='<div class="pdp-info">';
   h+='<h1>'+p.n+'</h1>';
@@ -448,7 +448,7 @@ function renderRelated(currentProduct){
     var p=related[i],v=p.v[0];
     h+='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc" style="padding:0;cursor:pointer;text-decoration:none;color:inherit">';
     h+='<div style="background:linear-gradient(180deg,#f8f7f4,#f0ede7);overflow:hidden;height:180px;display:flex;align-items:center;justify-content:center">';
-    h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;height:180px;object-fit:contain" onerror="this.outerHTML=\'<span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span>\'">';
+    h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;height:180px;object-fit:cover;object-position:center top" onerror="this.outerHTML=\'<span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span>\'">';
     h+='</div>';
     h+='<div style="padding:20px 24px">';
     h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';
