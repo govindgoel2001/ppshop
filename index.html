@@ -38,7 +38,7 @@ function trackEvent(evName,params){
 <link rel="stylesheet" href="/style.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth}@media(max-width:700px){html{scroll-behavior:auto}}
 ::selection{background:rgba(200,169,126,.2)}
 body{font-family:'DM Sans',sans-serif;background:#FAFAF7;color:#1a1a1a;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -747,8 +747,8 @@ function renderCard(p,i){
   var sel=selV[p.id]||0,v=p.v[sel];
   var priceRange=p.v.length>1?fmt(p.v[0].pr)+' \u2013 '+fmt(p.v[p.v.length-1].pr):fmt(v.pr);
   var h='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc fu" style="animation-delay:'+Math.min(i*0.04,0.5)+'s;padding:0;cursor:pointer;text-decoration:none;color:inherit" onclick="return true">';
-  h+='<div style="background:linear-gradient(180deg,#f8f7f4,#f0ede7);overflow:hidden;height:200px;display:flex;align-items:center;justify-content:center">';
-  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:200px;object-fit:contain;'+imgStyle(p.n)+'" onerror="this.outerHTML=\'<div style=text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:36px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
+  h+='<div style="overflow:hidden;height:220px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f8f7f4,#f0ede7)">';
+  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:220px;object-fit:cover;object-position:center top;'+imgStyle(p.n)+'" onerror="this.outerHTML=\'<div style=text-align:center;padding:40px><span style=font-family:Cormorant+Garamond,serif;font-size:36px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
   h+='</div>';
   h+='<div style="padding:20px 24px">';
   h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';
@@ -1151,8 +1151,8 @@ function renderFeat(){
     var v=p.v[0];
     var delay=Math.min(i*0.08,0.48);
     h+='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc reveal" style="animation-delay:'+delay+'s;padding:0;cursor:pointer;text-decoration:none;color:inherit">';
-    h+='<div style="background:linear-gradient(180deg,#f8f7f4,#f0ede7);overflow:hidden;height:190px;display:flex;align-items:center;justify-content:center">';
-    h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:190px;object-fit:contain;'+imgStyle(p.n)+'" onerror="this.outerHTML=\'<span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span>\'">';
+    h+='<div style="overflow:hidden;height:210px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f8f7f4,#f0ede7)">';
+    h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:210px;object-fit:cover;object-position:center top;" onerror="this.outerHTML=\'<span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span>\'">';
     h+='</div>';
     h+='<div style="padding:20px 24px">';
     h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';
@@ -1298,8 +1298,8 @@ function openPDP(id){
   var h='<button class="pdp-back" onclick="go(\'shop\')">&larr; Back to Shop</button>';
   // Image + Info grid
   h+='<div class="pdp-top">';
-  h+='<div class="pdp-img" style="background:linear-gradient(180deg,#f8f7f4 0%,#f0ede7 100%);padding:32px;display:flex;align-items:center;justify-content:center;min-height:420px">';
-  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:380px;object-fit:contain;'+imgStyle(p.n)+'" onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span><br><span style=font-size:10px;color:#b5b0a6;letter-spacing:2px;margin-top:8px;display:block>IMAGE COMING SOON</span></div>\'">';
+  h+='<div class="pdp-img" style="background:linear-gradient(180deg,#f8f7f4 0%,#f0ede7 100%);padding:0;overflow:hidden;min-height:420px;display:block">';
+  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:100%;min-height:420px;object-fit:cover;object-position:center top;display:block" onerror="this.style.display=\'none\';this.parentNode.style.display=\'flex\';this.parentNode.style.alignItems=\'center\';this.parentNode.style.justifyContent=\'center\';this.parentNode.innerHTML=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
   h+='</div>';
   h+='<div class="pdp-info">';
   // breadcrumb
