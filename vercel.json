@@ -1,6 +1,9 @@
 {
   "outputDirectory": ".",
   "cleanUrls": true,
+  "functions": {
+    "api/*.js": { "maxDuration": 10 }
+  },
   "rewrites": [
     { "source": "/about", "destination": "/index.html" },
     { "source": "/coa", "destination": "/index.html" },

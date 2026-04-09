@@ -43,6 +43,7 @@ alter table orders enable row level security;
 -- Drop any overly permissive existing policies
 drop policy if exists "Allow anon insert" on orders;
 drop policy if exists "Allow all" on orders;
+drop policy if exists "anon can insert orders" on orders;
 
 -- Anon users can only INSERT (place an order), never read others' orders
 create policy "anon can insert orders"
