@@ -1,5 +1,5 @@
 // api/record-coupon.js
-// POST { email: string, code: string, order_id?: string }
+// POST { email: string, code: sting, order_id?: string }
 // Permanently records coupon usage after payment. Requires prior OTP verification.
 
 import { createClient } from '@supabase/supabase-js';
