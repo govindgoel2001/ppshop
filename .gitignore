@@ -1,1 +1,8 @@
-.playwright-mcp/
+node_modules/
+.claude/
+.agents/
+skills-lock.json
+.mcp.json
+*.log
+.env
+.env.local
