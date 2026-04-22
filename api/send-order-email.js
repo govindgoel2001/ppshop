@@ -7,7 +7,7 @@ import { Resend } from 'resend';
 
 const supa = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
-const MERCHANT_EMAIL = process.env.MERCHANT_EMAIL || 'support@athenabiolabs.com';
+const MERCHANT_EMAIL = process.env.MERCHANT_EMAIL || 'govindnarayangoel395@gmail.com';
 const SITE_URL = (process.env.SITE_URL || 'https://athenabiolabs.com').replace(/\/$/, '');
 
 function token() {
