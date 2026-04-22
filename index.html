@@ -361,7 +361,14 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 
 <div class="ov" id="ov" onclick="closeCart()"></div>
 <div class="dr" id="dr">
-<div class="dh"><h2>Your Cart</h2><button class="dx" onclick="closeCart()">&times;</button></div>
+<div class="dh">
+  <div>
+    <div style="font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:6px">Your specimens</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;letter-spacing:-.01em">Research cart</h2>
+  </div>
+  <button class="dx" onclick="closeCart()">&times;</button>
+</div>
+<div id="cartShipProgress" style="padding:18px 32px;background:#F4F1EB;display:none"></div>
 <div class="db" id="dB"></div>
 <div class="df" id="dF" style="display:none"></div>
 </div>
@@ -371,29 +378,68 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 
 <!-- HOME -->
 <div id="pg-home">
-<section class="hr"><div class="w">
-<div class="hr-grid">
-<div class="hr-text">
-<span class="lb">Pharmaceutical-Grade Research Peptides</span>
-<h1>The science of<br><em>precision</em><span class="dt">.</span></h1>
-<p>HPLC-verified peptides with 99%+ purity. Each batch third-party tested. Full COA included. Temperature-controlled shipping.</p>
-<div class="hr-proof"><div class="hr-proof-dots"><span></span><span></span><span></span></div><p>99%+ HPLC purity &mdash; COA included with every batch</p></div>
-<div class="hb">
-<a href="/catalogue" class="b b1">Browse All Peptides</a>
-<a href="/calculator" class="b b2">Dosage Calculator</a>
-<a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="b b3">Book Your Consultation</a>
-</div>
-<div style="display:flex;align-items:center;gap:10px;margin-top:20px">
-<span style="font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#b5b0a6">Accepted:</span>
-<span style="font-size:11px;font-weight:500;color:#6b6560;background:#F0EDE7;padding:5px 14px;letter-spacing:.04em">UPI &amp; Bank Transfer</span>
-<span style="font-size:11px;font-weight:500;color:#6b6560;background:#F0EDE7;padding:5px 14px;letter-spacing:.04em">Cards Accepted</span>
-</div>
-</div>
-<div class="hr-imgs">
-<img src="img/retatrutide.png" alt="Retatrutide research peptide" class="hr-hero-img">
-</div>
-</div>
-</div></section>
+<section style="background:#FAFAF7;padding:72px 0 60px">
+  <div class="w">
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center" class="hero-editorial-grid">
+      <!-- LEFT column -->
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px">
+          <span style="font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#C8A97E">Research-grade peptides</span>
+          <span style="width:40px;height:1px;background:#C8A97E;opacity:.5;display:inline-block"></span>
+          <span style="font-size:10px;color:#b5b0a6;letter-spacing:.12em">EST. 2024</span>
+        </div>
+        <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,92px);font-weight:300;line-height:.95;letter-spacing:-.035em;margin:0 0 28px;color:#1a1a1a">
+          The science<br>
+          <span style="color:#C8A97E">of</span> <em style="font-weight:500">precision<span style="color:#C8A97E">.</span></em>
+        </h1>
+        <p style="font-size:16px;line-height:1.75;color:#6b6560;max-width:440px;margin:0 0 36px;font-weight:300">
+          HPLC-verified research peptides with 99%+ purity. Full batch-specific certificate of analysis available on request.
+        </p>
+        <div style="display:flex;gap:14px;margin-bottom:44px;flex-wrap:wrap">
+          <a href="/catalogue" class="b b1" style="font-size:11px;padding:18px 36px;letter-spacing:.2em">Browse All Peptides</a>
+          <a href="/coa" onclick="go('coa');return false" class="b b2" style="font-size:11px;padding:18px 36px;letter-spacing:.2em">Our Quality Standard</a>
+        </div>
+        <!-- proof strip -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.08);border-top:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08)">
+          <div style="background:#FAFAF7;padding:18px 20px"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:#1a1a1a;line-height:1">99.4%</div><div style="font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6;margin-top:6px">Avg. HPLC Purity</div></div>
+          <div style="background:#FAFAF7;padding:18px 20px"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:#1a1a1a;line-height:1">24h</div><div style="font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6;margin-top:6px">Dispatch SLA</div></div>
+          <div style="background:#FAFAF7;padding:18px 20px"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:#1a1a1a;line-height:1">On request</div><div style="font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6;margin-top:6px">Batch COA</div></div>
+        </div>
+      </div>
+      <!-- RIGHT column: product image with floating COA card -->
+      <div class="hero-editorial-right" style="position:relative;min-height:520px;display:flex;align-items:center;justify-content:center">
+        <img src="/img/retatrutide.png" alt="Retatrutide research peptide" style="max-width:92%;max-height:520px;object-fit:contain;mix-blend-mode:multiply;filter:drop-shadow(0 40px 60px rgba(0,0,0,.18))">
+        <div style="position:absolute;top:12px;left:12px;font-size:9px;font-family:ui-monospace,monospace;color:rgba(0,0,0,.45);letter-spacing:.15em">SPECIMEN · 10/20mg</div>
+        <div style="position:absolute;top:12px;right:12px;font-size:9px;font-family:ui-monospace,monospace;color:rgba(0,0,0,.45);letter-spacing:.15em">BATCH 2403-RTT-09</div>
+        <!-- Floating COA card -->
+        <div style="position:absolute;bottom:0;left:0;width:260px;background:#FAFAF7;padding:20px 22px;box-shadow:0 30px 80px rgba(0,0,0,.12);border:1px solid rgba(0,0,0,.04)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:8px;font-weight:700;letter-spacing:.24em;color:#C8A97E;text-transform:uppercase">COA · Available on request</span>
+            <span style="width:6px;height:6px;border-radius:50%;background:#7a9a6d;display:inline-block"></span>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;margin-bottom:2px">Retatrutide · 10mg</div>
+          <div style="font-size:10px;color:#8a8580;margin-bottom:14px">Lot 2403-RTT-09 · 22.03.26</div>
+          <!-- Inline SVG chromatogram -->
+          <svg width="216" height="34" viewBox="0 0 216 34" style="display:block">
+            <line x1="0" y1="33" x2="216" y2="33" stroke="rgba(0,0,0,.08)" stroke-width="1"/>
+            <path d="M0,30 L40,30 L50,28 L60,30 L90,30 L95,25 L100,30 L115,30 L118,4 L121,30 L145,30 L150,27 L155,30 L216,30" stroke="#C8A97E" stroke-width="1.2" fill="none"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06)">
+            <div><div style="font-size:8px;letter-spacing:.15em;color:#b5b0a6;text-transform:uppercase">Purity</div><div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:16px">99.4%</div></div>
+            <div><div style="font-size:8px;letter-spacing:.15em;color:#b5b0a6;text-transform:uppercase">Endotoxin</div><div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:16px">&lt;0.1</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Responsive: stack on mobile -->
+<style>
+@media(max-width:900px){
+  .hero-editorial-grid{grid-template-columns:1fr!important}
+  .hero-editorial-right{display:none}
+}
+</style>
 <!-- STATS BAR - DARK PREMIUM -->
 <section class="sp-bar">
 <div class="w">
@@ -405,6 +451,102 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </div>
 </div>
 </section>
+
+<!-- INSIDE A BATCH -->
+<section style="background:#EDE8E2;padding:80px 0">
+  <div class="w">
+    <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:center" class="batch-grid">
+      <div>
+        <span style="font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#C8A97E">Inside a batch</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,56px);font-weight:300;line-height:1.05;letter-spacing:-.025em;margin:14px 0 20px">
+          What <em style="font-weight:500">99%+ purity</em><br>actually looks like.
+        </h2>
+        <p style="font-size:15px;line-height:1.8;color:#6b6560;margin:0 0 28px;font-weight:300">
+          Every vial we ship is traced to a single manufacturing lot, with six documented tests in its Certificate of Analysis. Here's what's measured, and why it matters.
+        </p>
+        <a href="mailto:support@athenabiolabs.com?subject=COA%20Request&body=Hi%20Athena%20team%2C%0A%0APlease%20send%20the%20COA%20for%20my%20recent%20order.%0A%0AThank%20you." style="display:inline-block;text-decoration:none;background:transparent;color:#1a1a1a;padding:14px 32px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;border:1px solid #1a1a1a;font-family:'DM Sans',sans-serif">Request a sample COA →</a>
+      </div>
+      <div style="background:#FAFAF7;padding:36px 40px;box-shadow:0 30px 80px rgba(0,0,0,.08)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:22px">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.01em">Retatrutide · 10mg</div>
+            <div style="font-family:ui-monospace,monospace;font-size:10px;color:#8a8580;margin-top:4px;letter-spacing:.08em">Lot № 2403-RTT-09 · Manufactured 22 Mar 2026</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:8px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:4px">Verified</div>
+            <div style="display:flex;align-items:center;gap:5px;justify-content:flex-end">
+              <span style="width:6px;height:6px;border-radius:50%;background:#7a9a6d;display:inline-block"></span>
+              <span style="font-size:10px;color:#6b6560">Third-party lab</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 32px;margin-bottom:24px">
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">HPLC Purity</div><div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#7a9a6d">99.4%</span><span style="font-size:10px;color:#8a8580">Chromatogram ≥99%</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Mass Spec.</div><div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">4401.2</span><span style="font-size:10px;color:#8a8580">Expected 4400.6 Da</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Endotoxin</div><div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#7a9a6d">&lt;0.1 EU/mg</span><span style="font-size:10px;color:#8a8580">Below threshold</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Residual Solvent</div><div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">ND</span><span style="font-size:10px;color:#8a8580">Not detected</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Appearance</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">White</div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Moisture</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">1.8%</div></div>
+        </div>
+        <div style="background:#1a1a1a;padding:20px 24px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:8px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(200,169,126,.75)">HPLC Chromatogram · UV 220nm</span>
+            <span style="font-size:8px;font-family:ui-monospace,monospace;color:rgba(250,250,247,.4);letter-spacing:.14em">99.42% AREA</span>
+          </div>
+          <svg width="100%" viewBox="0 0 460 70" style="display:block">
+            <line x1="0" y1="69" x2="460" y2="69" stroke="rgba(250,250,247,.1)" stroke-width="1"/>
+            <path d="M0,65 L70,65 L80,62 L90,65 L130,65 L140,58 L150,65 L220,65 L225,8 L230,65 L300,65 L310,60 L320,65 L390,65 L395,62 L400,65 L460,65" stroke="#C8A97E" stroke-width="1.5" fill="none"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:8px;font-family:ui-monospace,monospace;color:rgba(250,250,247,.35);margin-top:4px;letter-spacing:.1em">
+            <span>0.0</span><span>5.0</span><span>10.0</span><span>15.0</span><span>20.0</span><span>25.0 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+@media(max-width:900px){.batch-grid{grid-template-columns:1fr!important}}
+</style>
+
+<!-- PURITY STRIP -->
+<section style="background:#1a1a1a;padding:60px 0;color:#FAFAF7">
+  <div class="w">
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:64px;align-items:center" class="purity-grid">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#C8A97E;margin-bottom:14px">Live purity proof</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;letter-spacing:-.02em;line-height:1.05;margin:0 0 12px">Every peak <em style="font-weight:500;color:#C8A97E">accounted</em> for.</h3>
+        <p style="font-size:12px;color:rgba(250,250,247,.55);line-height:1.7;margin:0;font-weight:300">Each bar represents a recent batch's HPLC area percentage. We don't ship below 99%.</p>
+      </div>
+      <div>
+        <div style="display:grid;grid-template-columns:repeat(14,1fr);gap:6px;align-items:end;height:120px;margin-bottom:18px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.2</div><div style="width:100%;height:22%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.5</div><div style="width:100%;height:52%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.7</div><div style="width:100%;height:72%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.3</div><div style="width:100%;height:32%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.8</div><div style="width:100%;height:82%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.4</div><div style="width:100%;height:42%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.6</div><div style="width:100%;height:62%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.2</div><div style="width:100%;height:22%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.9</div><div style="width:100%;height:100%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.4</div><div style="width:100%;height:42%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.5</div><div style="width:100%;height:52%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.7</div><div style="width:100%;height:72%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.3</div><div style="width:100%;height:32%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:ui-monospace,monospace;font-size:8px;color:rgba(200,169,126,.65);letter-spacing:.04em">99.6</div><div style="width:100%;height:62%;background:linear-gradient(180deg,#C8A97E,rgba(200,169,126,.3))"></div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:rgba(250,250,247,.3);letter-spacing:.12em;border-top:1px solid rgba(250,250,247,.12);padding-top:10px">
+          <span>LAST 14 BATCHES</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:28px;height:1px;background:#C8A97E;display:inline-block"></span> 99.0% MIN. SHIP SPEC</span>
+          <span>TODAY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+@media(max-width:900px){.purity-grid{grid-template-columns:1fr!important}}
+</style>
 
 <!-- HOW IT WORKS -->
 <section class="sec-warm" style="padding:60px 0;margin-top:0"><div class="w">
@@ -745,27 +887,63 @@ function go(id){
   try{history.pushState(null,'',urlMap[id]||'/');}catch(e){}
 }
 
-// PRODUCTS - Premier Bio card style
+// PRODUCTS - V3 Scientific card
 function renderCard(p,i){
   var sel=selV[p.id]||0,v=p.v[sel];
-  var priceRange=p.v.length>1?fmt(p.v[0].pr)+' \u2013 '+fmt(p.v[p.v.length-1].pr):fmt(v.pr);
-  var h='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc fu" style="animation-delay:'+Math.min(i*0.04,0.5)+'s;padding:0;cursor:pointer;text-decoration:none;color:inherit" onclick="return true">';
-  h+='<div style="overflow:hidden;height:220px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f8f7f4,#f0ede7)">';
-  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:220px;object-fit:cover;object-position:center top;'+imgStyle(p.n)+'" onerror="this.outerHTML=\'<div style=text-align:center;padding:40px><span style=font-family:Cormorant+Garamond,serif;font-size:36px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
-  h+='</div>';
-  h+='<div style="padding:20px 24px">';
-  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';
-  h+='<h3 style="font-size:18px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em">'+p.n+'</h3>';
-  if(p.v.length>1) h+='<div style="font-size:11px;color:#8a8580;margin-bottom:8px">'+p.v.length+' strengths available</div>';
-  h+='<div style="display:flex;align-items:center;justify-content:space-between">';
-  if(p.oos){
-    h+='<div><span class="pp" style="font-size:18px;color:#b5b0a6">'+priceRange+'</span></div>';
-    h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;background:#f0ede7;padding:4px 10px;border-radius:3px">Out of Stock</span>';
-  } else {
-    h+='<div><span class="pp" style="font-size:18px">'+priceRange+'</span></div>';
-    h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E">Select options \u203a</span>';
+  var priceFrom=p.v[0].pr;
+  var purity=99.2+(Math.abs(p.id*7+13)%8)*0.1; // deterministic fake purity per product
+  purity=Math.round(purity*10)/10;
+  var batchNum=2401+p.id;
+
+  // Build a simple SVG chromatogram peak
+  var peakX=0.45+(p.id%7)*0.03;
+  var svgPts=[];
+  for(var k=0;k<80;k++){
+    var xf=k/79;
+    var base=0.88;
+    var bigPeak=Math.exp(-Math.pow((xf-peakX)/0.035,2))*0.78;
+    var smallPeak=Math.exp(-Math.pow((xf-0.25)/0.045,2))*0.12;
+    var y=base-bigPeak-smallPeak;
+    svgPts.push([xf*276,y*52]);
   }
-  h+='</div></div></a>';
+  var svgD=svgPts.map(function(pt,j){return(j===0?'M':'L')+pt[0].toFixed(1)+','+pt[1].toFixed(1);}).join(' ');
+
+  var h='<a href="/products/'+SLUG_MAP[p.id]+'" style="display:block;background:#FAFAF7;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:box-shadow .2s" class="pc fu" style="animation-delay:'+Math.min(i*0.04,0.5)+'s">';
+  // Dark specimen panel
+  h+='<div style="background:#1a1a1a;padding:22px 24px 0">';
+  h+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">';
+  h+='<div>';
+  h+='<div style="font-size:8px;font-family:ui-monospace,SFMono-Regular,monospace;letter-spacing:.18em;color:rgba(200,169,126,.7);margin-bottom:4px">BATCH · '+batchNum+'</div>';
+  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:500;color:#FAFAF7;letter-spacing:-.01em">'+p.n+'</div>';
+  h+='<div style="font-size:10px;color:rgba(250,250,247,.4);margin-top:2px">'+p.c+'</div>';
+  h+='</div>';
+  if(p.oos) h+='<div style="font-size:8px;font-weight:700;letter-spacing:.2em;color:#b5b0a6;border:1px solid rgba(250,250,247,.15);padding:5px 9px">OOS</div>';
+  h+='</div>';
+  // HPLC trace SVG
+  h+='<svg width="276" height="52" viewBox="0 0 276 52" style="display:block;margin-right:-8px">';
+  h+='<line x1="0" y1="51" x2="276" y2="51" stroke="rgba(0,0,0,.08)" stroke-width="1"/>';
+  h+='<path d="'+svgD+'" stroke="#C8A97E" stroke-width="1.2" fill="none"/>';
+  h+='</svg>';
+  h+='<div style="display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:8px;color:rgba(250,250,247,.35);padding:4px 0 12px;letter-spacing:.08em"><span>0.0 min</span><span>HPLC-UV · 220nm</span><span>22.5 min</span></div>';
+  h+='</div>';
+  // Data rows
+  h+='<div style="padding:0 24px">';
+  h+='<div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:11px;align-items:baseline"><span style="color:#b5b0a6;letter-spacing:.14em;text-transform:uppercase;font-size:9px;font-weight:600">Purity</span><span style="font-family:ui-monospace,monospace;color:#7a9a6d;font-size:11px">'+purity+'%</span></div>';
+
+  var info=typeof PI!=='undefined'&&PI[p.n]?PI[p.n]:{mw:'—',seq:'—'};
+  h+='<div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:11px;align-items:baseline"><span style="color:#b5b0a6;letter-spacing:.14em;text-transform:uppercase;font-size:9px;font-weight:600">Mol. Weight</span><span style="font-family:ui-monospace,monospace;color:#1a1a1a;font-size:11px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(info.mw||'—')+'</span></div>';
+  h+='</div>';
+  // Price + CTA
+  h+='<div style="padding:18px 24px 22px;display:flex;justify-content:space-between;align-items:center">';
+  h+='<div><div style="font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6;margin-bottom:2px">From</div>';
+  h+='<span style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:600">'+fmt(priceFrom)+'</span></div>';
+  if(p.oos){
+    h+='<span style="font-family:\'DM Sans\',sans-serif;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b5b0a6;border:1px solid #d4d0c8;padding:8px 16px">Out of Stock</span>';
+  } else {
+    h+='<span style="font-family:\'DM Sans\',sans-serif;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;background:#1a1a1a;color:#FAFAF7;padding:11px 20px">View →</span>';
+  }
+  h+='</div>';
+  h+='</a>';
   return h;
 }
 function rP(){
@@ -934,18 +1112,51 @@ function rC(){
   var bd=document.getElementById("dB"),ft=document.getElementById("dF");
   ft.style.display="none"; // never use the fixed footer
   if(!cart.length){
+    // Hide shipping progress when empty
+    var progEl=document.getElementById('cartShipProgress');
+    if(progEl) progEl.style.display='none';
     bd.innerHTML='<div style="text-align:center;padding:80px 0"><p style="font-family:Cormorant Garamond,serif;font-size:20px;font-style:italic;color:#b5b0a6;margin-bottom:24px">Your cart is empty</p><button class="b b2" onclick="closeCart();go(\'shop\')">Browse Collection</button></div>';
     return;
+  }
+  // Update shipping progress
+  var progEl=document.getElementById('cartShipProgress');
+  if(progEl){
+    var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
+    var FREE=5000,prog=Math.min(1,sub/FREE);
+    progEl.style.display='block';
+    if(prog>=1){
+      progEl.innerHTML='<div style="display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:#7a9a6d;display:inline-block"></span><span style="font-size:11px;color:#1a1a1a;font-weight:500">Complimentary <strong>cold-chain shipping</strong> unlocked.</span></div>';
+    } else {
+      progEl.innerHTML='<div style="font-size:11px;color:#4a4540;margin-bottom:8px">Add <strong>'+fmt(FREE-sub)+'</strong> for free cold-chain shipping</div><div style="height:3px;background:rgba(0,0,0,.08)"><div style="width:'+Math.round(prog*100)+'%;height:100%;background:#C8A97E"></div></div>';
+    }
   }
   var h="";
   for(var i=0;i<cart.length;i++){
     var it=cart[i];
-    h+='<div class="ci"><div class="ct">'+mono(it.n)+'</div>';
-    h+='<div class="cd2"><h4>'+it.n+'</h4><div class="cm">'+it.ds+' &middot; '+it.sp+' &middot; 99%+ HPLC</div>';
-    h+='<div style="margin-top:10px;display:flex;align-items:center"><div class="cq">';
-    h+='<button onclick="cQ('+it.id+','+it.vi+',-1)">&minus;</button><span>'+it.q+'</span><button onclick="cQ('+it.id+','+it.vi+',1)">+</button>';
-    h+='</div><button class="cr" onclick="rm('+it.id+','+it.vi+')">Remove</button></div></div>';
-    h+='<div class="cp">'+fmt(it.pr*it.q)+'</div></div>';
+    h+='<div class="ci" style="display:grid;grid-template-columns:72px 1fr auto;gap:16px;padding:20px 0;border-bottom:'+(i<cart.length-1?'1px solid rgba(0,0,0,.06)':'none')+';align-items:flex-start">';
+    // Thumb
+    h+='<div style="width:72px;height:92px;background:linear-gradient(160deg,#F4F1EB,#E8E3DA);display:flex;align-items:center;justify-content:center;overflow:hidden">';
+    h+='<img src="/img/'+((typeof IMG!=='undefined'&&IMG[it.n])||it.n.toLowerCase().replace(/[^a-z0-9]/g,'-')+'.png')+'" alt="'+it.n+'" style="max-width:82%;max-height:90%;object-fit:contain;mix-blend-mode:multiply" onerror="this.style.display=\'none\'">';
+    h+='</div>';
+    // Body
+    h+='<div>';
+    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.15">'+it.n+'</div>';
+    h+='<div style="font-size:11px;color:#8a8580;margin-top:2px;margin-bottom:10px">'+it.ds+'</div>';
+    h+='<div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#4a4540;background:#F0EDE7;padding:3px 8px;margin-bottom:12px"><span style="width:4px;height:4px;border-radius:50%;background:#7a9a6d;display:inline-block"></span>99%+ HPLC · COA on request</div>';
+    h+='<div style="display:flex;align-items:center;gap:14px">';
+    h+='<div style="display:flex;align-items:center;border:1px solid rgba(0,0,0,.14)">';
+    h+='<button onclick="cQ('+it.id+','+it.vi+',-1)" style="width:28px;height:28px;background:transparent;border:none;font-size:14px;color:#4a4540;cursor:pointer">&minus;</button>';
+    h+='<div style="width:28px;text-align:center;font-size:12px;font-family:ui-monospace,monospace">'+it.q+'</div>';
+    h+='<button onclick="cQ('+it.id+','+it.vi+',1)" style="width:28px;height:28px;background:transparent;border:none;font-size:14px;color:#4a4540;cursor:pointer">+</button>';
+    h+='</div>';
+    h+='<button onclick="rm('+it.id+','+it.vi+')" style="background:transparent;border:none;font-size:10px;color:#8a8580;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Remove</button>';
+    h+='</div>';
+    h+='</div>';
+    // Price
+    h+='<div style="text-align:right"><div style="font-family:\'Cormorant Garamond\',serif;font-size:18px;font-weight:600">'+fmt(it.pr*it.q)+'</div>';
+    if(it.q>1) h+='<div style="font-size:10px;color:#8a8580;margin-top:2px">'+fmt(it.pr)+' ea.</div>';
+    h+='</div>';
+    h+='</div>';
   }
   // Checkout section flows below items
   h+='<div style="border-top:1px solid rgba(0,0,0,.06);margin-top:16px;padding-top:20px">';

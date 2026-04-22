@@ -59,6 +59,228 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </footer>
 <div class="sticky-cta pdp-cta"><a href="/catalogue" class="sca-shop">Shop All Peptides</a><a href="https://wa.me/919560397569" target="_blank" rel="noopener" class="sca-wa">WhatsApp</a></div>
 <div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:800;background:#1a1a1a;padding:16px 24px"><div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap"><p style="font-size:12px;color:rgba(250,250,247,.7);margin:0;flex:1">We use cookies to improve your experience.</p><div style="display:flex;gap:8px"><button onclick="acceptCookies()" style="font-family:DM Sans,sans-serif;font-size:10px;font-weight:600;padding:10px 20px;background:#C8A97E;color:#fff;border:none;cursor:pointer">Accept</button><button onclick="declineCookies()" style="font-family:DM Sans,sans-serif;font-size:10px;padding:10px 20px;background:transparent;color:rgba(250,250,247,.5);border:1px solid rgba(250,250,247,.2);cursor:pointer">Decline</button></div></div></div>
+
+
+<!-- RECONSTITUTION CALCULATOR -->
+<section style="background:#F4F1EB;padding:72px 0" id="reconCalcSection">
+<div class="w">
+  <div style="display:grid;grid-template-columns:300px 1fr;gap:48px;margin-bottom:28px" class="recon-header-grid">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C8A97E;margin-bottom:12px">Dosage planning</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:400;letter-spacing:-.02em;line-height:1.05;margin:0">Work out your<br><em style="font-weight:500">reconstitution.</em></h2>
+    </div>
+    <div style="padding-top:12px">
+      <p style="font-size:13px;line-height:1.75;color:#4a4540;margin:0;max-width:640px">Adjust the inputs &#8212; concentration, draw volume, and insulin-unit equivalent are calculated live. For research planning only.</p>
+    </div>
+  </div>
+  <div style="background:#FAFAF7;border:1px solid rgba(0,0,0,.08)">
+    <div style="display:grid;grid-template-columns:1fr 1fr" class="recon-inner-grid">
+      <div style="padding:28px 32px;border-right:1px solid rgba(0,0,0,.06)">
+        <div style="margin-bottom:22px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:10px">Vial strength</div>
+          <div style="display:flex;gap:6px" id="rcVialBtns">
+            <button onclick="rcSetVial(10,this)" class="rc-vial-btn" style="flex:1;padding:11px 0;border:1px solid rgba(0,0,0,.14);background:#1a1a1a;color:#FAFAF7;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;cursor:pointer;letter-spacing:-.01em" data-val="10">10mg</button>
+            <button onclick="rcSetVial(20,this)" class="rc-vial-btn" style="flex:1;padding:11px 0;border:1px solid rgba(0,0,0,.14);background:transparent;color:#4a4540;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;cursor:pointer;letter-spacing:-.01em" data-val="20">20mg</button>
+          </div>
+        </div>
+        <div style="margin-bottom:22px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:10px">BAC water added</div>
+          <div style="display:flex;align-items:center">
+            <input type="range" id="rcBacWater" min="0.5" max="5" step="0.5" value="2" oninput="rcUpdate()" style="flex:1;accent-color:#C8A97E">
+            <div style="width:82px;text-align:right;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;margin-left:12px"><span id="rcBacVal">2</span><span style="font-size:11px;color:#8a8580;margin-left:3px">mL</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:10px">Target dose / injection</div>
+          <div style="display:flex;align-items:center">
+            <input type="range" id="rcDose" min="0.5" max="8" step="0.5" value="2" oninput="rcUpdate()" style="flex:1;accent-color:#C8A97E">
+            <div style="width:82px;text-align:right;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;margin-left:12px"><span id="rcDoseVal">2</span><span style="font-size:11px;color:#8a8580;margin-left:3px">mg</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#1a1a1a;color:#FAFAF7;padding:28px 32px;position:relative">
+        <div style="display:flex;justify-content:space-between;font-size:9px;font-family:ui-monospace,monospace;letter-spacing:.2em;color:rgba(200,169,126,.7);margin-bottom:22px;padding-bottom:10px;border-bottom:1px solid rgba(250,250,247,.12)">
+          <span>LIVE READOUT</span>
+          <span id="rcDate"></span>
+        </div>
+        <div style="margin-bottom:24px">
+          <div style="font-size:10px;letter-spacing:.2em;color:rgba(250,250,247,.45);text-transform:uppercase;margin-bottom:8px">Concentration</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:300;line-height:1;letter-spacing:-.03em;color:#C8A97E"><span id="rcConc">5.0</span><span style="font-size:20px;color:rgba(250,250,247,.5);margin-left:6px">mg/mL</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+          <div>
+            <div style="font-size:9px;letter-spacing:.2em;color:rgba(250,250,247,.45);text-transform:uppercase;margin-bottom:4px">Draw per dose</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500"><span id="rcMlDose">0.40</span><span style="font-size:12px;color:rgba(250,250,247,.5);margin-left:3px">mL</span></div>
+            <div style="font-size:10px;color:rgba(200,169,126,.85);margin-top:2px;font-family:ui-monospace,monospace">approx <span id="rcUnits">40</span> insulin units</div>
+          </div>
+          <div>
+            <div style="font-size:9px;letter-spacing:.2em;color:rgba(250,250,247,.45);text-transform:uppercase;margin-bottom:4px">Doses per vial</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500"><span id="rcDosesPerVial">5</span></div>
+            <div style="font-size:10px;color:rgba(250,250,247,.4);margin-top:2px;font-family:ui-monospace,monospace">@ <span id="rcDoseMg">2</span>mg each</div>
+          </div>
+        </div>
+        <div id="rcWarn" style="display:none;margin-top:18px;padding:10px 12px;background:rgba(200,169,126,.14);border-left:2px solid #C8A97E;font-size:10px;color:rgba(250,250,247,.85);line-height:1.5"></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px;font-size:10px;color:#b5b0a6;letter-spacing:.03em">For research planning only. Not intended to guide human or animal use.</div>
+</div>
+</section>
+<style>
+@media(max-width:900px){
+  .recon-header-grid{grid-template-columns:1fr!important}
+  .recon-inner-grid{grid-template-columns:1fr!important}
+}
+</style>
+<script>
+var rcVial=10;
+function rcSetVial(v,btn){
+  rcVial=v;
+  document.querySelectorAll('.rc-vial-btn').forEach(function(b){
+    b.style.background=parseInt(b.dataset.val)===v?'#1a1a1a':'transparent';
+    b.style.color=parseInt(b.dataset.val)===v?'#FAFAF7':'#4a4540';
+  });
+  rcUpdate();
+}
+function rcUpdate(){
+  var bac=parseFloat(document.getElementById('rcBacWater').value)||2;
+  var dose=parseFloat(document.getElementById('rcDose').value)||2;
+  document.getElementById('rcBacVal').textContent=bac;
+  document.getElementById('rcDoseVal').textContent=dose;
+  document.getElementById('rcDoseMg').textContent=dose;
+  var conc=rcVial/bac;
+  var mlDose=dose/conc;
+  var units=mlDose*100;
+  var dosesPerVial=rcVial/dose;
+  document.getElementById('rcConc').textContent=conc.toFixed(1);
+  document.getElementById('rcMlDose').textContent=mlDose.toFixed(2);
+  document.getElementById('rcUnits').textContent=Math.round(units);
+  document.getElementById('rcDosesPerVial').textContent=Math.round(dosesPerVial);
+  var warn=document.getElementById('rcWarn');
+  if(mlDose>1||mlDose<0.05){
+    warn.style.display='block';
+    warn.textContent='Volume is '+(mlDose>1?'unusually large \u2014 consider adding more BAC water.':'very small \u2014 reduce dose or add less BAC water.');
+  } else {
+    warn.style.display='none';
+  }
+}
+var rcDateEl=document.getElementById('rcDate');
+if(rcDateEl){var d=new Date();rcDateEl.textContent=(d.getDate()<10?'0':'')+d.getDate()+' '+'JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC'.split(' ')[d.getMonth()]+' '+d.getFullYear();}
+rcUpdate();
+</script>
+
+
+<!-- INTERACTIVE CHROMATOGRAM -->
+<section style="background:#FAFAF7;padding:72px 0" id="chromSection">
+<div class="w">
+  <div style="display:grid;grid-template-columns:300px 1fr;gap:48px;margin-bottom:28px" class="chrom-header-grid">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#C8A97E;margin-bottom:12px">Batch COA</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:400;letter-spacing:-.02em;line-height:1.05;margin:0">Every peak,<br><em style="font-weight:500">accounted for.</em></h2>
+    </div>
+    <div style="padding-top:12px">
+      <p style="font-size:13px;line-height:1.75;color:#4a4540;margin:0 0 16px;max-width:640px">Drag across the trace to inspect each peak &#8212; retention time, assignment, and area percentage.</p>
+      <a href="mailto:support@athenabiolabs.com?subject=COA%20Request" style="background:transparent;color:#1a1a1a;padding:12px 24px;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;border:1px solid #1a1a1a;text-decoration:none;display:inline-block;font-family:'DM Sans',sans-serif">Request batch COA &#8594;</a>
+    </div>
+  </div>
+  <div style="background:#1a1a1a;color:#FAFAF7;padding:28px 32px;position:relative">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:4px">HPLC Chromatogram &#183; Interactive</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500">Drag to inspect peaks</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:9px;font-family:ui-monospace,monospace;color:rgba(250,250,247,.45);letter-spacing:.16em">UV 220 nm &#183; C18 &#183; 0.1% TFA</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:#7a9a6d;margin-top:2px" id="chromPurity">99.4%<span style="font-size:11px;color:rgba(250,250,247,.5);margin-left:4px">area</span></div>
+      </div>
+    </div>
+    <div id="chromContainer" style="position:relative;cursor:crosshair">
+      <svg id="chromSVG" width="100%" viewBox="0 0 640 160" style="display:block"></svg>
+      <div id="chromTooltip" style="position:absolute;top:0;background:#FAFAF7;color:#1a1a1a;padding:8px 12px;font-size:10px;white-space:nowrap;pointer-events:none;box-shadow:0 10px 24px rgba(0,0,0,.3);display:none">
+        <div id="chromTipName" style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;letter-spacing:-.01em"></div>
+        <div id="chromTipNote" style="font-size:9px;color:#8a8580;margin-top:1px;font-family:ui-monospace,monospace"></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:9px;font-family:ui-monospace,monospace;color:rgba(250,250,247,.4);letter-spacing:.1em;margin-top:4px">
+      <span>0.0</span><span>5.0</span><span>10.0</span><span>15.0</span><span>20.0 min</span>
+    </div>
+  </div>
+</div>
+</section>
+<style>
+@media(max-width:900px){.chrom-header-grid{grid-template-columns:1fr!important}}
+</style>
+<script>
+(function(){
+  var productPeaks = window.CHROM_PEAKS || [
+    {x:0.10,h:0.06,name:'Injection',rt:'1.2',note:'Solvent front'},
+    {x:0.28,h:0.12,name:'Impurity A',rt:'5.1',note:'Isomer \u00b7 0.18%'},
+    {x:0.42,h:0.08,name:'Impurity B',rt:'7.8',note:'Unknown \u00b7 0.11%'},
+    {x:0.55,h:0.82,name:'Main peak',rt:'10.4',note:'Main peak \u00b7 99.42%'},
+    {x:0.72,h:0.10,name:'Impurity C',rt:'13.7',note:'Oxidation \u00b7 0.21%'},
+    {x:0.88,h:0.06,name:'Wash',rt:'17.1',note:'System peak'}
+  ];
+  var W=640,H=160;
+  function yAt(xf){
+    var total=0;
+    for(var i=0;i<productPeaks.length;i++){
+      total+=productPeaks[i].h*Math.exp(-Math.pow((xf-productPeaks[i].x)/0.018,2));
+    }
+    return Math.min(0.95,total+0.04);
+  }
+  var pts=[];
+  for(var i=0;i<160;i++){var xf=i/159;pts.push([xf*W,(1-yAt(xf))*H]);}
+  var d=pts.map(function(p,i){return(i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');
+  var svg=document.getElementById('chromSVG');
+  if(!svg)return;
+  var gridHTML='';
+  [0.2,0.4,0.6,0.8].forEach(function(g){
+    gridHTML+='<line x1="'+(g*W).toFixed(0)+'" y1="0" x2="'+(g*W).toFixed(0)+'" y2="'+H+'" stroke="rgba(250,250,247,.05)" stroke-width="1"/>';
+  });
+  gridHTML+='<line x1="0" y1="'+(H-1)+'" x2="'+W+'" y2="'+(H-1)+'" stroke="rgba(250,250,247,.2)" stroke-width="1"/>';
+  gridHTML+='<path d="'+d+' L'+W+','+H+' L0,'+H+' Z" fill="rgba(200,169,126,.08)"/>';
+  gridHTML+='<path d="'+d+'" stroke="#C8A97E" stroke-width="1.5" fill="none"/>';
+  productPeaks.forEach(function(p){
+    var px=(p.x*W).toFixed(1),py=((1-yAt(p.x))*H-8).toFixed(1);
+    gridHTML+='<text x="'+px+'" y="'+py+'" font-size="8" fill="rgba(250,250,247,.4)" text-anchor="middle" font-family="ui-monospace,monospace" letter-spacing="0.05em">'+p.rt+'</text>';
+  });
+  gridHTML+='<line id="chromCursorLine" x1="350" y1="0" x2="350" y2="'+H+'" stroke="rgba(250,250,247,.35)" stroke-width="1" stroke-dasharray="3 3"/>';
+  gridHTML+='<circle id="chromCursorDot" cx="350" cy="80" r="5" fill="#FAFAF7" stroke="#C8A97E" stroke-width="1.5"/>';
+  svg.innerHTML=gridHTML;
+  var container=document.getElementById('chromContainer');
+  var tooltip=document.getElementById('chromTooltip');
+  var tipName=document.getElementById('chromTipName');
+  var tipNote=document.getElementById('chromTipNote');
+  var cursorLine=document.getElementById('chromCursorLine');
+  var cursorDot=document.getElementById('chromCursorDot');
+  function handleMove(e){
+    var rect=container.getBoundingClientRect();
+    var clientX=e.touches?e.touches[0].clientX:e.clientX;
+    var xf=Math.max(0,Math.min(1,(clientX-rect.left)/rect.width));
+    var px=xf*W,py=(1-yAt(xf))*H;
+    if(cursorLine){cursorLine.setAttribute('x1',px.toFixed(1));cursorLine.setAttribute('x2',px.toFixed(1));}
+    if(cursorDot){cursorDot.setAttribute('cx',px.toFixed(1));cursorDot.setAttribute('cy',py.toFixed(1));}
+    var closest=productPeaks[0];
+    for(var i=1;i<productPeaks.length;i++){
+      if(Math.abs(productPeaks[i].x-xf)<Math.abs(closest.x-xf)) closest=productPeaks[i];
+    }
+    if(tooltip&&tipName&&tipNote){
+      tipName.textContent=closest.name;
+      tipNote.textContent='RT '+closest.rt+' min \u00b7 '+closest.note;
+      tooltip.style.display='block';
+      var leftPct=xf*100;
+      tooltip.style.left=Math.min(leftPct,70)+'%';
+      tooltip.style.top='-56px';
+    }
+  }
+  if(container){
+    container.addEventListener('mousemove',handleMove);
+    container.addEventListener('touchmove',function(e){e.preventDefault();handleMove(e);},{passive:false});
+    container.addEventListener('mouseleave',function(){if(tooltip)tooltip.style.display='none';});
+  }
+})();
+</script>
+
 <script src="/shared.js"></script>
 <script>cyclePromo();setInterval(cyclePromo,4000);setTimeout(function(){showSP();setInterval(showSP,36000);},8000);uB();renderProductPage(12);initReveal();if(!getCookie('cookie_consent')){document.getElementById('cookieBanner').style.display='block';}</script>
 </body></html>
