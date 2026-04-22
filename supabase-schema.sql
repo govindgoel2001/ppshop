@@ -89,3 +89,15 @@ alter table otp_attempts enable row level security;
 -- ─────────────────────────────────────────────
 create index if not exists coupon_usage_email_idx on coupon_usage (email);
 create index if not exists orders_email_idx on orders (email);
+
+-- ─────────────────────────────────────────────
+-- contact_submissions: website contact form
+-- ─────────────────────────────────────────────
+create table if not exists contact_submissions (
+  id          bigserial primary key,
+  name        text not null,
+  email       text not null,
+  subject     text,
+  message     text not null,
+  created_at  timestamptz default now()
+);
