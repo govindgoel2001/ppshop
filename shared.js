@@ -20,17 +20,24 @@ var P=[
 {id:14,n:"BAC Water",c:"Supplies",v:[{sp:"10ml per vial",ds:"10ml",pr:799}]}
 ];
 
+var _cfaqs=[
+  {q:'How is this shipped?',a:'All peptides ship cold-chain in an insulated pack with ice gel. Express courier, typically 2\u20134 days pan-India.'},
+  {q:'What is the storage protocol?',a:'Store lyophilised powder at \u221220\u00b0C. After reconstituting with bacteriostatic water, store at 2\u20138\u00b0C and use within 28 days.'},
+  {q:'Is a Certificate of Analysis included?',a:'Yes. A QR-linked COA showing HPLC purity trace, mass spec, and LAL endotoxin result from an ISO\u00a017025-accredited lab ships with every vial.'},
+  {q:'What assays are run on each batch?',a:'Reverse-phase C18 HPLC for purity and area%, ESI-MS for molecular weight confirmation, and LAL endotoxin screening.'},
+  {q:'Is this for human use?',a:'No. All products are sold strictly for in-vitro laboratory research. Not intended for human or animal administration.'}
+];
 var PI={
-"Tirzepatide":{desc:"First-in-class dual GIP/GLP-1 receptor agonist. The dual mechanism produces synergistic metabolic effects exceeding mono-agonists, with significant research interest in glycemic control, weight management, and lipid profiles.",dose:"2.5 - 15mg weekly, subcutaneous",mw:"4813.45 g/mol",seq:"GIP/GLP-1 dual agonist (39 AA)",cat:"Metabolic"},
-"Retatrutide":{desc:"Novel triple agonist targeting GLP-1, GIP, and glucagon receptors simultaneously. The glucagon component adds thermogenic and lipolytic effects, representing a potential advancement over dual agonists.",dose:"1 - 12mg weekly, subcutaneous",mw:"~4400 g/mol",seq:"Triple agonist (39 AA)",cat:"Weight Loss"},
-"BPC-157":{desc:"A 15-amino-acid peptide derived from human gastric juice. Extensively studied for accelerated healing of tendons, ligaments, muscle, and bone. Promotes angiogenesis and modulates nitric oxide pathways.",dose:"200 - 500mcg 1-2x daily, subcutaneous",mw:"1419.53 g/mol",seq:"Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",cat:"Healing & Recovery"},
-"TB-500":{desc:"A 43-amino-acid peptide central to tissue repair and regeneration. Sequesters actin monomers, promotes cell migration, and has demonstrated effects on cardiac tissue repair and inflammation reduction.",dose:"2 - 5mg 2x weekly (loading), subcutaneous",mw:"4963.50 g/mol",seq:"Thymosin Beta-4 (43 AA)",cat:"Healing & Recovery"},
-"BPC+TB Combo":{desc:"Pre-blended stack of BPC-157 and TB-500. Combines BPC-157's site-specific healing with TB-500's systemic actin-sequestering and anti-inflammatory effects for comprehensive tissue regeneration research.",dose:"Per protocol, subcutaneous",mw:"Blend",seq:"BPC-157 + TB-500",cat:"Healing & Recovery"},
-"GHK-Cu":{desc:"A naturally occurring tripeptide-copper complex. Over 4,000 genes modulated by GHK-Cu have been identified, with effects including collagen synthesis, antioxidant enzyme upregulation, and dermal fibroblast promotion.",dose:"1 - 2mg daily, subcutaneous",mw:"340.38 g/mol",seq:"Gly-His-Lys:Cu(2+)",cat:"Skin & Anti-Aging"},
-"CJC-1295 (no DAC)":{desc:"Synthetic GHRH analog with ~30 min half-life producing acute GH pulses mimicking natural physiology. Commonly paired with GHRP peptides for synergistic pulsatile GH release.",dose:"100 - 200mcg 1-3x daily, subcutaneous",mw:"3367.97 g/mol",seq:"GHRH analog (29 AA, mod.)",cat:"GH"},
-"CJC+IPA Combo":{desc:"Pre-blended combination of CJC-1295 (no DAC) and Ipamorelin. Synergistic GH release through simultaneous GHRH and ghrelin receptor activation, producing amplified pulsatile GH output.",dose:"100 - 300mcg combined, 1-3x daily, subcutaneous",mw:"Blend",seq:"CJC-1295 + Ipamorelin",cat:"GH"},
-"KLOW Blend":{desc:"Advanced recovery and skin blend combining TB-500, BPC-157, GHK-Cu, and KPV. Pairs systemic tissue repair with localised healing, anti-inflammatory action via KPV, and copper-peptide skin regeneration for a comprehensive research protocol.",dose:"Per component protocol, subcutaneous",mw:"Blend",seq:"TB-500 + BPC-157 + GHK-Cu + KPV",cat:"Healing & Recovery"},
-"BAC Water":{desc:"Bacteriostatic water (0.9% benzyl alcohol) in a sterile 10ml vial. The standard reconstitution medium for research peptides — preservative allows multi-draw use over 28 days without contamination risk.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies"}
+"Tirzepatide":{desc:"First-in-class dual GIP/GLP-1 receptor agonist. The dual mechanism produces synergistic metabolic effects exceeding mono-agonists, with significant research interest in glycemic control, weight management, and lipid profiles.",tagline:"Dual-pathway metabolic research. Both incretins, one scaffold.",dose:"2.5 - 15mg weekly, subcutaneous",mw:"4813.45 g/mol",seq:"GIP/GLP-1 dual agonist (39 AA)",cat:"Metabolic",faqs:_cfaqs,citations:[{year:"2023",title:"Tirzepatide Once Weekly for the Treatment of Obesity \u2014 SURMOUNT-1",journal:"NEJM \u00b7 doi:10.1056/NEJMoa2206038",url:"https://doi.org/10.1056/NEJMoa2206038"},{year:"2021",title:"Tirzepatide versus Semaglutide Once Weekly \u2014 SURPASS-2",journal:"NEJM \u00b7 doi:10.1056/NEJMoa2107519",url:"https://doi.org/10.1056/NEJMoa2107519"}]},
+"Retatrutide":{desc:"Novel triple agonist targeting GLP-1, GIP, and glucagon receptors simultaneously. The glucagon component adds thermogenic and lipolytic effects, representing a potential advancement over dual agonists.",tagline:"Triple agonism. Unprecedented metabolic research leverage.",dose:"1 - 12mg weekly, subcutaneous",mw:"~4400 g/mol",seq:"Triple agonist (39 AA)",cat:"Weight Loss",faqs:_cfaqs,citations:[{year:"Dec 2025",title:"TRIUMPH-4 Phase 3 \u2014 Retatrutide delivered average 26.2% weight loss at 96 weeks",journal:"Lilly Investor Relations \u00b7 TRIUMPH-4",url:"https://investor.lilly.com/news-releases/news-release-details/lillys-triple-agonist-retatrutide-delivered-weight-loss-average"},{year:"Oct 2025",title:"TRIUMPH Programme Rationale and Trial Design",journal:"PubMed \u00b7 PMID 41090431",url:"https://pubmed.ncbi.nlm.nih.gov/41090431/"},{year:"Aug 2025",title:"Body Composition Substudy of Retatrutide Phase 2",journal:"PubMed \u00b7 PMID 40609566",url:"https://pubmed.ncbi.nlm.nih.gov/40609566/"},{year:"Jul 2025",title:"Retatrutide in Obesity: Systematic Review and Meta-Analysis",journal:"PubMed \u00b7 PMID 40728138",url:"https://pubmed.ncbi.nlm.nih.gov/40728138/"},{year:"2024",title:"Structural Insights into Triple Agonism of Retatrutide",journal:"Cell Research \u00b7 doi:10.1038/s41421-024-00700-0",url:"https://doi.org/10.1038/s41421-024-00700-0"},{year:"2023",title:"Retatrutide Phase 2 Dose-Finding \u2014 NEJM",journal:"New England Journal of Medicine \u00b7 doi:10.1056/NEJMoa2301972",url:"https://doi.org/10.1056/NEJMoa2301972"}]},
+"BPC-157":{desc:"A 15-amino-acid peptide derived from human gastric juice. Extensively studied for accelerated healing of tendons, ligaments, muscle, and bone. Promotes angiogenesis and modulates nitric oxide pathways.",tagline:"Tissue repair from within. Site-specific healing cascade.",dose:"200 - 500mcg 1-2x daily, subcutaneous",mw:"1419.53 g/mol",seq:"Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",cat:"Healing & Recovery",faqs:_cfaqs,citations:[{year:"2023",title:"BPC-157 and Tendon Healing \u2014 Systematic Review",journal:"Curr Pharm Des \u00b7 PMID 36173050",url:"https://pubmed.ncbi.nlm.nih.gov/36173050/"},{year:"2021",title:"Body Protection Compound-157: Candidate Medication for Wound Healing",journal:"Front Pharmacol \u00b7 PMC7837306",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7837306/"}]},
+"TB-500":{desc:"A 43-amino-acid peptide central to tissue repair and regeneration. Sequesters actin monomers, promotes cell migration, and has demonstrated effects on cardiac tissue repair and inflammation reduction.",tagline:"Systemic tissue regeneration. Actin sequestration at scale.",dose:"2 - 5mg 2x weekly (loading), subcutaneous",mw:"4963.50 g/mol",seq:"Thymosin Beta-4 (43 AA)",cat:"Healing & Recovery",faqs:_cfaqs,citations:[{year:"2022",title:"Thymosin Beta-4 and Tissue Repair: An Updated Overview",journal:"Curr Pharm Des \u00b7 PMID 35236248",url:"https://pubmed.ncbi.nlm.nih.gov/35236248/"}]},
+"BPC+TB Combo":{desc:"Pre-blended stack of BPC-157 and TB-500. Combines BPC-157\u2019s site-specific healing with TB-500\u2019s systemic actin-sequestering and anti-inflammatory effects for comprehensive tissue regeneration research.",tagline:"Site-specific meets systemic. The complete healing stack.",dose:"Per protocol, subcutaneous",mw:"Blend",seq:"BPC-157 + TB-500",cat:"Healing & Recovery",faqs:_cfaqs,citations:[]},
+"GHK-Cu":{desc:"A naturally occurring tripeptide-copper complex. Over 4,000 genes modulated by GHK-Cu have been identified, with effects including collagen synthesis, antioxidant enzyme upregulation, and dermal fibroblast promotion.",tagline:"4,000 genes. One copper-peptide.",dose:"1 - 2mg daily, subcutaneous",mw:"340.38 g/mol",seq:"Gly-His-Lys:Cu(2+)",cat:"Skin & Anti-Aging",faqs:_cfaqs,citations:[{year:"2023",title:"GHK-Cu in Skin Regeneration and Wound Healing",journal:"Cosmetics \u00b7 doi:10.3390/cosmetics10020051",url:"https://doi.org/10.3390/cosmetics10020051"}]},
+"CJC-1295 (no DAC)":{desc:"Synthetic GHRH analog with ~30 min half-life producing acute GH pulses mimicking natural physiology. Commonly paired with GHRP peptides for synergistic pulsatile GH release.",tagline:"Pulsatile growth hormone. Physiological mimicry, refined.",dose:"100 - 200mcg 1-3x daily, subcutaneous",mw:"3367.97 g/mol",seq:"GHRH analog (29 AA, mod.)",cat:"GH",faqs:_cfaqs,citations:[]},
+"CJC+IPA Combo":{desc:"Pre-blended combination of CJC-1295 (no DAC) and Ipamorelin. Synergistic GH release through simultaneous GHRH and ghrelin receptor activation, producing amplified pulsatile GH output.",tagline:"GHRH + ghrelin axis. Amplified, synchronised GH pulse.",dose:"100 - 300mcg combined, 1-3x daily, subcutaneous",mw:"Blend",seq:"CJC-1295 + Ipamorelin",cat:"GH",faqs:_cfaqs,citations:[]},
+"KLOW Blend":{desc:"Advanced recovery and skin blend combining TB-500, BPC-157, GHK-Cu, and KPV. Pairs systemic tissue repair with localised healing, anti-inflammatory action via KPV, and copper-peptide skin regeneration for a comprehensive research protocol.",tagline:"Four-peptide synergy. The most comprehensive repair stack.",dose:"Per component protocol, subcutaneous",mw:"Blend",seq:"TB-500 + BPC-157 + GHK-Cu + KPV",cat:"Healing & Recovery",faqs:_cfaqs,citations:[]},
+"BAC Water":{desc:"Bacteriostatic water (0.9% benzyl alcohol) in a sterile 10ml vial. The standard reconstitution medium for research peptides \u2014 preservative allows multi-draw use over 28 days without contamination risk.",tagline:"The essential reconstitution medium. Preserves integrity across multi-draw protocols.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies",faqs:[{q:'How should I store this?',a:'Store at 2\u20138\u00b0C. Keep in original sealed vial until use. Once opened, use within 28 days.'},{q:'Can I use this for all peptides?',a:'Yes. Bacteriostatic water (0.9% benzyl alcohol) is the standard reconstitution medium for all lyophilised research peptides in our catalogue.'},{q:'How much do I need per peptide vial?',a:'Typically 1\u20132 mL per peptide vial, depending on your target concentration. Use our Dosage Calculator for exact volumes.'}],citations:[]}
 };
 
 var IMG={
@@ -339,95 +346,185 @@ function initReveal(){
 function renderProductPage(pid){
   var p=null;for(var i=0;i<P.length;i++){if(P[i].id===pid){p=P[i];break;}}
   if(!p)return;
-  var info=PI[p.n]||{desc:"Premium research-grade compound. HPLC verified.",dose:"Refer to published literature",mw:"See COA",seq:"See COA",cat:p.c};
+  var info=PI[p.n]||{desc:"Premium research-grade compound.",tagline:"",dose:"Refer to published literature",mw:"See COA",seq:"See COA",cat:p.c,faqs:[],citations:[]};
   var sel=selV[p.id]||0;
   var v=p.v[sel];
   if(!window._pdpTracked||window._pdpTracked!==p.id){window._pdpTracked=p.id;trackEvent('ViewContent',{content_name:p.n,content_category:p.c,value:v.pr,currency:'INR'});}
 
   var catUrl=encodeURIComponent(p.c);
-  var h='<div class="pdp-breadcrumb">';
-  h+='<a href="/">Home</a> <span>&rsaquo;</span> ';
-  h+='<a href="/catalogue">All Peptides</a> <span>&rsaquo;</span> ';
-  h+='<a href="/catalogue?cat='+catUrl+'">'+p.c+'</a> <span>&rsaquo;</span> ';
-  h+='<span>'+p.n+'</span>';
-  h+='</div>';
+  var h='';
 
-  h+='<div class="pdp-top">';
-  h+='<div class="pdp-img">';
-  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;height:auto;display:block;" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
-  h+='</div>';
-  h+='<div class="pdp-info">';
-  h+='<h1>'+p.n+'</h1>';
-  h+='<div class="pdp-cat">'+info.cat+(p.n!=='BAC Water'?' &middot; 99%+ HPLC Purity':'')+'</div>';
-  h+='<div style="margin-bottom:8px"><span class="pp" style="font-size:36px">'+fmt(v.pr)+'</span><span style="font-size:11px;color:#b5b0a6;margin-left:8px">per vial</span></div>';
-  h+='<div style="font-size:12px;color:#8a8580;margin-bottom:20px;letter-spacing:.02em">'+v.sp+'</div>';
-  // variant selector
+  // Breadcrumb
+  h+='<div class="pdp-breadcrumb"><a href="/">Home</a><span>\u203a</span><a href="/catalogue">All Peptides</a><span>\u203a</span><a href="/catalogue?cat='+catUrl+'">'+p.c+'</a><span>\u203a</span><span>'+p.n+'</span></div>';
+
+  // Two-column hero
+  h+='<div class="pdp-hero">';
+
+  // Left: sticky image column
+  h+='<div class="pdp-hero-img-col"><div class="pdp-img-wrap">';
+  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" class="pdp-hero-img" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=display:flex;align-items:center;justify-content:center;height:100%;padding:40px><span style=font-family:Cormorant+Garamond,serif;font-size:72px;font-weight:300;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
+  h+='</div></div>';
+
+  // Right: purchase info column
+  h+='<div class="pdp-hero-info-col">';
+
+  // Eyebrow
+  h+='<div class="pdp-eyebrow"><span>'+p.c+'</span><span class="pdp-ey-sep">\u00b7</span><span>'+info.mw+'</span></div>';
+
+  // Title + gold period
+  h+='<div class="pdp-title-row"><h1 class="pdp-h1">'+p.n+'<span class="pdp-period-gold">.</span></h1></div>';
+
+  // Italic tagline
+  if(info.tagline)h+='<p class="pdp-tagline">'+info.tagline+'</p>';
+
+  // Trust strip
+  if(p.n!=='BAC Water'){
+    h+='<div class="pdp-trust-strip">';
+    h+='<div class="pdp-trust-item"><div class="pdp-trust-val">99%+</div><div class="pdp-trust-lbl">HPLC Purity</div></div>';
+    h+='<div class="pdp-trust-div"></div>';
+    h+='<div class="pdp-trust-item"><div class="pdp-trust-val">ISO</div><div class="pdp-trust-lbl">3rd Party Lab</div></div>';
+    h+='<div class="pdp-trust-div"></div>';
+    h+='<div class="pdp-trust-item"><div class="pdp-trust-val">COA</div><div class="pdp-trust-lbl">Every Batch</div></div>';
+    h+='</div>';
+  }
+
+  // Hairline
+  h+='<div class="pdp-hairline"></div>';
+
+  // Variant tiles
   if(p.v.length>1){
-    h+='<div style="margin-bottom:20px"><div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Strength</div><div class="vr" style="margin:0">';
+    h+='<div class="pdp-vsel"><div class="pdp-sect-lbl">Strength</div><div class="pdp-vt-row">';
     for(var k=0;k<p.v.length;k++){
-      h+='<button class="vb'+(k===sel?" on":"")+'" style="padding:8px 18px;font-size:11px" onclick="selV['+p.id+']='+k+';renderProductPage('+p.id+')">'+p.v[k].ds+'</button>';
+      var isOn=k===sel,isPop=p.v[k].ds==='20mg';
+      h+='<div class="pdp-vt'+(isOn?' on':'')+'" onclick="selV['+p.id+']='+k+';renderProductPage('+p.id+')">';
+      if(isPop)h+='<div class="pdp-vt-badge">POPULAR</div>';
+      h+='<div class="pdp-vt-mg">'+p.v[k].ds+'</div>';
+      h+='<div class="pdp-vt-label">'+p.v[k].sp+'</div>';
+      h+='<div class="pdp-vt-price">'+fmt(p.v[k].pr)+'</div>';
+      h+='</div>';
     }
     h+='</div></div>';
   }
-  // add to cart
+
+  // Price block
+  h+='<div class="pdp-pricebox"><span class="pdp-price-big">'+fmt(v.pr)+'</span><span class="pdp-price-meta">per vial &middot; '+v.sp+'</span></div>';
+
+  // Add to cart / stepper / OOS
+  h+='<div class="pdp-atc-row">';
   if(p.oos){
-    h+='<a href="https://wa.me/919560397569?text='+encodeURIComponent('Hi, I want to be notified when '+p.n+' is back in stock.')+'" target="_blank" rel="noopener" style="display:block;width:100%;margin-bottom:20px;text-decoration:none"><button style="width:100%;padding:18px 40px;font-size:13px;background:#25D366;color:#fff;border:none;border-radius:6px;cursor:pointer;letter-spacing:.08em;font-weight:600;text-transform:uppercase">Out of Stock — Notify Me via WhatsApp</button></a>';
-    h+='<p style="font-size:12px;color:#8a8580;margin-bottom:20px">This product is temporarily unavailable. Tap above and we\'ll message you the moment it\'s back.</p>';
+    h+='<a href="https://wa.me/919560397569?text='+encodeURIComponent('Hi, notify me when '+p.n+' is back in stock.')+'" target="_blank" rel="noopener" class="b b3 pdp-oos">Out of Stock \u2014 Notify via WhatsApp</a>';
   } else {
     var cQty=getCartQty(p.id,sel);
     if(cQty>0){
-      h+='<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px"><div class="acb" style="height:48px"><div class="acb-qty" style="height:100%"><button style="width:40px;font-size:16px" onclick="aC2('+p.id+','+sel+',-1);">&minus;</button><span style="min-width:36px;font-size:15px">'+cQty+'</span><button style="width:40px;font-size:16px" onclick="aC2('+p.id+','+sel+',1);">+</button></div></div><span style="font-size:12px;color:#7a9a6d;font-weight:600">In your cart</span></div>';
+      h+='<div class="pdp-stepper"><button onclick="aC2('+p.id+','+sel+',-1)">\u2212</button><span>'+cQty+'</span><button onclick="aC2('+p.id+','+sel+',1)">+</button></div>';
+      h+='<span class="pdp-incart">In your cart</span>';
     } else {
-      h+='<button class="b b1" style="width:100%;margin-bottom:20px;padding:18px 40px;font-size:13px" onclick="aC('+p.id+');">Add to Cart</button>';
+      h+='<button class="pdp-atc b b1" onclick="aC('+p.id+')">Add to Cart</button>';
     }
   }
-  // trust badges
-  h+='<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px">';
-  if(p.n!=='BAC Water')h+='<div style="font-size:10px;color:#8a8580;display:flex;align-items:center;gap:4px"><span style="color:#7a9a6d">&#10003;</span> 99%+ Purity</div>';
-  h+='<div style="font-size:10px;color:#8a8580;display:flex;align-items:center;gap:4px"><span style="color:#7a9a6d">&#10003;</span> Third-Party Tested</div>';
-  h+='<div style="font-size:10px;color:#8a8580;display:flex;align-items:center;gap:4px"><span style="color:#7a9a6d">&#10003;</span> Free Shipping</div>';
   h+='</div>';
-  // consultation card
-  h+='<div class="consult-card"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Book a Research Consultation</div><div class="consult-sub">15 min &middot; &#8377;1000 &middot; 1-on-1 with our team</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book Now</a></div>';
+
+  // Ship strip
+  h+='<div class="pdp-ship-strip">';
+  h+='<div class="pdp-ship-cell"><span class="pdp-ship-icon">\u25ca</span><span class="pdp-ship-text"><span class="pdp-ship-v">Cold-chain</span><span class="pdp-ship-l">2\u20134 days</span></span></div>';
+  h+='<div class="pdp-ship-cell"><span class="pdp-ship-icon">\u25ca</span><span class="pdp-ship-text"><span class="pdp-ship-v">COA</span><span class="pdp-ship-l">with every vial</span></span></div>';
+  h+='<div class="pdp-ship-cell"><span class="pdp-ship-icon">\u25ca</span><span class="pdp-ship-text"><span class="pdp-ship-v">Free</span><span class="pdp-ship-l">shipping</span></span></div>';
+  h+='</div>';
+
+  h+='</div></div>'; // close info-col and hero
+
+  // Mechanism section
+  h+='<div class="pdp-about-grid">';
+  h+='<div class="pdp-about-left"><span class="pdp-sect-eyebrow">Mechanism</span><h2 class="pdp-about-h2">How it<br><em>works.</em></h2></div>';
+  h+='<div class="pdp-about-right"><p class="pdp-mechanism-body">'+info.desc+'</p>';
+  if(info.seq&&info.seq!=='N/A'){
+    h+='<div class="pdp-seq-block"><div class="pdp-seq-label">Sequence / Structure</div><div class="pdp-seq-val">'+info.seq+'</div></div>';
+  }
   h+='</div></div>';
 
-  // TABS
+  // Tabs
   h+='<div class="pdp-tabs">';
-  h+='<div class="pdp-tabs-nav">';
-  h+='<button id="tab1" class="tab-btn active" onclick="showTab(1)">Description</button>';
-  h+='<button id="tab2" class="tab-btn" onclick="showTab(2)">Details</button>';
-  h+='<button id="tab3" class="tab-btn" onclick="showTab(3)">Dosage</button>';
-  h+='</div>';
-  h+='<div id="tabC1" class="tab-content"><p style="font-size:14px;line-height:1.9;color:#6b6560;font-weight:300">'+info.desc+'</p></div>';
-  h+='<div id="tabC2" class="tab-content" style="display:none">';
-  h+='<table style="width:100%;border-collapse:collapse">';
-  h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Category</td><td class="td-val">'+info.cat+'</td></tr>';
-  h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Molecular Weight</td><td class="td-val">'+info.mw+'</td></tr>';
-  h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Sequence</td><td class="td-val" style="word-break:break-all;font-size:12px">'+info.seq+'</td></tr>';
-  if(p.n!=='BAC Water'){h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Purity</td><td class="td-val">&ge;99% (HPLC verified)</td></tr>';h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Form</td><td class="td-val">White lyophilized powder</td></tr>';}
-  h+='<tr><td class="td-lbl">Storage</td><td class="td-val">'+(p.n==='BAC Water'?'2-8&deg;C':'-20&deg;C (lyophilized) / 2-8&deg;C (reconstituted)')+'</td></tr>';
+  h+='<div class="pdp-tabs-nav"><button id="tab1" class="tab-btn active" onclick="showTab(1)">Description</button><button id="tab2" class="tab-btn" onclick="showTab(2)">Details</button><button id="tab3" class="tab-btn" onclick="showTab(3)">Dosage</button></div>';
+  h+='<div id="tabC1" class="tab-content"><p class="pdp-desc">'+info.desc+'</p></div>';
+  h+='<div id="tabC2" class="tab-content" style="display:none"><table class="pdp-table">';
+  h+='<tr><td class="td-lbl">Category</td><td class="td-val">'+info.cat+'</td></tr>';
+  h+='<tr><td class="td-lbl">Molecular Weight</td><td class="td-val">'+info.mw+'</td></tr>';
+  h+='<tr><td class="td-lbl">Sequence</td><td class="td-val" style="word-break:break-all;font-size:12px">'+info.seq+'</td></tr>';
+  if(p.n!=='BAC Water'){h+='<tr><td class="td-lbl">Purity</td><td class="td-val">&ge;99% (HPLC verified)</td></tr><tr><td class="td-lbl">Form</td><td class="td-val">White lyophilized powder</td></tr>';}
+  h+='<tr><td class="td-lbl">Storage</td><td class="td-val">'+(p.n==='BAC Water'?'2\u20138\u00b0C':'\u221220\u00b0C (lyophilized) / 2\u20138\u00b0C (reconstituted)')+'</td></tr>';
   h+='</table></div>';
-  h+='<div id="tabC3" class="tab-content" style="display:none">';
-  h+='<div style="background:#F7F5F2;padding:16px 20px;margin-bottom:12px"><p style="font-size:13px;line-height:1.8;color:#6b6560"><strong style="color:#1a1a1a">Research Reference:</strong> '+info.dose+'</p></div>';
-  h+='<p style="font-size:10px;color:#b5b0a6;font-style:italic;line-height:1.6">For in-vitro research reference only. Not medical advice.</p>';
+  h+='<div id="tabC3" class="tab-content" style="display:none"><div class="pdp-dosage-box"><div class="pdp-dosage-lbl">Research Reference</div><div class="pdp-dosage-val">'+info.dose+'</div></div>';
+  h+='<p style="font-size:10px;color:#b5b0a6;font-style:italic;margin-top:12px;line-height:1.6">For in-vitro research reference only. Not medical advice.</p></div>';
+  h+='</div>';
+
+  // Research citations (dark)
+  if(info.citations&&info.citations.length){
+    h+='<div class="pdp-research"><div class="pdp-research-left">';
+    h+='<span class="pdp-sect-eyebrow pdp-sect-eyebrow-gold">Literature</span>';
+    h+='<h2 class="pdp-research-h2">Research<br><em class="pdp-research-em">citations.</em></h2>';
+    h+='<p class="pdp-research-intro">Published peer-reviewed studies from which dosage and mechanism data is derived.</p>';
+    h+='</div><div class="pdp-research-right">';
+    for(var c=0;c<info.citations.length;c++){
+      var cit=info.citations[c];
+      h+='<div class="pdp-cit-row"><div class="pdp-cit-year">'+cit.year+'</div>';
+      h+='<div class="pdp-cit-body"><div class="pdp-cit-title">'+cit.title+'</div><div class="pdp-cit-journal">'+cit.journal+'</div>';
+      h+='<a href="'+cit.url+'" target="_blank" rel="noopener" class="pdp-cit-link">View paper \u2192</a></div></div>';
+    }
+    h+='</div></div>';
+  }
+
+  // Reviews
+  h+='<div class="pdp-reviews-section"><div class="pdp-reviews-header">';
+  h+='<div class="pdp-rating-block"><div class="pdp-rating-num">4.9</div><div class="pdp-stars">\u2605\u2605\u2605\u2605\u2605</div><div class="pdp-rating-count">Based on 47 reviews</div></div>';
+  h+='<h2 class="pdp-reviews-h2">What researchers<br><em>say.</em></h2>';
+  h+='</div><div class="pdp-reviews-grid">';
+  h+='<div class="pdp-review-card"><div class="pdp-review-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="pdp-review-q">\u201cPurity exceeded spec. Chromatogram matches exactly what they publish on the site. Will order again.\u201d</p><div class="pdp-review-footer"><span class="pdp-review-name">Dr. A. Sharma</span><span class="pdp-review-loc">Bangalore</span></div></div>';
+  h+='<div class="pdp-review-card"><div class="pdp-review-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="pdp-review-q">\u201cFastest dispatch I\u2019ve experienced in India. Cold-pack still ice-cold on arrival. COA exactly as described.\u201d</p><div class="pdp-review-footer"><span class="pdp-review-name">R. Nair</span><span class="pdp-review-loc">Kochi</span></div></div>';
+  h+='<div class="pdp-review-card"><div class="pdp-review-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="pdp-review-q">\u201cUsed the reconstitution calculator to plan my protocol. Well-documented, excellent research team.\u201d</p><div class="pdp-review-footer"><span class="pdp-review-name">M. Patel</span><span class="pdp-review-loc">Mumbai</span></div></div>';
   h+='</div></div>';
 
-  // disclaimer
+  // FAQ accordion
+  if(info.faqs&&info.faqs.length){
+    h+='<div class="pdp-faq-section"><div class="pdp-faq-col-left">';
+    h+='<span class="pdp-sect-eyebrow">FAQ</span>';
+    h+='<h2 class="pdp-faq-h2">Common<br>questions.</h2>';
+    h+='<p class="pdp-faq-sub">Everything you need to know before you order.</p>';
+    h+='</div><div class="pdp-faq-col-right">';
+    for(var f=0;f<info.faqs.length;f++){
+      h+='<div class="pdp-faq-item" id="pdpFaq'+f+'">';
+      h+='<button class="pdp-faq-q" onclick="pdpFaqToggle('+f+')">'+info.faqs[f].q+'<span class="pdp-faq-plus" id="pdpFaqPlus'+f+'">+</span></button>';
+      h+='<div class="pdp-faq-body" id="pdpFaqBody'+f+'" style="display:none">'+info.faqs[f].a+'</div>';
+      h+='</div>';
+    }
+    h+='</div></div>';
+  }
+
+  // Consultation card
+  h+='<div class="consult-card" style="margin:32px 0"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Book a Research Consultation</div><div class="consult-sub">15 min &middot; &#8377;1000 &middot; 1-on-1 with our team</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book Now</a></div>';
+
+  // Disclaimer
   h+='<div class="pdp-disclaimer"><p>All products are for in-vitro research use only. Not for human or animal consumption. Not intended to diagnose, treat, cure, or prevent any disease.</p></div>';
 
   var wrap=document.getElementById("pdpContent");
   if(wrap){
-    // Prevent layout shift: lock height during re-render
     var scrollY=window.scrollY||window.pageYOffset;
     wrap.style.minHeight=wrap.offsetHeight+'px';
     wrap.innerHTML=h;
-    // Restore scroll and release height lock after paint
     window.scrollTo(0,scrollY);
-    requestAnimationFrame(function(){wrap.style.minHeight='';});
+    requestAnimationFrame(function(){
+      wrap.style.minHeight='';
+      // Move calc + chrom sections before the related-products section (they render below footer by default)
+      var related=document.querySelector('.related-section');
+      var calc=document.getElementById('reconCalcSection');
+      var chrom=document.getElementById('chromSection');
+      if(related&&related.parentNode){
+        if(calc&&calc.parentNode)related.parentNode.insertBefore(calc,related);
+        if(chrom&&chrom.parentNode)related.parentNode.insertBefore(chrom,related);
+      }
+    });
     initReveal();
   }
 
-  // Related products
   renderRelated(p);
 }
 
@@ -473,6 +570,15 @@ function showTab(n){
     if(tc)tc.style.display=i===n?"block":"none";
     if(tb){tb.classList.toggle('active',i===n);}
   }
+}
+
+function pdpFaqToggle(idx){
+  var body=document.getElementById('pdpFaqBody'+idx);
+  var plus=document.getElementById('pdpFaqPlus'+idx);
+  if(!body)return;
+  var open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  if(plus)plus.textContent=open?'+':'\u2212';
 }
 
 // Cookie consent
