@@ -211,13 +211,15 @@ function rC(){
   h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="showBankDetails()">Bank / UPI Transfer</button>';
   h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
   h+='</div>';
-  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px;line-height:2">';
-  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Bank Transfer / UPI Details</p>';
-  h+='<p><b>UPI ID:</b> YOUR_UPI_ID@bank</p>';
-  h+='<p><b>Account Name:</b> AthenaBioLabs</p>';
-  h+='<p><b>Account No:</b> YOUR_ACCOUNT_NUMBER</p>';
-  h+='<p><b>IFSC:</b> YOUR_IFSC_CODE</p>';
-  h+='<p style="margin-top:6px;font-size:10px;color:#8a8580;line-height:1.6">After transferring, email your UTR / reference number to <b>support@athenabiolabs.com</b> with your shipping address.</p>';
+  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px">';
+  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:12px">Pay via UPI</p>';
+  h+='<div style="text-align:center;margin-bottom:12px"><img src="/img/upi-qr.png" alt="UPI QR Code" style="width:180px;height:180px;border:1px solid #ddd;background:#fff;display:block;margin:0 auto"><p style="font-size:10px;color:#8a8580;margin-top:6px">Screenshot &amp; pay using any UPI app</p></div>';
+  h+='<div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">';
+  h+='<input id="biEmail" type="email" placeholder="Your email *" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none">';
+  h+='<input id="biName" type="text" placeholder="Full name *" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none">';
+  h+='<input id="biPhone" type="tel" placeholder="Phone number *" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none">';
+  h+='<textarea id="biAddr" placeholder="Full shipping address *" rows="3" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none;resize:vertical"></textarea>';
+  h+='</div>';
   h+='<button onclick="confirmBankTransfer('+total+',this)" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
   h+='</div>';
   h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking &middot; Bank Transfer</span></div>';
@@ -259,17 +261,35 @@ function showBankDetails(){
   if(el)el.style.display=el.style.display==='none'?'block':'none';
 }
 function confirmBankTransfer(amount,btn){
-  var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-  btn.disabled=true;btn.textContent='Saving\u2026';
-  SUPA.from('orders').insert({items:items,total:amount,coupon:coupon||null,payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,visitor_id:VID}).then(function(r){
-    btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
-    if(r.error){alert("Please email support@athenabiolabs.com with your UTR number.");}
-    else{
-      if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
-      alert("Order logged! Please email your UTR to support@athenabiolabs.com with your shipping address. Dispatch within 24h.");
-      cart=[];saveCart();uB();rC();closeCart();
-    }
-  });
+  var email=(document.getElementById('biEmail')||{}).value||'';
+  var name=(document.getElementById('biName')||{}).value||'';
+  var phone=(document.getElementById('biPhone')||{}).value||'';
+  var address=(document.getElementById('biAddr')||{}).value||'';
+  if(!email||!name||!phone||!address){alert('Please fill in all fields before confirming.');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Please enter a valid email address.');return;}
+  btn.disabled=true;btn.textContent='Sending\u2026';
+  var payload={
+    email:email.trim(),name:name.trim(),
+    address:phone.trim()+'\n'+address.trim(),
+    items:cart.map(function(c){return{n:c.n,ds:c.ds,sp:c.sp,pr:c.pr,q:c.q};}),
+    total:amount,coupon:coupon||null,ebook:includeEbook
+  };
+  fetch('/api/send-order-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
+      if(d.error){alert('Error: '+d.error);}
+      else{
+        if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
+        trackEvent('Purchase',{value:amount,currency:'INR',transaction_id:'upi_'+d.orderId});
+        alert('Order received! Check your email ('+email+') for confirmation. We\u2019ll verify your payment and dispatch within 24h.');
+        cart=[];saveCart();uB();rC();closeCart();
+      }
+    })
+    .catch(function(){
+      btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
+      alert('Network error. Please email support@athenabiolabs.com with your order details.');
+    });
 }
 
 // =====================

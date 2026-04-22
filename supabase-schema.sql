@@ -37,6 +37,9 @@ alter table coupon_usage drop column if exists visitor_id;
 -- orders: add email column, lock down RLS
 -- ─────────────────────────────────────────────
 alter table orders add column if not exists email text;
+alter table orders add column if not exists customer_name text;
+alter table orders add column if not exists shipping_address text;
+alter table orders add column if not exists confirm_token text;
 
 alter table orders enable row level security;
 
