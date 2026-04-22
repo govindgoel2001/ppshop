@@ -25,7 +25,7 @@ function emailValid(e) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { email, name, address, items, total, coupon, ebook } = req.body || {};
+  const { email, name, address, items, total, coupon, ebook, utr } = req.body || {};
 
   if (!email || !name || !address || !items || !total) {
     return res.status(400).json({ error: 'Missing required fields.' });
@@ -52,6 +52,7 @@ export default async function handler(req, res) {
       status: 'pending_verification',
       ebook: ebook !== false,
       confirm_token: confirmToken,
+      utr: utr ? String(utr).trim() : null,
     })
     .select('id')
     .single();
@@ -136,6 +137,7 @@ export default async function handler(req, res) {
           <tr><td style="padding:7px 0;color:#888;border-bottom:1px solid #eee;vertical-align:top">Ship to</td><td style="padding:7px 0;text-align:right;border-bottom:1px solid #eee">${String(address).trim().replace(/\n/g, '<br>')}</td></tr>
           <tr><td style="padding:7px 0;color:#888;border-bottom:1px solid #eee;vertical-align:top">Items</td><td style="padding:7px 0;text-align:right;border-bottom:1px solid #eee">${itemsStr}</td></tr>
           ${coupon ? `<tr><td style="padding:7px 0;color:#888;border-bottom:1px solid #eee">Coupon</td><td style="padding:7px 0;text-align:right;border-bottom:1px solid #eee">${coupon}</td></tr>` : ''}
+          ${utr ? `<tr><td style="padding:7px 0;color:#888;border-bottom:1px solid #eee">UTR / Ref</td><td style="padding:7px 0;text-align:right;border-bottom:1px solid #eee;font-weight:600;color:#1a1a1a">${utr}</td></tr>` : ''}
           <tr><td style="padding:7px 0;color:#888">Total</td><td style="padding:7px 0;text-align:right;font-weight:600">${fmt(total)}</td></tr>
         </table>
 

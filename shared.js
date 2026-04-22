@@ -208,19 +208,8 @@ function rC(){
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
   h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payNow('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay Now &middot; '+fmt(total)+'</button>';
   h+='<div style="display:flex;gap:8px;margin-top:8px">';
-  h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="showBankDetails()">Bank / UPI Transfer</button>';
+  h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="openUpiModal('+total+')">Bank / UPI Transfer</button>';
   h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
-  h+='</div>';
-  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px">';
-  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:12px">Pay via UPI</p>';
-  h+='<div style="text-align:center;margin-bottom:12px"><img src="/img/upi-qr.png" alt="UPI QR Code" style="width:180px;height:180px;border:1px solid #ddd;background:#fff;display:block;margin:0 auto"><p style="font-size:10px;color:#8a8580;margin-top:6px">Screenshot &amp; pay using any UPI app</p></div>';
-  h+='<div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">';
-  h+='<input id="biEmail" type="email" placeholder="Your email *" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none">';
-  h+='<input id="biName" type="text" placeholder="Full name *" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none">';
-  h+='<input id="biPhone" type="tel" placeholder="Phone number *" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none">';
-  h+='<textarea id="biAddr" placeholder="Full shipping address *" rows="3" style="width:100%;padding:10px 12px;border:1px solid #ccc;background:#fff;font-family:DM Sans,sans-serif;font-size:12px;outline:none;resize:vertical"></textarea>';
-  h+='</div>';
-  h+='<button onclick="confirmBankTransfer('+total+',this)" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
   h+='</div>';
   h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking &middot; Bank Transfer</span></div>';
   h+='</div>';
@@ -256,35 +245,122 @@ function payNow(amount){
     trackEvent('InitiateCheckout',{value:amount,currency:'INR',num_items:cart.length});
   }catch(e){alert("Payment gateway loading. Please use Bank / UPI Transfer or email support@athenabiolabs.com.");}
 }
-function showBankDetails(){
-  var el=document.getElementById("bankInfo");
-  if(el)el.style.display=el.style.display==='none'?'block':'none';
+function openUpiModal(total){
+  _upiData=null;clearInterval(_upiTimer);
+  var el=document.getElementById('upiModal');
+  if(!el){el=document.createElement('div');el.id='upiModal';document.body.appendChild(el);}
+  el.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto';
+  el.innerHTML=_upiStep1Html(total);
 }
-function confirmBankTransfer(amount,btn){
-  var email=(document.getElementById('biEmail')||{}).value||'';
-  var name=(document.getElementById('biName')||{}).value||'';
-  var phone=(document.getElementById('biPhone')||{}).value||'';
-  var address=(document.getElementById('biAddr')||{}).value||'';
-  if(!email||!name||!phone||!address){alert('Please fill in all fields before confirming.');return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Please enter a valid email address.');return;}
-  btn.disabled=true;btn.textContent='Sending\u2026';
+function closeUpiModal(){
+  clearInterval(_upiTimer);
+  var el=document.getElementById('upiModal');
+  if(el)el.remove();
+}
+var _upiData=null,_upiTimer=null;
+function _upiStep1Html(total){
+  var inp='padding:11px 14px;border:1px solid #ddd;background:#fff;font-family:DM Sans,sans-serif;font-size:13px;outline:none;width:100%;box-sizing:border-box';
+  return '<div style="background:#FAFAF7;max-width:420px;width:100%;padding:36px 28px;position:relative;font-family:DM Sans,sans-serif;box-sizing:border-box">'+
+    '<button onclick="closeUpiModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#aaa;line-height:1">&times;</button>'+
+    '<p style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#C8A97E;margin:0 0 6px">UPI Payment · Step 1 of 2</p>'+
+    '<h2 style="font-family:Cormorant Garamond,serif;font-size:24px;font-weight:500;margin:0 0 6px">Shipping Details</h2>'+
+    '<p style="font-size:12px;color:#aaa;margin:0 0 20px">Fill in your details, then we’ll show you the payment QR</p>'+
+    '<div style="display:flex;flex-direction:column;gap:10px">'+
+    '<input id="uName" placeholder="Full name *" style="'+inp+'">'+
+    '<input id="uEmail" type="email" placeholder="Email address *" style="'+inp+'">'+
+    '<input id="uPhone" type="tel" placeholder="Phone number *" style="'+inp+'">'+
+    '<textarea id="uAddr" placeholder="Full shipping address (with PIN code) *" rows="3" style="'+inp+';resize:vertical"></textarea>'+
+    '</div>'+
+    '<button onclick="_upiNext('+total+')" class="b b1" style="width:100%;margin-top:16px;padding:16px;font-size:11px">Get Payment QR &rarr;</button>'+
+    '</div>';
+}
+function _upiNext(total){
+  var name=(document.getElementById('uName')||{}).value||'';
+  var email=(document.getElementById('uEmail')||{}).value||'';
+  var phone=(document.getElementById('uPhone')||{}).value||'';
+  var addr=(document.getElementById('uAddr')||{}).value||'';
+  if(!name.trim()||!email.trim()||!phone.trim()||!addr.trim()){alert('Please fill in all fields.');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())){alert('Please enter a valid email address.');return;}
+  _upiData={name:name.trim(),email:email.trim(),phone:phone.trim(),address:addr.trim()};
+  var el=document.getElementById('upiModal');
+  if(el)el.innerHTML=_upiStep2Html(total);
+  _startUpiTimer(300);
+}
+function _upiStep2Html(total){
+  return '<div style="background:#FAFAF7;max-width:420px;width:100%;padding:36px 28px;position:relative;font-family:DM Sans,sans-serif;text-align:center;box-sizing:border-box">'+
+    '<button onclick="closeUpiModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#aaa;line-height:1">&times;</button>'+
+    '<p style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#C8A97E;margin:0 0 6px">UPI Payment · Step 2 of 2</p>'+
+    '<h2 style="font-family:Cormorant Garamond,serif;font-size:24px;font-weight:500;margin:0 0 4px">Scan &amp; Pay</h2>'+
+    '<p style="font-size:13px;color:#888;margin:0 0 16px">Pay <strong style="color:#1a1a1a">'+fmt(total)+'</strong> to complete your order</p>'+
+    '<img src="/img/upi-qr.png" alt="UPI QR" style="width:200px;height:200px;border:1px solid #eee;display:block;margin:0 auto 10px">'+
+    '<p style="font-size:11px;color:#aaa;margin:0 0 14px">9560397569@ptaxis · Govind Narayan Goel</p>'+
+    '<a href="/img/upi-qr.png" download="athenabiolabs-upi-qr.png" style="display:inline-block;border:1px solid #1a1a1a;padding:9px 22px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#1a1a1a;text-decoration:none;margin-bottom:20px">↓ Download QR</a>'+
+    '<div style="background:#F0EDE7;padding:14px 18px;margin-bottom:16px">'+
+    '<p style="font-size:10px;color:#aaa;margin:0 0 4px;letter-spacing:.1em;text-transform:uppercase">Time remaining to pay</p>'+
+    '<div id="upiTimerDisplay" style="font-family:Cormorant Garamond,serif;font-size:38px;font-weight:600;color:#1a1a1a;letter-spacing:.04em">5:00</div>'+
+    '</div>'+
+    '<div id="utrSection" style="display:none;text-align:left">'+
+    '<p style="font-size:12px;color:#555;margin:0 0 8px;line-height:1.6">Enter the <strong>UTR / reference number</strong> shown in your UPI app after payment</p>'+
+    '<input id="utrInput" placeholder="e.g. 504321987654 *" style="width:100%;padding:11px 14px;border:1px solid #ddd;background:#fff;font-family:DM Sans,sans-serif;font-size:13px;outline:none;box-sizing:border-box;margin-bottom:10px">'+
+    '<button id="upiPayBtn" onclick="_submitUpiPayment('+total+')" class="b b1" style="width:100%;padding:16px;font-size:11px">I've Paid — Confirm Order</button>'+
+    '</div>'+
+    '<p id="upiWaitMsg" style="font-size:11px;color:#bbb;margin-top:10px;line-height:1.6">Pay using the QR above, then wait for the timer</p>'+
+    '</div>';
+}
+function _startUpiTimer(secs){
+  clearInterval(_upiTimer);
+  var rem=secs;
+  function tick(){
+    var el=document.getElementById('upiTimerDisplay');
+    if(!el){clearInterval(_upiTimer);return;}
+    var m=Math.floor(rem/60),s=rem%60;
+    el.textContent=m+':'+(s<10?'0':'')+s;
+    if(rem<=0){
+      clearInterval(_upiTimer);
+      el.textContent='0:00';el.style.color='#7a9a6d';
+      var utr=document.getElementById('utrSection');
+      var msg=document.getElementById('upiWaitMsg');
+      if(utr)utr.style.display='block';
+      if(msg)msg.style.display='none';
+      return;
+    }
+    rem--;
+  }
+  tick();
+  _upiTimer=setInterval(tick,1000);
+}
+function _submitUpiPayment(total){
+  var utr=(document.getElementById('utrInput')||{}).value||'';
+  if(!utr.trim()){alert('Please enter your UTR / reference number from your UPI app.');return;}
+  if(!_upiData){alert('Session expired. Please start again.');closeUpiModal();return;}
+  var btn=document.getElementById('upiPayBtn');
+  if(btn){btn.disabled=true;btn.textContent='Submitting…';}
   var payload={
-    email:email.trim(),name:name.trim(),
-    address:phone.trim()+'\n'+address.trim(),
+    email:_upiData.email,name:_upiData.name,
+    address:_upiData.phone+'\n'+_upiData.address,
+    utr:utr.trim(),
     items:cart.map(function(c){return{n:c.n,ds:c.ds,sp:c.sp,pr:c.pr,q:c.q};}),
-    total:amount,coupon:coupon||null,ebook:includeEbook
+    total:total,coupon:coupon||null,ebook:includeEbook
   };
   fetch('/api/send-order-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
     .then(function(r){return r.json();})
     .then(function(d){
-      btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
-      if(d.error){alert('Error: '+d.error);}
-      else{
+      if(d.error){
+        if(btn){btn.disabled=false;btn.textContent="I've Paid — Confirm Order";}
+        alert('Error: '+d.error);
+      } else {
         if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
-        trackEvent('Purchase',{value:amount,currency:'INR',transaction_id:'upi_'+d.orderId});
-        alert('Order received! Check your email ('+email+') for confirmation. We\u2019ll verify your payment and dispatch within 24h.');
+        trackEvent('Purchase',{value:total,currency:'INR',transaction_id:'upi_'+d.orderId});
+        closeUpiModal();
+        alert('Order received! Check '+_upiData.email+' for your confirmation email. We’ll verify your UTR and dispatch within 24h.');
         cart=[];saveCart();uB();rC();closeCart();
       }
+    })
+    .catch(function(){
+      if(btn){btn.disabled=false;btn.textContent="I've Paid — Confirm Order";}
+      alert('Network error. Please email support@athenabiolabs.com with your order details.');
+    });
+}
     })
     .catch(function(){
       btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
