@@ -206,12 +206,12 @@ function rC(){
     h+='<div style="margin-top:12px;padding:12px 16px;background:#F0EDE7;display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;color:#8a8580">Peptide Research Guide eBook</span><button onclick="includeEbook=true;rC()" style="font-family:DM Sans,sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;padding:5px 12px;background:#1a1a1a;color:#FAFAF7;border:none;cursor:pointer">+ Add Free eBook</button></div>';
   }
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
-  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payNow('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay Now &middot; '+fmt(total)+'</button>';
+  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="openUpiModal('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#9654;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
   h+='<div style="display:flex;gap:8px;margin-top:8px">';
   h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="openUpiModal('+total+')">Bank / UPI Transfer</button>';
   h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
   h+='</div>';
-  h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking &middot; Bank Transfer</span></div>';
+  h+='<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Pay via UPI &middot; Paytm &middot; GPay &middot; PhonePe &middot; BHIM</span></div>';
   h+='</div>';
   bd.innerHTML=h;
 }
@@ -219,32 +219,6 @@ function rC(){
 // =====================
 // PAYMENT
 // =====================
-function payNow(amount){
-  var desc="";
-  for(var i=0;i<cart.length;i++){var c=cart[i];desc+=c.n+" ("+c.ds+") x"+c.q+", ";}
-  desc=desc.slice(0,-2);
-  if(desc.length>200) desc=desc.substring(0,197)+"...";
-  var options={
-    key:"rzp_live_XXXXXXXXXXXXXXX",
-    amount:amount*100,currency:"INR",name:"AthenaBioLabs",description:desc,image:"",
-    handler:function(response){
-      trackEvent('Purchase',{value:amount,currency:'INR',transaction_id:response.razorpay_payment_id});
-      var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-      SUPA.from('orders').insert({items:items,total:amount,coupon:coupon||null,payment_method:'razorpay',payment_id:response.razorpay_payment_id,status:'paid',ebook:includeEbook,visitor_id:VID}).then(function(){});
-      if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
-      alert("Payment confirmed!\n\nPayment ID: "+response.razorpay_payment_id+"\n\nYour order is confirmed. We'll dispatch within 24 hours.");
-      cart=[];saveCart();uB();rC();closeCart();
-    },
-    prefill:{},theme:{color:"#C8A97E"},
-    modal:{ondismiss:function(){trackEvent('PaymentDismissed',{value:amount,currency:'INR'});}}
-  };
-  try{
-    var rzp=new Razorpay(options);
-    rzp.on('payment.failed',function(){alert("Payment failed. Please use Bank / UPI Transfer.");trackEvent('PaymentFailed',{value:amount,currency:'INR'});});
-    rzp.open();
-    trackEvent('InitiateCheckout',{value:amount,currency:'INR',num_items:cart.length});
-  }catch(e){alert("Payment gateway loading. Please use Bank / UPI Transfer or email support@athenabiolabs.com.");}
-}
 function openUpiModal(total){
   _upiData=null;clearInterval(_upiTimer);
   var el=document.getElementById('upiModal');
