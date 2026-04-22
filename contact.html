@@ -95,7 +95,7 @@ function sendC(){
   var e=document.getElementById('ce').value.trim();
   var s=(document.getElementById('cs').value||'Website Inquiry').trim();
   var m=document.getElementById('cmsg').value.trim();
-  var fb=document.getElementById('cfb');
+  var fb=document.getElementById('cFormMsg');
   if(!n||!e||!m){fb.style.color='#c44';fb.textContent='Please fill in all required fields.';return false;}
   var btn=document.querySelector('button[type=submit]');
   btn.disabled=true;btn.textContent='Sending\u2026';
