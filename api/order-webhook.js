@@ -13,7 +13,6 @@ import { Resend } from 'resend';
 
 const supa = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
-const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
 function esc(s) {
   return String(s)
@@ -59,16 +58,6 @@ async function sendCustomerConfirmation(order) {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
-
-  // Verify webhook secret
-  if (!WEBHOOK_SECRET) {
-    console.error('WEBHOOK_SECRET not set');
-    return res.status(500).end();
-  }
-  const auth = req.headers['authorization'];
-  if (auth !== `Bearer ${WEBHOOK_SECRET}`) {
-    return res.status(401).end();
-  }
 
   const { type, table, record, old_record } = req.body || {};
 

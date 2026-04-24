@@ -156,10 +156,6 @@ create table if not exists contact_submissions (
 --   to your Vercel project environment variables.
 -- ─────────────────────────────────────────────
 
--- Store the secret inside the DB so it never appears in HTTP logs
-alter database postgres
-  set app.webhook_secret = 'REPLACE_WITH_YOUR_WEBHOOK_SECRET';
-
 -- Trigger function: fires after every UPDATE on orders
 create or replace function _notify_order_confirmed()
 returns trigger language plpgsql security definer as $$
@@ -169,10 +165,7 @@ begin
   then
     perform net.http_post(
       url     := 'https://athenabiolabs.com/api/order-webhook',
-      headers := jsonb_build_object(
-        'Content-Type',  'application/json',
-        'Authorization', 'Bearer ' || current_setting('app.webhook_secret', true)
-      ),
+      headers := jsonb_build_object('Content-Type', 'application/json'),
       body    := jsonb_build_object(
         'type',       'UPDATE',
         'table',      'orders',
