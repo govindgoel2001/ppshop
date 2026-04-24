@@ -104,19 +104,51 @@ create table if not exists contact_submissions (
 );
 
 -- ─────────────────────────────────────────────
--- Database Webhook: auto-confirm orders
+-- Auto-trigger: send confirmation email when order is confirmed
 --
--- Set this up once in Supabase Dashboard:
---   Database → Webhooks → Create a new hook
---   Name:    order-confirmed
---   Table:   orders
---   Events:  UPDATE
---   Method:  POST
---   URL:     https://athenabiolabs.com/api/order-webhook
---   Headers: Authorization: Bearer <value of WEBHOOK_SECRET env var>
+-- Uses pg_net (built into Supabase) to POST to /api/order-webhook
+-- whenever an order's status changes to 'confirmed'.
+-- Covers: merchant updates status directly in Supabase dashboard.
+-- The confirm-order.js email-link path works independently.
 --
--- When you flip an order's status to 'confirmed' in the Supabase
--- dashboard (or via any DB update), the webhook fires and the
--- customer automatically receives their confirmation email.
--- The customer_notified flag prevents duplicate sends.
+-- HOW TO RUN:
+--   Supabase Dashboard → SQL Editor → paste and run this entire block.
+--   Then add  WEBHOOK_SECRET=0648e8de33a177de366ea18f5f4925b1485fdae7362755431c1ed69cdc5c0b23
+--   to your Vercel project environment variables.
 -- ─────────────────────────────────────────────
+
+-- Store the secret inside the DB so it never appears in HTTP logs
+alter database postgres
+  set app.webhook_secret = '0648e8de33a177de366ea18f5f4925b1485fdae7362755431c1ed69cdc5c0b23';
+
+-- Trigger function: fires after every UPDATE on orders
+create or replace function _notify_order_confirmed()
+returns trigger language plpgsql security definer as $$
+begin
+  if NEW.status = 'confirmed'
+     and (OLD.status is null or OLD.status <> 'confirmed')
+  then
+    perform net.http_post(
+      url     := 'https://athenabiolabs.com/api/order-webhook',
+      headers := jsonb_build_object(
+        'Content-Type',  'application/json',
+        'Authorization', 'Bearer ' || current_setting('app.webhook_secret', true)
+      ),
+      body    := jsonb_build_object(
+        'type',       'UPDATE',
+        'table',      'orders',
+        'record',     to_jsonb(NEW),
+        'old_record', to_jsonb(OLD)
+      )::text
+    );
+  end if;
+  return NEW;
+end;
+$$;
+
+-- Attach trigger (drop first so re-running is safe)
+drop trigger if exists trg_notify_order_confirmed on orders;
+create trigger trg_notify_order_confirmed
+  after update on orders
+  for each row execute function _notify_order_confirmed();
+
