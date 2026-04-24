@@ -41,6 +41,7 @@ alter table orders add column if not exists customer_name text;
 alter table orders add column if not exists shipping_address text;
 alter table orders add column if not exists confirm_token text;
 alter table orders add column if not exists utr text;
+alter table orders add column if not exists customer_notified boolean not null default false;
 
 alter table orders enable row level security;
 
@@ -101,3 +102,21 @@ create table if not exists contact_submissions (
   message     text not null,
   created_at  timestamptz default now()
 );
+
+-- ─────────────────────────────────────────────
+-- Database Webhook: auto-confirm orders
+--
+-- Set this up once in Supabase Dashboard:
+--   Database → Webhooks → Create a new hook
+--   Name:    order-confirmed
+--   Table:   orders
+--   Events:  UPDATE
+--   Method:  POST
+--   URL:     https://athenabiolabs.com/api/order-webhook
+--   Headers: Authorization: Bearer <value of WEBHOOK_SECRET env var>
+--
+-- When you flip an order's status to 'confirmed' in the Supabase
+-- dashboard (or via any DB update), the webhook fires and the
+-- customer automatically receives their confirmation email.
+-- The customer_notified flag prevents duplicate sends.
+-- ─────────────────────────────────────────────

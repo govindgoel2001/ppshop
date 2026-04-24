@@ -21,7 +21,7 @@ const PRICE_MAP = {
   'BPC-157|10mg':           1990,
   'TB-500|10mg':            3400,
   'BPC+TB Combo|10mg':      3200,
-  'GHK-Cu|50mg':            2200,
+  'GHK-Cu|50mg':            1990,
   'CJC-1295 (no DAC)|5mg':  2800,
   'CJC+IPA Combo|10mg':     3750,
   'KLOW Blend|80mg':        3990,

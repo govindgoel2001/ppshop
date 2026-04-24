@@ -89,7 +89,7 @@ export default async function handler(req, res) {
   // If two requests race, only one will find rows to update.
   const { data: updated, error: updateErr } = await supa
     .from('orders')
-    .update({ status: 'confirmed' })
+    .update({ status: 'confirmed', customer_notified: true })
     .eq('id', id)
     .eq('status', 'pending_verification') // ← the atomic guard
     .select('id')
