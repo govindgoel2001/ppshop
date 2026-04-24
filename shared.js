@@ -207,10 +207,6 @@ function rC(){
   }
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
   h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="openUpiModal('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#9654;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
-  h+='<div style="display:flex;gap:8px;margin-top:8px">';
-  h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="openUpiModal('+total+')">Bank / UPI Transfer</button>';
-  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
-  h+='</div>';
   h+='<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Pay via UPI &middot; Paytm &middot; GPay &middot; PhonePe &middot; BHIM</span></div>';
   h+='</div>';
   bd.innerHTML=h;
@@ -332,12 +328,6 @@ function _submitUpiPayment(total){
     })
     .catch(function(){
       if(btn){btn.disabled=false;btn.textContent="I've Paid — Confirm Order";}
-      alert('Network error. Please email support@athenabiolabs.com with your order details.');
-    });
-}
-    })
-    .catch(function(){
-      btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
       alert('Network error. Please email support@athenabiolabs.com with your order details.');
     });
 }

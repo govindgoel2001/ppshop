@@ -1180,20 +1180,8 @@ function rC(){
   }
   var ebookNote=includeEbook?"%0A%0APlease include the free Peptide Research Guide eBook.":"";
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
-  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="openUpiModal(\'+total+\')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#9654;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
-  h+='<div style="display:flex;gap:8px;margin-top:8px">';
-  h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="showBankDetails()">Bank / UPI Transfer</button>';
-  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
-  h+='</div>';
-  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px;line-height:2">';
-  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Bank Transfer / UPI Details</p>';
-  h+='<p><b>UPI ID:</b> YOUR_UPI_ID@bank</p>';
-  h+='<p><b>Account Name:</b> AthenaBioLabs</p>';
-  h+='<p><b>Account No:</b> YOUR_ACCOUNT_NUMBER</p>';
-  h+='<p><b>IFSC:</b> YOUR_IFSC_CODE</p>';
-  h+='<p style="margin-top:6px;font-size:10px;color:#8a8580;line-height:1.6">After transferring, email your UTR / reference number to <b>support@athenabiolabs.com</b> with your shipping address.</p>';
-  h+='<button onclick="confirmBankTransfer('+total+')" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
-  h+='</div>';
+  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="openUpiModal('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#9654;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
+    h+='</div>';
     h+='<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Pay via UPI &middot; Paytm &middot; GPay &middot; PhonePe &middot; BHIM</span></div>';
   h+='</div>';
   bd.innerHTML=h;
@@ -1315,35 +1303,6 @@ function _submitUpiPayment(total){
       if(btn){btn.disabled=false;btn.textContent="I've Paid — Confirm Order";}
       alert('Network error. Please email support@athenabiolabs.com with your order details.');
     });
-}
-    })
-    .catch(function(){
-      btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
-      alert('Network error. Please email support@athenabiolabs.com with your order details.');
-    });
-}
-
-// BANK TRANSFER
-function showBankDetails(){
-  var el=document.getElementById("bankInfo");
-  if(el)el.style.display=el.style.display==='none'?'block':'none';
-}
-function confirmBankTransfer(amount){
-  var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-  var btn=event.target;btn.disabled=true;btn.textContent='Saving\u2026';
-  SUPA.from('orders').insert({
-    items:items,total:amount,coupon:coupon||null,
-    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,email:verifiedEmail||null
-  }).then(function(r){
-    btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
-    if(r.error){
-      alert("Please email support@athenabiolabs.com with your UTR number and we'll confirm your order manually.");
-    } else {
-      if(coupon==='FIRST5'&&verifiedEmail){recordCouponUsage(verifiedEmail,'FIRST5',null);}
-      alert("Order logged! Please email your UTR / transaction reference to support@athenabiolabs.com with your shipping address. We'll dispatch within 24 hours of payment verification.");
-      cart=[];saveCart();uB();rC();closeCart();
-    }
-  });
 }
 
 // DOSAGE CALCULATOR
