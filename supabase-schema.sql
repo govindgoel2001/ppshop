@@ -2,6 +2,45 @@
 -- Safe to re-run — all statements use IF NOT EXISTS / IF EXISTS.
 
 -- ─────────────────────────────────────────────
+-- orders: main orders table
+-- (if your Supabase project is fresh, create this first)
+-- ─────────────────────────────────────────────
+create table if not exists orders (
+  id               bigserial primary key,
+  email            text,
+  customer_name    text,
+  shipping_address text,
+  items            text,
+  total            numeric,
+  coupon           text,
+  payment_method   text default 'bank_transfer',
+  status           text default 'pending_verification',
+  ebook            boolean default true,
+  confirm_token    text,
+  utr              text,
+  customer_notified boolean not null default false,
+  created_at       timestamptz default now()
+);
+
+alter table orders enable row level security;
+drop policy if exists "anon can insert orders" on orders;
+create policy "anon can insert orders"
+  on orders for insert to anon with check (true);
+
+-- ─────────────────────────────────────────────
+-- subscribers: email newsletter list
+-- ─────────────────────────────────────────────
+create table if not exists subscribers (
+  id         bigserial primary key,
+  email      text not null unique,
+  created_at timestamptz default now()
+);
+
+alter table subscribers enable row level security;
+create policy "anon can subscribe"
+  on subscribers for insert to anon with check (true);
+
+-- ─────────────────────────────────────────────
 -- email_otps: one active OTP per email
 -- ─────────────────────────────────────────────
 create table if not exists email_otps (

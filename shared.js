@@ -9,7 +9,7 @@
 // =====================
 var P=[
 {id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2400},{sp:"20mg per vial",ds:"20mg",pr:3800}]},
-{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2899,cp:1800},{sp:"20mg per vial",ds:"20mg",pr:4500,cp:2600},{sp:"30mg per vial",ds:"30mg",pr:null,cp:3500}]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2899,cp:1800},{sp:"20mg per vial",ds:"20mg",pr:4500,cp:2600},{sp:"30mg per vial",ds:"30mg",pr:null,cp:3500,oos:true}]},
 {id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg per vial",ds:"10mg",pr:1990,cp:1000}]},
 {id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3400}]},
 {id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3200}]},
@@ -83,7 +83,6 @@ function slugify(name){return name.toLowerCase().replace(/[^a-z0-9]+/g,'-').repl
 // Visitor ID
 var VID=(function(){var id=localStorage.getItem('abl_vid');if(!id){id='v_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);localStorage.setItem('abl_vid',id);}return id;})();
 var usedFirst=false;
-SUPA.from('coupon_usage').select('id').eq('visitor_id',VID).eq('code','FIRST5').maybeSingle().then(function(r){if(r&&r.data)usedFirst=true;});
 
 // =====================
 // CART STATE
@@ -319,7 +318,7 @@ function _submitUpiPayment(total){
         if(btn){btn.disabled=false;btn.textContent="I've Paid — Confirm Order";}
         alert('Error: '+d.error);
       } else {
-        if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
+        if(coupon==='FIRST5')usedFirst=true;
         trackEvent('Purchase',{value:total,currency:'INR',transaction_id:'upi_'+d.orderId});
         closeUpiModal();
         alert('Order received! Check '+_upiData.email+' for your confirmation email. We’ll verify your UTR and dispatch within 24h.');

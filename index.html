@@ -1292,7 +1292,7 @@ function _submitUpiPayment(total){
         if(btn){btn.disabled=false;btn.textContent="I've Paid — Confirm Order";}
         alert('Error: '+d.error);
       } else {
-        if(coupon==='FIRST5'){usedFirst=true;SUPA.from('coupon_usage').insert({visitor_id:VID,code:'FIRST5'}).then(function(){});}
+        if(coupon==='FIRST5')usedFirst=true;
         trackEvent('Purchase',{value:total,currency:'INR',transaction_id:'upi_'+d.orderId});
         closeUpiModal();
         alert('Order received! Check '+_upiData.email+' for your confirmation email. We’ll verify your UTR and dispatch within 24h.');
