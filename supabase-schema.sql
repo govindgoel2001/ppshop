@@ -113,13 +113,13 @@ create table if not exists contact_submissions (
 --
 -- HOW TO RUN:
 --   Supabase Dashboard → SQL Editor → paste and run this entire block.
---   Then add  WEBHOOK_SECRET=0648e8de33a177de366ea18f5f4925b1485fdae7362755431c1ed69cdc5c0b23
+--   Then add  WEBHOOK_SECRET=REPLACE_WITH_YOUR_WEBHOOK_SECRET
 --   to your Vercel project environment variables.
 -- ─────────────────────────────────────────────
 
 -- Store the secret inside the DB so it never appears in HTTP logs
 alter database postgres
-  set app.webhook_secret = '0648e8de33a177de366ea18f5f4925b1485fdae7362755431c1ed69cdc5c0b23';
+  set app.webhook_secret = 'REPLACE_WITH_YOUR_WEBHOOK_SECRET';
 
 -- Trigger function: fires after every UPDATE on orders
 create or replace function _notify_order_confirmed()
