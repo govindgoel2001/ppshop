@@ -82,7 +82,7 @@ var otpState='idle',otpEmail='';
 // =====================
 // CART STATE
 // =====================
-var cart=[],selV={},coupon="",couponMsg="",includeEbook=true,customerEmail="";
+var cart=[],selV={},coupon="",couponMsg="",includeEbook=true,customerEmail="",customerAddr="";
 function saveCart(){try{localStorage.setItem('abl_cart',JSON.stringify(cart));}catch(e){}}
 function loadCart(){
   try{
@@ -315,6 +315,8 @@ function rC(){
   // Always-required contact email (separate from OTP-verified email so non-coupon orders still capture it)
   h+='<div style="margin-top:10px"><label style="font-size:11px;color:#6a6560;font-weight:500;display:block;margin-bottom:6px">Contact email</label>';
   h+='<input type="email" id="custEmail" placeholder="your@email.com" required oninput="customerEmail=this.value" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none" value="'+esc(customerEmail||otpEmail||'')+'"></div>';
+  h+='<div style="margin-top:10px"><label style="font-size:11px;color:#6a6560;font-weight:500;display:block;margin-bottom:6px">Delivery address</label>';
+  h+='<textarea id="custAddr" placeholder="Full address including city, state and PIN code" required rows="3" oninput="customerAddr=this.value" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none;resize:vertical">'+esc(customerAddr)+'</textarea></div>';
   h+='<div class="sr"><span>Subtotal</span><span>'+fmt(sub)+'</span></div>';
   if(disc>0) h+='<div class="sr"><span>Discount ('+esc(coupon)+')</span><span style="color:#7a9a6d">-'+fmt(disc)+'</span></div>';
   h+='<div class="sr"><span>Shipping</span><span style="color:#7a9a6d">Complimentary</span></div>';
@@ -432,13 +434,16 @@ function submitUpiOrder(ref,total,contact){
   var utrEl=document.getElementById('upiUtr'),msg=document.getElementById('upiMsg'),btn=document.getElementById('upiSubmit');
   var utr=(utrEl.value||'').replace(/\D/g,'').slice(0,12);
   if(utr.length!==12){msg.style.color='#c44';msg.textContent='Enter the 12-digit UTR shown in your UPI app.';return;}
+  var addrEl=document.getElementById('custAddr');
+  var addr=((addrEl&&addrEl.value)||customerAddr||'').trim();
+  if(!addr){msg.style.color='#c44';msg.textContent='Please enter your delivery address before confirming.';return;}
   btn.disabled=true;btn.textContent='SAVING\u2026';msg.textContent='';
   var payload={
     items:cart.map(function(c){return{id:c.id,vi:c.vi,q:c.q};}),
     coupon:coupon||null,
     contactEmail:contact,
     otpEmail:(otpState==='verified'&&otpEmail)?otpEmail:null,
-    shippingAddress:'',
+    shippingAddress:addr,
     ebook:!!includeEbook,
     ref:ref,
     utr:utr
@@ -450,7 +455,7 @@ function submitUpiOrder(ref,total,contact){
         trackEvent('Purchase',{value:total,currency:'INR',transaction_id:res.d.ref,coupon:coupon||null});
         var ov=document.getElementById('upiOv');
         if(ov)ov.innerHTML='<div style="background:#FAFAF7;max-width:420px;width:100%;padding:32px 28px;text-align:center;font-family:DM Sans,sans-serif"><h3 style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:500;margin:0 0 12px">Order placed</h3><p style="font-size:12px;color:#6a6560">Reference <strong>'+esc(res.d.ref)+'</strong>. We\'ll verify your payment and email you within 24 hours.</p><button onclick="document.getElementById(\'upiOv\').remove()" style="margin-top:18px;padding:12px 24px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">CLOSE</button></div>';
-        cart=[];saveCart();uB();coupon='';couponMsg='';otpState='idle';otpEmail='';customerEmail='';rC();closeCart();
+        cart=[];saveCart();uB();coupon='';couponMsg='';otpState='idle';otpEmail='';customerEmail='';customerAddr='';rC();closeCart();
       } else {
         btn.disabled=false;btn.textContent='CONFIRM ORDER';
         msg.style.color='#c44';msg.textContent=esc((res.d&&res.d.error)||'Could not save your order. Please try again.');
