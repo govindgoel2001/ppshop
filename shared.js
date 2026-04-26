@@ -71,9 +71,10 @@ function mono(nm){return nm.replace(/[-\s\+\(\)]/g,"").substring(0,3).toUpperCas
 function imgSrc(n){var f=IMG[n]||"placeholder";return "/img/"+f+(f.indexOf(".")>-1?"":".jpg");}
 function imgStyle(n){return 'object-position:'+(IMGPOS[n]||'center center')+';';}
 function slugify(name){return name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
 // Visitor ID (kept for session analytics only)
-var VID=(function(){var id=localStorage.getItem('abl_vid');if(!id){id='v_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);localStorage.setItem('abl_vid',id);}return id;})();
+var VID=(function(){var id=localStorage.getItem('abl_vid');if(!id){id='v_'+Date.now()+'_'+Math.random().toString(36).substring(2,11);localStorage.setItem('abl_vid',id);}return id;})();
 var usedFirst=false;
 // OTP state for FIRST5 coupon
 var otpState='idle',otpEmail='';
@@ -81,9 +82,25 @@ var otpState='idle',otpEmail='';
 // =====================
 // CART STATE
 // =====================
-var cart=[],selV={},coupon="",couponMsg="",includeEbook=true;
+var cart=[],selV={},coupon="",couponMsg="",includeEbook=true,customerEmail="";
 function saveCart(){try{localStorage.setItem('abl_cart',JSON.stringify(cart));}catch(e){}}
-function loadCart(){try{var c=localStorage.getItem('abl_cart');if(c)cart=JSON.parse(c);}catch(e){}}
+function loadCart(){
+  try{
+    var raw=localStorage.getItem('abl_cart');if(!raw){cart=[];return;}
+    var parsed=JSON.parse(raw);if(!Array.isArray(parsed)){cart=[];return;}
+    cart=[];
+    for(var i=0;i<parsed.length;i++){
+      var it=parsed[i];if(!it||typeof it!=='object')continue;
+      var id=parseInt(it.id,10),vi=parseInt(it.vi,10),q=parseInt(it.q,10);
+      if(!isFinite(id)||!isFinite(vi)||!isFinite(q)||q<=0)continue;
+      // Re-derive product fields from canonical P[] to drop any tampering
+      var p=null;for(var j=0;j<P.length;j++){if(P[j].id===id){p=P[j];break;}}
+      if(!p||!p.v||!p.v[vi])continue;
+      var v=p.v[vi];
+      cart.push({id:id,vi:vi,n:p.n,sp:v.sp,ds:v.ds,pr:v.pr,q:Math.min(q,99)});
+    }
+  }catch(e){cart=[];}
+}
 loadCart();
 
 function getCartQty(id,vi){
@@ -142,22 +159,23 @@ function closeCart(){
 // COUPON & OTP FLOW
 // =====================
 function applyCoupon(){
-  var code=(document.getElementById("cpIn").value||"").trim().toUpperCase();
+  var el=document.getElementById("cpIn");
+  var code=((el&&el.value)||"").trim().toUpperCase();
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
+  // Always reset coupon state on a new apply attempt — never leave a previous discount latched
+  coupon="";couponMsg="";
   if(code==="FIRST5"){
     if(usedFirst){
-      coupon="";couponMsg='<span style="color:#c44">FIRST5 has already been used on this account</span>';
+      couponMsg='<span style="color:#c44">FIRST5 has already been used on this account</span>';
       rC();return;
     }
     if(otpState==='verified'){
       coupon="FIRST5";couponMsg='<span style="color:#7a9a6d">FIRST5 applied: 5% off your first order</span>';
       rC();return;
     }
-    coupon="";couponMsg="";
     otpState='email_needed';
     rC();return;
   }
-  coupon="";couponMsg="";
   if(code==="BULK10"){
     if(sub>=20000){coupon="BULK10";couponMsg='<span style="color:#7a9a6d">BULK10 applied: 10% off</span>';}
     else couponMsg='<span style="color:#c44">BULK10 requires order above Rs 20,000</span>';
@@ -165,11 +183,21 @@ function applyCoupon(){
   else if(code) couponMsg='<span style="color:#c44">Invalid coupon code</span>';
   rC();
 }
+// Pure: compute discount without mutating coupon/couponMsg
 function calcDiscount(sub){
   if(coupon==="FIRST5") return Math.round(sub*0.05);
   if(coupon==="BULK10"&&sub>=20000) return Math.round(sub*0.10);
-  if(!coupon&&sub>=20000){coupon="BULK10";couponMsg='<span style="color:#7a9a6d">BULK10 auto-applied: 10% off (order 20k+)</span>';return Math.round(sub*0.10);}
   return 0;
+}
+// Auto-apply BULK10 when order qualifies and no coupon is set; called from rC() before computing totals.
+function maybeAutoApplyBulk10(sub){
+  if(!coupon&&sub>=20000){
+    coupon="BULK10";
+    couponMsg='<span style="color:#7a9a6d">BULK10 auto-applied: 10% off (order 20k+)</span>';
+  } else if(coupon==="BULK10"&&sub<20000){
+    // Order dropped below threshold — revert auto-applied BULK10
+    coupon="";couponMsg="";
+  }
 }
 
 function sendOtp(){
@@ -184,10 +212,19 @@ function sendOtp(){
   otpState='sending';
   rC();
   fetch('/api/send-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})})
-    .then(function(r){return r.json();})
-    .then(function(d){
-      if(d.ok){otpState='code_sent';couponMsg='<span style="color:#7a9a6d">Code sent to '+email+'</span>';}
-      else{otpState='email_needed';couponMsg='<span style="color:#c44">'+(d.error||'Failed to send OTP')+'</span>';}
+    .then(function(r){return r.json().then(function(d){return{status:r.status,d:d};});})
+    .then(function(res){
+      var d=res.d||{};
+      if(d.alreadyUsed){
+        otpState='idle';usedFirst=true;
+        couponMsg='<span style="color:#c44">FIRST5 has already been used with this email</span>';
+      } else if(d.sent){
+        otpState='code_sent';
+        couponMsg='<span style="color:#7a9a6d">Code sent to '+esc(email)+'</span>';
+      } else {
+        otpState='email_needed';
+        couponMsg='<span style="color:#c44">'+esc(d.error||'Failed to send OTP')+'</span>';
+      }
       rC();
     })
     .catch(function(){otpState='email_needed';couponMsg='<span style="color:#c44">Network error. Try again.</span>';rC();});
@@ -206,13 +243,14 @@ function verifyOtp(){
   fetch('/api/verify-coupon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:otpEmail,otp:otp,code:'FIRST5'})})
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.ok){
+      if(d&&d.valid){
         otpState='verified';
         coupon='FIRST5';
+        if(!customerEmail)customerEmail=otpEmail;
         couponMsg='<span style="color:#7a9a6d">FIRST5 applied: 5% off your first order</span>';
       } else {
         otpState='code_sent';
-        couponMsg='<span style="color:#c44">'+(d.error||'Invalid code')+'</span>';
+        couponMsg='<span style="color:#c44">'+esc((d&&d.error)||'Invalid code')+'</span>';
       }
       rC();
     })
@@ -236,8 +274,8 @@ function rC(){
   var h="";
   for(var i=0;i<cart.length;i++){
     var it=cart[i];
-    h+='<div class="ci"><div class="ct">'+mono(it.n)+'</div>';
-    h+='<div class="cd2"><h4>'+it.n+'</h4><div class="cm">'+it.ds+' &middot; '+it.sp+' &middot; 99%+ HPLC</div>';
+    h+='<div class="ci"><div class="ct">'+esc(mono(it.n))+'</div>';
+    h+='<div class="cd2"><h4>'+esc(it.n)+'</h4><div class="cm">'+esc(it.ds)+' &middot; '+esc(it.sp)+' &middot; 99%+ HPLC</div>';
     h+='<div style="margin-top:10px;display:flex;align-items:center"><div class="cq">';
     h+='<button onclick="cQ('+it.id+','+it.vi+',-1)">&minus;</button><span>'+it.q+'</span><button onclick="cQ('+it.id+','+it.vi+',1)">+</button>';
     h+='</div><button class="cr" onclick="rm('+it.id+','+it.vi+')">Remove</button></div></div>';
@@ -246,25 +284,26 @@ function rC(){
   h+='<div style="border-top:1px solid rgba(0,0,0,.06);margin-top:16px;padding-top:20px">';
   h+='<h3 style="font-family:Cormorant Garamond,serif;font-size:20px;font-weight:600;margin-bottom:16px">Checkout</h3>';
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
+  maybeAutoApplyBulk10(sub);
   var disc=calcDiscount(sub);
   var total=sub-disc;
-  h+='<div class="cui"><input type="text" id="cpIn" placeholder="Coupon code" value="'+(coupon||"")+'"><button onclick="applyCoupon()">Apply</button></div>';
+  h+='<div class="cui"><input type="text" id="cpIn" placeholder="Coupon code" value="'+esc(coupon||"")+'"><button onclick="applyCoupon()">Apply</button></div>';
   if(couponMsg) h+='<div class="cmsg">'+couponMsg+'</div>';
   // OTP flow UI for FIRST5
   if(otpState==='email_needed'){
     h+='<div style="margin-top:10px;padding:14px;background:#f8f7f4;border:1px solid #e8e3dc">';
     h+='<div style="font-size:11px;color:#6a6560;margin-bottom:8px;font-weight:500">Enter your email to verify FIRST5:</div>';
     h+='<div style="display:flex;gap:6px">';
-    h+='<input type="email" id="otpEmailIn" placeholder="your@email.com" style="flex:1;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none" value="'+(otpEmail||'')+'">';
+    h+='<input type="email" id="otpEmailIn" placeholder="your@email.com" style="flex:1;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none" value="'+esc(otpEmail||'')+'">';
     h+='<button onclick="sendOtp()" style="font-family:DM Sans,sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;padding:9px 16px;background:#1a1a1a;color:#FAFAF7;border:none;cursor:pointer">SEND OTP</button>';
     h+='</div>';
     h+='<div id="otpMsg" style="margin-top:6px;font-size:11px"></div>';
     h+='</div>';
   } else if(otpState==='sending'){
-    h+='<div style="margin-top:10px;padding:12px 14px;background:#f8f7f4;font-size:11px;color:#8a8580">Sending code to '+otpEmail+'\u2026</div>';
+    h+='<div style="margin-top:10px;padding:12px 14px;background:#f8f7f4;font-size:11px;color:#8a8580">Sending code to '+esc(otpEmail)+'\u2026</div>';
   } else if(otpState==='code_sent'||otpState==='verifying'){
     h+='<div style="margin-top:10px;padding:14px;background:#f8f7f4;border:1px solid #e8e3dc">';
-    h+='<div style="font-size:11px;color:#6a6560;margin-bottom:8px;font-weight:500">Enter the 6-digit code sent to '+otpEmail+':</div>';
+    h+='<div style="font-size:11px;color:#6a6560;margin-bottom:8px;font-weight:500">Enter the 6-digit code sent to '+esc(otpEmail)+':</div>';
     h+='<div style="display:flex;gap:6px">';
     h+='<input type="text" id="otpCodeIn" placeholder="000000" maxlength="6" inputmode="numeric" style="flex:1;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Mono,monospace;font-size:16px;letter-spacing:.25em;text-align:center;background:#fafaf7;outline:none"'+(otpState==='verifying'?' disabled':'')+' value="">';
     h+='<button onclick="verifyOtp()"'+(otpState==='verifying'?' disabled':'')+' style="font-family:DM Sans,sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;padding:9px 16px;background:#1a1a1a;color:#FAFAF7;border:none;cursor:pointer">'+(otpState==='verifying'?'VERIFYING\u2026':'VERIFY')+'</button>';
@@ -273,8 +312,11 @@ function rC(){
     h+='<button onclick="resendOtp()" style="margin-top:6px;background:none;border:none;color:#8a8580;font-size:10px;cursor:pointer;text-decoration:underline;padding:0">Use different email</button>';
     h+='</div>';
   }
+  // Always-required contact email (separate from OTP-verified email so non-coupon orders still capture it)
+  h+='<div style="margin-top:10px"><label style="font-size:11px;color:#6a6560;font-weight:500;display:block;margin-bottom:6px">Contact email</label>';
+  h+='<input type="email" id="custEmail" placeholder="your@email.com" required oninput="customerEmail=this.value" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none" value="'+esc(customerEmail||otpEmail||'')+'"></div>';
   h+='<div class="sr"><span>Subtotal</span><span>'+fmt(sub)+'</span></div>';
-  if(disc>0) h+='<div class="sr"><span>Discount ('+coupon+')</span><span style="color:#7a9a6d">-'+fmt(disc)+'</span></div>';
+  if(disc>0) h+='<div class="sr"><span>Discount ('+esc(coupon)+')</span><span style="color:#7a9a6d">-'+fmt(disc)+'</span></div>';
   h+='<div class="sr"><span>Shipping</span><span style="color:#7a9a6d">Complimentary</span></div>';
   h+='<div class="gs" style="margin:12px 0"></div>';
   h+='<div class="st"><span>Total</span><span>'+fmt(total)+'</span></div>';
@@ -284,49 +326,137 @@ function rC(){
     h+='<div style="margin-top:12px;padding:12px 16px;background:#F0EDE7;display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;color:#8a8580">Peptide Research Guide eBook</span><button onclick="includeEbook=true;rC()" style="font-family:DM Sans,sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;padding:5px 12px;background:#1a1a1a;color:#FAFAF7;border:none;cursor:pointer">+ Add Free eBook</button></div>';
   }
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
-  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px" onclick="showBankDetails()">Pay via Bank / UPI &middot; '+fmt(total)+'</button>';
+  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px" onclick="payViaUpi('+total+')">Pay via UPI &middot; '+fmt(total)+'</button>';
   h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="display:block;text-align:center;margin-top:8px;padding:12px 16px;font-size:9px">Email Order</a>';
-  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px;line-height:2">';
-  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Bank Transfer / UPI Details</p>';
-  h+='<p><b>UPI ID:</b> YOUR_UPI_ID@bank</p>';
-  h+='<p><b>Account Name:</b> AthenaBioLabs</p>';
-  h+='<p><b>Account No:</b> YOUR_ACCOUNT_NUMBER</p>';
-  h+='<p><b>IFSC:</b> YOUR_IFSC_CODE</p>';
-  h+='<p style="margin-top:6px;font-size:10px;color:#8a8580;line-height:1.6">After transferring, email your UTR / reference number to <b>support@athenabiolabs.com</b> with your shipping address.</p>';
-  h+='<button onclick="confirmBankTransfer('+total+',this)" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
-  h+='</div>';
   h+='</div>';
   bd.innerHTML=h;
 }
 
 // =====================
-// PAYMENT
+// PAYMENT \u2014 UPI QR
 // =====================
-function showBankDetails(){
-  var el=document.getElementById("bankInfo");
-  if(el)el.style.display=el.style.display==='none'?'block':'none';
+function genRef(){
+  var s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',out='';
+  for(var i=0;i<8;i++)out+=s.charAt(Math.floor(Math.random()*s.length));
+  return out;
 }
-function confirmBankTransfer(amount,btn){
+
+var _qrLibPromise=null;
+function loadQrLib(){
+  if(window.qrcode)return Promise.resolve(window.qrcode);
+  if(_qrLibPromise)return _qrLibPromise;
+  _qrLibPromise=new Promise(function(resolve,reject){
+    var s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
+    s.onload=function(){resolve(window.qrcode);};
+    s.onerror=function(){reject(new Error('qr-failed'));};
+    document.head.appendChild(s);
+  });
+  return _qrLibPromise;
+}
+
+var _upiCfgPromise=null;
+function loadUpiConfig(){
+  if(_upiCfgPromise)return _upiCfgPromise;
+  _upiCfgPromise=fetch('/api/config').then(function(r){return r.json();}).catch(function(){return{upiVpa:'',upiDisplayName:'AthenaBioLabs'};});
+  return _upiCfgPromise;
+}
+
+var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function payViaUpi(total){
   if(coupon==='FIRST5'&&otpState!=='verified'){
     alert('Please verify your email via OTP to use FIRST5.');
     return;
   }
-  var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-  btn.disabled=true;btn.textContent='Saving\u2026';
-  SUPA.from('orders').insert({items:items,total:amount,coupon:coupon||null,payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,email:otpEmail||null}).then(function(r){
-    btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
-    if(r.error){alert("Please email support@athenabiolabs.com with your UTR number.");}
-    else{
-      if(coupon==='FIRST5'&&otpEmail){
-        fetch('/api/record-coupon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:otpEmail,code:'FIRST5'})})
-          .catch(function(){});
-        usedFirst=true;
-      }
-      trackEvent('Purchase',{value:amount,currency:'INR',coupon:coupon||null});
-      alert("Order logged! Please email your UTR to support@athenabiolabs.com with your shipping address. Dispatch within 24h.");
-      cart=[];saveCart();uB();coupon='';couponMsg='';otpState='idle';otpEmail='';rC();closeCart();
+  var ce=document.getElementById('custEmail');
+  var contact=((ce&&ce.value)||customerEmail||'').trim().toLowerCase();
+  if(!EMAIL_RE.test(contact)){
+    alert('Please enter a valid contact email so we can confirm your order.');
+    if(ce)ce.focus();
+    return;
+  }
+  customerEmail=contact;
+  var ref=genRef();
+  var ov=document.createElement('div');
+  ov.id='upiOv';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  ov.innerHTML=
+    '<div style="background:#FAFAF7;max-width:420px;width:100%;padding:28px 24px;font-family:DM Sans,sans-serif;color:#1a1a1a">'+
+    '  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">'+
+    '    <h3 style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:500;margin:0">Pay via UPI</h3>'+
+    '    <button id="upiX" style="background:none;border:none;font-size:22px;cursor:pointer;color:#888">&times;</button>'+
+    '  </div>'+
+    '  <p style="font-size:11px;color:#6a6560;margin:0 0 14px">Order reference <strong id="upiRef">'+esc(ref)+'</strong> &middot; Amount <strong>'+fmt(total)+'</strong></p>'+
+    '  <div id="upiQr" style="display:flex;justify-content:center;padding:14px;background:#fff;border:1px solid #e8e3dc;min-height:220px"></div>'+
+    '  <div id="upiFallback" style="margin-top:10px;font-size:11px;color:#8a8580;text-align:center"></div>'+
+    '  <div style="margin-top:14px;font-size:11px;color:#6a6560"><strong>UPI ID:</strong> <span id="upiVpa">\u2026</span></div>'+
+    '  <button id="upiPaid" style="margin-top:18px;width:100%;padding:13px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">I\'VE PAID \u2014 ENTER UTR</button>'+
+    '  <div id="upiUtrWrap" style="display:none;margin-top:14px">'+
+    '    <label style="font-size:11px;color:#6a6560;display:block;margin-bottom:6px">12-digit UTR / Reference number</label>'+
+    '    <input id="upiUtr" inputmode="numeric" maxlength="12" placeholder="123456789012" style="width:100%;box-sizing:border-box;padding:11px;border:1px solid #d4cfc8;font-family:DM Mono,monospace;letter-spacing:.18em;background:#fafaf7">'+
+    '    <div id="upiMsg" style="font-size:11px;margin-top:6px;min-height:14px"></div>'+
+    '    <button id="upiSubmit" style="margin-top:10px;width:100%;padding:13px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">CONFIRM ORDER</button>'+
+    '  </div>'+
+    '</div>';
+  document.body.appendChild(ov);
+  document.getElementById('upiX').onclick=function(){ov.remove();};
+  document.getElementById('upiPaid').onclick=function(){
+    document.getElementById('upiUtrWrap').style.display='block';
+    document.getElementById('upiPaid').style.display='none';
+    document.getElementById('upiUtr').focus();
+  };
+  document.getElementById('upiSubmit').onclick=function(){
+    submitUpiOrder(ref,total,contact);
+  };
+
+  Promise.all([loadUpiConfig(),loadQrLib().catch(function(){return null;})]).then(function(arr){
+    var cfg=arr[0]||{},qrlib=arr[1];
+    var vpa=cfg.upiVpa||'',name=cfg.upiDisplayName||'AthenaBioLabs';
+    document.getElementById('upiVpa').textContent=vpa||'(configured on server)';
+    var uri='upi://pay?pa='+encodeURIComponent(vpa)+'&pn='+encodeURIComponent(name)+'&am='+encodeURIComponent(String(total))+'&cu=INR&tn=ABL-'+encodeURIComponent(ref);
+    var qrEl=document.getElementById('upiQr');
+    var fallback=document.getElementById('upiFallback');
+    if(qrlib&&vpa){
+      var q=qrlib(0,'M');q.addData(uri);q.make();
+      qrEl.innerHTML=q.createSvgTag({scalable:true,margin:1,cellSize:5});
+      fallback.innerHTML='Scan with any UPI app (GPay, PhonePe, Paytm).';
+    } else {
+      qrEl.innerHTML='<a href="'+uri+'" style="word-break:break-all;font-size:11px;color:#C8A97E">'+esc(uri)+'</a>';
+      fallback.innerHTML='Tap the link above on a phone to open your UPI app.';
     }
   });
+}
+
+function submitUpiOrder(ref,total,contact){
+  var utrEl=document.getElementById('upiUtr'),msg=document.getElementById('upiMsg'),btn=document.getElementById('upiSubmit');
+  var utr=(utrEl.value||'').replace(/\D/g,'').slice(0,12);
+  if(utr.length!==12){msg.style.color='#c44';msg.textContent='Enter the 12-digit UTR shown in your UPI app.';return;}
+  btn.disabled=true;btn.textContent='SAVING\u2026';msg.textContent='';
+  var payload={
+    items:cart.map(function(c){return{id:c.id,vi:c.vi,q:c.q};}),
+    coupon:coupon||null,
+    contactEmail:contact,
+    otpEmail:(otpState==='verified'&&otpEmail)?otpEmail:null,
+    shippingAddress:'',
+    ebook:!!includeEbook,
+    ref:ref,
+    utr:utr
+  };
+  fetch('/api/place-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json().then(function(d){return{status:r.status,d:d};});})
+    .then(function(res){
+      if(res.status===200&&res.d.ok){
+        trackEvent('Purchase',{value:total,currency:'INR',transaction_id:res.d.ref,coupon:coupon||null});
+        var ov=document.getElementById('upiOv');
+        if(ov)ov.innerHTML='<div style="background:#FAFAF7;max-width:420px;width:100%;padding:32px 28px;text-align:center;font-family:DM Sans,sans-serif"><h3 style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:500;margin:0 0 12px">Order placed</h3><p style="font-size:12px;color:#6a6560">Reference <strong>'+esc(res.d.ref)+'</strong>. We\'ll verify your payment and email you within 24 hours.</p><button onclick="document.getElementById(\'upiOv\').remove()" style="margin-top:18px;padding:12px 24px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">CLOSE</button></div>';
+        cart=[];saveCart();uB();coupon='';couponMsg='';otpState='idle';otpEmail='';customerEmail='';rC();closeCart();
+      } else {
+        btn.disabled=false;btn.textContent='CONFIRM ORDER';
+        msg.style.color='#c44';msg.textContent=esc((res.d&&res.d.error)||'Could not save your order. Please try again.');
+      }
+    })
+    .catch(function(){btn.disabled=false;btn.textContent='CONFIRM ORDER';msg.style.color='#c44';msg.textContent='Network error. Try again.';});
 }
 
 // =====================
@@ -425,7 +555,7 @@ function renderProductPage(pid){
 
   // Left: sticky image column
   h+='<div class="pdp-hero-img-col"><div class="pdp-img-wrap">';
-  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" class="pdp-hero-img" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=display:flex;align-items:center;justify-content:center;height:100%;padding:40px><span style=font-family:Cormorant+Garamond,serif;font-size:72px;font-weight:300;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
+  h+='<img src="/img/'+esc(IMG[p.n]||'placeholder.png')+'" alt="'+esc(p.n)+'" class="pdp-hero-img" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;padding:40px&quot;><span style=&quot;font-family:Cormorant Garamond,serif;font-size:72px;font-weight:300;color:#C8A97E&quot;>'+esc(mono(p.n))+'</span></div>\'">';
   h+='</div></div>';
 
   // Right: purchase info column
@@ -594,7 +724,7 @@ function renderRelated(currentProduct){
     var p=related[i],v=p.v[0];
     h+='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc" style="padding:0;cursor:pointer;text-decoration:none;color:inherit">';
     h+='<div style="background:linear-gradient(180deg,#f8f7f4,#f0ede7);overflow:hidden;height:180px;display:flex;align-items:center;justify-content:center">';
-    h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;height:180px;object-fit:cover;object-position:center top" onerror="this.outerHTML=\'<span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span>\'">';
+    h+='<img src="/img/'+esc(IMG[p.n]||'placeholder.png')+'" alt="'+esc(p.n)+'" style="width:100%;height:180px;object-fit:cover;object-position:center top" onerror="this.outerHTML=\'<span style=&quot;font-family:Cormorant Garamond,serif;font-size:44px;color:#C8A97E&quot;>'+esc(mono(p.n))+'</span>\'">';
     h+='</div>';
     h+='<div style="padding:20px 24px">';
     h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';

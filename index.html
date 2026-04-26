@@ -30,8 +30,7 @@ function trackEvent(evName,params){
 </script>
 <!-- Supabase JS client -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<!-- Razorpay Checkout -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -820,20 +819,30 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 // Supabase
 var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
 
+// Site config — replace placeholders below with real values before shipping.
+var SITE_CONFIG={
+  razorpayKey:'rzp_live_XXXXXXXXXXXXXXX',   // TODO: set live or test Razorpay Key ID
+  upi:{ id:'YOUR_UPI_ID@bank', accountName:'AthenaBioLabs', accountNo:'YOUR_ACCOUNT_NUMBER', ifsc:'YOUR_IFSC_CODE' },
+  ga4Id:'G-XXXXXXXXXX',                     // TODO: set GA4 Measurement ID
+  fbPixelId:'YOUR_PIXEL_ID_HERE'            // TODO: set Facebook Pixel ID
+};
+function isPlaceholder(v){return !v||/X{4,}|YOUR_/.test(v);}
+
 // Slug map for product URLs
 var SLUG_MAP={2:'tirzepatide',3:'retatrutide',4:'bpc-157',5:'tb-500',6:'bpc-tb-combo',8:'ghk-cu',11:'cjc-1295-no-dac',12:'cjc-ipa-combo',13:'klow-blend',14:'bac-water'};
 
+// Catalogue is the single source of truth. Keep this list in sync with shared.js.
 var P=[
 {id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2400},{sp:"20mg per vial",ds:"20mg",pr:3800}]},
 {id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2899},{sp:"20mg per vial",ds:"20mg",pr:4500}]},
-{id:4,n:"BPC-157",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:1990}]},
+{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg per vial",ds:"10mg",pr:1990}]},
 {id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3400}]},
 {id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3200}]},
 {id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg per vial",ds:"50mg",pr:1500}]},
 {id:11,n:"CJC-1295 (no DAC)",c:"GH",oos:true,v:[{sp:"5mg per vial",ds:"5mg",pr:2800}]},
 {id:12,n:"CJC+IPA Combo",c:"GH",oos:true,v:[{sp:"CJC-1295 5mg + Ipamorelin 5mg",ds:"10mg",pr:3750}]},
 {id:13,n:"KLOW Blend",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 10mg + TB-500 10mg + KPV 10mg + GHK-Cu 50mg",ds:"80mg",pr:3990}]},
-{id:14,n:"BAC Water",c:"Supplies",oos:true,v:[{sp:"1ml per vial",ds:"1ml",pr:799}]}
+{id:14,n:"BAC Water",c:"Supplies",v:[{sp:"10ml per vial",ds:"10ml",pr:799}]}
 ];
 
 var FQ=[
@@ -1086,7 +1095,8 @@ function recordCouponUsage(email,code,orderId){
 }
 
 function applyCoupon(){
-  var code=(document.getElementById("cpIn").value||"").trim().toUpperCase();
+  var el=document.getElementById("cpIn");
+  var code=((el&&el.value)||"").trim().toUpperCase();
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
   coupon="";couponMsg="";
   if(code==="FIRST5"){
@@ -1100,12 +1110,19 @@ function applyCoupon(){
   else if(code) couponMsg='<span style="color:#c44">Invalid coupon code</span>';
   rC();
 }
+// Pure: compute discount without mutating coupon/couponMsg
 function calcDiscount(sub){
   if(coupon==="FIRST5") return Math.round(sub*0.05);
   if(coupon==="BULK10"&&sub>=20000) return Math.round(sub*0.10);
-  // Auto-apply BULK10 on 20k+
-  if(!coupon&&sub>=20000){coupon="BULK10";couponMsg='<span style="color:#7a9a6d">BULK10 auto-applied: 10% off (order 20k+)</span>';return Math.round(sub*0.10);}
   return 0;
+}
+function maybeAutoApplyBulk10(sub){
+  if(!coupon&&sub>=20000){
+    coupon="BULK10";
+    couponMsg='<span style="color:#7a9a6d">BULK10 auto-applied: 10% off (order 20k+)</span>';
+  } else if(coupon==="BULK10"&&sub<20000){
+    coupon="";couponMsg="";
+  }
 }
 
 function rC(){
@@ -1162,6 +1179,7 @@ function rC(){
   h+='<div style="border-top:1px solid rgba(0,0,0,.06);margin-top:16px;padding-top:20px">';
   h+='<h3 style="font-family:Cormorant Garamond,serif;font-size:20px;font-weight:600;margin-bottom:16px">Checkout</h3>';
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
+  maybeAutoApplyBulk10(sub);
   var disc=calcDiscount(sub);
   var total=sub-disc;
   var wm="Hi, I would like to place an order:%0A%0A";
@@ -1170,6 +1188,9 @@ function rC(){
   wm+="%0ATotal: "+fmt(total)+"%0A%0APlease confirm and share payment details.";
   h+='<div class="cui"><input type="text" id="cpIn" placeholder="Coupon code" value="'+(coupon||"")+'"><button onclick="applyCoupon()">Apply</button></div>';
   if(couponMsg) h+='<div class="cmsg">'+couponMsg+'</div>';
+  // Always-required contact email (independent of coupon flow)
+  h+='<div style="margin-top:10px"><label style="font-size:11px;color:#6a6560;font-weight:500;display:block;margin-bottom:6px">Contact email</label>';
+  h+='<input type="email" id="custEmail" placeholder="your@email.com" required style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none" value="'+(verifiedEmail||'')+'"></div>';
   h+='<div class="sr"><span>Subtotal</span><span>'+fmt(sub)+'</span></div>';
   if(disc>0) h+='<div class="sr"><span>Discount ('+coupon+')</span><span style="color:#7a9a6d">-'+fmt(disc)+'</span></div>';
   h+='<div class="sr"><span>Shipping</span><span style="color:#7a9a6d">Complimentary</span></div>';
@@ -1182,91 +1203,136 @@ function rC(){
   }
   var ebookNote=includeEbook?"%0A%0APlease include the free Peptide Research Guide eBook.":"";
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
-  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payNow('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay Now &middot; '+fmt(total)+'</button>';
-  h+='<div style="display:flex;gap:8px;margin-top:8px">';
-  h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="showBankDetails()">Bank / UPI Transfer</button>';
-  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
-  h+='</div>';
-  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px;line-height:2">';
-  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Bank Transfer / UPI Details</p>';
-  h+='<p><b>UPI ID:</b> YOUR_UPI_ID@bank</p>';
-  h+='<p><b>Account Name:</b> AthenaBioLabs</p>';
-  h+='<p><b>Account No:</b> YOUR_ACCOUNT_NUMBER</p>';
-  h+='<p><b>IFSC:</b> YOUR_IFSC_CODE</p>';
-  h+='<p style="margin-top:6px;font-size:10px;color:#8a8580;line-height:1.6">After transferring, email your UTR / reference number to <b>support@athenabiolabs.com</b> with your shipping address.</p>';
-  h+='<button onclick="confirmBankTransfer('+total+')" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
-  h+='</div>';
-  h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking &middot; Bank Transfer</span></div>';
+  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payViaUpi('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
+  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="display:block;text-align:center;margin-top:8px;padding:12px 16px;font-size:9px">Email Order</a>';
   h+='</div>';
   bd.innerHTML=h;
 }
 
-// RAZORPAY CHECKOUT
-function payNow(amount){
-  // Build order description
-  var desc="";
-  for(var i=0;i<cart.length;i++){var c=cart[i];desc+=c.n+" ("+c.ds+") x"+c.q+", ";}
-  desc=desc.slice(0,-2);
-  if(desc.length>200) desc=desc.substring(0,197)+"...";
+// PAYMENT — UPI QR
+function genRef(){
+  var s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',out='';
+  for(var i=0;i<8;i++)out+=s.charAt(Math.floor(Math.random()*s.length));
+  return out;
+}
 
-  var options={
-    key:"rzp_live_XXXXXXXXXXXXXXX", // Replace with your Razorpay Key ID
-    amount:amount*100, // Razorpay takes amount in paise
-    currency:"INR",
-    name:"AthenaBioLabs",
-    description:desc,
-    image:"", // Add your logo URL here if you want
-    handler:function(response){
-      trackEvent('Purchase',{value:amount,currency:'INR',transaction_id:response.razorpay_payment_id});
-      var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-      SUPA.from('orders').insert({
-        items:items,total:amount,coupon:coupon||null,
-        payment_method:'razorpay',payment_id:response.razorpay_payment_id,
-        status:'paid',ebook:includeEbook,email:verifiedEmail||null
-      }).then(function(){});
-      if(coupon==='FIRST5'&&verifiedEmail){recordCouponUsage(verifiedEmail,'FIRST5',response.razorpay_payment_id);}
-      alert("Payment confirmed!\n\nPayment ID: "+response.razorpay_payment_id+"\n\nYour order is confirmed. We'll dispatch within 24 hours. Check your email for details.");
-      cart=[];saveCart();uB();rC();closeCart();
-    },
-    prefill:{},
-    theme:{color:"#C8A97E"},
-    modal:{ondismiss:function(){trackEvent('PaymentDismissed',{value:amount,currency:'INR'});}}
+var _qrLibPromise=null;
+function loadQrLib(){
+  if(window.qrcode)return Promise.resolve(window.qrcode);
+  if(_qrLibPromise)return _qrLibPromise;
+  _qrLibPromise=new Promise(function(resolve,reject){
+    var s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
+    s.onload=function(){resolve(window.qrcode);};
+    s.onerror=function(){reject(new Error('qr-failed'));};
+    document.head.appendChild(s);
+  });
+  return _qrLibPromise;
+}
+
+var _upiCfgPromise=null;
+function loadUpiConfig(){
+  if(_upiCfgPromise)return _upiCfgPromise;
+  _upiCfgPromise=fetch('/api/config').then(function(r){return r.json();}).catch(function(){return{upiVpa:'',upiDisplayName:'AthenaBioLabs'};});
+  return _upiCfgPromise;
+}
+
+function escHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function payViaUpi(total){
+  if(coupon==='FIRST5'&&!verifiedEmail){
+    alert('Please verify your email via OTP to use FIRST5.');
+    return;
+  }
+  var ce=document.getElementById('custEmail');
+  var contact=((ce&&ce.value)||verifiedEmail||'').trim().toLowerCase();
+  if(!EMAIL_RE.test(contact)){
+    alert('Please enter a valid contact email so we can confirm your order.');
+    if(ce)ce.focus();
+    return;
+  }
+  var ref=genRef();
+  var ov=document.createElement('div');
+  ov.id='upiOv';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  ov.innerHTML=
+    '<div style="background:#FAFAF7;max-width:420px;width:100%;padding:28px 24px;font-family:DM Sans,sans-serif;color:#1a1a1a">'+
+    '  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">'+
+    '    <h3 style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:500;margin:0">Pay via UPI</h3>'+
+    '    <button id="upiX" style="background:none;border:none;font-size:22px;cursor:pointer;color:#888">&times;</button>'+
+    '  </div>'+
+    '  <p style="font-size:11px;color:#6a6560;margin:0 0 14px">Order reference <strong id="upiRef">'+escHtml(ref)+'</strong> &middot; Amount <strong>'+fmt(total)+'</strong></p>'+
+    '  <div id="upiQr" style="display:flex;justify-content:center;padding:14px;background:#fff;border:1px solid #e8e3dc;min-height:220px"></div>'+
+    '  <div id="upiFallback" style="margin-top:10px;font-size:11px;color:#8a8580;text-align:center"></div>'+
+    '  <div style="margin-top:14px;font-size:11px;color:#6a6560"><strong>UPI ID:</strong> <span id="upiVpa">…</span></div>'+
+    '  <button id="upiPaid" style="margin-top:18px;width:100%;padding:13px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">I\'VE PAID — ENTER UTR</button>'+
+    '  <div id="upiUtrWrap" style="display:none;margin-top:14px">'+
+    '    <label style="font-size:11px;color:#6a6560;display:block;margin-bottom:6px">12-digit UTR / Reference number</label>'+
+    '    <input id="upiUtr" inputmode="numeric" maxlength="12" placeholder="123456789012" style="width:100%;box-sizing:border-box;padding:11px;border:1px solid #d4cfc8;font-family:DM Mono,monospace;letter-spacing:.18em;background:#fafaf7">'+
+    '    <div id="upiMsg" style="font-size:11px;margin-top:6px;min-height:14px"></div>'+
+    '    <button id="upiSubmit" style="margin-top:10px;width:100%;padding:13px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">CONFIRM ORDER</button>'+
+    '  </div>'+
+    '</div>';
+  document.body.appendChild(ov);
+  document.getElementById('upiX').onclick=function(){ov.remove();};
+  document.getElementById('upiPaid').onclick=function(){
+    document.getElementById('upiUtrWrap').style.display='block';
+    document.getElementById('upiPaid').style.display='none';
+    document.getElementById('upiUtr').focus();
+  };
+  document.getElementById('upiSubmit').onclick=function(){
+    submitUpiOrder(ref,total,contact);
   };
 
-  try{
-    var rzp=new Razorpay(options);
-    rzp.on('payment.failed',function(response){
-      alert("Payment failed. Please try again, or use Bank / UPI Transfer to place your order.");
-      trackEvent('PaymentFailed',{value:amount,currency:'INR'});
-    });
-    rzp.open();
-    trackEvent('InitiateCheckout',{value:amount,currency:'INR',num_items:cart.length});
-  }catch(e){
-    alert("Payment gateway loading. Please use Bank / UPI Transfer or email support@athenabiolabs.com to place your order.");
-  }
-}
-
-// BANK TRANSFER
-function showBankDetails(){
-  var el=document.getElementById("bankInfo");
-  if(el)el.style.display=el.style.display==='none'?'block':'none';
-}
-function confirmBankTransfer(amount){
-  var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-  var btn=event.target;btn.disabled=true;btn.textContent='Saving\u2026';
-  SUPA.from('orders').insert({
-    items:items,total:amount,coupon:coupon||null,
-    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,email:verifiedEmail||null
-  }).then(function(r){
-    btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
-    if(r.error){
-      alert("Please email support@athenabiolabs.com with your UTR number and we'll confirm your order manually.");
+  Promise.all([loadUpiConfig(),loadQrLib().catch(function(){return null;})]).then(function(arr){
+    var cfg=arr[0]||{},qrlib=arr[1];
+    var vpa=cfg.upiVpa||'',name=cfg.upiDisplayName||'AthenaBioLabs';
+    document.getElementById('upiVpa').textContent=vpa||'(configured on server)';
+    var uri='upi://pay?pa='+encodeURIComponent(vpa)+'&pn='+encodeURIComponent(name)+'&am='+encodeURIComponent(String(total))+'&cu=INR&tn=ABL-'+encodeURIComponent(ref);
+    var qrEl=document.getElementById('upiQr');
+    var fallback=document.getElementById('upiFallback');
+    if(qrlib&&vpa){
+      var q=qrlib(0,'M');q.addData(uri);q.make();
+      qrEl.innerHTML=q.createSvgTag({scalable:true,margin:1,cellSize:5});
+      fallback.innerHTML='Scan with any UPI app (GPay, PhonePe, Paytm).';
     } else {
-      if(coupon==='FIRST5'&&verifiedEmail){recordCouponUsage(verifiedEmail,'FIRST5',null);}
-      alert("Order logged! Please email your UTR / transaction reference to support@athenabiolabs.com with your shipping address. We'll dispatch within 24 hours of payment verification.");
-      cart=[];saveCart();uB();rC();closeCart();
+      qrEl.innerHTML='<a href="'+uri+'" style="word-break:break-all;font-size:11px;color:#C8A97E">'+escHtml(uri)+'</a>';
+      fallback.innerHTML='Tap the link above on a phone to open your UPI app.';
     }
   });
+}
+
+function submitUpiOrder(ref,total,contact){
+  var utrEl=document.getElementById('upiUtr'),msg=document.getElementById('upiMsg'),btn=document.getElementById('upiSubmit');
+  var utr=(utrEl.value||'').replace(/\D/g,'').slice(0,12);
+  if(utr.length!==12){msg.style.color='#c44';msg.textContent='Enter the 12-digit UTR shown in your UPI app.';return;}
+  btn.disabled=true;btn.textContent='SAVING…';msg.textContent='';
+  var payload={
+    items:cart.map(function(c){return{id:c.id,vi:c.vi,q:c.q};}),
+    coupon:coupon||null,
+    contactEmail:contact,
+    otpEmail:verifiedEmail||null,
+    shippingAddress:'',
+    ebook:!!includeEbook,
+    ref:ref,
+    utr:utr
+  };
+  fetch('/api/place-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json().then(function(d){return{status:r.status,d:d};});})
+    .then(function(res){
+      if(res.status===200&&res.d.ok){
+        trackEvent('Purchase',{value:total,currency:'INR',transaction_id:res.d.ref,coupon:coupon||null});
+        var ov=document.getElementById('upiOv');
+        if(ov)ov.innerHTML='<div style="background:#FAFAF7;max-width:420px;width:100%;padding:32px 28px;text-align:center;font-family:DM Sans,sans-serif"><h3 style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:500;margin:0 0 12px">Order placed</h3><p style="font-size:12px;color:#6a6560">Reference <strong>'+escHtml(res.d.ref)+'</strong>. We\'ll verify your payment and email you within 24 hours.</p><button onclick="document.getElementById(\'upiOv\').remove()" style="margin-top:18px;padding:12px 24px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">CLOSE</button></div>';
+        cart=[];saveCart();uB();coupon='';couponMsg='';verifiedEmail='';rC();closeCart();
+      } else {
+        btn.disabled=false;btn.textContent='CONFIRM ORDER';
+        msg.style.color='#c44';msg.textContent=escHtml((res.d&&res.d.error)||'Could not save your order. Please try again.');
+      }
+    })
+    .catch(function(){btn.disabled=false;btn.textContent='CONFIRM ORDER';msg.style.color='#c44';msg.textContent='Network error. Try again.';});
 }
 
 // DOSAGE CALCULATOR
@@ -1274,7 +1340,7 @@ function calcRecon(){
   var mg=parseFloat(document.getElementById("rc-mg").value)||0;
   var ml=parseFloat(document.getElementById("rc-ml").value)||0;
   var dose=parseFloat(document.getElementById("rc-dose").value)||0;
-  if(!mg||!ml){document.getElementById("rc-out").innerHTML="Enter values above";return;}
+  if(!mg||!ml||!dose){document.getElementById("rc-out").innerHTML="Enter values above";return;}
   var conc=mg/ml;
   var concMcg=conc*1000;
   var volPerDose=dose/concMcg;
