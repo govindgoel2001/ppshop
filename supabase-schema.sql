@@ -5,12 +5,18 @@
 -- email_otps: one active OTP per email
 -- ─────────────────────────────────────────────
 create table if not exists email_otps (
-  email       text primary key,
-  otp         text not null,
-  expires_at  timestamptz not null,
-  verified    boolean not null default false,
-  created_at  timestamptz not null default now()
+  email        text primary key,
+  otp          text not null,
+  expires_at   timestamptz not null,
+  verified     boolean not null default false,
+  verified_at  timestamptz,
+  fail_count   integer not null default 0,
+  created_at   timestamptz not null default now()
 );
+
+-- Add columns to existing deployments
+alter table email_otps add column if not exists verified_at timestamptz;
+alter table email_otps add column if not exists fail_count integer not null default 0;
 
 alter table email_otps enable row level security;
 -- No public policies: only the service key (API functions) can read/write this table.
@@ -34,9 +40,22 @@ alter table coupon_usage enable row level security;
 alter table coupon_usage drop column if exists visitor_id;
 
 -- ─────────────────────────────────────────────
--- orders: add email column, lock down RLS
+-- orders: order ledger. Created here so a fresh deploy works.
 -- ─────────────────────────────────────────────
+create table if not exists orders (
+  id              bigint generated always as identity primary key,
+  items           text,
+  total           numeric(10,2),
+  coupon          text,
+  payment_method  text,
+  status          text default 'pending_verification',
+  ebook           boolean default true,
+  email           text,
+  created_at      timestamptz not null default now()
+);
+
 alter table orders add column if not exists email text;
+alter table orders add column if not exists ebook boolean default true;
 
 alter table orders enable row level security;
 
@@ -45,11 +64,48 @@ drop policy if exists "Allow anon insert" on orders;
 drop policy if exists "Allow all" on orders;
 drop policy if exists "anon can insert orders" on orders;
 
--- Anon users can only INSERT (place an order), never read others' orders
+-- Anon users can only INSERT (place an order), never read others' orders.
+-- NOTE: total is client-supplied; treat it as untrusted in fulfillment.
 create policy "anon can insert orders"
   on orders for insert
   to anon
   with check (true);
+
+-- ─────────────────────────────────────────────
+-- contact_submissions: contact form (used by index.html sendC)
+-- ─────────────────────────────────────────────
+create table if not exists contact_submissions (
+  id         bigint generated always as identity primary key,
+  name       text not null,
+  email      text not null,
+  subject    text,
+  message    text not null,
+  created_at timestamptz not null default now()
+);
+
+alter table contact_submissions enable row level security;
+
+drop policy if exists "anon can insert contact" on contact_submissions;
+create policy "anon can insert contact"
+  on contact_submissions for insert
+  to anon
+  with check (length(name) > 0 and length(email) > 0 and length(message) > 0);
+
+-- ─────────────────────────────────────────────
+-- subscribers: newsletter (used by index.html subEmail)
+-- ─────────────────────────────────────────────
+create table if not exists subscribers (
+  email      text primary key,
+  created_at timestamptz not null default now()
+);
+
+alter table subscribers enable row level security;
+
+drop policy if exists "anon can subscribe" on subscribers;
+create policy "anon can subscribe"
+  on subscribers for insert
+  to anon
+  with check (length(email) > 0);
 
 -- ─────────────────────────────────────────────
 -- blocked_emails: emails that bounced or abused the OTP system
@@ -64,15 +120,18 @@ alter table blocked_emails enable row level security;
 -- No public policies: service key only.
 
 -- ─────────────────────────────────────────────
--- otp_attempts: rate limiting log (send + verify)
+-- otp_attempts: rate limiting log (send + verify + record)
 -- ─────────────────────────────────────────────
 create table if not exists otp_attempts (
   id         bigint generated always as identity primary key,
-  email      text not null,
-  type       text not null, -- 'send' or 'verify'
+  email      text,
+  type       text not null, -- 'send' | 'verify' | 'record'
   ip         text,
   created_at timestamptz not null default now()
 );
+
+-- Existing deployments may have NOT NULL on email; record-rate uses ip-only with email NULL.
+alter table otp_attempts alter column email drop not null;
 
 alter table otp_attempts enable row level security;
 -- No public policies: service key only.
@@ -84,4 +143,64 @@ alter table otp_attempts enable row level security;
 -- Indexes for performance
 -- ─────────────────────────────────────────────
 create index if not exists coupon_usage_email_idx on coupon_usage (email);
-create index if not exists orders_email_idx on orders (email);
+create index if not exists orders_email_idx       on orders (email);
+create index if not exists otp_attempts_email_idx on otp_attempts (email);
+create index if not exists otp_attempts_ip_idx    on otp_attempts (ip);
+create index if not exists otp_attempts_type_time on otp_attempts (type, created_at);
+
+-- ─────────────────────────────────────────────
+-- UPI + admin flow additions
+-- ─────────────────────────────────────────────
+
+-- orders: payment + admin metadata
+alter table orders add column if not exists ref               text;
+alter table orders add column if not exists utr               text;
+alter table orders add column if not exists shipping_address  text;
+alter table orders add column if not exists dispatch_tracking text;
+alter table orders add column if not exists rejection_reason  text;
+alter table orders add column if not exists admin_notes       text;
+alter table orders add column if not exists submitted_at      timestamptz default now();
+
+create unique index if not exists orders_ref_unique on orders(ref) where ref is not null;
+create unique index if not exists orders_utr_unique on orders(utr) where utr is not null;
+
+-- Server-validated order placement now happens through the service key,
+-- so the anon insert policy is no longer needed.
+drop policy if exists "anon can insert orders" on orders;
+
+-- magic-link tokens (one-time, short-lived)
+create table if not exists admin_login_tokens (
+  token       text primary key,
+  email       text not null,
+  expires_at  timestamptz not null,
+  used        boolean not null default false,
+  created_at  timestamptz not null default now()
+);
+alter table admin_login_tokens enable row level security;
+create index if not exists admin_login_tokens_email_idx on admin_login_tokens(email);
+
+-- admin sessions (long-lived cookie)
+create table if not exists admin_sessions (
+  token       text primary key,
+  email       text not null,
+  expires_at  timestamptz not null,
+  created_at  timestamptz not null default now()
+);
+alter table admin_sessions enable row level security;
+create index if not exists admin_sessions_email_idx on admin_sessions(email);
+
+-- audit log so the admin page can show history
+create table if not exists order_audit (
+  id          bigint generated always as identity primary key,
+  order_id    bigint not null references orders(id) on delete cascade,
+  actor       text,
+  action      text not null,
+  detail      text,
+  created_at  timestamptz not null default now()
+);
+alter table order_audit enable row level security;
+create index if not exists order_audit_order_idx on order_audit(order_id);
+
+-- Allow 'admin_login' as a third otp_attempts type (for magic-link throttling).
+-- otp_attempts.type is free-form text, so this is a no-op constraint update — kept here
+-- as documentation that the API will write rows with type='admin_login'.
