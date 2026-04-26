@@ -5,22 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AthenaBioLabs — Premium Research Peptides</title>
 <meta name="description" content="Premium research peptides. HPLC verified. Third-party tested.">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','G-XXXXXXXXXX');
-</script>
-<!-- Meta Pixel -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','YOUR_PIXEL_ID_HERE');fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/></noscript>
+<script src="/analytics.js"></script>
 <!-- Analytics helper -->
 <script>
 function trackEvent(evName,params){
@@ -818,15 +803,6 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <script>
 // Supabase
 var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
-
-// Site config — replace placeholders below with real values before shipping.
-var SITE_CONFIG={
-  razorpayKey:'rzp_live_XXXXXXXXXXXXXXX',   // TODO: set live or test Razorpay Key ID
-  upi:{ id:'YOUR_UPI_ID@bank', accountName:'AthenaBioLabs', accountNo:'YOUR_ACCOUNT_NUMBER', ifsc:'YOUR_IFSC_CODE' },
-  ga4Id:'G-XXXXXXXXXX',                     // TODO: set GA4 Measurement ID
-  fbPixelId:'YOUR_PIXEL_ID_HERE'            // TODO: set Facebook Pixel ID
-};
-function isPlaceholder(v){return !v||/X{4,}|YOUR_/.test(v);}
 
 // Slug map for product URLs
 var SLUG_MAP={2:'tirzepatide',3:'retatrutide',4:'bpc-157',5:'tb-500',6:'bpc-tb-combo',8:'ghk-cu',11:'cjc-1295-no-dac',12:'cjc-ipa-combo',13:'klow-blend',14:'bac-water'};
@@ -1686,8 +1662,8 @@ function getCookie(n){var v=document.cookie.match('(^|;)\\s*'+n+'=([^;]*)');retu
 function setCookie(n,v,d){var dt=new Date();dt.setTime(dt.getTime()+d*86400000);document.cookie=n+'='+v+';expires='+dt.toUTCString()+';path=/;SameSite=Lax';}
 function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookieBanner').style.display='none';}
 function declineCookies(){setCookie('cookie_consent','declined',30);document.getElementById('cookieBanner').style.display='none';
-  // Disable GA
-  window['ga-disable-G-XXXXXXXXXX']=true;
+  // Disable GA dynamically — analytics.js checks this flag before loading
+  if(window.__ga4Id)window['ga-disable-'+window.__ga4Id]=true;
 }
 if(!getCookie('cookie_consent')){document.getElementById('cookieBanner').style.display='block';}
 // Track page navigation
