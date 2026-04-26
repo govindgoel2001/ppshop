@@ -2,14 +2,18 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "functions": {
-    "api/*.js": { "maxDuration": 10 }
+    "api/*.js":         { "maxDuration": 10 },
+    "api/admin/*.js":   { "maxDuration": 10 }
   },
   "rewrites": [
-    { "source": "/about", "destination": "/index.html" },
-    { "source": "/coa", "destination": "/index.html" },
-    { "source": "/contact", "destination": "/index.html" },
-    { "source": "/shop", "destination": "/index.html" },
-    { "source": "/catalogue", "destination": "/catalogue.html" },
-    { "source": "/calculator", "destination": "/calculator.html" }
+    { "source": "/about",       "destination": "/index.html" },
+    { "source": "/coa",         "destination": "/index.html" },
+    { "source": "/contact",     "destination": "/index.html" },
+    { "source": "/shop",        "destination": "/index.html" },
+    { "source": "/catalogue",   "destination": "/catalogue.html" },
+    { "source": "/calculator",  "destination": "/calculator.html" },
+    { "source": "/admin",       "destination": "/admin/index.html" },
+    { "source": "/admin/login", "destination": "/admin/login.html" },
+    { "source": "/admin/order", "destination": "/admin/order.html" }
   ]
 }

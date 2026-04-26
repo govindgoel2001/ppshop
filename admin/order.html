@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'DM Sans',sans-serif;background:#FAFAF7;color:#1a1a1a}
+  header{background:#1a1a1a;color:#FAFAF7;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+  header h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:22px;margin:0}
+  header a,header button{color:#FAFAF7;text-decoration:none;border:1px solid rgba(250,250,247,.3);font-size:10px;letter-spacing:.18em;padding:7px 14px;cursor:pointer;background:transparent}
+  main{max-width:1200px;margin:0 auto;padding:24px;display:grid;grid-template-columns:2fr 1fr;gap:24px}
+  @media(max-width:900px){main{grid-template-columns:1fr}}
+  section{background:#fff;border:1px solid #e8e3dc;padding:20px}
+  h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:18px;margin:0 0 12px;letter-spacing:-.01em}
+  .row{display:grid;grid-template-columns:140px 1fr;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px solid #f8f7f4}
+  .row span{color:#888;font-size:11px;padding-top:1px}
+  .utr{font-family:'DM Mono',monospace;font-size:18px;letter-spacing:.16em;background:#F4F1EB;padding:10px 14px;display:inline-block;border:1px solid #e8e3dc}
+  .audit{font-size:12px;color:#666}
+  .audit li{padding:6px 0;border-bottom:1px solid #f0ede7;list-style:none}
+  ul{padding:0;margin:0}
+  textarea,input[type=text]{width:100%;box-sizing:border-box;padding:9px;border:1px solid #d4cfc8;background:#fafaf7;font-family:inherit;font-size:13px;margin-top:6px}
+  button.action{display:block;width:100%;padding:13px;font-size:11px;font-weight:600;letter-spacing:.18em;border:none;cursor:pointer;margin-bottom:8px}
+  button.approve{background:#7a9a6d;color:#fff}
+  button.reject{background:#c44;color:#fff}
+  button.ship{background:#4a8fbb;color:#fff}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  .msg{margin-top:8px;font-size:12px;min-height:16px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Order detail</h1>
+  <div><a href="/admin/index.html">&#8592; BACK</a> <button onclick="ADMIN.logout()">SIGN OUT</button></div>
+</header>
+<main>
+  <div>
+    <section id="orderInfo"></section>
+    <section style="margin-top:24px"><h2>Audit log</h2><ul id="audit" class="audit"></ul></section>
+  </div>
+  <section>
+    <h2>Actions</h2>
+    <div id="actionPanel"></div>
+    <h2 style="margin-top:24px">Internal notes</h2>
+    <textarea id="notes" rows="4" placeholder="Visible only to admins."></textarea>
+    <button class="action" style="background:#1a1a1a;color:#fff;margin-top:8px" onclick="saveNotes()">SAVE NOTES</button>
+    <div class="msg" id="msg"></div>
+  </section>
+</main>
+<script src="/admin/admin.js"></script>
+<script>
+var ID=Number.parseInt(new URLSearchParams(location.search).get('id'),10);
+var ORDER=null;
+function render(o,audit){
+  ORDER=o;
+  document.title='Order '+(o.ref||('#'+o.id))+' — Admin';
+  document.getElementById('orderInfo').innerHTML=
+    '<h2>'+ADMIN.esc(o.ref||('#'+o.id))+' '+ADMIN.statusPill(o.status)+'</h2>'+
+    '<div class="row"><span>Created</span><div>'+ADMIN.fmtDate(o.created_at)+'</div></div>'+
+    '<div class="row"><span>Customer email</span><div>'+ADMIN.esc(o.email||'—')+'</div></div>'+
+    '<div class="row"><span>Total</span><div><strong>'+ADMIN.fmtINR(o.total)+'</strong>'+(o.coupon?' (coupon '+ADMIN.esc(o.coupon)+')':'')+'</div></div>'+
+    '<div class="row"><span>Items</span><div>'+ADMIN.esc(o.items||'—')+'</div></div>'+
+    '<div class="row"><span>Payment</span><div>'+ADMIN.esc(o.payment_method||'—')+'</div></div>'+
+    '<div class="row"><span>UTR</span><div><span class="utr">'+ADMIN.esc(o.utr||'—')+'</span>'+
+      (o.utr?'<button onclick="navigator.clipboard&&navigator.clipboard.writeText(\''+ADMIN.esc(o.utr)+'\')" style="margin-left:8px;font-size:10px;padding:6px 10px;border:1px solid #d4cfc8;background:#fff;cursor:pointer">COPY</button>':'')+'</div></div>'+
+    '<div class="row"><span>Shipping address</span><div>'+ADMIN.esc(o.shipping_address||'(not provided)')+'</div></div>'+
+    (o.dispatch_tracking?'<div class="row"><span>Tracking</span><div>'+ADMIN.esc(o.dispatch_tracking)+'</div></div>':'')+
+    (o.rejection_reason?'<div class="row"><span>Rejection reason</span><div>'+ADMIN.esc(o.rejection_reason)+'</div></div>':'');
+  document.getElementById('audit').innerHTML=(audit||[]).map(function(a){
+    return '<li><strong>'+ADMIN.esc(a.action)+'</strong> &middot; '+ADMIN.esc(a.actor||'system')+' &middot; '+ADMIN.fmtDate(a.created_at)+(a.detail?'<br><span style="color:#999;font-size:11px">'+ADMIN.esc(a.detail)+'</span>':'')+'</li>';
+  }).join('');
+  document.getElementById('notes').value=o.admin_notes||'';
+  renderActions(o);
+}
+function renderActions(o){
+  var h='';
+  if(o.status==='pending_verification'){
+    h+='<button class="action approve" onclick="act(\'approve\',{})">APPROVE — MARK PAID</button>';
+    h+='<label style="font-size:11px;color:#6a6560;margin-top:8px;display:block">Rejection reason</label>';
+    h+='<textarea id="rejReason" rows="2" placeholder="UTR not received, amount mismatch…"></textarea>';
+    h+='<button class="action reject" style="margin-top:6px" onclick="act(\'reject\',{reason:document.getElementById(\'rejReason\').value})">REJECT</button>';
+  } else if(o.status==='paid'){
+    h+='<label style="font-size:11px;color:#6a6560;display:block">Tracking number</label>';
+    h+='<input type="text" id="trk" placeholder="ABCD1234567">';
+    h+='<button class="action ship" style="margin-top:6px" onclick="act(\'ship\',{tracking:document.getElementById(\'trk\').value})">MARK SHIPPED</button>';
+  } else {
+    h+='<p style="font-size:12px;color:#888;margin:0">No further actions for status <strong>'+ADMIN.esc(o.status)+'</strong>.</p>';
+  }
+  document.getElementById('actionPanel').innerHTML=h;
+}
+function act(action,payload){
+  if(!confirm('Confirm: '+action+'?'))return;
+  ADMIN.api('/api/admin/order-action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderId:ID,action:action,payload:payload||{}})}).then(function(res){
+    if(res.status!==200){document.getElementById('msg').style.color='#c44';document.getElementById('msg').textContent='Error: '+(res.d.error||'unknown');return;}
+    document.getElementById('msg').style.color='#7a9a6d';document.getElementById('msg').textContent='Done.';
+    load();
+  });
+}
+function saveNotes(){
+  ADMIN.api('/api/admin/order-action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderId:ID,action:'note',payload:{notes:document.getElementById('notes').value}})}).then(function(){
+    document.getElementById('msg').style.color='#7a9a6d';document.getElementById('msg').textContent='Notes saved.';
+  });
+}
+function load(){
+  ADMIN.api('/api/admin/orders?id='+ID).then(function(res){
+    if(res.status!==200){document.getElementById('orderInfo').innerHTML='<p style="color:#c44">Order not found.</p>';return;}
+    render(res.d.order,res.d.audit);
+  });
+}
+ADMIN.requireSession(function(){load();});
+</script>
+</body>
+</html>
