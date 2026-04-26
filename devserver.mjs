@@ -38,12 +38,29 @@ const MIME = {
   '.ttf':  'font/ttf',
 };
 
+// Load .env.local (or .env.example as fallback) so we can stub /api/config locally
+function loadEnv() {
+  const env = {};
+  for (const f of ['.env.local', '.env.example']) {
+    const p = path.join(ROOT, f);
+    if (!fs.existsSync(p)) continue;
+    for (const line of fs.readFileSync(p, 'utf8').split('\n')) {
+      const m = line.match(/^([A-Z0-9_]+)=(.*)$/);
+      if (m && env[m[1]] === undefined) env[m[1]] = m[2].trim();
+    }
+    break;
+  }
+  return env;
+}
+const ENV = loadEnv();
+
 function resolve(urlPath) {
   // 1. Exact rewrite match
   const rewrite = REWRITES.find(([src]) => src === urlPath);
   if (rewrite) return path.join(ROOT, rewrite[1]);
 
-  // 2. API routes — signal caller to return 501
+  // 2. API routes — handled separately below (return special markers)
+  if (urlPath === '/api/config') return '__api_config__';
   if (urlPath.startsWith('/api/')) return null;
 
   // 3. Try exact file
@@ -65,6 +82,16 @@ const server = http.createServer((req, res) => {
   const urlPath = new URL(req.url, 'http://localhost').pathname;
   const file = resolve(urlPath);
 
+  if (file === '__api_config__') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      upiVpa:         ENV.UPI_VPA || '',
+      upiDisplayName: ENV.UPI_DISPLAY_NAME || 'AthenaBioLabs',
+      ga4Id:          ENV.GA4_ID || '',
+      fbPixelId:      ENV.FB_PIXEL_ID || '',
+    }));
+    return;
+  }
   if (file === null) {
     res.writeHead(501, { 'Content-Type': 'text/plain' });
     res.end('API routes require `vercel dev`. Run: npm run dev');
