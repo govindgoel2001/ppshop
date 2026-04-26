@@ -723,8 +723,8 @@ function renderRelated(currentProduct){
   for(var i=0;i<related.length;i++){
     var p=related[i],v=p.v[0];
     h+='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc" style="padding:0;cursor:pointer;text-decoration:none;color:inherit">';
-    h+='<div style="background:linear-gradient(180deg,#f8f7f4,#f0ede7);overflow:hidden;height:180px;display:flex;align-items:center;justify-content:center">';
-    h+='<img src="/img/'+esc(IMG[p.n]||'placeholder.png')+'" alt="'+esc(p.n)+'" style="width:100%;height:180px;object-fit:cover;object-position:center top" onerror="this.outerHTML=\'<span style=&quot;font-family:Cormorant Garamond,serif;font-size:44px;color:#C8A97E&quot;>'+esc(mono(p.n))+'</span>\'">';
+    h+='<div style="background:#F4F1EB;overflow:hidden;height:220px;display:flex;align-items:center;justify-content:center">';
+    h+='<img src="/img/'+esc(IMG[p.n]||'placeholder.png')+'" alt="'+esc(p.n)+'" style="width:100%;height:220px;object-fit:contain;padding:8px;box-sizing:border-box" onerror="this.outerHTML=\'<span style=&quot;font-family:Cormorant Garamond,serif;font-size:44px;color:#C8A97E&quot;>'+esc(mono(p.n))+'</span>\'">';
     h+='</div>';
     h+='<div style="padding:20px 24px">';
     h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';

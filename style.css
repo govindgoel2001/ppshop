@@ -423,7 +423,7 @@ textarea.fi{resize:vertical;min-height:100px}
 .pdp-hero{display:grid;grid-template-columns:1fr 1fr;gap:72px;margin-bottom:0;align-items:start}
 .pdp-hero-img-col{position:sticky;top:112px;align-self:start}
 .pdp-img-wrap{background:#F4F1EB;overflow:hidden;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center}
-.pdp-hero-img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;display:block}
+.pdp-hero-img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;display:block;padding:16px;box-sizing:border-box}
 
 /* Eyebrow */
 .pdp-eyebrow{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px;display:flex;align-items:center;gap:8px}
