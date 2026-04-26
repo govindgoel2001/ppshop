@@ -24,31 +24,30 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Too many codes sent to this email. Try again in an hour.' });
   }
 
-  // Check if email is blocked
+  // Check if email is blocked — silent block returns same shape as success to avoid enumeration
   const { data: blocked } = await supa
     .from('blocked_emails').select('email').eq('email', em).maybeSingle();
-  if (blocked) return res.status(200).json({ sent: true }); // silent block
+  if (blocked) return res.status(200).json({ sent: true });
 
-  // Check if already used FIRST5
+  // Already used FIRST5 — return same shape so attackers can't enumerate which emails redeemed
   const { data: existing } = await supa
     .from('coupon_usage').select('id').eq('email', em).eq('code', 'FIRST5').maybeSingle();
-  if (existing) return res.status(200).json({ alreadyUsed: true });
+  if (existing) return res.status(200).json({ sent: true, alreadyUsed: true });
 
-  // Generate OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString();
 
   const { error: dbErr } = await supa
     .from('email_otps')
-    .upsert({ email: em, otp, expires_at: expiresAt, verified: false }, { onConflict: 'email' });
+    .upsert(
+      { email: em, otp, expires_at: expiresAt, verified: false, verified_at: null, fail_count: 0 },
+      { onConflict: 'email' }
+    );
 
   if (dbErr) {
     console.error('OTP upsert error:', dbErr);
     return res.status(500).json({ error: 'Failed to generate OTP. Please try again.' });
   }
-
-  // Record attempt for rate limiting
-  await recordOtpAttempt(em, 'send', ip);
 
   const { error: emailErr } = await resend.emails.send({
     from: 'AthenaBioLabs <support@athenabiolabs.com>',
@@ -73,8 +72,13 @@ export default async function handler(req, res) {
 
   if (emailErr) {
     console.error('Resend error:', emailErr);
+    // Roll back the OTP row so the user isn't stuck with a stale code, and don't burn a rate-limit slot.
+    await supa.from('email_otps').delete().eq('email', em);
     return res.status(500).json({ error: 'Failed to send email. Please try again.' });
   }
+
+  // Only record the attempt against the per-email cap after a successful send
+  await recordOtpAttempt(em, 'send', ip);
 
   return res.status(200).json({ sent: true });
 }

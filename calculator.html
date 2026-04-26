@@ -102,7 +102,7 @@ function calcRecon(){
   var mg=parseFloat(document.getElementById("rc-mg").value)||0;
   var ml=parseFloat(document.getElementById("rc-ml").value)||0;
   var dose=parseFloat(document.getElementById("rc-dose").value)||0;
-  if(!mg||!ml){document.getElementById("rc-out").innerHTML="Enter values above";return;}
+  if(!mg||!ml||!dose){document.getElementById("rc-out").innerHTML="Enter values above";return;}
   var conc=mg/ml;
   var concMcg=conc*1000;
   var volPerDose=dose/concMcg;

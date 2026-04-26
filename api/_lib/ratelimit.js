@@ -1,6 +1,5 @@
 // api/_lib/ratelimit.js
-// Supabase-based rate limiting — no extra services needed.
-// Tracks attempt counts in theemail_otps table + a simple in-memory fallback for IP.
+// Supabase-based rate limiting. Tracks attempt counts in the otp_attempts table.
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -8,8 +7,7 @@ function getSupa() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 }
 
-// Check how many OTPs have been sent to this email in the last hour.
-// Returns true if allowed, false if rate limited.
+// Max OTPs sent to a single email per hour.
 export async function checkEmailRateLimit(email) {
   const supa = getSupa();
   const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
@@ -27,7 +25,7 @@ export async function recordOtpAttempt(email, type, ip) {
   await supa.from('otp_attempts').insert({ email, type, ip });
 }
 
-// Check verify attempts by IP in last 10 minutes (5 max).
+// Verify attempts by IP in last 10 minutes.
 export async function checkVerifyRateLimit(ip) {
   const supa = getSupa();
   const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
@@ -38,4 +36,30 @@ export async function checkVerifyRateLimit(ip) {
     .eq('type', 'verify')
     .gte('created_at', since);
   return (count || 0) < 5;
+}
+
+// Verify attempts by email in last 10 minutes — guards against distributed-IP brute force.
+export async function checkEmailVerifyRateLimit(email) {
+  const supa = getSupa();
+  const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+  const { count } = await supa
+    .from('otp_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('email', email)
+    .eq('type', 'verify')
+    .gte('created_at', since);
+  return (count || 0) < 8;
+}
+
+// Record-coupon attempts per IP per hour — prevents coupon-burning DoS.
+export async function checkRecordRateLimit(ip) {
+  const supa = getSupa();
+  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const { count } = await supa
+    .from('otp_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('ip', ip)
+    .eq('type', 'record')
+    .gte('created_at', since);
+  return (count || 0) < 10;
 }
