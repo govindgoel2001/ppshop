@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin sign-in — AthenaBioLabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'DM Sans',sans-serif;background:#FAFAF7;color:#1a1a1a;display:flex;align-items:center;justify-content:center;min-height:100vh}
+  .card{background:#fff;border:1px solid #e8e3dc;padding:40px 32px;width:100%;max-width:400px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:32px;margin:0 0 18px}
+  label{display:block;font-size:11px;color:#6a6560;margin-bottom:6px}
+  input{width:100%;box-sizing:border-box;padding:11px;border:1px solid #d4cfc8;background:#fafaf7;font-size:13px}
+  button{margin-top:14px;width:100%;padding:13px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer}
+  button:disabled{opacity:.6;cursor:wait}
+  .msg{margin-top:12px;font-size:12px;color:#6a6560;min-height:18px}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Admin sign-in</h1>
+  <label>Email</label>
+  <input id="email" type="email" placeholder="admin@athenabiolabs.com" autocomplete="email">
+  <button id="submit">SEND SIGN-IN LINK</button>
+  <div id="msg" class="msg"></div>
+</div>
+<script>
+var params=new URLSearchParams(location.search),next=params.get('next')||'/admin/index.html';
+document.getElementById('submit').onclick=function(){
+  var email=document.getElementById('email').value.trim().toLowerCase();
+  var btn=document.getElementById('submit'),msg=document.getElementById('msg');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){msg.textContent='Enter a valid email.';return;}
+  btn.disabled=true;btn.textContent='SENDING…';msg.textContent='';
+  fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,next:next})})
+    .then(function(r){return r.json();})
+    .then(function(){btn.textContent='LINK SENT';msg.textContent='Check your inbox. The link is valid for 30 minutes.';})
+    .catch(function(){btn.disabled=false;btn.textContent='SEND SIGN-IN LINK';msg.textContent='Network error. Try again.';});
+};
+</script>
+</body>
+</html>
