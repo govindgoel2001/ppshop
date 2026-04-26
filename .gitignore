@@ -6,3 +6,5 @@ skills-lock.json
 *.log
 .env
 .env.local
+.playwright-mcp/
+upi-modal-fixed.png

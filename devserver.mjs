@@ -87,8 +87,6 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({
       upiVpa:         ENV.UPI_VPA || '',
       upiDisplayName: ENV.UPI_DISPLAY_NAME || 'AthenaBioLabs',
-      ga4Id:          ENV.GA4_ID || '',
-      fbPixelId:      ENV.FB_PIXEL_ID || '',
     }));
     return;
   }

@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AthenaBioLabs — Premium Research Peptides</title>
 <meta name="description" content="Premium research peptides. HPLC verified. Third-party tested.">
-<script src="/analytics.js"></script>
 <!-- Analytics helper -->
 <script>
 function trackEvent(evName,params){
-  try{gtag('event',evName,params||{});}catch(e){}
-  try{fbq('track',evName,params||{});}catch(e){}
+  try{if(window.posthog)posthog.capture(evName,params||{});}catch(e){}
 }
 </script>
 <!-- Supabase JS client -->
@@ -1662,8 +1660,7 @@ function getCookie(n){var v=document.cookie.match('(^|;)\\s*'+n+'=([^;]*)');retu
 function setCookie(n,v,d){var dt=new Date();dt.setTime(dt.getTime()+d*86400000);document.cookie=n+'='+v+';expires='+dt.toUTCString()+';path=/;SameSite=Lax';}
 function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookieBanner').style.display='none';}
 function declineCookies(){setCookie('cookie_consent','declined',30);document.getElementById('cookieBanner').style.display='none';
-  // Disable GA dynamically — analytics.js checks this flag before loading
-  if(window.__ga4Id)window['ga-disable-'+window.__ga4Id]=true;
+  try{if(window.posthog)posthog.opt_out_capturing();}catch(e){}
 }
 if(!getCookie('cookie_consent')){document.getElementById('cookieBanner').style.display='block';}
 // Track page navigation
