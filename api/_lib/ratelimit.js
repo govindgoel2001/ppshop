@@ -63,3 +63,23 @@ export async function checkRecordRateLimit(ip) {
     .gte('created_at', since);
   return (count || 0) < 10;
 }
+
+// Place-order attempts per IP per hour — prevents email-flood / order-flood.
+// Each successful or failed call burns the rate limit; admin can bump the
+// table directly if a legit customer is locked out.
+export async function checkPlaceOrderRateLimit(ip) {
+  const supa = getSupa();
+  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const { count } = await supa
+    .from('otp_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('ip', ip)
+    .eq('type', 'place_order')
+    .gte('created_at', since);
+  return (count || 0) < 5;
+}
+
+export async function recordPlaceOrderAttempt(email, ip) {
+  const supa = getSupa();
+  await supa.from('otp_attempts').insert({ email, type: 'place_order', ip });
+}

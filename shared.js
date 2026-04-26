@@ -338,10 +338,13 @@ function rC(){
 // PAYMENT \u2014 UPI QR
 // =====================
 function genRef(){
-  var s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',out='';
-  for(var i=0;i<8;i++)out+=s.charAt(Math.floor(Math.random()*s.length));
+  var s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',out='',b=new Uint8Array(8);
+  (window.crypto||window.msCrypto).getRandomValues(b);
+  for(var i=0;i<8;i++)out+=s.charAt(b[i]%32);
   return out;
 }
+// Indian PIN: 6 digits, first digit 1-9.
+var PIN_RE=/\b[1-9]\d{5}\b/;
 
 var _qrLibPromise=null;
 function loadQrLib(){
@@ -378,7 +381,20 @@ function payViaUpi(total){
     if(ce)ce.focus();
     return;
   }
+  var addrEl=document.getElementById('custAddr');
+  var addr=((addrEl&&addrEl.value)||customerAddr||'').trim();
+  if(!addr){
+    alert('Please enter your delivery address before paying.');
+    if(addrEl)addrEl.focus();
+    return;
+  }
+  if(!PIN_RE.test(addr)){
+    alert('Please include a 6-digit PIN code in your delivery address.');
+    if(addrEl)addrEl.focus();
+    return;
+  }
   customerEmail=contact;
+  customerAddr=addr;
   var ref=genRef();
   var ov=document.createElement('div');
   ov.id='upiOv';
@@ -437,6 +453,7 @@ function submitUpiOrder(ref,total,contact){
   var addrEl=document.getElementById('custAddr');
   var addr=((addrEl&&addrEl.value)||customerAddr||'').trim();
   if(!addr){msg.style.color='#c44';msg.textContent='Please enter your delivery address before confirming.';return;}
+  if(!PIN_RE.test(addr)){msg.style.color='#c44';msg.textContent='Address must include a 6-digit PIN code.';return;}
   btn.disabled=true;btn.textContent='SAVING\u2026';msg.textContent='';
   var payload={
     items:cart.map(function(c){return{id:c.id,vi:c.vi,q:c.q};}),
