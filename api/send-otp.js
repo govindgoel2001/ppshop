@@ -1,4 +1,4 @@
-// api/send-otp.js
+// api/send-otp.jss
 // POST { email: string }
 
 import { createClient } from '@supabase/supabase-js';
