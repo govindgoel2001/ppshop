@@ -1,4 +1,4 @@
-// api/_lib/ratelimit.js
+// api/_lib/ratelimit.jss
 // Supabase-based rate limiting. Tracks attempt counts in the otp_attempts table.
 
 import { createClient } from '@supabase/supabase-js';
