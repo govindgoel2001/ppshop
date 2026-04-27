@@ -1,4 +1,4 @@
-# UPI QR Payment + Email-Driven Admin Approval — Design
+# UPI QR Payment + Email-Driven Admin Approval — Designn
 
 **Date:** 2026-04-26
 **Status:** Approved (pending implementation plan)
