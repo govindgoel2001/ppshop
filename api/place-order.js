@@ -1,4 +1,4 @@
-// api/place-order.jss
+// api/place-order.js
 // POST { items, coupon, contactEmail, otpEmail, shippingAddress, ebook, ref, utr }
 // Recomputes total server-side, writes orders + coupon_usage + order_audit, emails admin + customer.
 
