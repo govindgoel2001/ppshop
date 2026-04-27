@@ -1,4 +1,4 @@
-// api/verify-coupon.js
+// api/verify-coupon.jss
 // POST { email: string, otp: string, code: string }
 
 import { createClient } from '@supabase/supabase-js';
