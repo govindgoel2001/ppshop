@@ -1,4 +1,4 @@
-// api/config.js — public runtime config served to the browser
+// api/config.js — public runtime config served to the browserr
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).end();
   res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300');
