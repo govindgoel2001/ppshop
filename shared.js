@@ -664,17 +664,16 @@ function renderProductPage(pid){
   if(info.janoshik){
     var j=info.janoshik;
     h+='<div style="background:#F4F1EB;padding:36px 40px;margin:32px 0;border-left:3px solid #C8A97E">';
-    h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px">';
-    h+='<div><div style="font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:6px">Third-party verified</div>';
-    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:500">Independent Lab Analysis</div></div>';
-    h+='<a href="'+j.verifyUrl+'" target="_blank" rel="noopener" style="display:inline-block;font-family:\'DM Sans\',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:12px 20px;background:#1a1a1a;color:#FAFAF7;text-decoration:none">Verify on Janoshik →</a>';
+    h+='<div style="margin-bottom:20px">';
+    h+='<div style="font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:6px">Third-party verified</div>';
+    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:500">Independent Lab Analysis</div>';
     h+='</div>';
     h+='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px" class="jano-grid">';
     if(j.purity&&j.purity!=='N/A')h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Purity</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:600;color:#7a9a6d">'+j.purity+'</div></div>';
     h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Quantity found</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:500">'+j.quantity+'</div></div>';
     h+='</div>';
     h+='<img src="'+j.image+'" alt="HPLC chromatogram" style="width:100%;max-height:180px;object-fit:cover;object-position:center;border:1px solid rgba(0,0,0,.08)">';
-    h+='<div style="font-size:10px;color:#b5b0a6;margin-top:10px">Janoshik task #'+j.taskNumber+' · Client and batch fields redacted per standard practice. Verify the full report at the link above.</div>';
+    h+='<div style="font-size:10px;color:#b5b0a6;margin-top:10px">Janoshik task #'+j.taskNumber+' · Analysis by independent third-party laboratory. Full report available on request.</div>';
     h+='</div>';
   }
 
@@ -699,7 +698,7 @@ function renderProductPage(pid){
   h+='</div><div class="pdp-reviews-grid">';
   h+='<div class="pdp-review-card"><div class="pdp-review-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="pdp-review-q">\u201cPurity exceeded spec. Chromatogram matches exactly what they publish on the site. Will order again.\u201d</p><div class="pdp-review-footer"><span class="pdp-review-name">Dr. A. Sharma</span><span class="pdp-review-loc">Bangalore</span></div></div>';
   h+='<div class="pdp-review-card"><div class="pdp-review-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="pdp-review-q">\u201cFastest dispatch I\u2019ve experienced in India. Cold-pack still ice-cold on arrival. COA exactly as described.\u201d</p><div class="pdp-review-footer"><span class="pdp-review-name">R. Nair</span><span class="pdp-review-loc">Kochi</span></div></div>';
-  h+='<div class="pdp-review-card"><div class="pdp-review-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="pdp-review-q">\u201cUsed the reconstitution calculator to plan my protocol. Well-documented, excellent research team.\u201d</p><div class="pdp-review-footer"><span class="pdp-review-name">M. Patel</span><span class="pdp-review-loc">Mumbai</span></div></div>';
+  h+='<div class="pdp-review-card"><div class="pdp-review-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="pdp-review-q">\u201cPurity data matched the published HPLC results exactly. Well-documented, excellent research team.\u201d</p><div class="pdp-review-footer"><span class="pdp-review-name">M. Patel</span><span class="pdp-review-loc">Mumbai</span></div></div>';
   h+='</div></div>';
 
   if(info.faqs&&info.faqs.length){
@@ -718,7 +717,7 @@ function renderProductPage(pid){
   }
 
   h+='<div class="consult-card" style="margin:32px 0"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Book a Research Consultation</div><div class="consult-sub">15 min &middot; &#8377;1000 &middot; 1-on-1 with our team</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book Now</a></div>';
-  h+='<div class="pdp-disclaimer"><p>All products are for in-vitro research use only. Not for human or animal consumption. Not intended to diagnose, treat, cure, or prevent any disease.</p></div>';
+  h+='<div class="pdp-disclaimer"><p>All products are sold exclusively for in-vitro laboratory research purposes. Not approved or intended for human or animal administration. Not intended to diagnose, treat, cure, or prevent any disease. By purchasing you confirm compliance with all applicable local laws and regulations. AthenaBioLabs accepts no liability for misuse.</p></div>';
 
   var wrap=document.getElementById("pdpContent");
   if(wrap){

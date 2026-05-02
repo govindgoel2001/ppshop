@@ -843,6 +843,7 @@ function renderCard(p,i){
     h+='<span style="font-family:\'DM Sans\',sans-serif;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;background:#1a1a1a;color:#FAFAF7;padding:11px 20px">View →</span>';
   }
   h+='</div>';
+  h+='<div style="padding:6px 24px 10px;background:#f4f1eb;border-top:1px solid rgba(0,0,0,.05)"><span style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#b5b0a6;font-weight:600">For in-vitro research use only</span></div>';
   h+='</a>';
   return h;
 }
@@ -1096,6 +1097,7 @@ function rC(){
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
   h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payViaUpi('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
   h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="display:block;text-align:center;margin-top:8px;padding:12px 16px;font-size:9px">Email Order</a>';
+  h+='<p style="font-size:9px;color:#b5b0a6;text-align:center;margin-top:12px;line-height:1.6;padding:0 4px">By completing this order you confirm these products are purchased solely for in-vitro laboratory research. Not for human or animal use.</p>';
   h+='</div>';
   bd.innerHTML=h;
 }
