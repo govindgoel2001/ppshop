@@ -316,7 +316,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <div class="nav-dd"><a href="/catalogue" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="/catalogue">All Peptides</a><a href="/catalogue?cat=Weight+Loss">Weight Loss</a><a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a><a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a><a href="/catalogue?cat=GH">GH</a></div></div>
 <a href="/coa" onclick="go('coa');return false">COA</a>
 <a href="/about" onclick="go('about');return false">About</a>
-<a href="/calculator">Calculator</a>
+
 <a href="/contact" onclick="go('contact');return false">Contact</a>
 <a href="#" onclick="openCart();return false" id="cL">Cart</a>
 </div>
@@ -333,7 +333,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </div>
 <a href="/coa" onclick="go('coa');closeMob();return false">COA</a>
 <a href="/about" onclick="go('about');closeMob();return false">About</a>
-<a href="/calculator" onclick="closeMob()">Calculator</a>
+
 <a href="/contact" onclick="go('contact');closeMob();return false">Contact</a>
 <a href="#" onclick="openCart();closeMob();return false">Cart</a>
 </div>
@@ -627,51 +627,6 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </div>
 </div></section></div>
 
-<!-- DOSAGE CALCULATOR -->
-<div id="pg-calc" style="display:none">
-<section><div class="w" style="max-width:760px">
-<span class="lb">Research Tool</span>
-<h1 style="font-size:48px;font-weight:300;letter-spacing:-.02em;margin-bottom:12px">Dosage Calculator</h1>
-<p style="font-size:9px;color:#b5b0a6;font-style:italic;margin-bottom:32px;line-height:1.5;letter-spacing:.03em;max-width:600px">DISCLAIMER: This calculator is provided strictly for in-vitro research reference purposes only. It is NOT intended to guide human or animal use. All values are derived from published research literature. AthenaBioLabs assumes no responsibility for the use of this information. Always consult qualified professionals and relevant regulations.</p>
-<div class="dc">
-<h3>Reconstitution Calculator</h3>
-<p class="dd">Calculate the concentration after reconstituting lyophilized peptide with bacteriostatic water.</p>
-<div class="dg">
-<div><label>Peptide Amount (mg)</label><input type="number" id="rc-mg" value="5" min="0.1" step="0.1" oninput="calcRecon()"></div>
-<div><label>Water Volume (ml)</label><input type="number" id="rc-ml" value="2" min="0.1" step="0.1" oninput="calcRecon()"></div>
-<div><label>Desired Dose (mcg)</label><input type="number" id="rc-dose" value="250" min="1" step="1" oninput="calcRecon()"></div>
-</div>
-<div class="dr2" id="rc-out"></div>
-</div>
-<div class="dc" style="margin-top:16px">
-<h3>Research Dosage Reference</h3>
-<p class="dd">Typical ranges from published research literature. For reference only.</p>
-<div class="dg" style="grid-template-columns:1fr">
-<div><label>Select Peptide</label>
-<select id="ds-sel" onchange="showDose()">
-<option value="">-- Choose peptide --</option>
-<option value="Tirzepatide|2.5 - 15mg|Weekly|SC">Tirzepatide</option>
-<option value="Retatrutide|1 - 12mg|Weekly|SC">Retatrutide</option>
-<option value="BPC-157|200 - 500mcg|1-2x daily|SC">BPC-157</option>
-<option value="TB-500|2 - 5mg|2x weekly (loading)|SC">TB-500</option>
-<option value="CJC-1295 (no DAC)|100 - 200mcg|1-3x daily|SC">CJC-1295 (no DAC)</option>
-<option value="Ipamorelin|100 - 300mcg|1-3x daily|SC">Ipamorelin</option>
-<option value="GHK-Cu|1 - 2mg|Daily|SC">GHK-Cu</option>
-<option value="Epithalon|5 - 10mg|Daily (10-20 days)|SC/IV">Epithalon</option>
-<option value="Selank|250 - 500mcg|1-2x daily|Intranasal">Selank</option>
-<option value="Semax|200 - 600mcg|1-2x daily|Intranasal">Semax</option>
-<option value="NAD+|100 - 500mg|1-3x weekly|IV/SC">NAD+</option>
-<option value="AOD-9604|300 - 600mcg|Daily|SC">AOD-9604</option>
-<option value="PT-141|1 - 2mg|As needed|SC">PT-141</option>
-<option value="Thymosin Alpha-1|1.6mg|2x weekly|SC">Thymosin Alpha-1</option>
-<option value="Sermorelin|100 - 300mcg|Daily (bedtime)|SC">Sermorelin</option>
-<option value="GHRP-2|100 - 300mcg|1-3x daily|SC">GHRP-2</option>
-<option value="GHRP-6|100 - 300mcg|1-3x daily|SC">GHRP-6</option>
-</select></div>
-</div>
-<div class="dr2" id="ds-out" style="display:none"></div>
-</div>
-</div></section></div>
 
 <!-- FAQ -->
 <div id="pg-faq" style="display:none">
@@ -710,7 +665,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <div class="ft-newsletter">
 <p>Research updates &amp; new arrivals</p>
 <form onsubmit="subEmail(event)">
-<input id="subEmail" type="email" placeholder="your@email.com" required>
+<input id="subEmailInput" type="email" placeholder="your@email.com" required>
 <button id="subBtn" type="submit">Subscribe</button>
 </form>
 <p id="subMsg" style="min-height:16px"></p>
@@ -722,7 +677,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <a href="/catalogue">All Peptides</a>
 <a href="/coa" onclick="go('coa');return false">Certificates of Analysis</a>
 <a href="/about" onclick="go('about');return false">About Us</a>
-<a href="/calculator">Dosage Calculator</a>
+
 <a href="/contact" onclick="go('contact');return false">Contact</a>
 </div>
 <div class="ftc">
@@ -1294,31 +1249,6 @@ function submitUpiOrder(ref,total,contact){
     .catch(function(){btn.disabled=false;btn.textContent='CONFIRM ORDER';msg.style.color='#c44';msg.textContent='Network error. Try again.';});
 }
 
-// DOSAGE CALCULATOR
-function calcRecon(){
-  var mg=parseFloat(document.getElementById("rc-mg").value)||0;
-  var ml=parseFloat(document.getElementById("rc-ml").value)||0;
-  var dose=parseFloat(document.getElementById("rc-dose").value)||0;
-  if(!mg||!ml||!dose){document.getElementById("rc-out").innerHTML="Enter values above";return;}
-  var conc=mg/ml;
-  var concMcg=conc*1000;
-  var volPerDose=dose/concMcg;
-  var iu=volPerDose*100;
-  var doses=mg*1000/dose;
-  var o="<b>Concentration:</b> "+conc.toFixed(2)+"mg/ml ("+concMcg.toFixed(0)+"mcg/ml)<br>";
-  o+="<b>Volume per "+dose+"mcg dose:</b> "+volPerDose.toFixed(3)+"ml = <b>"+iu.toFixed(1)+" units</b> on insulin syringe<br>";
-  o+="<b>Total doses per vial:</b> "+doses.toFixed(0)+" doses";
-  document.getElementById("rc-out").innerHTML=o;
-}
-
-function showDose(){
-  var v=document.getElementById("ds-sel").value;
-  var out=document.getElementById("ds-out");
-  if(!v){out.style.display="none";return;}
-  var parts=v.split("|");
-  out.innerHTML="<b>"+parts[0]+"</b><br>Research range: <b>"+parts[1]+"</b><br>Frequency: "+parts[2]+"<br>Route: "+parts[3];
-  out.style.display="block";
-}
 
 // FAQ
 function rFQ(){
@@ -1364,7 +1294,7 @@ function sendC(){
 // EMAIL SUBSCRIBE
 function subEmail(e){
   e.preventDefault();
-  var em=document.getElementById("subEmail").value.trim();
+  var em=document.getElementById("subEmailInput").value.trim();
   var btn=document.getElementById("subBtn"),msg=document.getElementById("subMsg");
   if(!em)return;
   btn.disabled=true;btn.textContent='\u2026';
@@ -1373,11 +1303,11 @@ function subEmail(e){
       btn.disabled=false;btn.textContent='Subscribe';
       if(r.error&&r.error.code==='23505'){msg.textContent="You're already on the list.";}
       else if(r.error){msg.textContent="Something went wrong. Try again.";}
-      else{msg.textContent="You're in — we'll be in touch.";document.getElementById("subEmail").value='';}
+      else{msg.textContent="You're in — we'll be in touch.";document.getElementById("subEmailInput").value='';}
     });
 }
 
-rFQ();calcRecon();
+rFQ();
 
 // FEATURED PEPTIDES ON HOME
 var featIds=[2,3,4,5,8]; // Tirzepatide, Retatrutide, BPC-157, TB-500, GHK-Cu
