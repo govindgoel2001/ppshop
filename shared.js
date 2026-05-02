@@ -650,7 +650,7 @@ function renderProductPage(pid){
   h+='</div></div>';
 
   h+='<div class="pdp-tabs">';
-  h+='<div class="pdp-tabs-nav"><button id="tab1" class="tab-btn active" onclick="showTab(1)">Description</button><button id="tab2" class="tab-btn" onclick="showTab(2)">Details</button><button id="tab3" class="tab-btn" onclick="showTab(3)">Dosage</button></div>';
+  h+='<div class="pdp-tabs-nav"><button id="tab1" class="tab-btn active" onclick="showTab(1)">Description</button><button id="tab2" class="tab-btn" onclick="showTab(2)">Details</button></div>';
   h+='<div id="tabC1" class="tab-content"><p class="pdp-desc">'+info.desc+'</p></div>';
   h+='<div id="tabC2" class="tab-content" style="display:none"><table class="pdp-table">';
   h+='<tr><td class="td-lbl">Category</td><td class="td-val">'+info.cat+'</td></tr>';
@@ -659,8 +659,6 @@ function renderProductPage(pid){
   if(p.n!=='BAC Water'){h+='<tr><td class="td-lbl">Purity</td><td class="td-val">&ge;99% (HPLC verified)</td></tr><tr><td class="td-lbl">Form</td><td class="td-val">White lyophilized powder</td></tr>';}
   h+='<tr><td class="td-lbl">Storage</td><td class="td-val">'+(p.n==='BAC Water'?'2\u20138\u00b0C':'\u221220\u00b0C (lyophilized) / 2\u20138\u00b0C (reconstituted)')+'</td></tr>';
   h+='</table></div>';
-  h+='<div id="tabC3" class="tab-content" style="display:none"><div class="pdp-dosage-box"><div class="pdp-dosage-lbl">Research Reference</div><div class="pdp-dosage-val">'+info.dose+'</div></div>';
-  h+='<p style="font-size:10px;color:#b5b0a6;font-style:italic;margin-top:12px;line-height:1.6">For in-vitro research reference only. Not medical advice.</p></div>';
   h+='</div>';
 
   if(info.janoshik){
@@ -671,10 +669,9 @@ function renderProductPage(pid){
     h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:500">Independent Lab Analysis</div></div>';
     h+='<a href="'+j.verifyUrl+'" target="_blank" rel="noopener" style="display:inline-block;font-family:\'DM Sans\',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:12px 20px;background:#1a1a1a;color:#FAFAF7;text-decoration:none">Verify on Janoshik →</a>';
     h+='</div>';
-    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px" class="jano-grid">';
+    h+='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px" class="jano-grid">';
     if(j.purity&&j.purity!=='N/A')h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Purity</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:600;color:#7a9a6d">'+j.purity+'</div></div>';
     h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Quantity found</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:500">'+j.quantity+'</div></div>';
-    h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Analysis date</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:500">'+j.date+'</div></div>';
     h+='</div>';
     h+='<img src="'+j.image+'" alt="HPLC chromatogram" style="width:100%;max-height:180px;object-fit:cover;object-position:center;border:1px solid rgba(0,0,0,.08)">';
     h+='<div style="font-size:10px;color:#b5b0a6;margin-top:10px">Janoshik task #'+j.taskNumber+' · Client and batch fields redacted per standard practice. Verify the full report at the link above.</div>';
@@ -685,7 +682,7 @@ function renderProductPage(pid){
     h+='<div class="pdp-research"><div class="pdp-research-left">';
     h+='<span class="pdp-sect-eyebrow pdp-sect-eyebrow-gold">Literature</span>';
     h+='<h2 class="pdp-research-h2">Research<br><em class="pdp-research-em">citations.</em></h2>';
-    h+='<p class="pdp-research-intro">Published peer-reviewed studies from which dosage and mechanism data is derived.</p>';
+    h+='<p class="pdp-research-intro">Published peer-reviewed studies supporting mechanism and activity data.</p>';
     h+='</div><div class="pdp-research-right">';
     for(var c=0;c<info.citations.length;c++){
       var cit=info.citations[c];
