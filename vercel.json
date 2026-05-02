@@ -20,7 +20,7 @@
   ],
   "rewrites": [
     { "source": "/about",       "destination": "/index.html" },
-    { "source": "/coa",         "destination": "/index.html" },
+    { "source": "/coa",         "destination": "/coa.html" },
     { "source": "/contact",     "destination": "/index.html" },
     { "source": "/shop",        "destination": "/index.html" },
     { "source": "/catalogue",   "destination": "/catalogue.html" },

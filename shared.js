@@ -8,42 +8,42 @@
 // PRODUCT DATA
 // =====================
 var P=[
-{id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2400},{sp:"20mg per vial",ds:"20mg",pr:3800}]},
-{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2899},{sp:"20mg per vial",ds:"20mg",pr:4500}]},
-{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg per vial",ds:"10mg",pr:1990}]},
-{id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3400}]},
-{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3200}]},
-{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg per vial",ds:"50mg",pr:1500}]},
-{id:11,n:"CJC-1295 (no DAC)",c:"GH",oos:true,v:[{sp:"5mg per vial",ds:"5mg",pr:2800}]},
-{id:12,n:"CJC+IPA Combo",c:"GH",oos:true,v:[{sp:"CJC-1295 5mg + Ipamorelin 5mg",ds:"10mg",pr:3750}]},
-{id:13,n:"KLOW Blend",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 10mg + TB-500 10mg + KPV 10mg + GHK-Cu 50mg",ds:"80mg",pr:3990}]},
-{id:14,n:"BAC Water",c:"Supplies",v:[{sp:"10ml per vial",ds:"10ml",pr:799}]}
+{id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2799},{sp:"20mg per vial",ds:"20mg",pr:3999}]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:3499},{sp:"20mg per vial",ds:"20mg",pr:4999}]},
+{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg per vial",ds:"10mg",pr:2199}]},
+{id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3599}]},
+{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3499}]},
+{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg per vial",ds:"50mg",pr:1799}]},
+{id:12,n:"CJC+IPA Combo",c:"GH",oos:true,v:[{sp:"CJC-1295 5mg + Ipamorelin 5mg",ds:"10mg",pr:3999}]},
+{id:13,n:"KLOW Blend",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 10mg + TB-500 10mg + KPV 10mg + GHK-Cu 50mg",ds:"80mg",pr:4299}]},
+{id:14,n:"BAC Water",c:"Supplies",v:[{sp:"10ml per vial",ds:"10ml",pr:899}]},
+{id:15,n:"Tesamorelin",c:"GH",v:[{sp:"10mg per vial",ds:"10mg",pr:3999}]}
 ];
 
 var _cfaqs=[
-  {q:'How is this shipped?',a:'All peptides ship cold-chain in an insulated pack with ice gel. Express courier, typically 2\u20134 days pan-India.'},
+  {q:'How is this shipped?',a:'All compounds ship cold-chain in an insulated pack with ice gel. Express courier, typically 2\u20134 days pan-India.'},
   {q:'What is the storage protocol?',a:'Store lyophilised powder at \u221220\u00b0C. After reconstituting with bacteriostatic water, store at 2\u20138\u00b0C and use within 28 days.'},
   {q:'Is a Certificate of Analysis included?',a:'Yes. A QR-linked COA showing HPLC purity trace, mass spec, and LAL endotoxin result from an ISO\u00a017025-accredited lab ships with every vial.'},
   {q:'What assays are run on each batch?',a:'Reverse-phase C18 HPLC for purity and area%, ESI-MS for molecular weight confirmation, and LAL endotoxin screening.'},
   {q:'Is this for human use?',a:'No. All products are sold strictly for in-vitro laboratory research. Not intended for human or animal administration.'}
 ];
 var PI={
-"Tirzepatide":{desc:"First-in-class dual GIP/GLP-1 receptor agonist. The dual mechanism produces synergistic metabolic effects exceeding mono-agonists, with significant research interest in glycemic control, weight management, and lipid profiles.",tagline:"Dual-pathway metabolic research. Both incretins, one scaffold.",dose:"2.5 - 15mg weekly, subcutaneous",mw:"4813.45 g/mol",seq:"GIP/GLP-1 dual agonist (39 AA)",cat:"Metabolic",faqs:_cfaqs,citations:[{year:"2023",title:"Tirzepatide Once Weekly for the Treatment of Obesity \u2014 SURMOUNT-1",journal:"NEJM \u00b7 doi:10.1056/NEJMoa2206038",url:"https://doi.org/10.1056/NEJMoa2206038"},{year:"2021",title:"Tirzepatide versus Semaglutide Once Weekly \u2014 SURPASS-2",journal:"NEJM \u00b7 doi:10.1056/NEJMoa2107519",url:"https://doi.org/10.1056/NEJMoa2107519"}]},
-"Retatrutide":{desc:"Novel triple agonist targeting GLP-1, GIP, and glucagon receptors simultaneously. The glucagon component adds thermogenic and lipolytic effects, representing a potential advancement over dual agonists.",tagline:"Triple agonism. Unprecedented metabolic research leverage.",dose:"1 - 12mg weekly, subcutaneous",mw:"~4400 g/mol",seq:"Triple agonist (39 AA)",cat:"Weight Loss",faqs:_cfaqs,citations:[{year:"Dec 2025",title:"TRIUMPH-4 Phase 3 \u2014 Retatrutide delivered average 26.2% weight loss at 96 weeks",journal:"Lilly Investor Relations \u00b7 TRIUMPH-4",url:"https://investor.lilly.com/news-releases/news-release-details/lillys-triple-agonist-retatrutide-delivered-weight-loss-average"},{year:"Oct 2025",title:"TRIUMPH Programme Rationale and Trial Design",journal:"PubMed \u00b7 PMID 41090431",url:"https://pubmed.ncbi.nlm.nih.gov/41090431/"},{year:"Aug 2025",title:"Body Composition Substudy of Retatrutide Phase 2",journal:"PubMed \u00b7 PMID 40609566",url:"https://pubmed.ncbi.nlm.nih.gov/40609566/"},{year:"Jul 2025",title:"Retatrutide in Obesity: Systematic Review and Meta-Analysis",journal:"PubMed \u00b7 PMID 40728138",url:"https://pubmed.ncbi.nlm.nih.gov/40728138/"},{year:"2024",title:"Structural Insights into Triple Agonism of Retatrutide",journal:"Cell Research \u00b7 doi:10.1038/s41421-024-00700-0",url:"https://doi.org/10.1038/s41421-024-00700-0"},{year:"2023",title:"Retatrutide Phase 2 Dose-Finding \u2014 NEJM",journal:"New England Journal of Medicine \u00b7 doi:10.1056/NEJMoa2301972",url:"https://doi.org/10.1056/NEJMoa2301972"}]},
-"BPC-157":{desc:"A 15-amino-acid peptide derived from human gastric juice. Extensively studied for accelerated healing of tendons, ligaments, muscle, and bone. Promotes angiogenesis and modulates nitric oxide pathways.",tagline:"Tissue repair from within. Site-specific healing cascade.",dose:"200 - 500mcg 1-2x daily, subcutaneous",mw:"1419.53 g/mol",seq:"Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",cat:"Healing & Recovery",faqs:_cfaqs,citations:[{year:"2023",title:"BPC-157 and Tendon Healing \u2014 Systematic Review",journal:"Curr Pharm Des \u00b7 PMID 36173050",url:"https://pubmed.ncbi.nlm.nih.gov/36173050/"},{year:"2021",title:"Body Protection Compound-157: Candidate Medication for Wound Healing",journal:"Front Pharmacol \u00b7 PMC7837306",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7837306/"}]},
+"Tirzepatide":{desc:"First-in-class dual GIP/GLP-1 receptor agonist. The dual mechanism produces synergistic metabolic effects exceeding mono-agonists, with significant research interest in glycemic control, weight management, and lipid profiles.",tagline:"Dual-pathway metabolic research. Both incretins, one scaffold.",dose:"2.5 - 15mg weekly, subcutaneous",mw:"4813.45 g/mol",seq:"GIP/GLP-1 dual agonist (39 AA)",cat:"Metabolic",janoshik:{purity:"99.505%",quantity:"21.65 mg",taskNumber:"85117",verifyUrl:"https://verify.janoshik.com/tests/85117-T20_G8LQUXM7GQ6I",image:"/img/testing/tirz20-hplc.png",date:"2025-10-29"},faqs:_cfaqs,citations:[{year:"2023",title:"Tirzepatide Once Weekly for the Treatment of Obesity \u2014 SURMOUNT-1",journal:"NEJM \u00b7 doi:10.1056/NEJMoa2206038",url:"https://doi.org/10.1056/NEJMoa2206038"},{year:"2021",title:"Tirzepatide versus Semaglutide Once Weekly \u2014 SURPASS-2",journal:"NEJM \u00b7 doi:10.1056/NEJMoa2107519",url:"https://doi.org/10.1056/NEJMoa2107519"}]},
+"Retatrutide":{desc:"Novel triple agonist targeting GLP-1, GIP, and glucagon receptors simultaneously. The glucagon component adds thermogenic and lipolytic effects, representing a potential advancement over dual agonists.",tagline:"Triple agonism. Unprecedented metabolic research leverage.",dose:"1 - 12mg weekly, subcutaneous",mw:"~4400 g/mol",seq:"Triple agonist (39 AA)",cat:"Weight Loss",janoshik:{purity:"99.790%",quantity:"10.13 mg",taskNumber:"85120",verifyUrl:"https://verify.janoshik.com/tests/85120-R10_YSA9ZNR2VPT6",image:"/img/testing/reta10-hplc.png",date:"2025-10-29"},faqs:_cfaqs,citations:[{year:"Dec 2025",title:"TRIUMPH-4 Phase 3 \u2014 Retatrutide delivered average 26.2% weight loss at 96 weeks",journal:"Lilly Investor Relations \u00b7 TRIUMPH-4",url:"https://investor.lilly.com/news-releases/news-release-details/lillys-triple-agonist-retatrutide-delivered-weight-loss-average"},{year:"Oct 2025",title:"TRIUMPH Programme Rationale and Trial Design",journal:"PubMed \u00b7 PMID 41090431",url:"https://pubmed.ncbi.nlm.nih.gov/41090431/"},{year:"Aug 2025",title:"Body Composition Substudy of Retatrutide Phase 2",journal:"PubMed \u00b7 PMID 40609566",url:"https://pubmed.ncbi.nlm.nih.gov/40609566/"},{year:"Jul 2025",title:"Retatrutide in Obesity: Systematic Review and Meta-Analysis",journal:"PubMed \u00b7 PMID 40728138",url:"https://pubmed.ncbi.nlm.nih.gov/40728138/"},{year:"2024",title:"Structural Insights into Triple Agonism of Retatrutide",journal:"Cell Research \u00b7 doi:10.1038/s41421-024-00700-0",url:"https://doi.org/10.1038/s41421-024-00700-0"},{year:"2023",title:"Retatrutide Phase 2 Dose-Finding \u2014 NEJM",journal:"New England Journal of Medicine \u00b7 doi:10.1056/NEJMoa2301972",url:"https://doi.org/10.1056/NEJMoa2301972"}]},
+"BPC-157":{desc:"A 15-amino-acid peptide derived from human gastric juice. Extensively studied for accelerated healing of tendons, ligaments, muscle, and bone. Promotes angiogenesis and modulates nitric oxide pathways.",tagline:"Tissue repair from within. Site-specific healing cascade.",dose:"200 - 500mcg 1-2x daily, subcutaneous",mw:"1419.53 g/mol",seq:"Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",cat:"Healing & Recovery",janoshik:{purity:"99.765%",quantity:"11.72 mg",taskNumber:"105627",verifyUrl:"https://verify.janoshik.com/tests/105627-BPC10_1KWNMRQ5BUSC",image:"/img/testing/bpc10-hplc.png",date:"2026-02-09"},faqs:_cfaqs,citations:[{year:"2023",title:"BPC-157 and Tendon Healing \u2014 Systematic Review",journal:"Curr Pharm Des \u00b7 PMID 36173050",url:"https://pubmed.ncbi.nlm.nih.gov/36173050/"},{year:"2021",title:"Body Protection Compound-157: Candidate Medication for Wound Healing",journal:"Front Pharmacol \u00b7 PMC7837306",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7837306/"}]},
 "TB-500":{desc:"A 43-amino-acid peptide central to tissue repair and regeneration. Sequesters actin monomers, promotes cell migration, and has demonstrated effects on cardiac tissue repair and inflammation reduction.",tagline:"Systemic tissue regeneration. Actin sequestration at scale.",dose:"2 - 5mg 2x weekly (loading), subcutaneous",mw:"4963.50 g/mol",seq:"Thymosin Beta-4 (43 AA)",cat:"Healing & Recovery",faqs:_cfaqs,citations:[{year:"2022",title:"Thymosin Beta-4 and Tissue Repair: An Updated Overview",journal:"Curr Pharm Des \u00b7 PMID 35236248",url:"https://pubmed.ncbi.nlm.nih.gov/35236248/"}]},
 "BPC+TB Combo":{desc:"Pre-blended stack of BPC-157 and TB-500. Combines BPC-157\u2019s site-specific healing with TB-500\u2019s systemic actin-sequestering and anti-inflammatory effects for comprehensive tissue regeneration research.",tagline:"Site-specific meets systemic. The complete healing stack.",dose:"Per protocol, subcutaneous",mw:"Blend",seq:"BPC-157 + TB-500",cat:"Healing & Recovery",faqs:_cfaqs,citations:[]},
-"GHK-Cu":{desc:"A naturally occurring tripeptide-copper complex. Over 4,000 genes modulated by GHK-Cu have been identified, with effects including collagen synthesis, antioxidant enzyme upregulation, and dermal fibroblast promotion.",tagline:"4,000 genes. One copper-peptide.",dose:"1 - 2mg daily, subcutaneous",mw:"340.38 g/mol",seq:"Gly-His-Lys:Cu(2+)",cat:"Skin & Anti-Aging",faqs:_cfaqs,citations:[{year:"2023",title:"GHK-Cu in Skin Regeneration and Wound Healing",journal:"Cosmetics \u00b7 doi:10.3390/cosmetics10020051",url:"https://doi.org/10.3390/cosmetics10020051"}]},
-"CJC-1295 (no DAC)":{desc:"Synthetic GHRH analog with ~30 min half-life producing acute GH pulses mimicking natural physiology. Commonly paired with GHRP peptides for synergistic pulsatile GH release.",tagline:"Pulsatile growth hormone. Physiological mimicry, refined.",dose:"100 - 200mcg 1-3x daily, subcutaneous",mw:"3367.97 g/mol",seq:"GHRH analog (29 AA, mod.)",cat:"GH",faqs:_cfaqs,citations:[]},
+"GHK-Cu":{desc:"A naturally occurring tripeptide-copper complex. Over 4,000 genes modulated by GHK-Cu have been identified, with effects including collagen synthesis, antioxidant enzyme upregulation, and dermal fibroblast promotion.",tagline:"4,000 genes. One copper-peptide.",dose:"1 - 2mg daily, subcutaneous",mw:"340.38 g/mol",seq:"Gly-His-Lys:Cu(2+)",cat:"Skin & Anti-Aging",janoshik:{purity:"99.814%",quantity:"103.80 mg",taskNumber:"123506",verifyUrl:"https://verify.janoshik.com/tests/123506-GHKCU100_7WJADAMR6PSI",image:"/img/testing/ghkcu100-hplc.png",date:"2026-04-10"},faqs:_cfaqs,citations:[{year:"2023",title:"GHK-Cu in Skin Regeneration and Wound Healing",journal:"Cosmetics \u00b7 doi:10.3390/cosmetics10020051",url:"https://doi.org/10.3390/cosmetics10020051"}]},
+"Tesamorelin":{desc:"A 44-amino-acid synthetic analog of growth hormone-releasing hormone (GHRH). Studied for visceral adiposity reduction, metabolic modulation, and IGF-1 axis effects. Third-party HPLC verified at 99.4%+ purity.",tagline:"GHRH analog. IGF-1 axis research at full potency.",dose:"2mg daily, subcutaneous",mw:"5135.86 g/mol",seq:"GHRH analog (44 AA, stabilised)",cat:"GH",janoshik:{purity:"99.426%",quantity:"10.43 mg",taskNumber:"98686",verifyUrl:"https://verify.janoshik.com/tests/98686-Tessa_H6AQGINN3FM8",image:"/img/testing/tesa-hplc.png",date:"2026-01-14"},faqs:_cfaqs,citations:[{year:"2023",title:"Tesamorelin and Visceral Adiposity — Systematic Review",journal:"Front Endocrinol · PMID 37082122",url:"https://pubmed.ncbi.nlm.nih.gov/37082122/"},{year:"2021",title:"Tesamorelin for Excess Abdominal Fat in HIV-infected Patients with Lipodystrophy",journal:"NEJM · doi:10.1056/NEJMoa0808256",url:"https://doi.org/10.1056/NEJMoa0808256"}]},
 "CJC+IPA Combo":{desc:"Pre-blended combination of CJC-1295 (no DAC) and Ipamorelin. Synergistic GH release through simultaneous GHRH and ghrelin receptor activation, producing amplified pulsatile GH output.",tagline:"GHRH + ghrelin axis. Amplified, synchronised GH pulse.",dose:"100 - 300mcg combined, 1-3x daily, subcutaneous",mw:"Blend",seq:"CJC-1295 + Ipamorelin",cat:"GH",faqs:_cfaqs,citations:[]},
 "KLOW Blend":{desc:"Advanced recovery and skin blend combining TB-500, BPC-157, GHK-Cu, and KPV. Pairs systemic tissue repair with localised healing, anti-inflammatory action via KPV, and copper-peptide skin regeneration for a comprehensive research protocol.",tagline:"Four-peptide synergy. The most comprehensive repair stack.",dose:"Per component protocol, subcutaneous",mw:"Blend",seq:"TB-500 + BPC-157 + GHK-Cu + KPV",cat:"Healing & Recovery",faqs:_cfaqs,citations:[]},
-"BAC Water":{desc:"Bacteriostatic water (0.9% benzyl alcohol) in a sterile 10ml vial. The standard reconstitution medium for research peptides \u2014 preservative allows multi-draw use over 28 days without contamination risk.",tagline:"The essential reconstitution medium. Preserves integrity across multi-draw protocols.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies",faqs:[{q:'How should I store this?',a:'Store at 2\u20138\u00b0C. Keep in original sealed vial until use. Once opened, use within 28 days.'},{q:'Can I use this for all peptides?',a:'Yes. Bacteriostatic water (0.9% benzyl alcohol) is the standard reconstitution medium for all lyophilised research peptides in our catalogue.'},{q:'How much do I need per peptide vial?',a:'Typically 1\u20132 mL per peptide vial, depending on your target concentration. Use our Dosage Calculator for exact volumes.'}],citations:[]}
+"BAC Water":{desc:"Bacteriostatic water (0.9% benzyl alcohol) in a sterile 10ml vial. The standard reconstitution medium for research compounds \u2014 preservative allows multi-draw use over 28 days without contamination risk.",tagline:"The essential reconstitution medium. Preserves integrity across multi-draw protocols.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies",janoshik:{purity:"N/A",quantity:"Benzyl Alcohol: 9.33 mg/ml",taskNumber:"108612",verifyUrl:"https://verify.janoshik.com/tests/108612-Bacteriostatic_Water_3ml_T4XMD1ZUBTYK",image:"/img/testing/bac-water-hplc.png",date:"2026-02-16"},faqs:[{q:'How should I store this?',a:'Store at 2\u20138\u00b0C. Keep in original sealed vial until use. Once opened, use within 28 days.'},{q:'Can I use this for all compounds?',a:'Yes. Bacteriostatic water (0.9% benzyl alcohol) is the standard reconstitution medium for all lyophilised research compounds in our catalogue.'},{q:'How much do I need per vial?',a:'Typically 1\u20132 mL per vial, depending on your target concentration.'}],citations:[]}
 };
 
 var IMG={
 "Tirzepatide":"tirzepatide.png","Retatrutide":"retatrutide.png",
 "BPC-157":"bpc-157.png","TB-500":"tb-500.png","BPC+TB Combo":"bpc157tb500.png","GHK-Cu":"ghk-cu.png",
-"CJC-1295 (no DAC)":"cjc-no-dac.png","CJC+IPA Combo":"cjc_1295.png",
+"CJC+IPA Combo":"cjc_1295.png","Tesamorelin":"tesamorelin.jpg",
 "KLOW Blend":"klow.png","BAC Water":"bac-water.png"
 };
 var IMGPOS={};
@@ -51,8 +51,8 @@ var IMGPOS={};
 // Slug map: product id -> URL slug
 var SLUG_MAP={
   2:'tirzepatide',3:'retatrutide',4:'bpc-157',5:'tb-500',
-  6:'bpc-tb-combo',8:'ghk-cu',11:'cjc-1295-no-dac',
-  12:'cjc-ipa-combo',13:'klow-blend',14:'bac-water'
+  6:'bpc-tb-combo',8:'ghk-cu',
+  12:'cjc-ipa-combo',13:'klow-blend',14:'bac-water',15:'tesamorelin'
 };
 
 // =====================
@@ -575,7 +575,7 @@ function renderProductPage(pid){
   var h='';
 
   // Breadcrumb
-  h+='<div class="pdp-breadcrumb"><a href="/">Home</a><span>\u203a</span><a href="/catalogue">All Peptides</a><span>\u203a</span><a href="/catalogue?cat='+catUrl+'">'+p.c+'</a><span>\u203a</span><span>'+p.n+'</span></div>';
+  h+='<div class="pdp-breadcrumb"><a href="/">Home</a><span>\u203a</span><a href="/catalogue">All Compounds</a><span>\u203a</span><a href="/catalogue?cat='+catUrl+'">'+p.c+'</a><span>\u203a</span><span>'+p.n+'</span></div>';
 
   // Two-column hero
   h+='<div class="pdp-hero">';
@@ -662,6 +662,24 @@ function renderProductPage(pid){
   h+='<div id="tabC3" class="tab-content" style="display:none"><div class="pdp-dosage-box"><div class="pdp-dosage-lbl">Research Reference</div><div class="pdp-dosage-val">'+info.dose+'</div></div>';
   h+='<p style="font-size:10px;color:#b5b0a6;font-style:italic;margin-top:12px;line-height:1.6">For in-vitro research reference only. Not medical advice.</p></div>';
   h+='</div>';
+
+  if(info.janoshik){
+    var j=info.janoshik;
+    h+='<div style="background:#F4F1EB;padding:36px 40px;margin:32px 0;border-left:3px solid #C8A97E">';
+    h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px">';
+    h+='<div><div style="font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:6px">Third-party verified</div>';
+    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:500">Independent Lab Analysis</div></div>';
+    h+='<a href="'+j.verifyUrl+'" target="_blank" rel="noopener" style="display:inline-block;font-family:\'DM Sans\',sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:12px 20px;background:#1a1a1a;color:#FAFAF7;text-decoration:none">Verify on Janoshik →</a>';
+    h+='</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px" class="jano-grid">';
+    if(j.purity&&j.purity!=='N/A')h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Purity</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:600;color:#7a9a6d">'+j.purity+'</div></div>';
+    h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Quantity found</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:500">'+j.quantity+'</div></div>';
+    h+='<div><div style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Analysis date</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:500">'+j.date+'</div></div>';
+    h+='</div>';
+    h+='<img src="'+j.image+'" alt="HPLC chromatogram" style="width:100%;max-height:180px;object-fit:cover;object-position:center;border:1px solid rgba(0,0,0,.08)">';
+    h+='<div style="font-size:10px;color:#b5b0a6;margin-top:10px">Janoshik task #'+j.taskNumber+' · Client and batch fields redacted per standard practice. Verify the full report at the link above.</div>';
+    h+='</div>';
+  }
 
   if(info.citations&&info.citations.length){
     h+='<div class="pdp-research"><div class="pdp-research-left">';
