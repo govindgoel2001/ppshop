@@ -621,7 +621,7 @@ function renderProductPage(pid){
 
   h+='<div class="pdp-atc-row">';
   if(p.oos){
-    h+='<a href="https://wa.me/919560397569?text='+encodeURIComponent('Hi, notify me when '+p.n+' is back in stock.')+'" target="_blank" rel="noopener" class="b b3 pdp-oos">Out of Stock \u2014 Notify via WhatsApp</a>';
+    h+='<a href="https://wa.me/919818697569?text='+encodeURIComponent('Hi, notify me when '+p.n+' is back in stock.')+'" target="_blank" rel="noopener" class="b b3 pdp-oos">Out of Stock \u2014 Notify via WhatsApp</a>';
   } else {
     var cQty=getCartQty(p.id,sel);
     if(cQty>0){

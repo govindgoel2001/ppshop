@@ -33,7 +33,7 @@ export default async function handler(req, res) {
   const customerHtml = `<div style="font-family:Georgia,serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#1a1a1a">
     <h2 style="font-weight:400;margin-bottom:8px">Thanks for reaching out, ${escapeHtml(name)}.</h2>
     <p style="color:#555;line-height:1.6">We've received your enquiry and will get back to you within <strong>24 hours</strong>.</p>
-    <p style="color:#555;line-height:1.6">In the meantime, feel free to browse our <a href="https://athenabiolabs.com/catalogue" style="color:#C8A97E">peptide catalogue</a> or chat with us on <a href="https://wa.me/919560397569" style="color:#C8A97E">WhatsApp</a>.</p>
+    <p style="color:#555;line-height:1.6">In the meantime, feel free to browse our <a href="https://athenabiolabs.com/catalogue" style="color:#C8A97E">peptide catalogue</a> or chat with us on <a href="https://wa.me/919818697569" style="color:#C8A97E">WhatsApp</a>.</p>
     <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
     <p style="font-size:12px;color:#aaa">Your message: "${escapeHtml(message)}"</p>
     <p style="font-size:12px;color:#aaa;margin-top:24px">AthenaBioLabs · support@athenabiolabs.com</p>
