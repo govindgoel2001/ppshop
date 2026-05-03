@@ -422,8 +422,8 @@ textarea.fi{resize:vertical;min-height:100px}
 /* Hero two-column */
 .pdp-hero{display:grid;grid-template-columns:1fr 1fr;gap:72px;margin-bottom:0;align-items:start}
 .pdp-hero-img-col{position:sticky;top:112px;align-self:start}
-.pdp-img-wrap{background:#F4F1EB;overflow:hidden;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center}
-.pdp-hero-img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;display:block;padding:16px;box-sizing:border-box}
+.pdp-img-wrap{overflow:hidden;aspect-ratio:4/5}
+.pdp-hero-img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* Eyebrow */
 .pdp-eyebrow{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px;display:flex;align-items:center;gap:8px}
@@ -560,7 +560,7 @@ textarea.fi{resize:vertical;min-height:100px}
 @media(max-width:960px){
   .pdp-hero{grid-template-columns:1fr;gap:32px}
   .pdp-hero-img-col{position:static}
-  .pdp-img-wrap{aspect-ratio:16/9;max-height:340px}
+  .pdp-img-wrap{aspect-ratio:3/2;max-height:300px}
   .pdp-h1{font-size:40px}
   .pdp-about-grid,.pdp-faq-section{grid-template-columns:1fr;gap:32px}
   .pdp-about-grid{margin-top:40px;padding:40px 0}

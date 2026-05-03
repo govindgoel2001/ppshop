@@ -43,7 +43,7 @@ var PI={
 var IMG={
 "Tirzepatide":"tirzepatide.png","Retatrutide":"retatrutide.png",
 "BPC-157":"bpc-157.png","TB-500":"tb-500.png","BPC+TB Combo":"bpc157tb500.png","GHK-Cu":"ghk-cu.png",
-"CJC+IPA Combo":"cjc_1295.png","Tesamorelin":"tesamorelin.jpg",
+"CJC+IPA Combo":"cjc_1295.png",
 "KLOW Blend":"klow.png","BAC Water":"bac-water.png"
 };
 var IMGPOS={};
