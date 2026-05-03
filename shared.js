@@ -583,7 +583,23 @@ function renderProductPage(pid){
   // Left: sticky image column
   h+='<div class="pdp-hero-img-col"><div class="pdp-img-wrap">';
   h+='<img src="/img/'+esc(IMG[p.n]||'placeholder.png')+'" alt="'+esc(p.n)+'" class="pdp-hero-img" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;padding:40px&quot;><span style=&quot;font-family:Cormorant Garamond,serif;font-size:72px;font-weight:300;color:#C8A97E&quot;>'+esc(mono(p.n))+'</span></div>\'">';
-  h+='</div></div>';
+  h+='</div>';
+  if(info.janoshik){
+    var j=info.janoshik;
+    h+='<div style="margin-top:12px;border:1px solid rgba(0,0,0,.08);background:#FAFAF7">';
+    h+='<img src="'+j.image+'" alt="'+esc(p.n)+' Janoshik COA" style="width:100%;display:block;object-fit:contain">';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid rgba(0,0,0,.06)">';
+    h+='<div style="text-align:center"><div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:600;color:#C8A97E">'+j.purity+'</div><div style="font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b5b0a6;margin-top:2px">Purity</div></div>';
+    h+='<div style="text-align:center"><div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:600;color:#1a1a1a">'+j.quantity+'</div><div style="font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b5b0a6;margin-top:2px">Tested Qty</div></div>';
+    h+='<div style="text-align:center"><div style="font-size:13px;font-weight:600;color:#1a1a1a">#'+j.taskNumber+'</div><div style="font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b5b0a6;margin-top:2px">Batch</div></div>';
+    h+='</div>';
+    h+='<div style="padding:8px 16px;border-top:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between">';
+    h+='<span style="font-size:9px;color:#b5b0a6">Janoshik · '+j.date+'</span>';
+    h+='<a href="'+j.verifyUrl+'" target="_blank" rel="noopener" style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E;text-decoration:none">Verify &rarr;</a>';
+    h+='</div>';
+    h+='</div>';
+  }
+  h+='</div>';
 
   // Right: purchase info column
   h+='<div class="pdp-hero-info-col">';
