@@ -118,7 +118,7 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
     <!-- Form container -->
     <div class="email-wrap" id="formWrap">
       <!-- Default state -->
-      <form class="email-form" id="notifyForm">
+      <form class="email-form" id="notifyForm" action="https://formspree.io/f/mdabeolz" method="POST">
         <input type="email" name="email" placeholder="your@email.com" required id="emailInput" autocomplete="email">
         <button type="submit" class="b b3" id="submitBtn">Notify Me</button>
       </form>
@@ -165,7 +165,7 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
   </div>
 </footer>
 
-<!-- Email signup via /api/subscribe -->
+<!-- Email signup via Formspree -->
 <script>
 (function(){
   var form = document.getElementById('notifyForm');
@@ -174,38 +174,29 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
   var formSuccess = document.getElementById('formSuccess');
   var formError = document.getElementById('formError');
 
-  form.addEventListener('submit', async function(e){
+  form.addEventListener('submit', function(e){
     e.preventDefault();
-    var email = document.getElementById('emailInput').value.trim().toLowerCase();
-
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-      formError.textContent = 'Please enter a valid email address.';
-      formError.style.display = 'block';
-      return;
-    }
-
     formError.style.display = 'none';
     formWrap.style.display = 'none';
     formLoading.style.display = 'block';
 
-    try {
-      var res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
-      });
-
-      if(!res.ok) throw new Error('Server error');
-
-      formLoading.style.display = 'none';
-      formSuccess.style.display = 'block';
-
-    } catch(err){
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(res.ok){
+        formLoading.style.display = 'none';
+        formSuccess.style.display = 'block';
+      } else {
+        throw new Error('Server error');
+      }
+    }).catch(function(){
       formLoading.style.display = 'none';
       formWrap.style.display = 'block';
       formError.textContent = 'Something went wrong. Please try again.';
       formError.style.display = 'block';
-    }
+    });
   });
 })();
 </script>
