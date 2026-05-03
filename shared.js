@@ -604,15 +604,6 @@ function renderProductPage(pid){
   h+='<div class="pdp-hairline"></div>';
 
   h+='<div class="pdp-top">';
-  h+='<div class="pdp-img" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px;">';
-  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:10px">'+info.cat+'</div>';
-  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:clamp(26px,3vw,42px);font-weight:600;letter-spacing:-.02em;color:#1a1a1a;margin-bottom:20px;line-height:1.1">'+p.n+'</div>';
-  h+='<div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,#C8A97E,transparent);margin-bottom:20px"></div>';
-  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">HPLC Purity</div>';
-  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:60px;font-weight:300;color:#C8A97E;line-height:1;margin-bottom:20px">&ge;99%</div>';
-  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#1a1a1a;padding:6px 14px;border:1px solid rgba(0,0,0,.14);margin-bottom:16px">Janoshik Verified &#10003;</div>';
-  h+='<a href="/coa" style="font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#C8A97E;text-decoration:none">View Certificate of Analysis &rarr;</a>';
-  h+='</div>';
   h+='<div class="pdp-info">';
   h+='<h1>'+p.n+'</h1>';
   h+='<div class="pdp-cat">'+info.cat+(p.n!=='BAC Water'?' &middot; 99%+ HPLC Purity':'')+'</div>';
