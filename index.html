@@ -39,12 +39,12 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* Email form */
-.email-wrap{max-width:480px;margin:0 auto}
-.email-form{display:flex;gap:0;margin-bottom:12px}
+.email-wrap{max-width:480px;margin:0 auto;padding:0 20px}
+.email-form{display:flex;gap:0;margin-bottom:12px;width:100%}
 .email-form input{font-family:'DM Sans',sans-serif;flex:1;min-width:0;padding:16px 20px;border:1px solid #d4d0c8;border-right:none;background:#fff;font-size:13px;outline:none;color:#1a1a1a;letter-spacing:.02em;transition:border-color .3s}
 .email-form input:focus{border-color:#C8A97E}
 .email-form input::placeholder{color:#b5b0a6}
-.b{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:16px 40px;border:none;cursor:pointer;transition:all .35s;text-decoration:none;display:inline-block;text-align:center;line-height:1.2}
+.b{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:16px 40px;border:none;cursor:pointer;transition:all .35s;text-decoration:none;display:inline-block;text-align:center;line-height:1.2;white-space:nowrap}
 .b1{background:#1a1a1a;color:#FAFAF7}.b1:hover{background:#2d2d2d;letter-spacing:.24em}
 .b3{background:#1a1a1a;color:#FAFAF7}.b3:hover{background:#2d2d2d;letter-spacing:.24em}
 .email-note{font-size:11px;color:#b5b0a6;text-align:center}
@@ -79,10 +79,8 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
 @media(max-width:600px){
   .w{padding-left:20px;padding-right:20px}
   .hero{padding:60px 0}
-  .email-form{flex-direction:column}
-  .email-form input{border-right:1px solid #d4d0c8;border-bottom:none}
-  .email-form input:focus{border-color:#C8A97E}
-  .email-form .b{width:100%}
+  .email-wrap{padding:0}
+  .b{padding:16px 24px}
   .status{gap:16px}
 }
 </style>
