@@ -2,16 +2,16 @@
 // Canonical price table — single source of truth used by the server to recompute totals.
 
 export const CATALOGUE = {
-  2:  { n: 'Tirzepatide',         oos: true,  v: [{ ds: '10mg', pr: 2400 }, { ds: '20mg', pr: 3800 }] },
-  3:  { n: 'Retatrutide',         oos: false, v: [{ ds: '10mg', pr: 2899 }, { ds: '20mg', pr: 4500 }] },
-  4:  { n: 'BPC-157',             oos: false, v: [{ ds: '10mg', pr: 1990 }] },
-  5:  { n: 'TB-500',              oos: true,  v: [{ ds: '10mg', pr: 3400 }] },
-  6:  { n: 'BPC+TB Combo',        oos: true,  v: [{ ds: '10mg', pr: 3200 }] },
-  8:  { n: 'GHK-Cu',              oos: false, v: [{ ds: '50mg', pr: 1500 }] },
-  11: { n: 'CJC-1295 (no DAC)',   oos: true,  v: [{ ds: '5mg',  pr: 2800 }] },
-  12: { n: 'CJC+IPA Combo',       oos: true,  v: [{ ds: '10mg', pr: 3750 }] },
-  13: { n: 'KLOW Blend',          oos: true,  v: [{ ds: '80mg', pr: 3990 }] },
-  14: { n: 'BAC Water',           oos: false, v: [{ ds: '10ml', pr: 799  }] },
+  2:  { n: 'Tirzepatide',   oos: true,  v: [{ ds: '10mg', pr: 2799 }, { ds: '20mg', pr: 3999 }] },
+  3:  { n: 'Retatrutide',   oos: false, v: [{ ds: '10mg', pr: 3499 }, { ds: '20mg', pr: 4999 }] },
+  4:  { n: 'BPC-157',       oos: false, v: [{ ds: '10mg', pr: 2199 }] },
+  5:  { n: 'TB-500',        oos: true,  v: [{ ds: '10mg', pr: 3599 }] },
+  6:  { n: 'BPC+TB Combo',  oos: true,  v: [{ ds: '10mg', pr: 3499 }] },
+  8:  { n: 'GHK-Cu',        oos: false, v: [{ ds: '50mg', pr: 1799 }] },
+  12: { n: 'CJC+IPA Combo', oos: true,  v: [{ ds: '10mg', pr: 3999 }] },
+  13: { n: 'KLOW Blend',    oos: true,  v: [{ ds: '80mg', pr: 4299 }] },
+  14: { n: 'BAC Water',     oos: false, v: [{ ds: '10ml', pr: 899  }] },
+  15: { n: 'Tesamorelin',   oos: false, v: [{ ds: '10mg', pr: 3999 }] },
 };
 
 export const BULK10_THRESHOLD = 20000;
