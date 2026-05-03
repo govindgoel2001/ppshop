@@ -8,8 +8,8 @@
 // PRODUCT DATA
 // =====================
 var P=[
-{id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2400},{sp:"20mg per vial",ds:"20mg",pr:3800}]},
-{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2899},{sp:"20mg per vial",ds:"20mg",pr:4500}]},
+{id:2,n:"Tirzepatide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2000},{sp:"20mg per vial",ds:"20mg",pr:4000}]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:3199},{sp:"20mg per vial",ds:"20mg",pr:6400,oos:true}]},
 {id:4,n:"BPC-157",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:1990}]},
 {id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3400}]},
 {id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3200}]},
@@ -187,9 +187,9 @@ function rC(){
   h+='<div class="gs" style="margin:12px 0"></div>';
   h+='<div class="st"><span>Total</span><span>'+fmt(total)+'</span></div>';
   if(includeEbook){
-    h+='<div class="eb"><div class="ei">&#128218;</div><div class="et"><b>Free: Peptide Research Guide</b><span>15-chapter eBook included</span></div><button onclick="includeEbook=false;rC()" style="background:none;border:none;color:#b5b0a6;font-size:10px;cursor:pointer;text-decoration:underline;white-space:nowrap;margin-left:8px">Remove</button></div>';
+    h+='<div class="eb"><div class="ei">&#128218;</div><div class="et"><b>Free: Peptide Research Guide</b><span>PDF &mdash; <a href="https://glp-book.vercel.app/" target="_blank" rel="noopener" style="color:#C8A97E;text-decoration:none">glp-book.vercel.app</a></span></div><button onclick="includeEbook=false;rC()" style="background:none;border:none;color:#b5b0a6;font-size:10px;cursor:pointer;text-decoration:underline;white-space:nowrap;margin-left:8px">Remove</button></div>';
   } else {
-    h+='<div style="margin-top:12px;padding:12px 16px;background:#F0EDE7;display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;color:#8a8580">Peptide Research Guide eBook</span><button onclick="includeEbook=true;rC()" style="font-family:DM Sans,sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;padding:5px 12px;background:#1a1a1a;color:#FAFAF7;border:none;cursor:pointer">+ Add Free eBook</button></div>';
+    h+='<div style="margin-top:12px;padding:12px 16px;background:#F0EDE7;display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;color:#8a8580">Peptide Research Guide PDF</span><button onclick="includeEbook=true;rC()" style="font-family:DM Sans,sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;padding:5px 12px;background:#1a1a1a;color:#FAFAF7;border:none;cursor:pointer">+ Add Free PDF</button></div>';
   }
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
   h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payNow('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay Now &middot; '+fmt(total)+'</button>';
@@ -353,8 +353,14 @@ function renderProductPage(pid){
   h+='</div>';
 
   h+='<div class="pdp-top">';
-  h+='<div class="pdp-img">';
-  h+='<img src="/img/'+(IMG[p.n]||'placeholder.png')+'" alt="'+p.n+'" style="width:100%;height:auto;display:block;" onerror="this.style.display=\'none\';this.parentNode.innerHTML+=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
+  h+='<div class="pdp-img" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px;">';
+  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:10px">'+info.cat+'</div>';
+  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:clamp(26px,3vw,42px);font-weight:600;letter-spacing:-.02em;color:#1a1a1a;margin-bottom:20px;line-height:1.1">'+p.n+'</div>';
+  h+='<div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,#C8A97E,transparent);margin-bottom:20px"></div>';
+  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">HPLC Purity</div>';
+  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:60px;font-weight:300;color:#C8A97E;line-height:1;margin-bottom:20px">&ge;99%</div>';
+  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#1a1a1a;padding:6px 14px;border:1px solid rgba(0,0,0,.14);margin-bottom:16px">Janoshik Verified &#10003;</div>';
+  h+='<a href="/coa" style="font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#C8A97E;text-decoration:none">View Certificate of Analysis &rarr;</a>';
   h+='</div>';
   h+='<div class="pdp-info">';
   h+='<h1>'+p.n+'</h1>';
@@ -365,14 +371,16 @@ function renderProductPage(pid){
   if(p.v.length>1){
     h+='<div style="margin-bottom:20px"><div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Strength</div><div class="vr" style="margin:0">';
     for(var k=0;k<p.v.length;k++){
-      h+='<button class="vb'+(k===sel?" on":"")+'" style="padding:8px 18px;font-size:11px" onclick="selV['+p.id+']='+k+';renderProductPage('+p.id+')">'+p.v[k].ds+'</button>';
+      var vOos=p.v[k].oos||false;
+      h+='<button class="vb'+(k===sel?" on":"")+'" style="padding:8px 18px;font-size:11px'+(vOos?';opacity:.5':'')+'" onclick="selV['+p.id+']='+k+';renderProductPage('+p.id+')">'+p.v[k].ds+(vOos?' (OOS)':'')+' </button>';
     }
     h+='</div></div>';
   }
   // add to cart
-  if(p.oos){
-    h+='<a href="https://wa.me/919560397569?text='+encodeURIComponent('Hi, I want to be notified when '+p.n+' is back in stock.')+'" target="_blank" rel="noopener" style="display:block;width:100%;margin-bottom:20px;text-decoration:none"><button style="width:100%;padding:18px 40px;font-size:13px;background:#25D366;color:#fff;border:none;border-radius:6px;cursor:pointer;letter-spacing:.08em;font-weight:600;text-transform:uppercase">Out of Stock — Notify Me via WhatsApp</button></a>';
-    h+='<p style="font-size:12px;color:#8a8580;margin-bottom:20px">This product is temporarily unavailable. Tap above and we\'ll message you the moment it\'s back.</p>';
+  if(p.oos||v.oos){
+    var oosLabel=p.oos?p.n:p.n+' '+v.ds;
+    h+='<a href="https://wa.me/919560397569?text='+encodeURIComponent('Hi, I want to be notified when '+oosLabel+' is back in stock.')+'" target="_blank" rel="noopener" style="display:block;width:100%;margin-bottom:20px;text-decoration:none"><button style="width:100%;padding:18px 40px;font-size:13px;background:#25D366;color:#fff;border:none;border-radius:6px;cursor:pointer;letter-spacing:.08em;font-weight:600;text-transform:uppercase">Out of Stock — Notify Me via WhatsApp</button></a>';
+    h+='<p style="font-size:12px;color:#8a8580;margin-bottom:20px">This variant is temporarily unavailable. Tap above and we\'ll message you the moment it\'s back.</p>';
   } else {
     var cQty=getCartQty(p.id,sel);
     if(cQty>0){
@@ -396,7 +404,6 @@ function renderProductPage(pid){
   h+='<div class="pdp-tabs-nav">';
   h+='<button id="tab1" class="tab-btn active" onclick="showTab(1)">Description</button>';
   h+='<button id="tab2" class="tab-btn" onclick="showTab(2)">Details</button>';
-  h+='<button id="tab3" class="tab-btn" onclick="showTab(3)">Dosage</button>';
   h+='</div>';
   h+='<div id="tabC1" class="tab-content"><p style="font-size:14px;line-height:1.9;color:#6b6560;font-weight:300">'+info.desc+'</p></div>';
   h+='<div id="tabC2" class="tab-content" style="display:none">';
@@ -407,10 +414,7 @@ function renderProductPage(pid){
   if(p.n!=='BAC Water'){h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Purity</td><td class="td-val">&ge;99% (HPLC verified)</td></tr>';h+='<tr style="border-bottom:1px solid #e8e4de"><td class="td-lbl">Form</td><td class="td-val">White lyophilized powder</td></tr>';}
   h+='<tr><td class="td-lbl">Storage</td><td class="td-val">'+(p.n==='BAC Water'?'2-8&deg;C':'-20&deg;C (lyophilized) / 2-8&deg;C (reconstituted)')+'</td></tr>';
   h+='</table></div>';
-  h+='<div id="tabC3" class="tab-content" style="display:none">';
-  h+='<div style="background:#F7F5F2;padding:16px 20px;margin-bottom:12px"><p style="font-size:13px;line-height:1.8;color:#6b6560"><strong style="color:#1a1a1a">Research Reference:</strong> '+info.dose+'</p></div>';
-  h+='<p style="font-size:10px;color:#b5b0a6;font-style:italic;line-height:1.6">For in-vitro research reference only. Not medical advice.</p>';
-  h+='</div></div>';
+  h+='</div>';
 
   // disclaimer
   h+='<div class="pdp-disclaimer"><p>All products are for in-vitro research use only. Not for human or animal consumption. Not intended to diagnose, treat, cure, or prevent any disease.</p></div>';
