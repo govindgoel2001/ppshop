@@ -20,13 +20,19 @@
     }
   ],
   "rewrites": [
-    { "source": "/about",       "destination": "/index.html" },
-    { "source": "/coa",        "destination": "/coa.html" },
-    { "source": "/contact",    "destination": "/index.html" },
-    { "source": "/shop",       "destination": "/index.html" },
-    { "source": "/catalogue",  "destination": "/catalogue.html" },
-    { "source": "/admin",      "destination": "/admin/index.html" },
-    { "source": "/admin/login", "destination": "/admin/login.html" },
-    { "source": "/admin/order","destination": "/admin/order.html" }
+    { "source": "/api/subscribe",  "destination": "/api/subscribe" },
+    { "source": "/api/contact",    "destination": "/api/contact" },
+    { "source": "/api/config",     "destination": "/api/config" },
+    { "source": "/api/send-otp",   "destination": "/api/send-otp" },
+    { "source": "/api/verify-coupon", "destination": "/api/verify-coupon" },
+    { "source": "/api/place-order",   "destination": "/api/place-order" },
+    { "source": "/about",          "destination": "/index.html" },
+    { "source": "/coa",            "destination": "/coa.html" },
+    { "source": "/contact",        "destination": "/index.html" },
+    { "source": "/shop",           "destination": "/index.html" },
+    { "source": "/catalogue",      "destination": "/catalogue.html" },
+    { "source": "/admin",          "destination": "/admin/index.html" },
+    { "source": "/admin/login",    "destination": "/admin/login.html" },
+    { "source": "/admin/order",    "destination": "/admin/order.html" }
   ]
 }
