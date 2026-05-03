@@ -34,12 +34,16 @@ export default async function handler(req, res) {
   const ebook = body.ebook !== false;
   const ref   = String(body.ref || '').toUpperCase();
   const utr   = String(body.utr || '').trim();
+  const toc_accepted  = body.toc_accepted === true;
+  const toc_timestamp = typeof body.toc_timestamp === 'string' ? body.toc_timestamp.trim().slice(0, 32) : null;
+  const toc_version   = typeof body.toc_version   === 'string' ? body.toc_version.trim().slice(0, 20)   : null;
 
   if (!validateEmail(contactEmail)) return res.status(400).json({ error: 'Invalid contact email.' });
   if (!REF_RE.test(ref))            return res.status(400).json({ error: 'Invalid order reference.' });
   if (!UTR_RE.test(utr))            return res.status(400).json({ error: 'UTR must be 12 digits.' });
   if (!shippingAddress)             return res.status(400).json({ error: 'Delivery address required.' });
   if (!PIN_RE.test(shippingAddress)) return res.status(400).json({ error: 'Address must include a 6-digit PIN code.' });
+  if (!toc_accepted)                return res.status(400).json({ error: 'Research use terms must be accepted.' });
 
   // Burn the rate-limit slot once we've passed cheap validation.
   await recordPlaceOrderAttempt(contactEmail, ip);

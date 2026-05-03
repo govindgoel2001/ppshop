@@ -754,7 +754,7 @@ function loadCart(){try{var c=localStorage.getItem('abl_cart');if(c)cart=JSON.pa
 loadCart();
 
 // Verified email for FIRST5 (set after OTP confirmed)
-var verifiedEmail='',customerAddr='',customerPin='';
+var verifiedEmail='',customerAddr='',customerPin='',tocAccepted=false;
 
 function fmt(n){return "\u20B9"+n.toLocaleString("en-IN")}
 function mono(nm){return nm.replace(/[-\s\+\(\)]/g,"").substring(0,3).toUpperCase()}
@@ -1095,9 +1095,12 @@ function rC(){
   }
   var ebookNote=includeEbook?"%0A%0APlease include the free Peptide Research Guide eBook.":"";
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
-  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payViaUpi('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
+  h+='<label style="display:flex;align-items:flex-start;gap:10px;margin-top:16px;padding:14px;background:#F4F1EB;cursor:pointer">';
+  h+='<input type="checkbox" id="tocBox" '+(tocAccepted?'checked':'')+' onchange="tocAccepted=this.checked;var b=document.getElementById(\'tocPayBtn\');if(b){b.disabled=!tocAccepted;b.style.opacity=tocAccepted?\'1\':\'.4\';b.style.cursor=tocAccepted?\'pointer\':\'not-allowed\';}" style="margin-top:3px;width:14px;height:14px;flex-shrink:0;accent-color:#1a1a1a;cursor:pointer">';
+  h+='<span style="font-size:10px;color:#6b6560;line-height:1.6"><strong style="color:#1a1a1a">I confirm</strong> I am purchasing these compounds for <strong>in-vitro laboratory research use only</strong>. I will not administer them to humans or animals. I am 18+ and comply with all applicable local laws.</span>';
+  h+='</label>';
+  h+='<button id="tocPayBtn" class="b b1" style="width:100%;margin-top:8px;padding:18px 40px;font-size:13px;position:relative'+(tocAccepted?'':';opacity:.4;cursor:not-allowed')+'" '+(tocAccepted?'':'disabled')+' onclick="payViaUpi('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
   h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="display:block;text-align:center;margin-top:8px;padding:12px 16px;font-size:9px">Email Order</a>';
-  h+='<p style="font-size:9px;color:#b5b0a6;text-align:center;margin-top:12px;line-height:1.6;padding:0 4px">By completing this order you confirm these products are purchased solely for in-vitro laboratory research. Not for human or animal use.</p>';
   h+='</div>';
   bd.innerHTML=h;
 }
@@ -1224,6 +1227,7 @@ function submitUpiOrder(ref,total,contact){
   var pin=((pinEl&&pinEl.value)||customerPin||'').replace(/\D/g,'').slice(0,6);
   if(!addr){msg.style.color='#c44';msg.textContent='Please enter your delivery address before confirming.';return;}
   if(!/^[1-9]\d{5}$/.test(pin)){msg.style.color='#c44';msg.textContent='Please enter a valid 6-digit PIN code.';return;}
+  if(!tocAccepted){msg.style.color='#c44';msg.textContent='Please confirm the research use terms in the cart before proceeding.';return;}
   btn.disabled=true;btn.textContent='SAVING…';msg.textContent='';
   var payload={
     items:cart.map(function(c){return{id:c.id,vi:c.vi,q:c.q};}),
@@ -1233,7 +1237,10 @@ function submitUpiOrder(ref,total,contact){
     shippingAddress:addr+'\nPIN: '+pin,
     ebook:!!includeEbook,
     ref:ref,
-    utr:utr
+    utr:utr,
+    toc_accepted:true,
+    toc_timestamp:new Date().toISOString(),
+    toc_version:'v1-2026-05-02'
   };
   fetch('/api/place-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
     .then(function(r){return r.json().then(function(d){return{status:r.status,d:d};});})
