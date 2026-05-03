@@ -1,8 +1,17 @@
 #!/bin/bash
-# Usage: make_page.sh <slug> <pid> <name> <meta_desc> <wa_text>
-SLUG=$1; PID=$2; NAME=$3; DESC=$4; WA=$5
+# Usage: ./make_page.sh <slug> <pid> <name> <meta_desc> <wa_text>
+# Writes products/<slug>.html next to this script.
+set -euo pipefail
 
-cat > C:/Users/govin/ppshop/products/${SLUG}.html << EOF
+if [ "$#" -lt 5 ]; then
+  echo "Usage: $0 <slug> <pid> <name> <meta_desc> <wa_text>" >&2
+  exit 1
+fi
+
+SLUG=$1; PID=$2; NAME=$3; DESC=$4; WA=$5
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+cat > "${DIR}/${SLUG}.html" << EOF
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,11 +34,11 @@ cat > C:/Users/govin/ppshop/products/${SLUG}.html << EOF
 <div class="pb" id="promoBanner"><div class="pb-inner" id="promoInner"></div></div>
 <nav class="bn"><div class="w">
 <a href="/" class="nl"><em style="font-weight:600;font-style:normal;color:#C8A97E">Athena</em>BioLabs</a>
-<div class="nk"><a href="/">Home</a><a href="/#shop">Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="/contact">Contact</a><a href="#" onclick="openCart();return false" id="cL">Cart</a></div>
+<div class="nk"><a href="/">Home</a><div class="nav-dd"><a href="/catalogue" class="nav-dd-trigger">Peptides &#9662;</a><div class="nav-dd-menu"><a href="/catalogue">All Peptides</a><a href="/catalogue?cat=Weight+Loss">Weight Loss</a><a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a><a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a><a href="/catalogue?cat=GH">GH</a></div></div><a href="/coa">COA</a><a href="/about">About</a><a href="/calculator">Calculator</a><a href="/contact">Contact</a><a href="#" onclick="openCart();return false" id="cL">Cart</a></div>
 <button class="ham" id="hamBtn" onclick="toggleMob()"><span></span><span></span><span></span></button>
 </div></nav>
 <div class="mob-nav" id="mobNav">
-<a href="/" onclick="closeMob()">Home</a><a href="/#shop" onclick="closeMob()">All Peptides</a><a href="/coa" onclick="closeMob()">COA</a><a href="/about" onclick="closeMob()">About</a><a href="/contact" onclick="closeMob()">Contact</a><a href="#" onclick="openCart();closeMob();return false">Cart</a>
+<a href="/" onclick="closeMob()">Home</a><a href="/catalogue" onclick="closeMob()">All Peptides</a><a href="/coa" onclick="closeMob()">COA</a><a href="/about" onclick="closeMob()">About</a><a href="/calculator" onclick="closeMob()">Calculator</a><a href="/contact" onclick="closeMob()">Contact</a><a href="#" onclick="openCart();closeMob();return false">Cart</a>
 </div>
 <a href="https://wa.me/919560397569?text=${WA}" target="_blank" rel="noopener" class="wf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 <div class="sp-toast" id="spToast"><div class="sp-dot"></div><div class="sp-txt" id="spTxt"></div><button class="sp-close" onclick="document.getElementById('spToast').classList.remove('show')">&times;</button></div>
@@ -39,16 +48,16 @@ cat > C:/Users/govin/ppshop/products/${SLUG}.html << EOF
 <section class="related-section"><div class="w"><h2>You may also need</h2><div class="related-grid" id="relatedGrid"></div></div></section>
 <footer class="ft-enhanced"><div class="w"><div class="ftg">
 <div class="ftb"><div class="ft-brand-name"><em>Athena</em>BioLabs</div><p>Premium research peptides. HPLC verified. COA with every order.</p></div>
-<div class="ftc"><h4>Quick Links</h4><a href="/">Home</a><a href="/#shop">All Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="/contact">Contact</a></div>
-<div class="ftc"><h4>Categories</h4><a href="/?cat=Weight%20Loss">Weight Loss</a><a href="/?cat=Healing%20%26%20Recovery">Healing &amp; Recovery</a><a href="/?cat=Skin%20%26%20Anti-Aging">Skin &amp; Anti-Aging</a><a href="/?cat=GH">GH</a></div>
+<div class="ftc"><h4>Quick Links</h4><a href="/">Home</a><a href="/catalogue">All Peptides</a><a href="/coa">COA</a><a href="/about">About</a><a href="/contact">Contact</a></div>
+<div class="ftc"><h4>Categories</h4><a href="/catalogue?cat=Weight+Loss">Weight Loss</a><a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a><a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a><a href="/catalogue?cat=GH">GH</a></div>
 <div class="ftc"><h4>Legal</h4><a href="/about">Research Disclaimer</a><a href="mailto:support@athenabiolabs.com">support@athenabiolabs.com</a></div>
 </div><div class="gs"></div></div>
 <div class="ft-disclaimer"><div class="w"><p>&#169; 2026 AthenaBioLabs. For in-vitro research use only.</p></div></div>
 </footer>
-<div class="sticky-cta"><a href="/#shop" class="sca-shop">Shop All Peptides</a><a href="https://wa.me/919560397569" target="_blank" rel="noopener" class="sca-wa">WhatsApp</a></div>
+<div class="sticky-cta"><a href="/catalogue" class="sca-shop">Shop All Peptides</a><a href="https://wa.me/919560397569" target="_blank" rel="noopener" class="sca-wa">WhatsApp</a></div>
 <div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:800;background:#1a1a1a;padding:16px 24px"><div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap"><p style="font-size:12px;color:rgba(250,250,247,.7);margin:0;flex:1">We use cookies to improve your experience.</p><div style="display:flex;gap:8px"><button onclick="acceptCookies()" style="font-family:DM Sans,sans-serif;font-size:10px;font-weight:600;padding:10px 20px;background:#C8A97E;color:#fff;border:none;cursor:pointer">Accept</button><button onclick="declineCookies()" style="font-family:DM Sans,sans-serif;font-size:10px;padding:10px 20px;background:transparent;color:rgba(250,250,247,.5);border:1px solid rgba(250,250,247,.2);cursor:pointer">Decline</button></div></div></div>
 <script src="/shared.js"></script>
 <script>cyclePromo();setInterval(cyclePromo,4000);setTimeout(function(){showSP();setInterval(showSP,36000);},8000);uB();renderProductPage(${PID});initReveal();if(!getCookie('cookie_consent')){document.getElementById('cookieBanner').style.display='block';}</script>
 </body></html>
 EOF
-echo "Created ${SLUG}.html"
+echo "Created ${DIR}/${SLUG}.html"

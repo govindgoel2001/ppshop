@@ -1,6 +1,7 @@
-// api/_lib/validate.js
+// api/_lib/validate.jss
 // Shared input validation helpers
 
+// RFC-5321 caps local-part at 64 and full address at 254; this regex is intentionally permissive.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const OTP_RE = /^\d{6}$/;
 const VALID_CODES = new Set(['FIRST5', 'BULK10']);

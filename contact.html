@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <!-- PostHog Analytics -->
 <script>
 !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString()+" (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||([]));
@@ -47,11 +46,36 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 
 <a href="/contact" onclick="closeMob()">Contact</a>
 </div>
+
+<main>
+<section style="padding:80px 0 64px"><div class="w" style="max-width:900px"><div class="cg">
+<div>
+<span class="lb">Contact</span>
+<h1 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;letter-spacing:-.02em;margin-bottom:32px;line-height:1.15">We would love to<br>hear from <em style="font-weight:500">you</em>.</h1>
+<div class="ib"><div class="il">Email</div><p><a href="mailto:support@athenabiolabs.com" style="text-decoration:none">support@athenabiolabs.com</a></p></div>
+<div class="ib"><div class="il">Hours</div><p>Monday - Saturday, 9AM - 7PM IST</p></div>
+<a href="https://wa.me/919818697569?text=Hi%2C%20I%20have%20a%20question." target="_blank" rel="noopener" class="b b3" style="margin-top:12px">Chat on WhatsApp</a>
+</div>
+<div style="padding-top:56px">
+<form onsubmit="return sendC()">
+<div class="fw"><div class="fg"><label>Name *</label><input class="fi" type="text" id="cn" placeholder="Your name" required></div>
+<div class="fg"><label>Email *</label><input class="fi" type="email" id="ce" placeholder="you@example.com" required></div></div>
 <div class="fg"><label>Subject</label><input class="fi" type="text" id="cs" placeholder="Order inquiry, bulk pricing, etc."></div>
 <div class="fg"><label>Message *</label><textarea class="fi" id="cmsg" placeholder="How can we help?" required></textarea></div>
-<div id="cfb" style="font-size:12px;margin-bottom:12px;min-height:18px"></div>
-<button type="submit" class="b b1">Send Message</button>
+<button type="submit" class="b b1" id="cBtn">Send Enquiry</button>
+<p id="cFormMsg" style="font-size:12px;color:#c44;margin-top:12px;min-height:18px"></p>
 </form>
+
+<!-- Success popup -->
+<div id="cPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#fff;max-width:420px;width:90%;padding:40px 32px;border-radius:4px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.18)">
+    <div style="font-size:32px;margin-bottom:16px">&#10003;</div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:26px;margin-bottom:12px">Message received</h3>
+    <p style="color:#555;line-height:1.6;margin-bottom:8px">Thanks for reaching out — we'll get back to you within <strong>24 hours</strong>.</p>
+    <p style="color:#888;font-size:13px;margin-bottom:28px">Check your inbox for a confirmation email.</p>
+    <button onclick="document.getElementById('cPopup').style.display='none'" class="b b1" style="min-width:120px">Close</button>
+  </div>
+</div>
 </div>
 </div></div></section>
 </main>
@@ -67,7 +91,6 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </div></footer>
 
 <script>
-var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_publishable_1hNyIavnnJa0gGZJIw1fcg_XLkU0GoQ');
 function toggleMob(){
   document.getElementById('hamBtn').classList.toggle('open');
   document.getElementById('mobNav').classList.toggle('open');
@@ -81,18 +104,28 @@ function sendC(){
   var e=document.getElementById('ce').value.trim();
   var s=(document.getElementById('cs').value||'Website Inquiry').trim();
   var m=document.getElementById('cmsg').value.trim();
-  var fb=document.getElementById('cfb');
-  if(!n||!e||!m){fb.style.color='#c44';fb.textContent='Please fill in all required fields.';return false;}
-  var btn=document.querySelector('button[type=submit]');
+  var fb=document.getElementById('cFormMsg');
+  var btn=document.getElementById('cBtn');
+  if(!n||!e||!m){fb.textContent='Please fill in all required fields.';return false;}
+  fb.textContent='';
   btn.disabled=true;btn.textContent='Sending\u2026';
-  var mailBody="Name: "+n+"\nEmail: "+e+"\n\n"+m;
-  var mailUrl="mailto:support@athenabiolabs.com?subject="+encodeURIComponent("AthenaBioLabs - "+s)+"&body="+encodeURIComponent(mailBody);
-  try{SUPA.from('contact_submissions').insert({name:n,email:e,subject:s,message:m}).then(function(){}).catch(function(){});}catch(ex){}
-  window.open(mailUrl,'_blank')||window.location.assign(mailUrl);
-  btn.disabled=false;btn.textContent='Message Sent';
-  fb.style.color='#7a9a6d';fb.innerHTML='Your email client should open. If not, email us at <a href="mailto:support@athenabiolabs.com" style="color:#C8A97E">support@athenabiolabs.com</a>';
-  document.querySelector('form').reset();
-  setTimeout(function(){btn.textContent='Send Message';},5000);
+  fetch('/api/contact',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name:n,email:e,subject:s,message:m})
+  }).then(function(r){return r.json();}).then(function(data){
+    if(data.ok){
+      document.querySelector('form').reset();
+      var popup=document.getElementById('cPopup');
+      popup.style.display='flex';
+    } else {
+      fb.textContent=data.error||'Something went wrong. Please try again.';
+    }
+    btn.disabled=false;btn.textContent='Send Enquiry';
+  }).catch(function(){
+    fb.textContent='Network error. Please try again or email us directly.';
+    btn.disabled=false;btn.textContent='Send Enquiry';
+  });
   return false;
 }
 </script>

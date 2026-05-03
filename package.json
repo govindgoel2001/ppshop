@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy",
+    "deploy:prod": "vercel deploy --prod",
+    "test": "tests/run.sh"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
     "resend": "^4.5.1"

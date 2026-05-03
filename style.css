@@ -407,3 +407,180 @@ textarea.fi{resize:vertical;min-height:100px}
   /* --- Footer links wider tap area --- */
   .ftc a{padding:5px 0;margin-bottom:6px}
 }
+
+/* ============================================================
+   EDITORIAL PDP
+   ============================================================ */
+
+/* Breadcrumb */
+.pdp-breadcrumb{font-size:10px;color:#b5b0a6;letter-spacing:.06em;margin-bottom:40px;padding-top:8px;display:flex;align-items:center;flex-wrap:wrap;gap:0}
+.pdp-breadcrumb a{text-decoration:none;color:#b5b0a6;transition:color .2s}
+.pdp-breadcrumb a:hover{color:#1a1a1a}
+.pdp-breadcrumb span{margin:0 6px}
+.pdp-breadcrumb span:last-child{color:#1a1a1a;margin:0 0 0 6px}
+
+/* Hero two-column */
+.pdp-hero{display:grid;grid-template-columns:1fr 1fr;gap:72px;margin-bottom:0;align-items:start}
+.pdp-hero-img-col{position:sticky;top:112px;align-self:start}
+.pdp-img-wrap{overflow:hidden;aspect-ratio:4/5}
+.pdp-hero-img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Eyebrow */
+.pdp-eyebrow{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#b5b0a6;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.pdp-ey-sep{color:#C8A97E}
+
+/* Title */
+.pdp-title-row{margin-bottom:12px}
+.pdp-h1{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:400;letter-spacing:-.02em;line-height:1.0;color:#1a1a1a}
+.pdp-period-gold{color:#C8A97E;font-style:normal}
+
+/* Tagline */
+.pdp-tagline{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;font-style:italic;color:#6b6560;margin-bottom:24px;line-height:1.5;letter-spacing:.01em}
+
+/* Trust strip */
+.pdp-trust-strip{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;border:1px solid #E8E4DE;margin-bottom:20px}
+.pdp-trust-item{padding:14px 12px;text-align:center}
+.pdp-trust-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#1a1a1a;margin-bottom:2px;letter-spacing:-.01em}
+.pdp-trust-lbl{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6}
+.pdp-trust-div{width:1px;background:#E8E4DE;margin:10px 0}
+
+/* Hairline */
+.pdp-hairline{height:1px;background:#E8E4DE;margin:4px 0 20px}
+
+/* Variant tiles */
+.pdp-vsel{margin-bottom:20px}
+.pdp-sect-lbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:10px}
+.pdp-vt-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pdp-vt{border:1px solid #E8E4DE;padding:14px 16px;cursor:pointer;position:relative;transition:all .2s;background:#FAFAF7}
+.pdp-vt:hover{border-color:#1a1a1a}
+.pdp-vt.on{background:#1a1a1a;border-color:#1a1a1a}
+.pdp-vt.on .pdp-vt-mg,.pdp-vt.on .pdp-vt-label,.pdp-vt.on .pdp-vt-price{color:#FAFAF7}
+.pdp-vt-badge{position:absolute;top:-1px;right:-1px;font-size:7px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:#C8A97E;color:#fff;padding:3px 7px}
+.pdp-vt-mg{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#1a1a1a;margin-bottom:2px}
+.pdp-vt-label{font-size:9px;color:#8a8580;letter-spacing:.04em;margin-bottom:6px}
+.pdp-vt-price{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#1a1a1a}
+
+/* Price block */
+.pdp-pricebox{margin-bottom:20px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pdp-price-big{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#1a1a1a;line-height:1}
+.pdp-price-meta{font-size:11px;color:#8a8580;letter-spacing:.04em}
+
+/* ATC row */
+.pdp-atc-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.pdp-atc{width:100%;padding:18px 40px;font-size:13px}
+.pdp-stepper{display:inline-flex;align-items:center;border:1px solid #1a1a1a;height:52px}
+.pdp-stepper button{width:44px;height:100%;background:none;border:none;cursor:pointer;font-size:16px;color:#1a1a1a;transition:background .2s;font-family:'DM Sans',sans-serif}
+.pdp-stepper button:hover{background:#F4F1EB}
+.pdp-stepper span{min-width:44px;text-align:center;font-size:15px;font-weight:500}
+.pdp-incart{font-size:12px;color:#7a9a6d;font-weight:600}
+.pdp-oos{display:block;width:100%;padding:16px 24px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-align:center;text-decoration:none}
+
+/* Ship strip */
+.pdp-ship-strip{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #E8E4DE;border-bottom:1px solid #E8E4DE}
+.pdp-ship-cell{display:flex;align-items:center;gap:8px;padding:12px 10px}
+.pdp-ship-cell+.pdp-ship-cell{border-left:1px solid #E8E4DE}
+.pdp-ship-icon{color:#C8A97E;font-size:9px;flex-shrink:0}
+.pdp-ship-text{display:flex;flex-direction:column}
+.pdp-ship-v{font-size:11px;font-weight:600;color:#1a1a1a;letter-spacing:.02em}
+.pdp-ship-l{font-size:9px;color:#8a8580;letter-spacing:.04em}
+
+/* Mechanism / About section */
+.pdp-about-grid{display:grid;grid-template-columns:260px 1fr;gap:64px;padding:64px 0;border-top:1px solid #E8E4DE;margin-top:64px}
+.pdp-sect-eyebrow{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#b5b0a6;display:block;margin-bottom:14px}
+.pdp-sect-eyebrow-gold{color:#C8A97E}
+.pdp-about-h2{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;letter-spacing:-.02em;line-height:1.1;color:#1a1a1a}
+.pdp-about-h2 em{font-weight:600}
+.pdp-mechanism-body{font-size:14px;line-height:1.9;color:#4a4540;font-weight:300;margin-bottom:24px}
+.pdp-seq-block{background:#F4F1EB;padding:16px 20px;border-left:2px solid #C8A97E}
+.pdp-seq-label{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:6px}
+.pdp-seq-val{font-family:ui-monospace,monospace;font-size:12px;color:#4a4540;word-break:break-all;line-height:1.7}
+
+/* Tabs */
+.pdp-tabs{border-top:1px solid #E8E4DE;margin-top:0}
+.pdp-tabs-nav{display:flex;border-bottom:1px solid #E8E4DE}
+.tab-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:16px 28px;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;color:#b5b0a6;transition:all .2s;margin-bottom:-1px}
+.tab-btn.active,.tab-btn:hover{color:#1a1a1a;border-bottom-color:#1a1a1a}
+.tab-content{padding:32px 0}
+.pdp-desc{font-size:14px;line-height:1.9;color:#4a4540;font-weight:300}
+.pdp-table{width:100%;border-collapse:collapse}
+.pdp-table td{padding:12px 0;border-bottom:1px solid #F0EDE7;font-size:13px;vertical-align:top}
+.td-lbl{color:#8a8580;font-weight:500;width:40%;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.td-val{color:#1a1a1a;font-weight:400}
+.pdp-dosage-box{background:#F4F1EB;border-left:2px solid #C8A97E;padding:16px 20px}
+.pdp-dosage-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#b5b0a6;margin-bottom:6px}
+.pdp-dosage-val{font-size:14px;color:#1a1a1a;font-weight:500;line-height:1.6}
+
+/* Research / Citations (dark) */
+.pdp-research{background:#1a1a1a;color:#FAFAF7;padding:56px 64px;display:grid;grid-template-columns:260px 1fr;gap:64px;margin:64px 0}
+.pdp-research-h2{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:-.02em;line-height:1.1;color:#FAFAF7;margin-top:12px}
+.pdp-research-em{font-style:italic;font-weight:600}
+.pdp-research-intro{font-size:12px;color:rgba(250,250,247,.45);line-height:1.7;margin-top:16px;font-weight:300}
+.pdp-research-right{padding-top:4px}
+.pdp-cit-row{display:grid;grid-template-columns:72px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid rgba(250,250,247,.08)}
+.pdp-cit-row:last-child{border-bottom:none}
+.pdp-cit-year{font-size:9px;font-weight:700;letter-spacing:.12em;color:rgba(200,169,126,.8);text-transform:uppercase;padding-top:3px;line-height:1.4}
+.pdp-cit-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#FAFAF7;line-height:1.4;margin-bottom:4px}
+.pdp-cit-journal{font-size:10px;color:rgba(250,250,247,.4);font-family:ui-monospace,monospace;letter-spacing:.06em;margin-bottom:8px}
+.pdp-cit-link{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E;text-decoration:none;font-family:'DM Sans',sans-serif}
+.pdp-cit-link:hover{text-decoration:underline}
+
+/* Reviews */
+.pdp-reviews-section{padding:64px 0;border-top:1px solid #E8E4DE}
+.pdp-reviews-header{display:flex;align-items:flex-start;gap:56px;margin-bottom:40px}
+.pdp-rating-block{flex-shrink:0}
+.pdp-rating-num{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#1a1a1a;line-height:1}
+.pdp-stars{color:#C8A97E;font-size:13px;letter-spacing:2px;margin:4px 0}
+.pdp-rating-count{font-size:10px;color:#b5b0a6;letter-spacing:.06em}
+.pdp-reviews-h2{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:-.02em;line-height:1.1;color:#1a1a1a}
+.pdp-reviews-h2 em{font-weight:600}
+.pdp-reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.05)}
+.pdp-review-card{background:#FAFAF7;padding:28px 24px;display:flex;flex-direction:column}
+.pdp-review-stars{color:#C8A97E;font-size:11px;letter-spacing:2px;margin-bottom:14px}
+.pdp-review-q{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;line-height:1.65;color:#1a1a1a;font-style:italic;flex:1;margin-bottom:20px}
+.pdp-review-footer{display:flex;flex-direction:column;gap:2px;border-top:1px solid #E8E4DE;padding-top:12px;margin-top:auto}
+.pdp-review-name{font-size:12px;font-weight:600;color:#1a1a1a;letter-spacing:.04em}
+.pdp-review-loc{font-size:10px;color:#b5b0a6;letter-spacing:.08em}
+
+/* FAQ accordion */
+.pdp-faq-section{display:grid;grid-template-columns:260px 1fr;gap:64px;padding:64px 0;border-top:1px solid #E8E4DE}
+.pdp-faq-h2{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:-.02em;line-height:1.1;color:#1a1a1a;margin:12px 0 16px}
+.pdp-faq-sub{font-size:12px;color:#8a8580;line-height:1.7;font-weight:300}
+.pdp-faq-item{border-bottom:1px solid #E8E4DE}
+.pdp-faq-item:first-child{border-top:1px solid #E8E4DE}
+.pdp-faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 0;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:#1a1a1a;text-align:left;gap:16px;transition:color .2s}
+.pdp-faq-q:hover{color:#C8A97E}
+.pdp-faq-plus{font-size:20px;font-weight:300;flex-shrink:0;color:#C8A97E;width:20px;text-align:center;line-height:1}
+.pdp-faq-body{padding:0 0 18px;font-size:13px;line-height:1.8;color:#4a4540;font-weight:300}
+
+/* Disclaimer */
+.pdp-disclaimer{padding:32px 0;border-top:1px solid #E8E4DE;margin-top:8px}
+.pdp-disclaimer p{font-size:10px;color:#b5b0a6;font-style:italic;line-height:1.7;letter-spacing:.02em;max-width:640px}
+
+/* ---- Editorial PDP responsive ---- */
+@media(max-width:960px){
+  .pdp-hero{grid-template-columns:1fr;gap:32px}
+  .pdp-hero-img-col{position:static}
+  .pdp-img-wrap{aspect-ratio:3/2;max-height:300px}
+  .pdp-h1{font-size:40px}
+  .pdp-about-grid,.pdp-faq-section{grid-template-columns:1fr;gap:32px}
+  .pdp-about-grid{margin-top:40px;padding:40px 0}
+  .pdp-research{grid-template-columns:1fr;padding:48px 40px;gap:32px}
+  .pdp-reviews-grid{grid-template-columns:1fr;background:none;gap:16px}
+  .pdp-review-card{border:1px solid #E8E4DE}
+  .pdp-reviews-header{flex-direction:column;gap:16px}
+}
+@media(max-width:640px){
+  .pdp-h1{font-size:34px}
+  .pdp-price-big{font-size:34px}
+  .pdp-trust-strip{grid-template-columns:1fr}
+  .pdp-trust-item:not(:last-child){border-bottom:1px solid #E8E4DE}
+  .pdp-trust-div{display:none}
+  .pdp-ship-strip{grid-template-columns:1fr}
+  .pdp-ship-cell+.pdp-ship-cell{border-left:none;border-top:1px solid #E8E4DE}
+  .pdp-vt-row{grid-template-columns:1fr}
+  .pdp-research{padding:40px 24px;margin:40px 0}
+  .pdp-cit-row{grid-template-columns:56px 1fr;gap:12px}
+  .pdp-reviews-section{padding:40px 0}
+  .pdp-faq-section{padding:40px 0;gap:24px}
+  .pdp-about-grid{padding:32px 0;gap:24px}
+}

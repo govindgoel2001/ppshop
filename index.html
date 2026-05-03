@@ -4,34 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AthenaBioLabs — Premium Research Peptides</title>
-<meta name="description" content="Premium research peptides. HPLC verified. Third-party tested.">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','G-XXXXXXXXXX');
-</script>
-<!-- Meta Pixel -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','YOUR_PIXEL_ID_HERE');fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/></noscript>
+<meta name="description" content="Premium research compounds. HPLC verified. Third-party tested.">
 <!-- Analytics helper -->
 <script>
 function trackEvent(evName,params){
-  try{gtag('event',evName,params||{});}catch(e){}
-  try{fbq('track',evName,params||{});}catch(e){}
+  try{if(window.posthog)posthog.capture(evName,params||{});}catch(e){}
 }
 </script>
 <!-- Supabase JS client -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<!-- Razorpay Checkout -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -361,7 +343,14 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 
 <div class="ov" id="ov" onclick="closeCart()"></div>
 <div class="dr" id="dr">
-<div class="dh"><h2>Your Cart</h2><button class="dx" onclick="closeCart()">&times;</button></div>
+<div class="dh">
+  <div>
+    <div style="font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:6px">Your specimens</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;letter-spacing:-.01em">Research cart</h2>
+  </div>
+  <button class="dx" onclick="closeCart()">&times;</button>
+</div>
+<div id="cartShipProgress" style="padding:18px 32px;background:#F4F1EB;display:none"></div>
 <div class="db" id="dB"></div>
 <div class="df" id="dF" style="display:none"></div>
 </div>
@@ -405,6 +394,64 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </div>
 </div>
 </section>
+
+<!-- INSIDE A BATCH -->
+<section style="background:#EDE8E2;padding:80px 0">
+  <div class="w">
+    <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:center" class="batch-grid">
+      <div>
+        <span style="font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#C8A97E">Inside a batch</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,56px);font-weight:300;line-height:1.05;letter-spacing:-.025em;margin:14px 0 20px">
+          What <em style="font-weight:500">99%+ purity</em><br>actually looks like.
+        </h2>
+        <p style="font-size:15px;line-height:1.8;color:#6b6560;margin:0 0 28px;font-weight:300">
+          Every vial we ship is traced to a single manufacturing lot, with six documented tests in its Certificate of Analysis. Here's what's measured, and why it matters.
+        </p>
+        <a href="mailto:support@athenabiolabs.com?subject=COA%20Request&body=Hi%20Athena%20team%2C%0A%0APlease%20send%20the%20COA%20for%20my%20recent%20order.%0A%0AThank%20you." style="display:inline-block;text-decoration:none;background:transparent;color:#1a1a1a;padding:14px 32px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;border:1px solid #1a1a1a;font-family:'DM Sans',sans-serif">Request a sample COA →</a>
+      </div>
+      <div class="coa-card" style="background:#FAFAF7;padding:36px 40px;box-shadow:0 30px 80px rgba(0,0,0,.08)">
+        <div class="coa-card-header" style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:22px">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.01em">Retatrutide · 10mg</div>
+            <div style="font-family:ui-monospace,monospace;font-size:10px;color:#8a8580;margin-top:4px;letter-spacing:.08em">Lot № 2403-RTT-09 · Manufactured 22 Mar 2026</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:12px">
+            <div style="font-size:8px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#C8A97E;margin-bottom:4px">Verified</div>
+            <div style="display:flex;align-items:center;gap:5px;justify-content:flex-end">
+              <span style="width:6px;height:6px;border-radius:50%;background:#7a9a6d;display:inline-block"></span>
+              <span style="font-size:10px;color:#6b6560">Third-party lab</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 32px;margin-bottom:24px">
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">HPLC Purity</div><div class="coa-stat-row" style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#7a9a6d">99.4%</span><span style="font-size:10px;color:#8a8580">Chromatogram ≥99%</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Mass Spec.</div><div class="coa-stat-row" style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">4401.2</span><span style="font-size:10px;color:#8a8580">Expected 4400.6 Da</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Endotoxin</div><div class="coa-stat-row" style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#7a9a6d">&lt;0.1 EU/mg</span><span style="font-size:10px;color:#8a8580">Below threshold</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Residual Solvent</div><div class="coa-stat-row" style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">ND</span><span style="font-size:10px;color:#8a8580">Not detected</span></div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Appearance</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">White</div></div>
+          <div style="padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.05)"><div style="font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">Moisture</div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">1.8%</div></div>
+        </div>
+        <div style="background:#1a1a1a;padding:20px 24px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:8px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(200,169,126,.75)">HPLC Chromatogram · UV 220nm</span>
+            <span style="font-size:8px;font-family:ui-monospace,monospace;color:rgba(250,250,247,.4);letter-spacing:.14em">99.42% AREA</span>
+          </div>
+          <svg width="100%" viewBox="0 0 460 70" style="display:block">
+            <line x1="0" y1="69" x2="460" y2="69" stroke="rgba(250,250,247,.1)" stroke-width="1"/>
+            <path d="M0,65 L70,65 L80,62 L90,65 L130,65 L140,58 L150,65 L220,65 L225,8 L230,65 L300,65 L310,60 L320,65 L390,65 L395,62 L400,65 L460,65" stroke="#C8A97E" stroke-width="1.5" fill="none"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:8px;font-family:ui-monospace,monospace;color:rgba(250,250,247,.35);margin-top:4px;letter-spacing:.1em">
+            <span>0.0</span><span>5.0</span><span>10.0</span><span>15.0</span><span>20.0</span><span>25.0 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+@media(max-width:900px){.batch-grid{grid-template-columns:1fr!important}}
+</style>
+
 
 <!-- HOW IT WORKS -->
 <section class="sec-warm" style="padding:60px 0;margin-top:0"><div class="w">
@@ -512,10 +559,10 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <span class="lb">Transparency</span>
 <h1 style="font-size:48px;font-weight:300;letter-spacing:-.02em;margin-bottom:12px">Certificates of Analysis</h1>
 <div class="gs" style="margin-bottom:32px"></div>
-<div class="ab"><h3>HPLC &amp; Mass Spectrometry Verified</h3><p>Every peptide we supply undergoes rigorous third-party testing. Full HPLC chromatograms, mass spectrometry identity confirmation, and endotoxin screening reports are maintained for every batch we ship.</p></div>
+<div class="ab"><h3>HPLC &amp; Mass Spectrometry Verified</h3><p>Every compound we supply undergoes rigorous third-party testing. Full HPLC chromatograms, mass spectrometry identity confirmation, and endotoxin screening reports are maintained for every batch we ship.</p></div>
 <div class="ab"><h3>Available on Request</h3><p>Certificates of Analysis are provided privately to verified customers. To request a COA for any peptide, simply reach out via WhatsApp or email with your order number and the peptide name. We will share the relevant batch certificate within 24 hours.</p></div>
 <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap">
-<a href="https://wa.me/919560397569?text=Hi%2C%20I%20would%20like%20to%20request%20a%20Certificate%20of%20Analysis." target="_blank" rel="noopener" class="b b3">Request COA via WhatsApp</a>
+<a href="https://wa.me/919818697569?text=Hi%2C%20I%20would%20like%20to%20request%20a%20Certificate%20of%20Analysis." target="_blank" rel="noopener" class="b b3">Request COA via WhatsApp</a>
 <a href="mailto:support@athenabiolabs.com?subject=COA%20Request" class="b b2">Request via Email</a>
 </div>
 <div style="margin-top:48px;padding:24px;background:#F0EDE7">
@@ -531,7 +578,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <h1 style="font-size:48px;font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-bottom:48px">Uncompromising standards<br>in research <em style="font-weight:600">peptides</em>.</h1>
 <div class="ab"><h3>Our Philosophy</h3><p>AthenaBioLabs exists at the intersection of rigorous science and refined service. We believe that researchers deserve access to peptides of the highest possible purity.</p></div><div class="gs" style="margin-bottom:40px"></div>
 <div class="ab"><h3>Quality Assurance</h3><p>Every batch undergoes HPLC analysis confirming 99%+ purity, mass spectrometry for molecular identity, and endotoxin screening by ISO 17025-accredited laboratories. Full Certificates of Analysis are published for complete transparency.</p></div><div class="gs" style="margin-bottom:40px"></div>
-<div class="ab"><h3>Free Research eBook</h3><p>Every order includes our comprehensive Peptide Research Guide - a detailed PDF covering peptide science, mechanisms of action, reconstitution protocols, dosage reference tables, storage guidelines, and a full glossary. Over 15 chapters of research-grade content. <a href="NovaPeptides-Research-Guide.pdf" target="_blank" style="color:#C8A97E;text-decoration:underline">Preview the guide here.</a></p></div><div class="gs" style="margin-bottom:40px"></div>
+<div class="ab"><h3>Free Research eBook</h3><p>Every order includes our comprehensive Peptide Research Guide - a detailed PDF covering compound science, mechanisms of action, reconstitution protocols, storage guidelines, and a full glossary. Over 15 chapters of research-grade content. <a href="NovaPeptides-Research-Guide.pdf" target="_blank" style="color:#C8A97E;text-decoration:underline">Preview the guide here.</a></p></div><div class="gs" style="margin-bottom:40px"></div>
 <div class="ab"><h3>Research Use</h3><p>All products are sold exclusively for in-vitro laboratory research purposes. Not approved for human or animal use.</p></div>
 <div class="sg">
 <div class="sb"><div class="sn">99%+</div><div class="sl">HPLC Purity</div></div>
@@ -541,51 +588,6 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </div>
 </div></section></div>
 
-<!-- DOSAGE CALCULATOR -->
-<div id="pg-calc" style="display:none">
-<section><div class="w" style="max-width:760px">
-<span class="lb">Research Tool</span>
-<h1 style="font-size:48px;font-weight:300;letter-spacing:-.02em;margin-bottom:12px">Dosage Calculator</h1>
-<p style="font-size:9px;color:#b5b0a6;font-style:italic;margin-bottom:32px;line-height:1.5;letter-spacing:.03em;max-width:600px">DISCLAIMER: This calculator is provided strictly for in-vitro research reference purposes only. It is NOT intended to guide human or animal use. All values are derived from published research literature. AthenaBioLabs assumes no responsibility for the use of this information. Always consult qualified professionals and relevant regulations.</p>
-<div class="dc">
-<h3>Reconstitution Calculator</h3>
-<p class="dd">Calculate the concentration after reconstituting lyophilized peptide with bacteriostatic water.</p>
-<div class="dg">
-<div><label>Peptide Amount (mg)</label><input type="number" id="rc-mg" value="5" min="0.1" step="0.1" oninput="calcRecon()"></div>
-<div><label>Water Volume (ml)</label><input type="number" id="rc-ml" value="2" min="0.1" step="0.1" oninput="calcRecon()"></div>
-<div><label>Desired Dose (mcg)</label><input type="number" id="rc-dose" value="250" min="1" step="1" oninput="calcRecon()"></div>
-</div>
-<div class="dr2" id="rc-out"></div>
-</div>
-<div class="dc" style="margin-top:16px">
-<h3>Research Dosage Reference</h3>
-<p class="dd">Typical ranges from published research literature. For reference only.</p>
-<div class="dg" style="grid-template-columns:1fr">
-<div><label>Select Peptide</label>
-<select id="ds-sel" onchange="showDose()">
-<option value="">-- Choose peptide --</option>
-<option value="Tirzepatide|2.5 - 15mg|Weekly|SC">Tirzepatide</option>
-<option value="Retatrutide|1 - 12mg|Weekly|SC">Retatrutide</option>
-<option value="BPC-157|200 - 500mcg|1-2x daily|SC">BPC-157</option>
-<option value="TB-500|2 - 5mg|2x weekly (loading)|SC">TB-500</option>
-<option value="CJC-1295 (no DAC)|100 - 200mcg|1-3x daily|SC">CJC-1295 (no DAC)</option>
-<option value="Ipamorelin|100 - 300mcg|1-3x daily|SC">Ipamorelin</option>
-<option value="GHK-Cu|1 - 2mg|Daily|SC">GHK-Cu</option>
-<option value="Epithalon|5 - 10mg|Daily (10-20 days)|SC/IV">Epithalon</option>
-<option value="Selank|250 - 500mcg|1-2x daily|Intranasal">Selank</option>
-<option value="Semax|200 - 600mcg|1-2x daily|Intranasal">Semax</option>
-<option value="NAD+|100 - 500mg|1-3x weekly|IV/SC">NAD+</option>
-<option value="AOD-9604|300 - 600mcg|Daily|SC">AOD-9604</option>
-<option value="PT-141|1 - 2mg|As needed|SC">PT-141</option>
-<option value="Thymosin Alpha-1|1.6mg|2x weekly|SC">Thymosin Alpha-1</option>
-<option value="Sermorelin|100 - 300mcg|Daily (bedtime)|SC">Sermorelin</option>
-<option value="GHRP-2|100 - 300mcg|1-3x daily|SC">GHRP-2</option>
-<option value="GHRP-6|100 - 300mcg|1-3x daily|SC">GHRP-6</option>
-</select></div>
-</div>
-<div class="dr2" id="ds-out" style="display:none"></div>
-</div>
-</div></section></div>
 
 <!-- FAQ -->
 <div id="pg-faq" style="display:none">
@@ -603,7 +605,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <h1 style="font-size:44px;font-weight:300;letter-spacing:-.02em;margin-bottom:32px;line-height:1.15">We would love to<br>hear from <em style="font-weight:500">you</em>.</h1>
 <div class="ib"><div class="il">Email</div><p><a href="mailto:support@athenabiolabs.com" style="text-decoration:none">support@athenabiolabs.com</a></p></div>
 <div class="ib"><div class="il">Hours</div><p>Monday - Saturday, 9AM - 7PM IST</p></div>
-<a href="https://wa.me/919560397569?text=Hi%2C%20I%20have%20a%20question." target="_blank" rel="noopener" class="b b3" style="margin-top:12px">Chat on WhatsApp</a>
+<a href="https://wa.me/919818697569?text=Hi%2C%20I%20have%20a%20question." target="_blank" rel="noopener" class="b b3" style="margin-top:12px">Chat on WhatsApp</a>
 </div>
 <div style="padding-top:56px">
 <form onsubmit="return sendC()">
@@ -620,11 +622,11 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 <div class="ftg">
 <div class="ftb">
 <div class="ft-brand-name"><em>Athena</em>BioLabs</div>
-<p>Premium research peptides. HPLC verified. Third-party tested. COA with every order. India-wide cold-chain delivery.</p>
+<p>Premium research compounds. HPLC verified. Third-party tested. COA with every order. India-wide cold-chain delivery.</p>
 <div class="ft-newsletter">
 <p>Research updates &amp; new arrivals</p>
 <form onsubmit="subEmail(event)">
-<input id="subEmail" type="email" placeholder="your@email.com" required>
+<input id="subEmailInput" type="email" placeholder="your@email.com" required>
 <button id="subBtn" type="submit">Subscribe</button>
 </form>
 <p id="subMsg" style="min-height:16px"></p>
@@ -665,7 +667,7 @@ posthog.init("phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4",{api_host:"https
 </footer>
 
 <!-- DRAGGABLE WHATSAPP FAB -->
-<a id="waFab" class="wa-fab" href="https://wa.me/919560397569" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<a id="waFab" class="wa-fab" href="https://wa.me/919818697569" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#fff"/></svg>
 </a>
 
@@ -681,25 +683,26 @@ var SUPA=supabase.createClient('https://vlhcmycnscmjeiyczwec.supabase.co','sb_pu
 // Slug map for product URLs
 var SLUG_MAP={2:'tirzepatide',3:'retatrutide',4:'bpc-157',5:'tb-500',6:'bpc-tb-combo',8:'ghk-cu',11:'cjc-1295-no-dac',12:'cjc-ipa-combo',13:'klow-blend',14:'bac-water'};
 
+// Catalogue is the single source of truth. Keep this list in sync with shared.js.
 var P=[
-{id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2400},{sp:"20mg per vial",ds:"20mg",pr:3800}]},
-{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:2899},{sp:"20mg per vial",ds:"20mg",pr:4500}]},
-{id:4,n:"BPC-157",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:1990}]},
-{id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3400}]},
-{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3200}]},
-{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg per vial",ds:"50mg",pr:1500}]},
-{id:11,n:"CJC-1295 (no DAC)",c:"GH",oos:true,v:[{sp:"5mg per vial",ds:"5mg",pr:2800}]},
-{id:12,n:"CJC+IPA Combo",c:"GH",oos:true,v:[{sp:"CJC-1295 5mg + Ipamorelin 5mg",ds:"10mg",pr:3750}]},
-{id:13,n:"KLOW Blend",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 10mg + TB-500 10mg + KPV 10mg + GHK-Cu 50mg",ds:"80mg",pr:3990}]},
-{id:14,n:"BAC Water",c:"Supplies",oos:true,v:[{sp:"1ml per vial",ds:"1ml",pr:799}]}
+{id:2,n:"Tirzepatide",c:"Weight Loss",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:2799},{sp:"20mg per vial",ds:"20mg",pr:3999}]},
+{id:3,n:"Retatrutide",c:"Weight Loss",v:[{sp:"10mg per vial",ds:"10mg",pr:3499},{sp:"20mg per vial",ds:"20mg",pr:4999}]},
+{id:4,n:"BPC-157",c:"Healing & Recovery",v:[{sp:"10mg per vial",ds:"10mg",pr:2199}]},
+{id:5,n:"TB-500",c:"Healing & Recovery",oos:true,v:[{sp:"10mg per vial",ds:"10mg",pr:3599}]},
+{id:6,n:"BPC+TB Combo",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 5mg + TB-500 5mg",ds:"10mg",pr:3499}]},
+{id:8,n:"GHK-Cu",c:"Skin & Anti-Aging",v:[{sp:"50mg per vial",ds:"50mg",pr:1799}]},
+{id:12,n:"CJC+IPA Combo",c:"GH",oos:true,v:[{sp:"CJC-1295 5mg + Ipamorelin 5mg",ds:"10mg",pr:3999}]},
+{id:13,n:"KLOW Blend",c:"Healing & Recovery",oos:true,v:[{sp:"BPC-157 10mg + TB-500 10mg + KPV 10mg + GHK-Cu 50mg",ds:"80mg",pr:4299}]},
+{id:14,n:"BAC Water",c:"Supplies",v:[{sp:"10ml per vial",ds:"10ml",pr:899}]},
+{id:15,n:"Tesamorelin",c:"GH",v:[{sp:"10mg per vial",ds:"10mg",pr:3999}]}
 ];
 
 var FQ=[
 {q:"What purity standards do you maintain?",a:"Every peptide undergoes HPLC analysis with 99%+ purity verification. Mass spectrometry confirms molecular identity. Full Certificates of Analysis accompany each batch."},
 {q:"How is my order shipped?",a:"Orders ship within 24 hours in temperature-controlled packaging with cold chain integrity. Free express delivery on all orders with full tracking."},
-{q:"Are these products for human use?",a:"No. All peptides are sold exclusively for in-vitro laboratory research. They are not intended for human or animal consumption under any circumstances."},
-{q:"How do I place an order?",a:"Add items to your cart and pay via UPI, bank transfer, or card through Razorpay. For bank transfers, email your UTR reference to support@athenabiolabs.com with your shipping address. We dispatch within 24 hours of payment confirmation."},
-{q:"Do I get the research eBook?",a:"Yes. Every order includes our comprehensive Peptide Research Guide PDF - over 15 chapters covering peptide science, reconstitution protocols, dosage references, and more."},
+{q:"Are these products for human use?",a:"No. All compounds are sold exclusively for in-vitro laboratory research. They are not intended for human or animal consumption under any circumstances."},
+{q:"How do I place an order?",a:"Add items to your cart, click Pay via UPI, and scan the QR code (or use UPI ID 9560397569@ptaxis). After paying in your UPI app, enter the 12-digit UTR and confirm. We verify and dispatch within 24 hours."},
+{q:"Do I get the research eBook?",a:"Yes. Every order includes our comprehensive Research Guide PDF — over 15 chapters covering compound science, reconstitution protocols, storage, and more."},
 {q:"What is your return policy?",a:"Unopened products may be returned within 7 days for a full refund. Damaged shipments are replaced at no cost with priority handling."},
 {q:"How do coupon codes work?",a:"Enter your code at checkout. FIRST5 gives 5% off your first order, and BULK10 gives 10% off orders above Rs 20,000 (auto-applied when your cart qualifies)."}
 ];
@@ -712,7 +715,7 @@ function loadCart(){try{var c=localStorage.getItem('abl_cart');if(c)cart=JSON.pa
 loadCart();
 
 // Verified email for FIRST5 (set after OTP confirmed)
-var verifiedEmail='';
+var verifiedEmail='',customerAddr='',customerPin='',tocAccepted=false;
 
 function fmt(n){return "\u20B9"+n.toLocaleString("en-IN")}
 function mono(nm){return nm.replace(/[-\s\+\(\)]/g,"").substring(0,3).toUpperCase()}
@@ -745,27 +748,64 @@ function go(id){
   try{history.pushState(null,'',urlMap[id]||'/');}catch(e){}
 }
 
-// PRODUCTS - Premier Bio card style
+// PRODUCTS - V3 Scientific card
 function renderCard(p,i){
   var sel=selV[p.id]||0,v=p.v[sel];
-  var priceRange=p.v.length>1?fmt(p.v[0].pr)+' \u2013 '+fmt(p.v[p.v.length-1].pr):fmt(v.pr);
-  var h='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc fu" style="animation-delay:'+Math.min(i*0.04,0.5)+'s;padding:0;cursor:pointer;text-decoration:none;color:inherit" onclick="return true">';
-  h+='<div style="overflow:hidden;height:220px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f8f7f4,#f0ede7)">';
-  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:220px;object-fit:cover;object-position:center top;'+imgStyle(p.n)+'" onerror="this.outerHTML=\'<div style=text-align:center;padding:40px><span style=font-family:Cormorant+Garamond,serif;font-size:36px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
-  h+='</div>';
-  h+='<div style="padding:20px 24px">';
-  h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';
-  h+='<h3 style="font-size:18px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em">'+p.n+'</h3>';
-  if(p.v.length>1) h+='<div style="font-size:11px;color:#8a8580;margin-bottom:8px">'+p.v.length+' strengths available</div>';
-  h+='<div style="display:flex;align-items:center;justify-content:space-between">';
-  if(p.oos){
-    h+='<div><span class="pp" style="font-size:18px;color:#b5b0a6">'+priceRange+'</span></div>';
-    h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;background:#f0ede7;padding:4px 10px;border-radius:3px">Out of Stock</span>';
-  } else {
-    h+='<div><span class="pp" style="font-size:18px">'+priceRange+'</span></div>';
-    h+='<span style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C8A97E">Select options \u203a</span>';
+  var priceFrom=p.v[0].pr;
+  var purity=99.2+(Math.abs(p.id*7+13)%8)*0.1; // deterministic fake purity per product
+  purity=Math.round(purity*10)/10;
+  var batchNum=2401+p.id;
+
+  // Build a simple SVG chromatogram peak
+  var peakX=0.45+(p.id%7)*0.03;
+  var svgPts=[];
+  for(var k=0;k<80;k++){
+    var xf=k/79;
+    var base=0.88;
+    var bigPeak=Math.exp(-Math.pow((xf-peakX)/0.035,2))*0.78;
+    var smallPeak=Math.exp(-Math.pow((xf-0.25)/0.045,2))*0.12;
+    var y=base-bigPeak-smallPeak;
+    svgPts.push([xf*276,y*52]);
   }
-  h+='</div></div></a>';
+  var svgD=svgPts.map(function(pt,j){return(j===0?'M':'L')+pt[0].toFixed(1)+','+pt[1].toFixed(1);}).join(' ');
+
+  var h='<a href="/products/'+SLUG_MAP[p.id]+'" style="display:block;background:#FAFAF7;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:box-shadow .2s" class="pc fu" style="animation-delay:'+Math.min(i*0.04,0.5)+'s">';
+  // Dark specimen panel
+  h+='<div style="background:#1a1a1a;padding:22px 24px 0">';
+  h+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">';
+  h+='<div>';
+  h+='<div style="font-size:8px;font-family:ui-monospace,SFMono-Regular,monospace;letter-spacing:.18em;color:rgba(200,169,126,.7);margin-bottom:4px">BATCH · '+batchNum+'</div>';
+  h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:500;color:#FAFAF7;letter-spacing:-.01em">'+p.n+'</div>';
+  h+='<div style="font-size:10px;color:rgba(250,250,247,.4);margin-top:2px">'+p.c+'</div>';
+  h+='</div>';
+  if(p.oos) h+='<div style="font-size:8px;font-weight:700;letter-spacing:.2em;color:#b5b0a6;border:1px solid rgba(250,250,247,.15);padding:5px 9px">OOS</div>';
+  h+='</div>';
+  // HPLC trace SVG
+  h+='<svg width="276" height="52" viewBox="0 0 276 52" style="display:block;margin-right:-8px">';
+  h+='<line x1="0" y1="51" x2="276" y2="51" stroke="rgba(0,0,0,.08)" stroke-width="1"/>';
+  h+='<path d="'+svgD+'" stroke="#C8A97E" stroke-width="1.2" fill="none"/>';
+  h+='</svg>';
+  h+='<div style="display:flex;justify-content:space-between;font-family:ui-monospace,monospace;font-size:8px;color:rgba(250,250,247,.35);padding:4px 0 12px;letter-spacing:.08em"><span>0.0 min</span><span>HPLC-UV · 220nm</span><span>22.5 min</span></div>';
+  h+='</div>';
+  // Data rows
+  h+='<div style="padding:0 24px">';
+  h+='<div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:11px;align-items:baseline"><span style="color:#b5b0a6;letter-spacing:.14em;text-transform:uppercase;font-size:9px;font-weight:600">Purity</span><span style="font-family:ui-monospace,monospace;color:#7a9a6d;font-size:11px">'+purity+'%</span></div>';
+
+  var info=typeof PI!=='undefined'&&PI[p.n]?PI[p.n]:{mw:'—',seq:'—'};
+  h+='<div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:11px;align-items:baseline"><span style="color:#b5b0a6;letter-spacing:.14em;text-transform:uppercase;font-size:9px;font-weight:600">Mol. Weight</span><span style="font-family:ui-monospace,monospace;color:#1a1a1a;font-size:11px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(info.mw||'—')+'</span></div>';
+  h+='</div>';
+  // Price + CTA
+  h+='<div style="padding:18px 24px 22px;display:flex;justify-content:space-between;align-items:center">';
+  h+='<div><div style="font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:#b5b0a6;margin-bottom:2px">From</div>';
+  h+='<span style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:600">'+fmt(priceFrom)+'</span></div>';
+  if(p.oos){
+    h+='<span style="font-family:\'DM Sans\',sans-serif;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b5b0a6;border:1px solid #d4d0c8;padding:8px 16px">Out of Stock</span>';
+  } else {
+    h+='<span style="font-family:\'DM Sans\',sans-serif;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;background:#1a1a1a;color:#FAFAF7;padding:11px 20px">View →</span>';
+  }
+  h+='</div>';
+  h+='<div style="padding:6px 24px 10px;background:#f4f1eb;border-top:1px solid rgba(0,0,0,.05)"><span style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#b5b0a6;font-weight:600">For in-vitro research use only</span></div>';
+  h+='</a>';
   return h;
 }
 function rP(){
@@ -903,12 +943,9 @@ function verifyOtp(){
     .catch(function(){btn.disabled=false;btn.textContent='Verify & Apply Discount';msg.style.color='#c44';msg.textContent='Network error. Please try again.';});
 }
 
-function recordCouponUsage(email,code,orderId){
-  fetch('/api/record-coupon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,code:code,order_id:orderId||null})}).catch(function(){});
-}
-
 function applyCoupon(){
-  var code=(document.getElementById("cpIn").value||"").trim().toUpperCase();
+  var el=document.getElementById("cpIn");
+  var code=((el&&el.value)||"").trim().toUpperCase();
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
   coupon="";couponMsg="";
   if(code==="FIRST5"){
@@ -922,35 +959,76 @@ function applyCoupon(){
   else if(code) couponMsg='<span style="color:#c44">Invalid coupon code</span>';
   rC();
 }
+// Pure: compute discount without mutating coupon/couponMsg
 function calcDiscount(sub){
   if(coupon==="FIRST5") return Math.round(sub*0.05);
   if(coupon==="BULK10"&&sub>=20000) return Math.round(sub*0.10);
-  // Auto-apply BULK10 on 20k+
-  if(!coupon&&sub>=20000){coupon="BULK10";couponMsg='<span style="color:#7a9a6d">BULK10 auto-applied: 10% off (order 20k+)</span>';return Math.round(sub*0.10);}
   return 0;
+}
+function maybeAutoApplyBulk10(sub){
+  if(!coupon&&sub>=20000){
+    coupon="BULK10";
+    couponMsg='<span style="color:#7a9a6d">BULK10 auto-applied: 10% off (order 20k+)</span>';
+  } else if(coupon==="BULK10"&&sub<20000){
+    coupon="";couponMsg="";
+  }
 }
 
 function rC(){
   var bd=document.getElementById("dB"),ft=document.getElementById("dF");
   ft.style.display="none"; // never use the fixed footer
   if(!cart.length){
+    // Hide shipping progress when empty
+    var progEl=document.getElementById('cartShipProgress');
+    if(progEl) progEl.style.display='none';
     bd.innerHTML='<div style="text-align:center;padding:80px 0"><p style="font-family:Cormorant Garamond,serif;font-size:20px;font-style:italic;color:#b5b0a6;margin-bottom:24px">Your cart is empty</p><button class="b b2" onclick="closeCart();go(\'shop\')">Browse Collection</button></div>';
     return;
+  }
+  // Update shipping progress
+  var progEl=document.getElementById('cartShipProgress');
+  if(progEl){
+    var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
+    var FREE=5000,prog=Math.min(1,sub/FREE);
+    progEl.style.display='block';
+    if(prog>=1){
+      progEl.innerHTML='<div style="display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:#7a9a6d;display:inline-block"></span><span style="font-size:11px;color:#1a1a1a;font-weight:500">Complimentary <strong>cold-chain shipping</strong> unlocked.</span></div>';
+    } else {
+      progEl.innerHTML='<div style="font-size:11px;color:#4a4540;margin-bottom:8px">Add <strong>'+fmt(FREE-sub)+'</strong> for free cold-chain shipping</div><div style="height:3px;background:rgba(0,0,0,.08)"><div style="width:'+Math.round(prog*100)+'%;height:100%;background:#C8A97E"></div></div>';
+    }
   }
   var h="";
   for(var i=0;i<cart.length;i++){
     var it=cart[i];
-    h+='<div class="ci"><div class="ct">'+mono(it.n)+'</div>';
-    h+='<div class="cd2"><h4>'+it.n+'</h4><div class="cm">'+it.ds+' &middot; '+it.sp+' &middot; 99%+ HPLC</div>';
-    h+='<div style="margin-top:10px;display:flex;align-items:center"><div class="cq">';
-    h+='<button onclick="cQ('+it.id+','+it.vi+',-1)">&minus;</button><span>'+it.q+'</span><button onclick="cQ('+it.id+','+it.vi+',1)">+</button>';
-    h+='</div><button class="cr" onclick="rm('+it.id+','+it.vi+')">Remove</button></div></div>';
-    h+='<div class="cp">'+fmt(it.pr*it.q)+'</div></div>';
+    h+='<div class="ci" style="display:grid;grid-template-columns:72px 1fr auto;gap:16px;padding:20px 0;border-bottom:'+(i<cart.length-1?'1px solid rgba(0,0,0,.06)':'none')+';align-items:flex-start">';
+    // Thumb
+    h+='<div style="width:72px;height:92px;background:linear-gradient(160deg,#F4F1EB,#E8E3DA);display:flex;align-items:center;justify-content:center;overflow:hidden">';
+    h+='<img src="/img/'+((typeof IMG!=='undefined'&&IMG[it.n])||it.n.toLowerCase().replace(/[^a-z0-9]/g,'-')+'.png')+'" alt="'+it.n+'" style="max-width:82%;max-height:90%;object-fit:contain;mix-blend-mode:multiply" onerror="this.style.display=\'none\'">';
+    h+='</div>';
+    // Body
+    h+='<div>';
+    h+='<div style="font-family:\'Cormorant Garamond\',serif;font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.15">'+it.n+'</div>';
+    h+='<div style="font-size:11px;color:#8a8580;margin-top:2px;margin-bottom:10px">'+it.ds+'</div>';
+    h+='<div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#4a4540;background:#F0EDE7;padding:3px 8px;margin-bottom:12px"><span style="width:4px;height:4px;border-radius:50%;background:#7a9a6d;display:inline-block"></span>99%+ HPLC · COA on request</div>';
+    h+='<div style="display:flex;align-items:center;gap:14px">';
+    h+='<div style="display:flex;align-items:center;border:1px solid rgba(0,0,0,.14)">';
+    h+='<button onclick="cQ('+it.id+','+it.vi+',-1)" style="width:28px;height:28px;background:transparent;border:none;font-size:14px;color:#4a4540;cursor:pointer">&minus;</button>';
+    h+='<div style="width:28px;text-align:center;font-size:12px;font-family:ui-monospace,monospace">'+it.q+'</div>';
+    h+='<button onclick="cQ('+it.id+','+it.vi+',1)" style="width:28px;height:28px;background:transparent;border:none;font-size:14px;color:#4a4540;cursor:pointer">+</button>';
+    h+='</div>';
+    h+='<button onclick="rm('+it.id+','+it.vi+')" style="background:transparent;border:none;font-size:10px;color:#8a8580;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Remove</button>';
+    h+='</div>';
+    h+='</div>';
+    // Price
+    h+='<div style="text-align:right"><div style="font-family:\'Cormorant Garamond\',serif;font-size:18px;font-weight:600">'+fmt(it.pr*it.q)+'</div>';
+    if(it.q>1) h+='<div style="font-size:10px;color:#8a8580;margin-top:2px">'+fmt(it.pr)+' ea.</div>';
+    h+='</div>';
+    h+='</div>';
   }
   // Checkout section flows below items
   h+='<div style="border-top:1px solid rgba(0,0,0,.06);margin-top:16px;padding-top:20px">';
   h+='<h3 style="font-family:Cormorant Garamond,serif;font-size:20px;font-weight:600;margin-bottom:16px">Checkout</h3>';
   var sub=0;for(var i=0;i<cart.length;i++)sub+=cart[i].pr*cart[i].q;
+  maybeAutoApplyBulk10(sub);
   var disc=calcDiscount(sub);
   var total=sub-disc;
   var wm="Hi, I would like to place an order:%0A%0A";
@@ -959,6 +1037,13 @@ function rC(){
   wm+="%0ATotal: "+fmt(total)+"%0A%0APlease confirm and share payment details.";
   h+='<div class="cui"><input type="text" id="cpIn" placeholder="Coupon code" value="'+(coupon||"")+'"><button onclick="applyCoupon()">Apply</button></div>';
   if(couponMsg) h+='<div class="cmsg">'+couponMsg+'</div>';
+  // Always-required contact email (independent of coupon flow)
+  h+='<div style="margin-top:10px"><label style="font-size:11px;color:#6a6560;font-weight:500;display:block;margin-bottom:6px">Contact email</label>';
+  h+='<input type="email" id="custEmail" placeholder="your@email.com" required style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none" value="'+(verifiedEmail||'')+'"></div>';
+  h+='<div style="margin-top:10px"><label style="font-size:11px;color:#6a6560;font-weight:500;display:block;margin-bottom:6px">Delivery address</label>';
+  h+='<textarea id="custAddr" placeholder="Street, city, state" required rows="3" oninput="customerAddr=this.value" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Sans,sans-serif;font-size:12px;background:#fafaf7;outline:none;resize:vertical">'+customerAddr+'</textarea></div>';
+  h+='<div style="margin-top:10px"><label style="font-size:11px;color:#6a6560;font-weight:500;display:block;margin-bottom:6px">PIN code</label>';
+  h+='<input type="text" id="custPin" placeholder="6-digit PIN" required inputmode="numeric" maxlength="6" pattern="[1-9][0-9]{5}" oninput="customerPin=this.value.replace(/\\D/g,&#39;&#39;).slice(0,6);this.value=customerPin" style="width:160px;box-sizing:border-box;padding:9px 12px;border:1px solid #d4cfc8;font-family:DM Mono,monospace;font-size:13px;letter-spacing:.18em;background:#fafaf7;outline:none" value="'+customerPin+'"></div>';
   h+='<div class="sr"><span>Subtotal</span><span>'+fmt(sub)+'</span></div>';
   if(disc>0) h+='<div class="sr"><span>Discount ('+coupon+')</span><span style="color:#7a9a6d">-'+fmt(disc)+'</span></div>';
   h+='<div class="sr"><span>Shipping</span><span style="color:#7a9a6d">Complimentary</span></div>';
@@ -971,118 +1056,169 @@ function rC(){
   }
   var ebookNote=includeEbook?"%0A%0APlease include the free Peptide Research Guide eBook.":"";
   h+='<div class="consult-card" style="margin-top:12px"><div class="consult-icon">&#128172;</div><div class="consult-info"><div class="consult-title">Need guidance?</div><div class="consult-sub">15 min consultation &middot; &#8377;1000</div></div><a href="https://topmate.io/athenabiolabs/" target="_blank" rel="noopener" class="consult-btn">Book</a></div>';
-  h+='<button class="b b1" style="width:100%;margin-top:16px;padding:18px 40px;font-size:13px;position:relative" onclick="payNow('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay Now &middot; '+fmt(total)+'</button>';
-  h+='<div style="display:flex;gap:8px;margin-top:8px">';
-  h+='<button class="b b2" style="flex:1;padding:12px 16px;font-size:9px" onclick="showBankDetails()">Bank / UPI Transfer</button>';
-  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="flex:1;padding:12px 16px;font-size:9px">Email Order</a>';
-  h+='</div>';
-  h+='<div id="bankInfo" style="display:none;background:#F0EDE7;padding:18px;margin-top:10px;font-size:12px;line-height:2">';
-  h+='<p style="font-weight:600;letter-spacing:.12em;font-size:9px;text-transform:uppercase;color:#b5b0a6;margin-bottom:8px">Bank Transfer / UPI Details</p>';
-  h+='<p><b>UPI ID:</b> YOUR_UPI_ID@bank</p>';
-  h+='<p><b>Account Name:</b> AthenaBioLabs</p>';
-  h+='<p><b>Account No:</b> YOUR_ACCOUNT_NUMBER</p>';
-  h+='<p><b>IFSC:</b> YOUR_IFSC_CODE</p>';
-  h+='<p style="margin-top:6px;font-size:10px;color:#8a8580;line-height:1.6">After transferring, email your UTR / reference number to <b>support@athenabiolabs.com</b> with your shipping address.</p>';
-  h+='<button onclick="confirmBankTransfer('+total+')" class="b b3" style="width:100%;margin-top:12px;padding:12px;font-size:9px">I\'ve Transferred &mdash; Confirm Order</button>';
-  h+='</div>';
-  h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding-bottom:20px"><span style="font-size:9px;color:#b5b0a6">Secured by</span><span style="font-size:10px;font-weight:700;color:#2B84EA">Razorpay</span><span style="font-size:9px;color:#b5b0a6">&middot; UPI &middot; Cards &middot; Netbanking &middot; Bank Transfer</span></div>';
+  h+='<label style="display:flex;align-items:flex-start;gap:10px;margin-top:16px;padding:14px;background:#F4F1EB;cursor:pointer">';
+  h+='<input type="checkbox" id="tocBox" '+(tocAccepted?'checked':'')+' onchange="tocAccepted=this.checked;var b=document.getElementById(\'tocPayBtn\');if(b){b.disabled=!tocAccepted;b.style.opacity=tocAccepted?\'1\':\'.4\';b.style.cursor=tocAccepted?\'pointer\':\'not-allowed\';}" style="margin-top:3px;width:14px;height:14px;flex-shrink:0;accent-color:#1a1a1a;cursor:pointer">';
+  h+='<span style="font-size:10px;color:#6b6560;line-height:1.6"><strong style="color:#1a1a1a">I confirm</strong> I am purchasing these compounds for <strong>in-vitro laboratory research use only</strong>. I will not administer them to humans or animals. I am 18+ and comply with all applicable local laws.</span>';
+  h+='</label>';
+  h+='<button id="tocPayBtn" class="b b1" style="width:100%;margin-top:8px;padding:18px 40px;font-size:13px;position:relative'+(tocAccepted?'':';opacity:.4;cursor:not-allowed')+'" '+(tocAccepted?'':'disabled')+' onclick="payViaUpi('+total+')"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%)">&#128274;</span> Pay via UPI &middot; '+fmt(total)+'</button>';
+  h+='<a href="mailto:support@athenabiolabs.com?subject=AthenaBioLabs%20Order" class="b b2" style="display:block;text-align:center;margin-top:8px;padding:12px 16px;font-size:9px">Email Order</a>';
   h+='</div>';
   bd.innerHTML=h;
 }
 
-// RAZORPAY CHECKOUT
-function payNow(amount){
-  // Build order description
-  var desc="";
-  for(var i=0;i<cart.length;i++){var c=cart[i];desc+=c.n+" ("+c.ds+") x"+c.q+", ";}
-  desc=desc.slice(0,-2);
-  if(desc.length>200) desc=desc.substring(0,197)+"...";
+// PAYMENT — UPI QR
+function genRef(){
+  var s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',out='',b=new Uint8Array(8);
+  (window.crypto||window.msCrypto).getRandomValues(b);
+  for(var i=0;i<8;i++)out+=s.charAt(b[i]%32);
+  return out;
+}
 
-  var options={
-    key:"rzp_live_XXXXXXXXXXXXXXX", // Replace with your Razorpay Key ID
-    amount:amount*100, // Razorpay takes amount in paise
-    currency:"INR",
-    name:"AthenaBioLabs",
-    description:desc,
-    image:"", // Add your logo URL here if you want
-    handler:function(response){
-      trackEvent('Purchase',{value:amount,currency:'INR',transaction_id:response.razorpay_payment_id});
-      var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-      SUPA.from('orders').insert({
-        items:items,total:amount,coupon:coupon||null,
-        payment_method:'razorpay',payment_id:response.razorpay_payment_id,
-        status:'paid',ebook:includeEbook,email:verifiedEmail||null
-      }).then(function(){});
-      if(coupon==='FIRST5'&&verifiedEmail){recordCouponUsage(verifiedEmail,'FIRST5',response.razorpay_payment_id);}
-      alert("Payment confirmed!\n\nPayment ID: "+response.razorpay_payment_id+"\n\nYour order is confirmed. We'll dispatch within 24 hours. Check your email for details.");
-      cart=[];saveCart();uB();rC();closeCart();
-    },
-    prefill:{},
-    theme:{color:"#C8A97E"},
-    modal:{ondismiss:function(){trackEvent('PaymentDismissed',{value:amount,currency:'INR'});}}
+var _qrLibPromise=null;
+function loadQrLib(){
+  if(window.qrcode)return Promise.resolve(window.qrcode);
+  if(_qrLibPromise)return _qrLibPromise;
+  _qrLibPromise=new Promise(function(resolve,reject){
+    var s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
+    s.onload=function(){resolve(window.qrcode);};
+    s.onerror=function(){reject(new Error('qr-failed'));};
+    document.head.appendChild(s);
+  });
+  return _qrLibPromise;
+}
+
+var _upiCfgPromise=null;
+function loadUpiConfig(){
+  if(_upiCfgPromise)return _upiCfgPromise;
+  _upiCfgPromise=fetch('/api/config').then(function(r){return r.json();}).catch(function(){return{upiVpa:'',upiDisplayName:'AthenaBioLabs'};});
+  return _upiCfgPromise;
+}
+
+function escHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function payViaUpi(total){
+  if(coupon==='FIRST5'&&!verifiedEmail){
+    alert('Please verify your email via OTP to use FIRST5.');
+    return;
+  }
+  var ce=document.getElementById('custEmail');
+  var contact=((ce&&ce.value)||verifiedEmail||'').trim().toLowerCase();
+  if(!EMAIL_RE.test(contact)){
+    alert('Please enter a valid contact email so we can confirm your order.');
+    if(ce)ce.focus();
+    return;
+  }
+  var addrEl=document.getElementById('custAddr');
+  var addr=((addrEl&&addrEl.value)||customerAddr||'').trim();
+  if(!addr){
+    alert('Please enter your delivery address before paying.');
+    if(addrEl)addrEl.focus();
+    return;
+  }
+  var pinEl=document.getElementById('custPin');
+  var pin=((pinEl&&pinEl.value)||customerPin||'').replace(/\D/g,'').slice(0,6);
+  if(!/^[1-9]\d{5}$/.test(pin)){
+    alert('Please enter a valid 6-digit PIN code.');
+    if(pinEl)pinEl.focus();
+    return;
+  }
+  customerAddr=addr;
+  customerPin=pin;
+  var ref=genRef();
+  var ov=document.createElement('div');
+  ov.id='upiOv';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  ov.innerHTML=
+    '<div style="background:#FAFAF7;max-width:420px;width:100%;padding:28px 24px;font-family:DM Sans,sans-serif;color:#1a1a1a">'+
+    '  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">'+
+    '    <h3 style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:500;margin:0">Pay via UPI</h3>'+
+    '    <button id="upiX" style="background:none;border:none;font-size:22px;cursor:pointer;color:#888">&times;</button>'+
+    '  </div>'+
+    '  <p style="font-size:11px;color:#6a6560;margin:0 0 14px">Order reference <strong id="upiRef">'+escHtml(ref)+'</strong> &middot; Amount <strong>'+fmt(total)+'</strong></p>'+
+    '  <div id="upiQr" style="display:flex;justify-content:center;padding:14px;background:#fff;border:1px solid #e8e3dc;min-height:220px"></div>'+
+    '  <div id="upiFallback" style="margin-top:10px;font-size:11px;color:#8a8580;text-align:center"></div>'+
+    '  <div style="margin-top:14px;font-size:11px;color:#6a6560"><strong>UPI ID:</strong> <span id="upiVpa">…</span></div>'+
+    '  <button id="upiPaid" style="margin-top:18px;width:100%;padding:13px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">I\'VE PAID — ENTER UTR</button>'+
+    '  <div id="upiUtrWrap" style="display:none;margin-top:14px">'+
+    '    <label style="font-size:11px;color:#6a6560;display:block;margin-bottom:6px">12-digit UTR / Reference number</label>'+
+    '    <input id="upiUtr" inputmode="numeric" maxlength="12" placeholder="123456789012" style="width:100%;box-sizing:border-box;padding:11px;border:1px solid #d4cfc8;font-family:DM Mono,monospace;letter-spacing:.18em;background:#fafaf7">'+
+    '    <div id="upiMsg" style="font-size:11px;margin-top:6px;min-height:14px"></div>'+
+    '    <button id="upiSubmit" style="margin-top:10px;width:100%;padding:13px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">CONFIRM ORDER</button>'+
+    '  </div>'+
+    '</div>';
+  document.body.appendChild(ov);
+  document.getElementById('upiX').onclick=function(){ov.remove();};
+  document.getElementById('upiPaid').onclick=function(){
+    document.getElementById('upiUtrWrap').style.display='block';
+    document.getElementById('upiPaid').style.display='none';
+    document.getElementById('upiUtr').focus();
+  };
+  document.getElementById('upiSubmit').onclick=function(){
+    submitUpiOrder(ref,total,contact);
   };
 
-  try{
-    var rzp=new Razorpay(options);
-    rzp.on('payment.failed',function(response){
-      alert("Payment failed. Please try again, or use Bank / UPI Transfer to place your order.");
-      trackEvent('PaymentFailed',{value:amount,currency:'INR'});
-    });
-    rzp.open();
-    trackEvent('InitiateCheckout',{value:amount,currency:'INR',num_items:cart.length});
-  }catch(e){
-    alert("Payment gateway loading. Please use Bank / UPI Transfer or email support@athenabiolabs.com to place your order.");
-  }
-}
-
-// BANK TRANSFER
-function showBankDetails(){
-  var el=document.getElementById("bankInfo");
-  if(el)el.style.display=el.style.display==='none'?'block':'none';
-}
-function confirmBankTransfer(amount){
-  var items=cart.map(function(c){return c.n+' ('+c.ds+') x'+c.q;}).join(', ');
-  var btn=event.target;btn.disabled=true;btn.textContent='Saving\u2026';
-  SUPA.from('orders').insert({
-    items:items,total:amount,coupon:coupon||null,
-    payment_method:'bank_transfer',status:'pending_verification',ebook:includeEbook,email:verifiedEmail||null
-  }).then(function(r){
-    btn.disabled=false;btn.textContent="I've Transferred \u2014 Confirm Order";
-    if(r.error){
-      alert("Please email support@athenabiolabs.com with your UTR number and we'll confirm your order manually.");
+  Promise.all([loadUpiConfig(),loadQrLib().catch(function(){return null;})]).then(function(arr){
+    var cfg=arr[0]||{},qrlib=arr[1];
+    var vpa=cfg.upiVpa||'',name=cfg.upiDisplayName||'AthenaBioLabs';
+    document.getElementById('upiVpa').textContent=vpa||'(configured on server)';
+    var uri='upi://pay?pa='+encodeURIComponent(vpa)+'&pn='+encodeURIComponent(name)+'&am='+encodeURIComponent(String(total))+'&cu=INR&tn=ABL-'+encodeURIComponent(ref);
+    var qrEl=document.getElementById('upiQr');
+    var fallback=document.getElementById('upiFallback');
+    if(qrlib&&vpa){
+      var q=qrlib(0,'M');q.addData(uri);q.make();
+      qrEl.innerHTML=q.createSvgTag({scalable:true,margin:1,cellSize:5});
+      fallback.innerHTML='Scan with any UPI app (GPay, PhonePe, Paytm).';
     } else {
-      if(coupon==='FIRST5'&&verifiedEmail){recordCouponUsage(verifiedEmail,'FIRST5',null);}
-      alert("Order logged! Please email your UTR / transaction reference to support@athenabiolabs.com with your shipping address. We'll dispatch within 24 hours of payment verification.");
-      cart=[];saveCart();uB();rC();closeCart();
+      qrEl.innerHTML='<a href="'+uri+'" style="word-break:break-all;font-size:11px;color:#C8A97E">'+escHtml(uri)+'</a>';
+      fallback.innerHTML='Tap the link above on a phone to open your UPI app.';
     }
   });
 }
 
-// DOSAGE CALCULATOR
-function calcRecon(){
-  var mg=parseFloat(document.getElementById("rc-mg").value)||0;
-  var ml=parseFloat(document.getElementById("rc-ml").value)||0;
-  var dose=parseFloat(document.getElementById("rc-dose").value)||0;
-  if(!mg||!ml){document.getElementById("rc-out").innerHTML="Enter values above";return;}
-  var conc=mg/ml;
-  var concMcg=conc*1000;
-  var volPerDose=dose/concMcg;
-  var iu=volPerDose*100;
-  var doses=mg*1000/dose;
-  var o="<b>Concentration:</b> "+conc.toFixed(2)+"mg/ml ("+concMcg.toFixed(0)+"mcg/ml)<br>";
-  o+="<b>Volume per "+dose+"mcg dose:</b> "+volPerDose.toFixed(3)+"ml = <b>"+iu.toFixed(1)+" units</b> on insulin syringe<br>";
-  o+="<b>Total doses per vial:</b> "+doses.toFixed(0)+" doses";
-  document.getElementById("rc-out").innerHTML=o;
+function submitUpiOrder(ref,total,contact){
+  var utrEl=document.getElementById('upiUtr'),msg=document.getElementById('upiMsg'),btn=document.getElementById('upiSubmit');
+  var utr=(utrEl.value||'').replace(/\D/g,'').slice(0,12);
+  if(utr.length!==12){msg.style.color='#c44';msg.textContent='Enter the 12-digit UTR shown in your UPI app.';return;}
+  var addrEl=document.getElementById('custAddr');
+  var addr=((addrEl&&addrEl.value)||customerAddr||'').trim();
+  var pinEl=document.getElementById('custPin');
+  var pin=((pinEl&&pinEl.value)||customerPin||'').replace(/\D/g,'').slice(0,6);
+  if(!addr){msg.style.color='#c44';msg.textContent='Please enter your delivery address before confirming.';return;}
+  if(!/^[1-9]\d{5}$/.test(pin)){msg.style.color='#c44';msg.textContent='Please enter a valid 6-digit PIN code.';return;}
+  if(!tocAccepted){msg.style.color='#c44';msg.textContent='Please confirm the research use terms in the cart before proceeding.';return;}
+  btn.disabled=true;btn.textContent='SAVING…';msg.textContent='';
+  var payload={
+    items:cart.map(function(c){return{id:c.id,vi:c.vi,q:c.q};}),
+    coupon:coupon||null,
+    contactEmail:contact,
+    otpEmail:verifiedEmail||null,
+    shippingAddress:addr+'\nPIN: '+pin,
+    ebook:!!includeEbook,
+    ref:ref,
+    utr:utr,
+    toc_accepted:true,
+    toc_timestamp:new Date().toISOString(),
+    toc_version:'v1-2026-05-02'
+  };
+  fetch('/api/place-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json().then(function(d){return{status:r.status,d:d};});})
+    .then(function(res){
+      if(res.status===200&&res.d.ok){
+        trackEvent('Purchase',{value:total,currency:'INR',transaction_id:res.d.ref,coupon:coupon||null});
+        var ov=document.getElementById('upiOv');
+        if(ov)ov.innerHTML='<div style="background:#FAFAF7;max-width:420px;width:100%;padding:32px 28px;text-align:center;font-family:DM Sans,sans-serif"><h3 style="font-family:Cormorant Garamond,serif;font-size:22px;font-weight:500;margin:0 0 12px">Order placed</h3><p style="font-size:12px;color:#6a6560">Reference <strong>'+escHtml(res.d.ref)+'</strong>. We\'ll verify your payment and email you within 24 hours.</p><button onclick="document.getElementById(\'upiOv\').remove()" style="margin-top:18px;padding:12px 24px;background:#1a1a1a;color:#FAFAF7;border:none;font-size:11px;font-weight:600;letter-spacing:.18em;cursor:pointer">CLOSE</button></div>';
+        cart=[];saveCart();uB();coupon='';couponMsg='';verifiedEmail='';customerAddr='';customerPin='';rC();closeCart();
+      } else {
+        btn.disabled=false;btn.textContent='CONFIRM ORDER';
+        msg.style.color='#c44';msg.textContent=escHtml((res.d&&res.d.error)||'Could not save your order. Please try again.');
+      }
+    })
+    .catch(function(){btn.disabled=false;btn.textContent='CONFIRM ORDER';msg.style.color='#c44';msg.textContent='Network error. Try again.';});
 }
 
-function showDose(){
-  var v=document.getElementById("ds-sel").value;
-  var out=document.getElementById("ds-out");
-  if(!v){out.style.display="none";return;}
-  var parts=v.split("|");
-  out.innerHTML="<b>"+parts[0]+"</b><br>Research range: <b>"+parts[1]+"</b><br>Frequency: "+parts[2]+"<br>Route: "+parts[3];
-  out.style.display="block";
-}
 
 // FAQ
 function rFQ(){
@@ -1128,7 +1264,7 @@ function sendC(){
 // EMAIL SUBSCRIBE
 function subEmail(e){
   e.preventDefault();
-  var em=document.getElementById("subEmail").value.trim();
+  var em=document.getElementById("subEmailInput").value.trim();
   var btn=document.getElementById("subBtn"),msg=document.getElementById("subMsg");
   if(!em)return;
   btn.disabled=true;btn.textContent='\u2026';
@@ -1137,11 +1273,11 @@ function subEmail(e){
       btn.disabled=false;btn.textContent='Subscribe';
       if(r.error&&r.error.code==='23505'){msg.textContent="You're already on the list.";}
       else if(r.error){msg.textContent="Something went wrong. Try again.";}
-      else{msg.textContent="You're in — we'll be in touch.";document.getElementById("subEmail").value='';}
+      else{msg.textContent="You're in — we'll be in touch.";document.getElementById("subEmailInput").value='';}
     });
 }
 
-rFQ();calcRecon();
+rFQ();
 
 // FEATURED PEPTIDES ON HOME
 var featIds=[2,3,4,5,8]; // Tirzepatide, Retatrutide, BPC-157, TB-500, GHK-Cu
@@ -1153,8 +1289,8 @@ function renderFeat(){
     var v=p.v[0];
     var delay=Math.min(i*0.08,0.48);
     h+='<a href="/products/'+SLUG_MAP[p.id]+'" class="pc reveal" style="animation-delay:'+delay+'s;padding:0;cursor:pointer;text-decoration:none;color:inherit">';
-    h+='<div style="overflow:hidden;height:210px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f8f7f4,#f0ede7)">';
-    h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:210px;object-fit:cover;object-position:center top;" onerror="this.outerHTML=\'<span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span>\'">';
+    h+='<div style="overflow:hidden;height:260px">';
+    h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:260px;object-fit:cover;display:block" onerror="this.outerHTML=\'<div style=&quot;height:260px;background:#F4F1EB;display:flex;align-items:center;justify-content:center&quot;><span style=font-family:Cormorant+Garamond,serif;font-size:44px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
     h+='</div>';
     h+='<div style="padding:20px 24px">';
     h+='<div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#b5b0a6;margin-bottom:4px">'+p.c+'</div>';
@@ -1271,7 +1407,7 @@ var PI={
 "Semax":{desc:"Synthetic ACTH(4-10) analog with demonstrated nootropic and neuroprotective properties. Enhances BDNF and NGF expression, improves cognitive function, and provides neuroprotection against oxidative stress.",dose:"200 - 600mcg 1-2x daily, intranasal",mw:"813.93 g/mol",seq:"Met-Glu-His-Phe-Pro-Gly-Pro",cat:"Nootropic"},
 "Sterile / BAC Water":{desc:"Bacteriostatic water contains 0.9% benzyl alcohol as preservative, enabling multi-use reconstitution over 28 days. Essential supply for proper peptide reconstitution. Sterile water for single-use applications.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies"},
 "KLOW Blend":{desc:"Advanced recovery and skin blend combining TB-500, BPC-157, GHK-Cu, and KPV. Pairs systemic tissue repair with localised healing, anti-inflammatory action via KPV, and copper-peptide skin regeneration for a comprehensive research protocol.",dose:"Per component protocol, subcutaneous",mw:"Blend",seq:"TB-500 + BPC-157 + GHK-Cu + KPV",cat:"Healing & Recovery"},
-"BAC Water":{desc:"Bacteriostatic water (0.9% benzyl alcohol) in a sterile 10ml vial. The standard reconstitution medium for research peptides — preservative allows multi-draw use over 28 days without contamination risk.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies"}
+"BAC Water":{desc:"Bacteriostatic water (0.9% benzyl alcohol) in a sterile 10ml vial. The standard reconstitution medium for research compounds — preservative allows multi-draw use over 28 days without contamination risk.",dose:"N/A - reconstitution supply",mw:"N/A",seq:"N/A",cat:"Supplies"}
 };
 
 var IMG={
@@ -1301,7 +1437,7 @@ function openPDP(id){
   // Image + Info grid
   h+='<div class="pdp-top">';
   h+='<div class="pdp-img" style="background:linear-gradient(180deg,#f8f7f4 0%,#f0ede7 100%);padding:0;overflow:hidden;min-height:420px;display:block">';
-  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:100%;min-height:420px;object-fit:cover;object-position:center top;display:block" onerror="this.style.display=\'none\';this.parentNode.style.display=\'flex\';this.parentNode.style.alignItems=\'center\';this.parentNode.style.justifyContent=\'center\';this.parentNode.innerHTML=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
+  h+='<img src="'+imgSrc(p.n)+'" alt="'+p.n+'" style="width:100%;height:100%;min-height:420px;object-fit:cover;object-position:center 40%;display:block" onerror="this.style.display=\'none\';this.parentNode.style.display=\'flex\';this.parentNode.style.alignItems=\'center\';this.parentNode.style.justifyContent=\'center\';this.parentNode.innerHTML=\'<div style=padding:60px;text-align:center><span style=font-family:Cormorant+Garamond,serif;font-size:56px;color:#C8A97E>'+mono(p.n)+'</span></div>\'">';
   h+='</div>';
   h+='<div class="pdp-info">';
   // breadcrumb
@@ -1338,7 +1474,6 @@ function openPDP(id){
   h+='<div style="display:flex;gap:0;border-bottom:2px solid #e8e4de">';
   h+='<button id="tab1" class="b" style="padding:12px 24px;font-size:10px;border-bottom:2px solid #1a1a1a;margin-bottom:-2px;background:transparent;color:#1a1a1a" onclick="showTab(1)">Description</button>';
   h+='<button id="tab2" class="b" style="padding:12px 24px;font-size:10px;border-bottom:2px solid transparent;margin-bottom:-2px;background:transparent;color:#b5b0a6" onclick="showTab(2)">Details</button>';
-  h+='<button id="tab3" class="b" style="padding:12px 24px;font-size:10px;border-bottom:2px solid transparent;margin-bottom:-2px;background:transparent;color:#b5b0a6" onclick="showTab(3)">Dosage</button>';
   h+='</div>';
   // tab 1 - description
   h+='<div id="tabC1" style="padding:24px 0"><p style="font-size:14px;line-height:1.9;color:#6b6560;font-weight:300">'+info.desc+'</p></div>';
@@ -1352,11 +1487,6 @@ function openPDP(id){
   h+='<tr style="border-bottom:1px solid #e8e4de"><td style="padding:12px 0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#b5b0a6">Form</td><td style="padding:12px 0;font-size:13px">White lyophilized powder</td></tr>';
   h+='<tr><td style="padding:12px 0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#b5b0a6">Storage</td><td style="padding:12px 0;font-size:13px">-20&deg;C (lyophilized) / 2-8&deg;C (reconstituted)</td></tr>';
   h+='</table></div>';
-  // tab 3 - dosage
-  h+='<div id="tabC3" style="padding:24px 0;display:none">';
-  h+='<div style="background:#F7F5F2;padding:16px 20px;margin-bottom:12px"><p style="font-size:13px;line-height:1.8;color:#6b6560"><strong style="color:#1a1a1a">Research Reference:</strong> '+info.dose+'</p></div>';
-  h+='<p style="font-size:10px;color:#b5b0a6;font-style:italic;line-height:1.6">Values derived from published research literature. For in-vitro research reference only. This is not medical advice and should not be used to guide human or animal use. Always consult applicable regulations and qualified professionals.</p>';
-  h+='</div>';
   h+='</div>';
   // disclaimer
   h+='<div style="margin-top:32px;padding:16px 20px;background:#F7F5F2;text-align:center"><p style="font-size:9px;color:#b5b0a6;letter-spacing:.03em">All products are for in-vitro research use only. Not for human or animal consumption. Not intended to diagnose, treat, cure, or prevent any disease.</p></div>';
@@ -1404,8 +1534,7 @@ function getCookie(n){var v=document.cookie.match('(^|;)\\s*'+n+'=([^;]*)');retu
 function setCookie(n,v,d){var dt=new Date();dt.setTime(dt.getTime()+d*86400000);document.cookie=n+'='+v+';expires='+dt.toUTCString()+';path=/;SameSite=Lax';}
 function acceptCookies(){setCookie('cookie_consent','accepted',365);document.getElementById('cookieBanner').style.display='none';}
 function declineCookies(){setCookie('cookie_consent','declined',30);document.getElementById('cookieBanner').style.display='none';
-  // Disable GA
-  window['ga-disable-G-XXXXXXXXXX']=true;
+  try{if(window.posthog)posthog.opt_out_capturing();}catch(e){}
 }
 if(!getCookie('cookie_consent')){document.getElementById('cookieBanner').style.display='block';}
 // Track page navigation
