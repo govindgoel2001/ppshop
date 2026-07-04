@@ -11,3 +11,4 @@ skills-lock.json
 .env.local
 .playwright-mcp/
 upi-modal-fixed.png
+.vercel
