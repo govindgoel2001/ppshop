@@ -1,4 +1,7 @@
 node_modules/
+.next/
+next-env.d.ts
+.vercel/
 .claude/
 .agents/
 skills-lock.json
