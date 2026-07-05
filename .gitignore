@@ -12,3 +12,7 @@ skills-lock.json
 .playwright-mcp/
 upi-modal-fixed.png
 .vercel
+.env*.local
+
+# clerk configuration (can include secrets)
+/.clerk/

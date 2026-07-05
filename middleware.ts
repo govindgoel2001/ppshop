@@ -14,5 +14,6 @@ export const config = {
     // Skip Next internals and static files, run on everything else.
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpg|jpeg|png|gif|svg|ico|webp|woff2?|ttf)).*)',
     '/(api|trpc)(.*)',
+    '/__clerk/:path*',
   ],
 };
