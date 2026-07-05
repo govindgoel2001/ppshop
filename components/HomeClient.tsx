@@ -60,10 +60,10 @@ function GoldSeal({ dark = false, children }: { dark?: boolean; children: React.
 }
 
 const CATEGORY_TILES = [
-  { name: 'Weight Loss', img: 'retatrutide.png', desc: 'GLP-1, GIP and triple-agonist compounds for metabolic research.', href: '/catalogue?cat=Weight+Loss' },
-  { name: 'Healing & Recovery', img: 'bpc-157.png', desc: 'Tissue-repair peptides and pre-blended recovery stacks.', href: '/catalogue?cat=Healing+%26+Recovery' },
-  { name: 'Skin & Anti-Aging', img: 'ghk-cu.png', desc: 'Copper peptides for collagen and skin-regeneration studies.', href: '/catalogue?cat=Skin+%26+Anti-Aging' },
-  { name: 'GH & Supplies', img: 'cjc_1295.png', desc: 'GH secretagogue blends plus bacteriostatic water.', href: '/catalogue?cat=GH' },
+  { name: 'Weight Loss', img: 'stock/focus-weight-loss.jpg', desc: 'GLP-1, GIP and triple-agonist compounds for metabolic research.', href: '/catalogue?cat=Weight+Loss' },
+  { name: 'Healing & Recovery', img: 'stock/focus-healing.jpg', desc: 'Tissue-repair peptides and pre-blended recovery stacks.', href: '/catalogue?cat=Healing+%26+Recovery' },
+  { name: 'Skin & Anti-Aging', img: 'stock/focus-skin.jpg', desc: 'Copper peptides for collagen and skin-regeneration studies.', href: '/catalogue?cat=Skin+%26+Anti-Aging' },
+  { name: 'GH & Supplies', img: 'stock/focus-gh.jpg', desc: 'GH secretagogue blends plus bacteriostatic water.', href: '/catalogue?cat=GH' },
 ];
 
 export function HomeClient({ products, featured }: { products: Product[]; featured: Product[] }) {
@@ -235,9 +235,9 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
           </div>
           <div className="steps-grid">
             {[
-              { n: 'Step 1', t: 'Browse & select', d: 'Filter by category or compound. Full scientific data, COA links, and multiple strengths for every peptide in the catalogue.', img: '/img/tirzepatide.png' },
-              { n: 'Step 2', t: 'Order on WhatsApp', d: 'One tap sends your itemised order to us on WhatsApp. Pay by UPI, bank transfer, or crypto — confirmed within minutes.', img: '/img/klow.png', delay: 'reveal-d1' },
-              { n: 'Step 3', t: 'Cold-chain delivered', d: 'Insulated packaging with ice gel and real-time tracking. Express courier, typically 2–4 days pan-India.', img: '/img/bac-water.png', delay: 'reveal-d2' },
+              { n: 'Step 1', t: 'Browse & select', d: 'Filter by category or compound. Full scientific data, COA links, and multiple strengths for every peptide in the catalogue.', img: '/img/stock/step-browse.jpg' },
+              { n: 'Step 2', t: 'Order on WhatsApp', d: 'One tap sends your itemised order to us on WhatsApp. Pay by UPI, bank transfer, or crypto — confirmed within minutes.', img: '/img/stock/step-whatsapp.jpg', delay: 'reveal-d1' },
+              { n: 'Step 3', t: 'Cold-chain delivered', d: 'Insulated packaging with ice gel and real-time tracking. Express courier, typically 2–4 days pan-India.', img: '/img/stock/step-delivery.jpg', delay: 'reveal-d2' },
             ].map(s => (
               <div key={s.n} className={`step-card reveal ${s.delay || ''}`}>
                 <div className="step-img-wrap"><img src={s.img} alt={s.t} loading="lazy" /></div>
@@ -255,6 +255,7 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
 
       {/* ── Dark banner ── */}
       <section className="atm-banner reveal">
+        <div className="atm-banner-bg" style={{ backgroundImage: "url('/img/brand/quality-lab.png')" }} />
         <div className="w" style={{ position: 'relative', zIndex: 1 }}>
           <div className="atm-inner">
             <GoldSeal dark>Our Standard</GoldSeal>
