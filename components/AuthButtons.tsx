@@ -12,8 +12,13 @@ export function AuthButtons() {
         </SignInButton>
       </SignedOut>
       <SignedIn>
+        <a href="/account">My orders</a>
         <span className="hdr-user">
-          <UserButton afterSignOutUrl="/" />
+          <UserButton afterSignOutUrl="/">
+            <UserButton.MenuItems>
+              <UserButton.Link label="My orders" labelIcon={<span>📦</span>} href="/account" />
+            </UserButton.MenuItems>
+          </UserButton>
         </span>
       </SignedIn>
     </>

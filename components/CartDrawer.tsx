@@ -7,7 +7,7 @@ import { waLink, CONSENT_TEXT } from '@/lib/site';
 import { AUTH_ENABLED } from '@/components/AuthProvider';
 import { ClerkOrderGate } from '@/components/ClerkOrderGate';
 
-function buildOrderMessage(cart: CartItem[], total: number, who?: string): string {
+function buildOrderMessage(cart: CartItem[], total: number, who?: string, ref?: string): string {
   const lines = cart.map(
     it => `• ${it.n} — ${it.sp} × ${it.q} = ${fmt(it.pr * it.q)}`
   );
@@ -17,6 +17,7 @@ function buildOrderMessage(cart: CartItem[], total: number, who?: string): strin
     ...lines,
     '',
     `Total: ${fmt(total)}`,
+    ref ? `Order ref: ${ref}` : '',
     who ? `Account: ${who}` : '',
     '',
     'Preferred payment: (UPI / Bank transfer / Crypto)',
@@ -51,11 +52,30 @@ export function CartDrawer() {
 
   const total = totalPrice();
 
-  function order(who?: string) {
+  async function order(who?: string) {
     if (!consent) return;
-    const msg = buildOrderMessage(cart, total, who);
-    try { window.posthog?.capture('WhatsAppOrder', { value: total, currency: 'INR', items: cart.length }); } catch {}
-    window.open(waLink(msg), '_blank', 'noopener');
+    // Pre-open the tab synchronously so popup blockers don't eat it while
+    // we record the order server-side.
+    const tab = window.open('about:blank', '_blank');
+    // Record the order first so it shows up in /account. If that fails
+    // for any reason, the WhatsApp order still goes through.
+    let ref: string | undefined;
+    if (AUTH_ENABLED) {
+      try {
+        const res = await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: cart.map(it => ({ id: it.id, vi: it.vi, q: it.q })) }),
+        });
+        const data = await res.json();
+        if (res.ok && data.ref) ref = data.ref;
+      } catch {}
+    }
+    const msg = buildOrderMessage(cart, total, who, ref);
+    try { window.posthog?.capture('WhatsAppOrder', { value: total, currency: 'INR', items: cart.length, ref }); } catch {}
+    const url = waLink(msg);
+    if (tab) tab.location.href = url;
+    else window.open(url, '_blank', 'noopener');
     clear();
     setConsent(false);
     setOpen(false);

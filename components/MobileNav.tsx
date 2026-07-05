@@ -1,5 +1,7 @@
 'use client';
 
+import { AUTH_ENABLED } from '@/components/AuthProvider';
+
 export function MobileNav() {
   function close() {
     document.getElementById('mobNav')?.classList.remove('open');
@@ -19,6 +21,7 @@ export function MobileNav() {
       <a href="/coa" onClick={close}>COA</a>
       <a href="/about" onClick={close}>About</a>
       <a href="/contact" onClick={close}>Contact</a>
+      {AUTH_ENABLED && <a href="/account" onClick={close}>My orders</a>}
       <a href="#" onClick={e => { e.preventDefault(); close(); window.openCart?.(); }}>Cart</a>
     </div>
   );

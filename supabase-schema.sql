@@ -223,3 +223,24 @@ create index if not exists users_email_idx on users (email);
 
 alter table users enable row level security;
 -- No public policies: only the service key (sync-user route) reads/writes this table.
+
+-- ─────────────────────────────────────────────
+-- User dashboard (/account): orders tied to Clerk accounts.
+-- Status flow (set manually from the Supabase table editor for now):
+--   initiated  → customer opened the WhatsApp chat with their cart
+--   purchased  → payment received, order confirmed
+--   shipped    → booked with Delhivery; put the AWB in dispatch_tracking
+--   delivered  → done
+--   cancelled  → shows a cancelled badge
+-- eta is free text shown to the customer, e.g. "12 July" or "3–4 days".
+-- ─────────────────────────────────────────────
+alter table orders add column if not exists user_id text;
+alter table orders add column if not exists eta     text;
+
+create index if not exists orders_user_idx on orders (user_id);
+
+-- Coupons become one-use-per-account (Clerk user), replacing the old
+-- email-OTP verification flow. email column kept for legacy rows.
+alter table coupon_usage add column if not exists user_id text;
+create unique index if not exists coupon_usage_user_code_unique
+  on coupon_usage (user_id, code) where user_id is not null;
