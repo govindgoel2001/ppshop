@@ -740,3 +740,28 @@ textarea.fi{resize:vertical;min-height:100px}
   .acct-order{padding:20px}
   .acct-step .lbl{font-size:8px;letter-spacing:.06em}
 }
+
+/* ── Admin orders (/admin/orders) ─────────────────────────── */
+.adm{padding:64px 0 110px;min-height:70vh;background:var(--lav-50)}
+.adm-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.adm-chip{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;border-radius:100px;border:1px solid var(--lav-300);background:#fff;color:var(--muted);cursor:pointer;transition:.15s}
+.adm-chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.adm-row{background:#fff;border:1px solid var(--lav-200);border-left:4px solid var(--lav-300);border-radius:14px;padding:18px 22px;margin-bottom:12px}
+.adm-row.st-initiated{border-left-color:var(--gold-soft)}
+.adm-row.st-purchased{border-left-color:var(--purple)}
+.adm-row.st-shipped{border-left-color:#3B7DD8}
+.adm-row.st-delivered{border-left-color:#22A06B}
+.adm-row.st-cancelled{border-left-color:#B4443C;opacity:.7}
+.adm-row-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.adm-ref{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
+.adm-date{margin-left:10px;font-size:11px;color:var(--faint)}
+.adm-email{margin-left:10px;font-size:12px;color:var(--muted)}
+.adm-total{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--purple)}
+.adm-items{margin-top:6px;font-size:12px;color:var(--muted)}
+.adm-controls{display:grid;grid-template-columns:130px 1fr 150px 1fr auto;gap:8px;margin-top:14px}
+.adm-controls select,.adm-controls input{font:inherit;font-size:13px;padding:9px 12px;border:1px solid var(--lav-300);border-radius:8px;background:var(--lav-50);color:var(--ink)}
+.adm-controls select:focus,.adm-controls input:focus{outline:none;border-color:var(--purple)}
+.adm-controls .b{padding:9px 22px;font-size:12px}
+.adm-controls .b:disabled{opacity:.45;cursor:default}
+.adm-err{margin-top:8px;font-size:12px;color:#B4443C}
+@media(max-width:900px){.adm-controls{grid-template-columns:1fr 1fr}}
