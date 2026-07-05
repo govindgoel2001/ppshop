@@ -16,3 +16,4 @@ upi-modal-fixed.png
 
 # clerk configuration (can include secrets)
 /.clerk/
+tsconfig.tsbuildinfo
