@@ -1,31 +1,6 @@
 {
-  "outputDirectory": ".",
-  "functions": {
-    "api/subscribe.js":     { "maxDuration": 10 },
-    "api/*.js":             { "maxDuration": 10 },
-    "api/admin/*.js":       { "maxDuration": 10 }
-  },
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Frame-Options",            "value": "DENY" },
-        { "key": "X-Content-Type-Options",     "value": "nosniff" },
-        { "key": "Referrer-Policy",           "value": "strict-origin-when-cross-origin" },
-        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" },
-        { "key": "Permissions-Policy",         "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Content-Security-Policy",   "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://us-assets.i.posthog.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.unsplash.com; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://*.supabase.co https://formspree.io; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; object-src 'none'; upgrade-insecure-requests" }
-      ]
-    }
-  ],
-  "rewrites": [
-    { "source": "/about",          "destination": "/index.html" },
-    { "source": "/coa",            "destination": "/coa.html" },
-    { "source": "/contact",        "destination": "/index.html" },
-    { "source": "/shop",           "destination": "/index.html" },
-    { "source": "/catalogue",      "destination": "/catalogue.html" },
-    { "source": "/admin",          "destination": "/admin/index.html" },
-    { "source": "/admin/login",    "destination": "/admin/login.html" },
-    { "source": "/admin/order",    "destination": "/admin/order.html" }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "installCommand": "npm install"
 }

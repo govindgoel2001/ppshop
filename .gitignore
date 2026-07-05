@@ -1,4 +1,7 @@
 node_modules/
+.next/
+next-env.d.ts
+.vercel/
 .claude/
 .agents/
 skills-lock.json
@@ -8,3 +11,9 @@ skills-lock.json
 .env.local
 .playwright-mcp/
 upi-modal-fixed.png
+.vercel
+.env*.local
+
+# clerk configuration (can include secrets)
+/.clerk/
+tsconfig.tsbuildinfo

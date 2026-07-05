@@ -1,0 +1,15 @@
+# Legacy static site + old serverless backend — replaced by the Next.js app.
+# Anchored with a leading slash so app/api (the new route handlers) is NOT excluded.
+/api
+/admin
+/products
+/docs
+/tests
+/img
+/*.html
+/*.jpg
+/shared.js
+/style.css
+/catalogue.js
+/devserver.mjs
+/ppshop-deliverables.zip
