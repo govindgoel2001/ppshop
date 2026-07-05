@@ -5,6 +5,7 @@ import type { Product } from '@/lib/products';
 import { useCartStore } from '@/lib/cart';
 import { PaymentMethods } from '@/components/PaymentMethods';
 import { ProductCard } from '@/components/ProductCard';
+import { ProofCarousel } from '@/components/ProofCarousel';
 
 /** Flowing champagne-silk ribbons — pure SVG, no image needed. */
 function SilkWaves() {
@@ -66,7 +67,7 @@ const CATEGORY_TILES = [
   { name: 'GH & Supplies', img: 'stock/focus-gh.jpg', desc: 'GH secretagogue blends plus bacteriostatic water.', href: '/catalogue?cat=GH' },
 ];
 
-export function HomeClient({ products, featured }: { products: Product[]; featured: Product[] }) {
+export function HomeClient({ products, featured, proofs = [] }: { products: Product[]; featured: Product[]; proofs?: string[] }) {
   useEffect(() => {
     if (!window.IntersectionObserver) return;
     const obs = new IntersectionObserver(entries => {
@@ -120,6 +121,19 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
               <div className="hero-stat"><b>3PL</b><span>Lab Verified</span></div>
               <div className="hero-stat"><b>24h</b><span>Dispatch</span></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── As featured in ── */}
+      <section className="press">
+        <div className="w">
+          <p className="press-label">As featured in</p>
+          <div className="press-logos">
+            <span className="press-mark"><b>EIN</b>&thinsp;Presswire</span>
+            <span className="press-mark press-caps">International Business Times</span>
+            <span className="press-mark press-net"><b>NBC</b><i /><b>ABC</b><i /><b>FOX</b></span>
+            <span className="press-mark press-ital">World Pharmaceutical Review</span>
           </div>
         </div>
       </section>
@@ -303,6 +317,9 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
           </div>
         </div>
       </section>
+
+      {/* ── Delivery proof ── */}
+      <ProofCarousel photos={proofs} />
 
       {/* ── Offers ── */}
       <section style={{ padding: '64px 0' }}>
