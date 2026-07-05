@@ -1,13 +1,10 @@
-import { OwlMark } from '@/components/Header';
-
 export function Footer() {
   return (
     <footer className="ft">
       <div className="w">
         <div className="ftg">
           <div className="ftb">
-            <div className="fl2" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <OwlMark size={28} />
+            <div className="fl2">
               <span><em>Athena</em>BioLabs</span>
             </div>
             <p>Research peptides verified by independent lab analysis. Batch-level COAs, 99%+ HPLC purity, cold-chain delivery across India.</p>

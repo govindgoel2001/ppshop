@@ -5,20 +5,6 @@ import { useCartStore } from '@/lib/cart';
 import { AUTH_ENABLED } from '@/components/AuthProvider';
 import { AuthButtons } from '@/components/AuthButtons';
 
-/** Minimal geometric owl — the Athena mark. */
-export function OwlMark({ size = 30 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <rect width="32" height="32" rx="9" fill="#1E1A12" />
-      <circle cx="11.5" cy="13.5" r="4.6" stroke="#E3C878" strokeWidth="1.6" />
-      <circle cx="20.5" cy="13.5" r="4.6" stroke="#E3C878" strokeWidth="1.6" />
-      <circle cx="11.5" cy="13.5" r="1.5" fill="#E3C878" />
-      <circle cx="20.5" cy="13.5" r="1.5" fill="#E3C878" />
-      <path d="M14.6 20.5 L16 23.5 L17.4 20.5" stroke="#B8912F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export function Header() {
   const qty = useCartStore(s => s.totalQty());
   const [mobOpen, setMobOpen] = useState(false);
@@ -34,7 +20,6 @@ export function Header() {
     <nav className="bn">
       <div className="w">
         <a href="/" className="nl">
-          <OwlMark />
           <span><em>Athena</em>BioLabs</span>
         </a>
         <div className="nk">
