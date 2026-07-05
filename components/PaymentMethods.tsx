@@ -23,8 +23,8 @@ export function PaymentMethods() {
           {/* BHIM / UPI */}
           <Badge title="BHIM UPI">
             <svg viewBox="0 0 120 40" width="88" height="30" role="img" aria-hidden="true">
-              <text x="0" y="27" fontFamily="DM Sans, sans-serif" fontSize="20" fontWeight="700" fill="#00539F">BHIM</text>
-              <text x="62" y="27" fontFamily="DM Sans, sans-serif" fontSize="20" fontWeight="700" fill="#E8622C">UPI</text>
+              <text x="0" y="27" fontFamily="Inter, sans-serif" fontSize="20" fontWeight="700" fill="#00539F">BHIM</text>
+              <text x="62" y="27" fontFamily="Inter, sans-serif" fontSize="20" fontWeight="700" fill="#E8622C">UPI</text>
             </svg>
           </Badge>
 

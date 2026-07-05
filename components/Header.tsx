@@ -5,6 +5,20 @@ import { useCartStore } from '@/lib/cart';
 import { AUTH_ENABLED } from '@/components/AuthProvider';
 import { AuthButtons } from '@/components/AuthButtons';
 
+/** Minimal geometric owl — the Athena mark. */
+export function OwlMark({ size = 30 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <rect width="32" height="32" rx="9" fill="#241056" />
+      <circle cx="11.5" cy="13.5" r="4.6" stroke="#E5CD7A" strokeWidth="1.6" />
+      <circle cx="20.5" cy="13.5" r="4.6" stroke="#E5CD7A" strokeWidth="1.6" />
+      <circle cx="11.5" cy="13.5" r="1.5" fill="#E5CD7A" />
+      <circle cx="20.5" cy="13.5" r="1.5" fill="#E5CD7A" />
+      <path d="M14.6 20.5 L16 23.5 L17.4 20.5" stroke="#8A4FFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function Header() {
   const qty = useCartStore(s => s.totalQty());
   const [mobOpen, setMobOpen] = useState(false);
@@ -20,7 +34,8 @@ export function Header() {
     <nav className="bn">
       <div className="w">
         <a href="/" className="nl">
-          <em style={{ fontWeight: 600, fontStyle: 'normal', color: '#C8A97E' }}>Athena</em>BioLabs
+          <OwlMark />
+          <span><em>Athena</em>BioLabs</span>
         </a>
         <div className="nk">
           <a href="/">Home</a>
@@ -32,6 +47,7 @@ export function Header() {
               <a href="/catalogue?cat=Healing+%26+Recovery">Healing &amp; Recovery</a>
               <a href="/catalogue?cat=Skin+%26+Anti-Aging">Skin &amp; Anti-Aging</a>
               <a href="/catalogue?cat=GH">GH</a>
+              <a href="/catalogue?cat=Supplies">Supplies</a>
             </div>
           </div>
           <a href="/coa">COA</a>
@@ -40,9 +56,11 @@ export function Header() {
           <a
             href="#"
             id="cL"
+            className="b b1"
+            style={{ padding: '10px 22px', fontSize: 12 }}
             onClick={e => { e.preventDefault(); window.openCart?.(); }}
           >
-            Cart{qty > 0 && <span className="cc">{qty}</span>}
+            Cart{qty > 0 && <span className="cc" style={{ background: '#fff', color: '#7C3BFF' }}>{qty}</span>}
           </a>
           {AUTH_ENABLED && <AuthButtons />}
         </div>

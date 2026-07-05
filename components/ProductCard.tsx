@@ -11,22 +11,28 @@ export function ProductCard({ p }: { p: Product }) {
   const oos = p.oos || p.variants.every(x => x.oos);
 
   return (
-    <a href={`/products/${p.slug}`} className="pc" style={{ padding: 0, cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}>
-      <div style={{ overflow: 'hidden', height: 220, position: 'relative' }}>
-        <img src={`/img/${p.image}`} alt={p.name} loading="lazy" style={{ width: '100%', height: 220, objectFit: 'cover', display: 'block', filter: oos ? 'grayscale(.7)' : 'none' }} />
-        {oos && <span style={{ position: 'absolute', top: 12, left: 12, background: '#1a1a1a', color: '#FAFAF7', fontSize: 9, fontWeight: 700, letterSpacing: '.16em', textTransform: 'uppercase', padding: '5px 10px' }}>Out of stock</span>}
+    <a href={`/products/${p.slug}`} className="pc" style={{ padding: 20, cursor: 'pointer', textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ overflow: 'hidden', height: 210, position: 'relative', borderRadius: 14, background: '#fff' }}>
+        <img src={`/img/${p.image}`} alt={p.name} loading="lazy" style={{ width: '100%', height: 210, objectFit: 'cover', display: 'block', filter: oos ? 'grayscale(.7)' : 'none', transition: 'transform .6s cubic-bezier(.23,1,.32,1)' }} />
+        {oos && <span style={{ position: 'absolute', top: 12, left: 12, background: '#171129', color: '#fff', fontSize: 9, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: 999 }}>Out of stock</span>}
+        {!oos && p.janoshik && (
+          <span style={{ position: 'absolute', top: 12, left: 12, background: 'rgba(255,255,255,.92)', color: '#C9A227', fontSize: 9, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.3 7.2 16.9l.9-5.4-3.9-3.8 5.4-.8L12 2z" /></svg>
+            COA
+          </span>
+        )}
       </div>
-      <div style={{ padding: '20px 24px' }}>
-        <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: '.12em', textTransform: 'uppercase', color: '#b5b0a6', marginBottom: 4 }}>{p.category}</div>
-        <h3 style={{ fontSize: 17, fontWeight: 600, marginBottom: 8, letterSpacing: '-.01em' }}>{p.name}</h3>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span className="pp" style={{ fontSize: 18 }}>{fmt(v.pr)}</span>
+      <div style={{ padding: '18px 6px 4px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--faint)', marginBottom: 5 }}>{p.category}</div>
+        <h3 style={{ fontSize: 19, fontWeight: 700, marginBottom: 10, letterSpacing: '-.02em' }}>{p.name}</h3>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', gap: 10, flexWrap: 'wrap' }}>
+          <span className="pp" style={{ fontSize: 19 }}>{fmt(v.pr)}</span>
           {oos ? (
-            <span style={{ fontSize: 10, color: '#b06a4a', fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase' }}>Unavailable</span>
+            <span style={{ fontSize: 10, color: '#C2543A', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase' }}>Unavailable</span>
           ) : (
             <button
               className="b b1"
-              style={{ padding: '8px 18px', fontSize: 9 }}
+              style={{ padding: '10px 22px', fontSize: 12 }}
               onClick={e => { e.preventDefault(); e.stopPropagation(); qty > 0 ? adjust(p.id, 0, 1) : add(p.id, 0); window.openCart?.(); }}
             >
               {qty > 0 ? `In cart (${qty})` : 'Add to Cart'}

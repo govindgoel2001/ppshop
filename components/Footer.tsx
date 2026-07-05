@@ -1,13 +1,16 @@
+import { OwlMark } from '@/components/Header';
+
 export function Footer() {
   return (
     <footer className="ft">
       <div className="w">
         <div className="ftg">
-          <div className="ftb" style={{ textAlign: 'center' }}>
-            <div className="fl2">
-              <em style={{ fontWeight: 600, fontStyle: 'normal', color: '#C8A97E' }}>Athena</em>BioLabs
+          <div className="ftb">
+            <div className="fl2" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <OwlMark size={28} />
+              <span><em>Athena</em>BioLabs</span>
             </div>
-            <p style={{ maxWidth: 400, margin: '0 auto' }}>Premium research compounds. HPLC verified. Third-party tested. 99%+ purity guaranteed.</p>
+            <p>Research peptides verified by independent lab analysis. Batch-level COAs, 99%+ HPLC purity, cold-chain delivery across India.</p>
           </div>
           <div className="ftc">
             <h4>Navigate</h4>
@@ -23,7 +26,7 @@ export function Footer() {
             <p>Mon - Sat, 9-7 IST</p>
           </div>
           <div className="ftl">
-            <h4 style={{ fontSize: 10, fontWeight: 600, letterSpacing: '.2em', textTransform: 'uppercase', color: '#b5b0a6', marginBottom: 16 }}>Legal Notice</h4>
+            <h4 style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.2em', textTransform: 'uppercase', marginBottom: 16 }}>Legal Notice</h4>
             <p>All products are sold strictly for in-vitro research purposes. Not intended for human or animal consumption.</p>
           </div>
         </div>

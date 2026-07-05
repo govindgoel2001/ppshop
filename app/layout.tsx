@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -44,12 +44,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="dr" id="dr">
             <div className="dh">
               <div>
-                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '.24em', textTransform: 'uppercase', color: '#C8A97E', marginBottom: 6 }}>Your specimens</div>
-                <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 26, fontWeight: 500, letterSpacing: '-.01em' }}>Research cart</h2>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.24em', textTransform: 'uppercase', color: '#7C3BFF', marginBottom: 6 }}>Your specimens</div>
+                <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, letterSpacing: '-.02em' }}>Research cart</h2>
               </div>
               <button className="dx" id="cartClose">&times;</button>
             </div>
-            <div id="cartShipProgress" style={{ padding: '18px 32px', background: '#F4F1EB', display: 'none' }} />
+            <div id="cartShipProgress" style={{ padding: '18px 32px', background: '#EFEBFA', display: 'none' }} />
             <CartDrawer />
           </div>
           {children}

@@ -65,7 +65,7 @@ export function CartDrawer() {
     <div className="db" style={{ flex: 1, overflowY: 'auto', padding: '24px 32px' }}>
       {cart.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '80px 0' }}>
-          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 20, fontStyle: 'italic', color: '#b5b0a6', marginBottom: 24 }}>Your cart is empty</p>
+          <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 20, fontStyle: 'italic', color: '#A79FC2', marginBottom: 24 }}>Your cart is empty</p>
           <a href="/" className="b b2">Browse Collection</a>
         </div>
       ) : (
@@ -91,11 +91,11 @@ export function CartDrawer() {
 
           <div style={{ borderTop: '1px solid rgba(0,0,0,.06)', marginTop: 16, paddingTop: 20 }}>
             <div className="sr"><span>Subtotal</span><span>{fmt(total)}</span></div>
-            <div className="sr"><span>Shipping</span><span style={{ color: '#7a9a6d' }}>Complimentary</span></div>
+            <div className="sr"><span>Shipping</span><span style={{ color: '#22A06B' }}>Complimentary</span></div>
             <div className="gs" style={{ margin: '12px 0' }} />
             <div className="st"><span>Total</span><span>{fmt(total)}</span></div>
 
-            <div style={{ marginTop: 8, fontSize: 11, color: '#8a8580', lineHeight: 1.6 }}>
+            <div style={{ marginTop: 8, fontSize: 11, color: '#6E6590', lineHeight: 1.6 }}>
               Pay by <strong>UPI, bank transfer, or crypto</strong> — arranged directly on WhatsApp after you place your order.
             </div>
 
