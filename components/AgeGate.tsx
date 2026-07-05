@@ -33,7 +33,7 @@ export function AgeGate() {
   return (
     <div className="age-gate" role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
       <div className="age-gate-card">
-        <span className="lb" style={{ color: '#7C3BFF' }}>AthenaBioLabs</span>
+        <span className="lb" style={{ color: '#B8912F' }}>AthenaBioLabs</span>
         <h1 id="age-gate-title">
           We&apos;re <em>Leveling Up</em>
         </h1>

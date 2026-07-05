@@ -9,12 +9,12 @@ import { AuthButtons } from '@/components/AuthButtons';
 export function OwlMark({ size = 30 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <rect width="32" height="32" rx="9" fill="#241056" />
-      <circle cx="11.5" cy="13.5" r="4.6" stroke="#E5CD7A" strokeWidth="1.6" />
-      <circle cx="20.5" cy="13.5" r="4.6" stroke="#E5CD7A" strokeWidth="1.6" />
-      <circle cx="11.5" cy="13.5" r="1.5" fill="#E5CD7A" />
-      <circle cx="20.5" cy="13.5" r="1.5" fill="#E5CD7A" />
-      <path d="M14.6 20.5 L16 23.5 L17.4 20.5" stroke="#8A4FFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <rect width="32" height="32" rx="9" fill="#1E1A12" />
+      <circle cx="11.5" cy="13.5" r="4.6" stroke="#E3C878" strokeWidth="1.6" />
+      <circle cx="20.5" cy="13.5" r="4.6" stroke="#E3C878" strokeWidth="1.6" />
+      <circle cx="11.5" cy="13.5" r="1.5" fill="#E3C878" />
+      <circle cx="20.5" cy="13.5" r="1.5" fill="#E3C878" />
+      <path d="M14.6 20.5 L16 23.5 L17.4 20.5" stroke="#B8912F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -60,7 +60,7 @@ export function Header() {
             style={{ padding: '10px 22px', fontSize: 12 }}
             onClick={e => { e.preventDefault(); window.openCart?.(); }}
           >
-            Cart{qty > 0 && <span className="cc" style={{ background: '#fff', color: '#7C3BFF' }}>{qty}</span>}
+            Cart{qty > 0 && <span className="cc" style={{ background: '#fff', color: '#B8912F' }}>{qty}</span>}
           </a>
           {AUTH_ENABLED && <AuthButtons />}
         </div>

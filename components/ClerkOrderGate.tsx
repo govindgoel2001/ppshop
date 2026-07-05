@@ -26,7 +26,7 @@ export function ClerkOrderGate({
             Sign in to order
           </button>
         </SignInButton>
-        <p style={{ marginTop: 8, fontSize: 11, color: '#6E6590', textAlign: 'center' }}>
+        <p style={{ marginTop: 8, fontSize: 11, color: '#6F6753', textAlign: 'center' }}>
           You need an account to place an order.
         </p>
       </SignedOut>

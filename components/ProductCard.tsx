@@ -14,7 +14,7 @@ export function ProductCard({ p }: { p: Product }) {
     <a href={`/products/${p.slug}`} className="pc" style={{ padding: 20, cursor: 'pointer', textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
       <div style={{ overflow: 'hidden', height: 210, position: 'relative', borderRadius: 14, background: '#fff' }}>
         <img src={`/img/${p.image}`} alt={p.name} loading="lazy" style={{ width: '100%', height: 210, objectFit: 'cover', display: 'block', filter: oos ? 'grayscale(.7)' : 'none', transition: 'transform .6s cubic-bezier(.23,1,.32,1)' }} />
-        {oos && <span style={{ position: 'absolute', top: 12, left: 12, background: '#171129', color: '#fff', fontSize: 9, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: 999 }}>Out of stock</span>}
+        {oos && <span style={{ position: 'absolute', top: 12, left: 12, background: '#1A1712', color: '#fff', fontSize: 9, fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: 999 }}>Out of stock</span>}
         {!oos && p.janoshik && (
           <span style={{ position: 'absolute', top: 12, left: 12, background: 'rgba(255,255,255,.92)', color: '#C9A227', fontSize: 9, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
             <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.3 7.2 16.9l.9-5.4-3.9-3.8 5.4-.8L12 2z" /></svg>

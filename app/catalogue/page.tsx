@@ -18,7 +18,7 @@ export default async function Catalogue({ searchParams }: { searchParams: Promis
     <main>
       {/* Violet header band */}
       <section style={{ background: 'var(--violet-900)', padding: '56px 0 48px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', right: -120, top: -140, width: 420, height: 420, borderRadius: '50%', background: 'radial-gradient(circle,rgba(124,59,255,.35),transparent 70%)' }} />
+        <div style={{ position: 'absolute', right: -120, top: -140, width: 420, height: 420, borderRadius: '50%', background: 'radial-gradient(circle,rgba(227,200,120,.22),transparent 70%)' }} />
         <div className="w" style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 28 }}>
           <div>
             <span className="lb" style={{ color: 'var(--gold-soft)' }}>Catalogue</span>

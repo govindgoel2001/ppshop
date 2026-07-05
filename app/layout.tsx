@@ -44,12 +44,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="dr" id="dr">
             <div className="dh">
               <div>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.24em', textTransform: 'uppercase', color: '#7C3BFF', marginBottom: 6 }}>Your specimens</div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.24em', textTransform: 'uppercase', color: '#B8912F', marginBottom: 6 }}>Your specimens</div>
                 <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, letterSpacing: '-.02em' }}>Research cart</h2>
               </div>
               <button className="dx" id="cartClose">&times;</button>
             </div>
-            <div id="cartShipProgress" style={{ padding: '18px 32px', background: '#EFEBFA', display: 'none' }} />
+            <div id="cartShipProgress" style={{ padding: '18px 32px', background: '#F4F0E5', display: 'none' }} />
             <CartDrawer />
           </div>
           {children}

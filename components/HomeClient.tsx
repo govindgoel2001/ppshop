@@ -6,11 +6,32 @@ import { useCartStore } from '@/lib/cart';
 import { PaymentMethods } from '@/components/PaymentMethods';
 import { ProductCard } from '@/components/ProductCard';
 
+/** Flowing champagne-silk ribbons — pure SVG, no image needed. */
+function SilkWaves() {
+  return (
+    <svg className="hero-silk" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <filter id="silkBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="42" /></filter>
+        <linearGradient id="silkGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="rgba(227,200,120,.05)" />
+          <stop offset=".55" stopColor="rgba(227,200,120,.55)" />
+          <stop offset="1" stopColor="rgba(184,145,47,.35)" />
+        </linearGradient>
+      </defs>
+      <g filter="url(#silkBlur)">
+        <path d="M-100,540 C300,400 620,660 920,500 C1160,370 1360,480 1560,390 L1560,700 L-100,700 Z" fill="url(#silkGrad)" />
+        <path d="M-100,620 C360,500 720,710 1060,580 C1260,500 1420,570 1560,520 L1560,700 L-100,700 Z" fill="rgba(184,145,47,.22)" />
+        <path d="M860,-40 C980,180 1290,250 1560,160 L1560,-40 Z" fill="rgba(227,200,120,.4)" />
+      </g>
+    </svg>
+  );
+}
+
 /** Faint constellation lines — Athena's owl in the night sky. */
 function Constellation() {
   return (
     <svg className="hero-constellation" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g stroke="rgba(255,255,255,.14)" strokeWidth="1">
+      <g stroke="rgba(184,145,47,.16)" strokeWidth="1">
         <line x1="120" y1="90" x2="310" y2="150" /><line x1="310" y1="150" x2="470" y2="80" />
         <line x1="470" y1="80" x2="640" y2="170" /><line x1="640" y1="170" x2="850" y2="110" />
         <line x1="850" y1="110" x2="1060" y2="200" /><line x1="310" y1="150" x2="380" y2="330" />
@@ -18,7 +39,7 @@ function Constellation() {
         <line x1="380" y1="330" x2="590" y2="380" /><line x1="930" y1="320" x2="1120" y2="430" />
         <line x1="160" y1="420" x2="380" y2="330" /><line x1="590" y1="380" x2="700" y2="540" />
       </g>
-      <g fill="rgba(255,255,255,.5)">
+      <g fill="rgba(184,145,47,.4)">
         {[[120,90],[310,150],[470,80],[640,170],[850,110],[1060,200],[380,330],[590,380],[930,320],[1120,430],[160,420],[700,540]].map(([x,y]) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r="2.2" />
         ))}
@@ -59,6 +80,7 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
     <main>
       {/* ── Hero ── */}
       <section className="hero-band">
+        <SilkWaves />
         <Constellation />
         <div className="w">
           <div className="hr-grid hr">
@@ -71,7 +93,7 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
               <p>Third-party tested peptides with batch-level Janoshik COAs, ≥99% HPLC purity, and cold-chain express delivery. Research-grade — with the paperwork to prove it.</p>
               <div className="hb">
                 <a href="/catalogue" className="b b1">Browse Peptides</a>
-                <a href="/coa" className="b" style={{ background: 'transparent', color: '#fff', border: '1.5px solid rgba(255,255,255,.3)' }}>See Lab Reports</a>
+                <a href="/coa" className="b b2" style={{ background: '#fff' }}>See Lab Reports</a>
               </div>
               <div className="hr-chips">
                 <span className="hr-chip">UPI</span>
@@ -81,7 +103,12 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
               </div>
             </div>
             <div className="hr-imgs">
-              <img src="/img/brand/athena-vial.png" alt="Athena Bio Labs research peptide vial" className="hr-hero-img" />
+              <div className="hr-stack">
+                <span className="hr-float"><span className="dot" />Janoshik verified</span>
+                <img src="/img/tirzepatide.png" alt="Athena Bio Labs Tirzepatide vial" className="v1" />
+                <img src="/img/retatrutide.png" alt="Athena Bio Labs Retatrutide vial" className="v2" />
+                <span className="hr-float f2">&ge;99% HPLC purity</span>
+              </div>
             </div>
           </div>
         </div>
@@ -186,7 +213,7 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
                 </div>
                 <svg width="100%" viewBox="0 0 460 70" style={{ display: 'block' }}>
                   <line x1="0" y1="69" x2="460" y2="69" stroke="rgba(255,255,255,.12)" strokeWidth="1" />
-                  <path d="M0,65 L70,65 L80,62 L90,65 L130,65 L140,58 L150,65 L220,65 L225,8 L230,65 L300,65 L310,60 L320,65 L390,65 L395,62 L400,65 L460,65" stroke="#8A4FFF" strokeWidth="1.5" fill="none" />
+                  <path d="M0,65 L70,65 L80,62 L90,65 L130,65 L140,58 L150,65 L220,65 L225,8 L230,65 L300,65 L310,60 L320,65 L390,65 L395,62 L400,65 L460,65" stroke="#B8912F" strokeWidth="1.5" fill="none" />
                 </svg>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 8, fontFamily: 'ui-monospace,monospace', color: 'rgba(255,255,255,.35)', marginTop: 4, letterSpacing: '.1em' }}>
                   <span>0.0</span><span>5.0</span><span>10.0</span><span>15.0</span><span>20.0</span><span>25.0 min</span>
@@ -209,7 +236,7 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
           <div className="steps-grid">
             {[
               { n: 'Step 1', t: 'Browse & select', d: 'Filter by category or compound. Full scientific data, COA links, and multiple strengths for every peptide in the catalogue.', img: '/img/tirzepatide.png' },
-              { n: 'Step 2', t: 'Order on WhatsApp', d: 'One tap sends your itemised order to us on WhatsApp. Pay by UPI, bank transfer, or crypto — confirmed within minutes.', img: '/img/brand/athena-vial.png', delay: 'reveal-d1' },
+              { n: 'Step 2', t: 'Order on WhatsApp', d: 'One tap sends your itemised order to us on WhatsApp. Pay by UPI, bank transfer, or crypto — confirmed within minutes.', img: '/img/klow.png', delay: 'reveal-d1' },
               { n: 'Step 3', t: 'Cold-chain delivered', d: 'Insulated packaging with ice gel and real-time tracking. Express courier, typically 2–4 days pan-India.', img: '/img/bac-water.png', delay: 'reveal-d2' },
             ].map(s => (
               <div key={s.n} className={`step-card reveal ${s.delay || ''}`}>
@@ -228,7 +255,6 @@ export function HomeClient({ products, featured }: { products: Product[]; featur
 
       {/* ── Dark banner ── */}
       <section className="atm-banner reveal">
-        <div className="atm-banner-bg" style={{ backgroundImage: "url('/img/brand/quality-lab.png')" }} />
         <div className="w" style={{ position: 'relative', zIndex: 1 }}>
           <div className="atm-inner">
             <GoldSeal dark>Our Standard</GoldSeal>

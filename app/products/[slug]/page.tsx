@@ -25,33 +25,33 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <main>
       <section style={{ padding: '48px 0 64px' }}>
         <div className="w">
-          <a href="/catalogue" style={{ fontSize: 11, color: '#6E6590', textDecoration: 'none' }}>← Back to catalogue</a>
+          <a href="/catalogue" style={{ fontSize: 11, color: '#6F6753', textDecoration: 'none' }}>← Back to catalogue</a>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, marginTop: 24, alignItems: 'start' }} className="pdp-grid">
-            <div style={{ background: '#EFEBFA', borderRadius: 20, overflow: 'hidden' }}>
+            <div style={{ background: '#F4F0E5', borderRadius: 20, overflow: 'hidden' }}>
               <img src={`/img/${p.image}`} alt={p.name} style={{ width: '100%', display: 'block' }} />
             </div>
             <div>
               <span className="lb">{p.category}</span>
               <h1 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 'clamp(30px,4vw,46px)', fontWeight: 700, letterSpacing: '-.02em', margin: '8px 0 6px' }}>{p.name}</h1>
-              <p style={{ fontSize: 14, fontStyle: 'italic', color: '#7C3BFF', marginBottom: 20 }}>{p.tagline}</p>
-              <p style={{ fontSize: 14, lineHeight: 1.8, color: '#2A2140', marginBottom: 24, fontWeight: 300 }}>{p.desc}</p>
+              <p style={{ fontSize: 14, fontStyle: 'italic', color: '#B8912F', marginBottom: 20 }}>{p.tagline}</p>
+              <p style={{ fontSize: 14, lineHeight: 1.8, color: '#332D22', marginBottom: 24, fontWeight: 300 }}>{p.desc}</p>
 
               <ProductBuy p={p} />
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px', marginTop: 32, borderTop: '1px solid #E1DAF4', paddingTop: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px', marginTop: 32, borderTop: '1px solid #E8E1CE', paddingTop: 24 }}>
                 {[['Research dose', p.dose], ['Molecular weight', p.mw], ['Sequence', p.seq], ['Category', p.cat]].map(([l, val]) => (
                   <div key={l}>
-                    <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: '#A79FC2', marginBottom: 3 }}>{l}</div>
-                    <div style={{ fontSize: 12.5, color: '#2A2140' }}>{val}</div>
+                    <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: '#A79C82', marginBottom: 3 }}>{l}</div>
+                    <div style={{ fontSize: 12.5, color: '#332D22' }}>{val}</div>
                   </div>
                 ))}
               </div>
 
               {p.janoshik && (
-                <div style={{ marginTop: 24, padding: '16px 20px', background: '#fff', border: '1px solid #E1DAF4' }}>
+                <div style={{ marginTop: 24, padding: '16px 20px', background: '#fff', border: '1px solid #E8E1CE' }}>
                   <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: '#22A06B', marginBottom: 6 }}>Third-party verified · Janoshik</div>
-                  <div style={{ fontSize: 13, color: '#2A2140', marginBottom: 8 }}>Purity <strong>{p.janoshik.purity}</strong> · {p.janoshik.quantity}</div>
-                  <a href={p.janoshik.verifyUrl} target="_blank" rel="noopener" style={{ fontSize: 12, color: '#7C3BFF', textDecoration: 'none' }}>View Certificate of Analysis ↗</a>
+                  <div style={{ fontSize: 13, color: '#332D22', marginBottom: 8 }}>Purity <strong>{p.janoshik.purity}</strong> · {p.janoshik.quantity}</div>
+                  <a href={p.janoshik.verifyUrl} target="_blank" rel="noopener" style={{ fontSize: 12, color: '#B8912F', textDecoration: 'none' }}>View Certificate of Analysis ↗</a>
                 </div>
               )}
             </div>
@@ -61,9 +61,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div style={{ maxWidth: 760, marginTop: 64 }}>
               <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 28, fontWeight: 700, marginBottom: 20 }}>Common questions</h2>
               {p.faqs.map(f => (
-                <details key={f.q} style={{ borderBottom: '1px solid #E1DAF4', padding: '14px 0' }}>
+                <details key={f.q} style={{ borderBottom: '1px solid #E8E1CE', padding: '14px 0' }}>
                   <summary style={{ fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>{f.q}</summary>
-                  <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6E6590', marginTop: 8 }}>{f.a}</p>
+                  <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6F6753', marginTop: 8 }}>{f.a}</p>
                 </details>
               ))}
             </div>
@@ -73,9 +73,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div style={{ maxWidth: 760, marginTop: 48 }}>
               <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 28, fontWeight: 700, marginBottom: 20 }}>Selected literature</h2>
               {p.citations.map(c => (
-                <a key={c.url} href={c.url} target="_blank" rel="noopener" style={{ display: 'block', padding: '12px 0', borderBottom: '1px solid #E1DAF4', textDecoration: 'none', color: 'inherit' }}>
+                <a key={c.url} href={c.url} target="_blank" rel="noopener" style={{ display: 'block', padding: '12px 0', borderBottom: '1px solid #E8E1CE', textDecoration: 'none', color: 'inherit' }}>
                   <div style={{ fontSize: 13.5, fontWeight: 600 }}>{c.title}</div>
-                  <div style={{ fontSize: 11.5, color: '#6E6590', marginTop: 2 }}>{c.year} · {c.journal}</div>
+                  <div style={{ fontSize: 11.5, color: '#6F6753', marginTop: 2 }}>{c.year} · {c.journal}</div>
                 </a>
               ))}
             </div>

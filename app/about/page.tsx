@@ -18,7 +18,7 @@ export default function About() {
           <div className="gs" style={{ marginBottom: 40 }} />
           <div className="ab"><h3>Quality Assurance</h3><p>Every batch undergoes HPLC analysis confirming 99%+ purity, mass spectrometry for molecular identity, and endotoxin screening by ISO 17025-accredited laboratories. Full Certificates of Analysis are published for complete transparency.</p></div>
           <div className="gs" style={{ marginBottom: 40 }} />
-          <div className="ab"><h3>Free Research eBook</h3><p>Every order includes our comprehensive Research Guide — a detailed PDF covering compound science, mechanisms of action, reconstitution protocols, storage guidelines, and a full glossary. Over 15 chapters of research-grade content. <a href="mailto:support@athenabiolabs.com?subject=Research%20Guide%20Preview" style={{ color: '#7C3BFF', textDecoration: 'underline' }}>Request a preview.</a></p></div>
+          <div className="ab"><h3>Free Research eBook</h3><p>Every order includes our comprehensive Research Guide — a detailed PDF covering compound science, mechanisms of action, reconstitution protocols, storage guidelines, and a full glossary. Over 15 chapters of research-grade content. <a href="mailto:support@athenabiolabs.com?subject=Research%20Guide%20Preview" style={{ color: '#B8912F', textDecoration: 'underline' }}>Request a preview.</a></p></div>
           <div className="gs" style={{ marginBottom: 40 }} />
           <div className="ab"><h3>Research Use</h3><p>All products are sold exclusively for in-vitro laboratory research purposes. Not approved for human or animal use.</p></div>
           <div className="sg">

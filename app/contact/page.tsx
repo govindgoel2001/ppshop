@@ -15,7 +15,7 @@ export default function Contact() {
           <h1 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 'clamp(32px,5vw,48px)', fontWeight: 700, letterSpacing: '-.02em', margin: '10px 0 16px' }}>
             We&apos;re here to <em style={{ fontWeight: 600 }}>help</em>.
           </h1>
-          <p style={{ fontSize: 14, color: '#6E6590', lineHeight: 1.8, marginBottom: 32, fontWeight: 300 }}>
+          <p style={{ fontSize: 14, color: '#6F6753', lineHeight: 1.8, marginBottom: 32, fontWeight: 300 }}>
             Questions about a compound, your order, or a Certificate of Analysis? The fastest way to
             reach us is WhatsApp — we reply Mon–Sat, 9–7 IST.
           </p>

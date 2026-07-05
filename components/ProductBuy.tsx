@@ -22,7 +22,7 @@ export function ProductBuy({ p }: { p: Product }) {
               onClick={() => setVi(i)}
               disabled={!!x.oos}
               className="b b2"
-              style={{ padding: '10px 18px', fontSize: 10, background: i === vi ? '#171129' : undefined, color: i === vi ? '#fff' : undefined, opacity: x.oos ? 0.4 : 1, cursor: x.oos ? 'not-allowed' : 'pointer' }}
+              style={{ padding: '10px 18px', fontSize: 10, background: i === vi ? '#1A1712' : undefined, color: i === vi ? '#fff' : undefined, opacity: x.oos ? 0.4 : 1, cursor: x.oos ? 'not-allowed' : 'pointer' }}
             >
               {x.sp}{x.oos ? ' — OOS' : ''}
             </button>
