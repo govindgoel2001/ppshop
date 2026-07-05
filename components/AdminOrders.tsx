@@ -11,13 +11,14 @@ type Order = {
   total: number | null;
   coupon: string | null;
   status: string | null;
+  utr: string | null;
   eta: string | null;
   dispatch_tracking: string | null;
   admin_notes: string | null;
   created_at: string;
 };
 
-const STATUSES = ['initiated', 'purchased', 'shipped', 'delivered', 'cancelled'];
+const STATUSES = ['initiated', 'payment_claimed', 'purchased', 'shipped', 'delivered', 'cancelled'];
 
 function niceDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) +
@@ -74,6 +75,11 @@ function Row({ order, onSaved }: { order: Order; onSaved: (o: Order) => void }) 
         <span className="adm-total">{order.total != null ? fmt(order.total) : ''}</span>
       </div>
       {order.items && <div className="adm-items">{order.items}{order.coupon ? ` · coupon ${order.coupon}` : ''}</div>}
+      {order.utr && (
+        <div className="adm-utr">
+          UTR <strong>{order.utr}</strong> — match this against your bank app, then set status to <em>purchased</em>.
+        </div>
+      )}
 
       <div className="adm-controls">
         <select value={status} onChange={e => setStatus(e.target.value)}>

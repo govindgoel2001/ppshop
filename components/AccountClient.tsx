@@ -109,6 +109,10 @@ export function AccountClient({ name }: { name: string }) {
                   </div>
                 )}
 
+                {!cancelled && (o.status ?? '').toLowerCase() === 'payment_claimed' && (
+                  <div className="acct-eta">Payment received — <strong>verifying now</strong></div>
+                )}
+
                 {!cancelled && o.eta && step < 3 && (
                   <div className="acct-eta">Expected by <strong>{o.eta}</strong></div>
                 )}
@@ -125,14 +129,19 @@ export function AccountClient({ name }: { name: string }) {
                 )}
 
                 {!cancelled && step === 0 && (
-                  <a
-                    className="acct-wa"
-                    href={waLink(`Hi AthenaBioLabs, following up on my order ${o.ref ?? '#' + o.id}.`)}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Continue on WhatsApp
-                  </a>
+                  <>
+                    {o.ref && (o.status ?? '').toLowerCase() !== 'payment_claimed' && (
+                      <a className="acct-track" href={`/pay/${o.ref}`}>Pay now</a>
+                    )}
+                    <a
+                      className="acct-wa"
+                      href={waLink(`Hi AthenaBioLabs, following up on my order ${o.ref ?? '#' + o.id}.`)}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Continue on WhatsApp
+                    </a>
+                  </>
                 )}
               </div>
             );

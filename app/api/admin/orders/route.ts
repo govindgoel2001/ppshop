@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 
 export const runtime = 'nodejs';
 
-const STATUSES = ['initiated', 'purchased', 'shipped', 'delivered', 'cancelled'];
+const STATUSES = ['initiated', 'payment_claimed', 'purchased', 'shipped', 'delivered', 'cancelled'];
 
 function supa() {
   const url = process.env.SUPABASE_URL;
@@ -38,7 +38,7 @@ export async function GET() {
 
   const { data, error } = await db
     .from('orders')
-    .select('id, ref, email, items, total, coupon, status, eta, dispatch_tracking, admin_notes, created_at')
+    .select('id, ref, email, items, total, coupon, status, utr, eta, dispatch_tracking, admin_notes, created_at')
     .order('created_at', { ascending: false })
     .limit(200);
 
@@ -95,7 +95,7 @@ export async function PATCH(req: Request) {
     .from('orders')
     .update(patch)
     .eq('id', id)
-    .select('id, ref, email, items, total, coupon, status, eta, dispatch_tracking, admin_notes, created_at')
+    .select('id, ref, email, items, total, coupon, status, utr, eta, dispatch_tracking, admin_notes, created_at')
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

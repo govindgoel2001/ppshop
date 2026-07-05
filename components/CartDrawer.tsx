@@ -18,6 +18,7 @@ function buildOrderMessage(cart: CartItem[], total: number, who?: string, ref?: 
     '',
     `Total: ${fmt(total)}`,
     ref ? `Order ref: ${ref}` : '',
+    ref ? `Payment link: ${window.location.origin}/pay/${ref}` : '',
     who ? `Account: ${who}` : '',
     '',
     'Preferred payment: (UPI / Bank transfer / Crypto)',
