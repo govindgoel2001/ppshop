@@ -71,7 +71,7 @@ export default async function PayPage({ params }: { params: Promise<{ ref: strin
             <div className="pay-done">✓ Payment received. Track your order on your <a href="/account">dashboard</a>.</div>
           ) : claimed ? (
             <div className="pay-claimed">
-              We&apos;ve received your payment details (UTR {order.utr}) and are verifying them.
+              We&apos;ve received your payment details (UTR ending {String(order.utr ?? '').slice(-4)}) and are verifying them.
               Your <a href="/account">dashboard</a> will update shortly.
             </div>
           ) : (

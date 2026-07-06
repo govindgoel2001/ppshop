@@ -6,6 +6,23 @@ export const runtime = 'nodejs';
 const REF_RE = /^ABL-[A-Z0-9]{4,12}$/;
 const UTR_RE = /^\d{12}$/;
 
+// Per-instance rate limit: this endpoint is anonymous by design (customers
+// aren't always signed in when they pay), so cap attempts per IP to make
+// ref/UTR probing impractical. Serverless instances each keep their own map,
+// which still bounds any single connection's throughput.
+const hits = new Map<string, { n: number; t: number }>();
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  if (hits.size > 5000) hits.clear();
+  const h = hits.get(ip);
+  if (!h || now - h.t > 60_000) {
+    hits.set(ip, { n: 1, t: now });
+    return false;
+  }
+  h.n += 1;
+  return h.n > 10;
+}
+
 // POST /api/pay — customer claims a payment by submitting their UPI UTR.
 // Body: { ref, utr }. Flips the order to payment_claimed; the admin
 // verifies against the bank app and sets purchased in /admin/orders.
@@ -13,6 +30,11 @@ export async function POST(req: Request) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
   if (!url || !key) return NextResponse.json({ error: 'Payments are not set up yet.' }, { status: 503 });
+
+  const ip = (req.headers.get('x-forwarded-for') ?? 'unknown').split(',')[0].trim();
+  if (rateLimited(ip)) {
+    return NextResponse.json({ error: 'Too many attempts. Please wait a minute.' }, { status: 429 });
+  }
 
   let body: { ref?: string; utr?: string };
   try {

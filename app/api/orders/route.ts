@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { createClient } from '@supabase/supabase-js';
@@ -13,9 +14,12 @@ function supa() {
 }
 
 function makeRef(): string {
-  const t = Date.now().toString(36).toUpperCase().slice(-5);
-  const r = Math.random().toString(36).toUpperCase().slice(2, 5);
-  return `ABL-${t}${r}`;
+  // Refs gate access to /pay/[ref] (order contents + payment claim), so they
+  // must be unguessable: 10 crypto-random base36 chars ≈ 3.6e15 combinations.
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let s = '';
+  for (const b of randomBytes(10)) s += chars[b % 36];
+  return `ABL-${s}`;
 }
 
 // GET /api/orders — the signed-in user's own orders, newest first.
