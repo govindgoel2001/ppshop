@@ -41,12 +41,34 @@ export async function GET() {
   return NextResponse.json({ orders: data ?? [] });
 }
 
+// Guests may create orders too — cap how fast a single IP can do it.
+const creates = new Map<string, { n: number; t: number }>();
+function createLimited(ip: string): boolean {
+  const now = Date.now();
+  if (creates.size > 5000) creates.clear();
+  const h = creates.get(ip);
+  if (!h || now - h.t > 60_000) {
+    creates.set(ip, { n: 1, t: now });
+    return false;
+  }
+  h.n += 1;
+  return h.n > 6;
+}
+
 // POST /api/orders — create an 'initiated' order when the customer opens
 // the WhatsApp chat. Body: { items: [{id, vi, q}], coupon? }.
 // Prices come from the server-side catalogue, never the client.
+// Signed-in users get the order on their dashboard; guests still get a
+// ref + payment link. Coupons require an account (that's how reuse is
+// enforced).
 export async function POST(req: Request) {
   const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  if (!userId) {
+    const ip = (req.headers.get('x-forwarded-for') ?? 'unknown').split(',')[0].trim();
+    if (createLimited(ip)) {
+      return NextResponse.json({ error: 'Too many orders. Please wait a minute.' }, { status: 429 });
+    }
+  }
 
   let body: { items?: { id: number; vi: number; q: number }[]; coupon?: string };
   try {
@@ -73,13 +95,13 @@ export async function POST(req: Request) {
   const ref = makeRef();
   if (!db) return NextResponse.json({ ok: true, ref, skipped: 'supabase-not-configured' });
 
-  const user = await currentUser();
+  const user = userId ? await currentUser() : null;
   const email =
     user?.primaryEmailAddress?.emailAddress ??
     user?.emailAddresses?.[0]?.emailAddress ??
     null;
 
-  const coupon = body.coupon ? String(body.coupon).trim().toUpperCase().slice(0, 24) : null;
+  const coupon = userId && body.coupon ? String(body.coupon).trim().toUpperCase().slice(0, 24) : null;
   if (coupon) {
     const { data: used } = await db
       .from('coupon_usage')
@@ -96,7 +118,7 @@ export async function POST(req: Request) {
     .from('orders')
     .insert({
       ref,
-      user_id: userId,
+      user_id: userId ?? null,
       email,
       items: lines.join('; '),
       total,

@@ -49,6 +49,10 @@ export function CartDrawer() {
     if (dr) dr.className = 'dr' + (open ? ' op' : '');
     const closeBtn = document.getElementById('cartClose');
     if (closeBtn) closeBtn.onclick = () => setOpen(false);
+    if (open && cart.length > 0) {
+      try { window.posthog?.capture('CheckoutStarted', { items: cart.length, value: totalPrice(), currency: 'INR' }); } catch {}
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const total = totalPrice();
@@ -58,20 +62,18 @@ export function CartDrawer() {
     // Pre-open the tab synchronously so popup blockers don't eat it while
     // we record the order server-side.
     const tab = window.open('about:blank', '_blank');
-    // Record the order first so it shows up in /account. If that fails
-    // for any reason, the WhatsApp order still goes through.
+    // Record the order first (guests included) so it gets a ref and a
+    // payment link. If that fails, the WhatsApp order still goes through.
     let ref: string | undefined;
-    if (AUTH_ENABLED) {
-      try {
-        const res = await fetch('/api/orders', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: cart.map(it => ({ id: it.id, vi: it.vi, q: it.q })) }),
-        });
-        const data = await res.json();
-        if (res.ok && data.ref) ref = data.ref;
-      } catch {}
-    }
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: cart.map(it => ({ id: it.id, vi: it.vi, q: it.q })) }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ref) ref = data.ref;
+    } catch {}
     const msg = buildOrderMessage(cart, total, who, ref);
     try { window.posthog?.capture('WhatsAppOrder', { value: total, currency: 'INR', items: cart.length, ref }); } catch {}
     const url = waLink(msg);

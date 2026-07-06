@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PRODUCTS, getProduct, getRelatedProducts } from '@/lib/products';
+import { proofPhotos } from '@/lib/proof';
 import { ProductBuy } from '@/components/ProductBuy';
 import { ProductCard } from '@/components/ProductCard';
+import { ProofCarousel } from '@/components/ProofCarousel';
 
 export function generateStaticParams() {
   return PRODUCTS.map(p => ({ slug: p.slug }));
@@ -99,6 +101,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
               <ProductBuy p={p} />
 
+              <p style={{ marginTop: 14, fontSize: 12, color: '#6F6753', lineHeight: 1.7 }}>
+                Dispatched within 24 hours in cold-chain packaging · delivered in 2–4 days,
+                every Indian pin code · free shipping.
+              </p>
+
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px', marginTop: 32, borderTop: '1px solid #E8E1CE', paddingTop: 24 }}>
                 {[['Research dose', p.dose], ['Molecular weight', p.mw], ['Sequence', p.seq], ['Category', p.cat]].map(([l, val]) => (
                   <div key={l}>
@@ -142,7 +149,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
           )}
 
-          <div style={{ marginTop: 72 }}>
+          <ProofCarousel photos={proofPhotos()} />
+
+          <div style={{ marginTop: 24 }}>
             <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 28, fontWeight: 700, marginBottom: 20 }}>You may also research</h2>
             <div className="feat-grid" style={{ gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))' }}>
               {related.map(r => <ProductCard key={r.id} p={r} />)}

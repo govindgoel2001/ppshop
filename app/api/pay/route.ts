@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { statusEmail, sendEmail } from '@/lib/email';
 
 export const runtime = 'nodejs';
 
@@ -52,7 +53,7 @@ export async function POST(req: Request) {
 
   const { data: order } = await db
     .from('orders')
-    .select('id, status')
+    .select('id, status, email')
     .eq('ref', ref)
     .maybeSingle();
 
@@ -85,6 +86,11 @@ export async function POST(req: Request) {
     action: 'payment_claimed',
     detail: `utr ${utr}`,
   });
+
+  if (order.email) {
+    const mail = statusEmail('payment_claimed', ref);
+    if (mail) await sendEmail(order.email, mail.subject, mail.html);
+  }
 
   return NextResponse.json({ ok: true });
 }

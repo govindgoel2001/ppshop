@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { createClient } from '@supabase/supabase-js';
+import { statusEmail, sendEmail } from '@/lib/email';
 
 export const runtime = 'nodejs';
 
@@ -106,6 +107,12 @@ export async function PATCH(req: Request) {
     action: 'update',
     detail: JSON.stringify(patch),
   });
+
+  // Status changed and we know the customer's email → notify them.
+  if (patch.status && data?.email && data?.ref) {
+    const mail = statusEmail(patch.status, data.ref, data.dispatch_tracking, data.eta);
+    if (mail) await sendEmail(data.email, mail.subject, mail.html);
+  }
 
   return NextResponse.json({ ok: true, order: data });
 }

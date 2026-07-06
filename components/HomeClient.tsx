@@ -101,6 +101,7 @@ export function HomeClient({ products, featured, proofs = [] }: { products: Prod
                 <span className="hr-chip">Bank Transfer</span>
                 <span className="hr-chip">Crypto</span>
                 <span className="hr-chip">WhatsApp Checkout</span>
+                <span className="hr-chip">2–4 Days, Every Pin Code</span>
               </div>
             </div>
             <div className="hr-imgs">
