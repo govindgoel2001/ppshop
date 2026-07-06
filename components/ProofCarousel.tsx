@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { ProtectedImg } from '@/components/ProtectedImg';
 
 /** Horizontal scroll-snap carousel of customer delivery photos. */
 export function ProofCarousel({ photos }: { photos: string[] }) {
@@ -26,7 +27,7 @@ export function ProofCarousel({ photos }: { photos: string[] }) {
         <div className="proof-track" ref={track}>
           {photos.map(f => (
             <figure className="proof-card" key={f}>
-              <img src={`/img/proof/${f}`} alt="Delivery photo shared by an AthenaBioLabs customer" loading="lazy" />
+              <ProtectedImg src={`/img/proof/${f}`} alt="Delivery photo shared by an AthenaBioLabs customer" />
             </figure>
           ))}
         </div>

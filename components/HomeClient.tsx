@@ -264,6 +264,9 @@ export function HomeClient({ products, featured, proofs = [] }: { products: Prod
         </div>
       </section>
 
+      {/* ── Delivery proof ── */}
+      <ProofCarousel photos={proofs} />
+
       {/* ── Accepted payments ── */}
       <PaymentMethods />
 
@@ -317,9 +320,6 @@ export function HomeClient({ products, featured, proofs = [] }: { products: Prod
           </div>
         </div>
       </section>
-
-      {/* ── Delivery proof ── */}
-      <ProofCarousel photos={proofs} />
 
       {/* ── Offers ── */}
       <section style={{ padding: '64px 0' }}>

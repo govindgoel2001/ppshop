@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { proofPhotos } from '@/lib/proof';
 import { waLink } from '@/lib/site';
+import { ProtectedImg } from '@/components/ProtectedImg';
 
 export const metadata: Metadata = {
   title: 'Delivery Photos — AthenaBioLabs',
@@ -34,7 +35,7 @@ export default function ProofPage() {
             <div className="proof-grid">
               {photos.map(f => (
                 <figure className="proof-grid-card" key={f}>
-                  <img src={`/img/proof/${f}`} alt="Delivery photo shared by an AthenaBioLabs customer" loading="lazy" />
+                  <ProtectedImg src={`/img/proof/${f}`} alt="Delivery photo shared by an AthenaBioLabs customer" />
                 </figure>
               ))}
             </div>

@@ -827,3 +827,10 @@ textarea.fi{resize:vertical;min-height:100px}
 .proof-grid{columns:4 220px;column-gap:16px}
 .proof-grid-card{margin:0 0 16px;border-radius:14px;overflow:hidden;border:1px solid var(--lav-200);background:var(--lav-50);break-inside:avoid;box-shadow:0 4px 16px rgba(26,23,18,.06)}
 .proof-grid-card img{width:100%;display:block}
+
+/* ── Save-deterrent image wrapper ────────────────────── */
+.pimg{display:block;position:relative;user-select:none;-webkit-touch-callout:none}
+.pimg img{pointer-events:none;-webkit-user-drag:none;user-select:none}
+.proof-card .pimg img{width:100%;height:340px;object-fit:cover;display:block}
+.proof-grid-card .pimg img{width:100%;display:block}
+@media(max-width:640px){.proof-card .pimg img{height:290px}}
