@@ -42,11 +42,57 @@ function niceDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
+function ClaimOrder({ onClaimed }: { onClaimed: () => void }) {
+  const [ref, setRef] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  async function claim() {
+    if (!ref.trim() || busy) return;
+    setBusy(true);
+    setMsg(null);
+    try {
+      const res = await fetch('/api/orders/claim', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref: ref.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Could not claim that order.');
+      setMsg(`✓ Order ${data.ref} added to your account.`);
+      setRef('');
+      onClaimed();
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : 'Could not claim that order.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="acct-claim">
+      <p>Ordered as a guest? Paste your order ref to add it to your dashboard.</p>
+      <div className="acct-claim-row">
+        <input
+          placeholder="ABL-XXXXXXXXXX"
+          value={ref}
+          onChange={e => setRef(e.target.value.toUpperCase())}
+          onKeyDown={e => { if (e.key === 'Enter') claim(); }}
+        />
+        <button className="b b2" disabled={busy || !ref.trim()} onClick={claim}>
+          {busy ? 'Adding…' : 'Add order'}
+        </button>
+      </div>
+      {msg && <div className="acct-claim-msg">{msg}</div>}
+    </div>
+  );
+}
+
 export function AccountClient({ name }: { name: string }) {
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [note, setNote] = useState<string | null>(null);
 
-  useEffect(() => {
+  function load() {
     fetch('/api/orders')
       .then(r => r.json())
       .then(d => {
@@ -57,7 +103,9 @@ export function AccountClient({ name }: { name: string }) {
         setOrders([]);
         setNote('Could not load your orders right now. Please refresh in a moment.');
       });
-  }, []);
+  }
+
+  useEffect(load, []);
 
   return (
     <main className="acct">
@@ -71,6 +119,8 @@ export function AccountClient({ name }: { name: string }) {
         </div>
 
         {note && <div className="acct-note">{note}</div>}
+
+        <ClaimOrder onClaimed={load} />
 
         {orders === null ? (
           <div className="acct-empty">Loading your orders…</div>
