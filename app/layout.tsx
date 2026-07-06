@@ -15,8 +15,57 @@ import { waLink } from '@/lib/site';
 const authEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export const metadata: Metadata = {
-  title: 'AthenaBioLabs — Premium Research Peptides',
-  description: 'Premium research compounds. HPLC verified. Third-party tested.',
+  metadataBase: new URL('https://www.athenabiolabs.com'),
+  title: {
+    default: 'AthenaBioLabs — Research Peptides India | HPLC-Verified, COA Included',
+    template: '%s | AthenaBioLabs',
+  },
+  description:
+    'Buy research peptides in India — BPC-157, Retatrutide, Tirzepatide, TB-500 and more. 99%+ HPLC purity, third-party Janoshik COA with every batch, cold-chain express delivery pan-India.',
+  keywords: [
+    'research peptides India', 'buy peptides India', 'BPC-157 India', 'Retatrutide India',
+    'Tirzepatide India', 'TB-500 India', 'peptides for research India', 'peptide supplier India',
+  ],
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    siteName: 'AthenaBioLabs',
+    locale: 'en_IN',
+    url: 'https://www.athenabiolabs.com',
+    title: 'AthenaBioLabs — Research Peptides India',
+    description:
+      'HPLC-verified research peptides with third-party COAs, shipped cold-chain across India.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AthenaBioLabs — Research Peptides India',
+    description: 'HPLC-verified research peptides with third-party COAs, shipped across India.',
+  },
+  robots: { index: true, follow: true },
+};
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.athenabiolabs.com/#org',
+      name: 'AthenaBioLabs',
+      url: 'https://www.athenabiolabs.com',
+      description:
+        'Indian supplier of HPLC-verified research peptides with third-party Certificates of Analysis.',
+      areaServed: { '@type': 'Country', name: 'India' },
+      email: 'support@athenabiolabs.com',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.athenabiolabs.com/#website',
+      url: 'https://www.athenabiolabs.com',
+      name: 'AthenaBioLabs',
+      publisher: { '@id': 'https://www.athenabiolabs.com/#org' },
+      inLanguage: 'en-IN',
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,6 +77,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
       <body className="has-promo">

@@ -4,8 +4,9 @@ import { proofPhotos } from '@/lib/proof';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'AthenaBioLabs — Premium Research Peptides',
-  description: 'HPLC-verified peptides with 99%+ purity. Each batch third-party tested. Full COA included. Temperature-controlled shipping.',
+  title: 'AthenaBioLabs — Research Peptides India | 99%+ HPLC, COA Included',
+  description: 'Buy research peptides in India: BPC-157, Retatrutide, Tirzepatide, TB-500 and more. 99%+ HPLC purity, third-party Janoshik COA with every batch, cold-chain delivery pan-India.',
+  alternates: { canonical: '/' },
 };
 
 export default function Home() {

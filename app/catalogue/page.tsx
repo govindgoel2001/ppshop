@@ -3,8 +3,9 @@ import { PRODUCTS } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
 
 export const metadata: Metadata = {
-  title: 'All Peptides — AthenaBioLabs',
-  description: 'Browse HPLC-verified research peptides. Third-party tested, COA included.',
+  title: 'Buy Research Peptides Online in India — Full Catalogue',
+  description: 'All research peptides available in India: BPC-157, Retatrutide, Tirzepatide, TB-500, GHK-Cu and more. HPLC-verified, third-party COA, cold-chain delivery pan-India.',
+  alternates: { canonical: '/catalogue' },
 };
 
 const CATEGORIES = [...new Set(PRODUCTS.map(p => p.category))];

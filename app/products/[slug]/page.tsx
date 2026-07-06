@@ -8,11 +8,68 @@ export function generateStaticParams() {
   return PRODUCTS.map(p => ({ slug: p.slug }));
 }
 
+// Popular shorthand names researchers actually search with.
+const NICKNAMES: Record<string, string> = {
+  retatrutide: 'Reta',
+  tirzepatide: 'Tirz',
+  'bpc-157': 'BPC',
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const p = getProduct(slug);
   if (!p) return { title: 'Not found — AthenaBioLabs' };
-  return { title: `${p.name} — AthenaBioLabs`, description: p.desc.slice(0, 155) };
+  const nick = NICKNAMES[p.slug];
+  const minPrice = Math.min(...p.variants.map(v => v.pr));
+  return {
+    title: `${p.name} India — Buy Research-Grade ${nick ? `${p.name} (${nick})` : p.name} Online`,
+    description: `${p.name}${nick ? ` (${nick})` : ''} for research in India from ₹${minPrice}. ${p.janoshik ? `Janoshik-verified ${p.janoshik.purity} purity, ` : '99%+ HPLC purity, '}COA included, cold-chain express delivery pan-India. ${p.desc.slice(0, 80)}`,
+    keywords: [
+      `${p.name} India`, `buy ${p.name} India`, `${p.name} research India`,
+      ...(nick ? [`${nick} India`, `where to get ${nick.toLowerCase()} India`, `${nick.toLowerCase()} where to buy India`] : []),
+      'research peptides India',
+    ],
+    alternates: { canonical: `/products/${p.slug}` },
+    openGraph: {
+      title: `${p.name} India — Research-Grade, COA Included | AthenaBioLabs`,
+      description: p.desc.slice(0, 155),
+      images: [`/img/${p.image}`],
+    },
+  };
+}
+
+function productJsonLd(p: NonNullable<ReturnType<typeof getProduct>>) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Product',
+        name: p.name,
+        description: p.desc,
+        image: `https://www.athenabiolabs.com/img/${p.image}`,
+        brand: { '@type': 'Brand', name: 'AthenaBioLabs' },
+        category: p.category,
+        url: `https://www.athenabiolabs.com/products/${p.slug}`,
+        offers: p.variants.map(v => ({
+          '@type': 'Offer',
+          name: `${p.name} ${v.ds}`,
+          price: v.pr,
+          priceCurrency: 'INR',
+          availability: v.oos || p.oos ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+          areaServed: { '@type': 'Country', name: 'India' },
+          url: `https://www.athenabiolabs.com/products/${p.slug}`,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.athenabiolabs.com' },
+          { '@type': 'ListItem', position: 2, name: 'Peptides', item: 'https://www.athenabiolabs.com/catalogue' },
+          { '@type': 'ListItem', position: 3, name: p.name, item: `https://www.athenabiolabs.com/products/${p.slug}` },
+        ],
+      },
+    ],
+  };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -23,6 +80,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(p)) }}
+      />
       <section style={{ padding: '48px 0 64px' }}>
         <div className="w">
           <a href="/catalogue" style={{ fontSize: 11, color: '#6F6753', textDecoration: 'none' }}>← Back to catalogue</a>
