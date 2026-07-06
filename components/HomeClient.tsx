@@ -91,7 +91,7 @@ export function HomeClient({ products, featured, proofs = [] }: { products: Prod
                 <span>Trusted by researchers across India</span>
               </div>
               <h1>Every vial <em>verified</em>.<br />Every batch on record<span className="dt">.</span></h1>
-              <p>Third-party tested peptides with batch-level Janoshik COAs, ≥99% HPLC purity, and cold-chain express delivery. Research-grade — with the paperwork to prove it.</p>
+              <p>Third-party tested research peptides with batch-level Janoshik COAs, ≥99% HPLC purity, and cold-chain express delivery across India. Research-grade — with the paperwork to prove it.</p>
               <div className="hb">
                 <a href="/catalogue" className="b b1">Browse Peptides</a>
                 <a href="/coa" className="b b2" style={{ background: '#fff' }}>See Lab Reports</a>
@@ -318,6 +318,33 @@ export function HomeClient({ products, featured, proofs = [] }: { products: Prod
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── India SEO copy ── */}
+      <section style={{ padding: '64px 0 8px' }}>
+        <div className="w" style={{ maxWidth: 780 }}>
+          <span className="lb">Made for Indian research</span>
+          <h2 style={{ fontSize: 'clamp(24px,3.5vw,34px)', letterSpacing: '-.02em', marginBottom: 16 }}>
+            Buy research peptides in India — verified, documented, delivered
+          </h2>
+          <p style={{ fontSize: 14, lineHeight: 1.85, color: 'var(--muted)', marginBottom: 12 }}>
+            AthenaBioLabs supplies research-grade peptides across India —{' '}
+            <a href="/products/bpc-157" style={{ color: 'var(--purple)' }}>BPC-157</a>,{' '}
+            <a href="/products/retatrutide" style={{ color: 'var(--purple)' }}>Retatrutide (Reta)</a>,{' '}
+            <a href="/products/tirzepatide" style={{ color: 'var(--purple)' }}>Tirzepatide</a>,{' '}
+            <a href="/products/tb-500" style={{ color: 'var(--purple)' }}>TB-500</a>, GHK-Cu and more.
+            Every batch is tested by an independent laboratory for HPLC purity and mass confirmation,
+            and the certificate ships with your order, linked by QR to the lab&rsquo;s own records.
+          </p>
+          <p style={{ fontSize: 14, lineHeight: 1.85, color: 'var(--muted)', marginBottom: 16 }}>
+            Orders dispatch within 24 hours in insulated cold-chain packaging and typically reach
+            Delhi NCR, Mumbai, Bangalore, Hyderabad, Chennai, Pune and every other Indian pin code
+            in 2–4 days, with tracking on WhatsApp and your dashboard. New to sourcing peptides in
+            India? Start with our{' '}
+            <a href="/buy-peptides-india" style={{ color: 'var(--purple)' }}>guide to buying research peptides in India</a>{' '}
+            — what to verify, what to avoid, and how COAs actually work.
+          </p>
         </div>
       </section>
 
