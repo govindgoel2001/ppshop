@@ -811,16 +811,15 @@ textarea.fi{resize:vertical;min-height:100px}
 .proof{padding:76px 0}
 .proof h2{font-size:clamp(26px,4vw,40px);font-weight:700;letter-spacing:-.03em;margin-top:4px}
 .proof-sub{font-size:14px;color:var(--muted);max-width:460px;margin:12px auto 0;line-height:1.7}
-.proof-wrap{position:relative;max-width:1200px;margin:38px auto 0;padding:0 56px}
-.proof-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 2px 14px}
-.proof-track::-webkit-scrollbar{display:none}
-.proof-card{flex:0 0 260px;scroll-snap-align:start;margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--lav-200);background:var(--lav-50);box-shadow:0 6px 22px rgba(26,23,18,.07)}
+.proof-marquee{overflow:hidden;margin-top:38px;padding:6px 0 14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.proof-track{display:flex;width:max-content;animation:proofScroll 36s linear infinite}
+.proof-marquee:hover .proof-track{animation-play-state:paused}
+.proof-half{display:flex;gap:16px;padding-right:16px}
+@keyframes proofScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.proof-track{animation:none}.proof-marquee{overflow-x:auto}}
+.proof-card{flex:0 0 260px;margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--lav-200);background:var(--lav-50);box-shadow:0 6px 22px rgba(26,23,18,.07)}
 .proof-card img{width:100%;height:340px;object-fit:cover;display:block}
-.proof-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--lav-300);background:#fff;color:var(--ink);font-size:16px;cursor:pointer;z-index:1;transition:border-color .2s,background .2s}
-.proof-arrow:hover{border-color:var(--purple);background:var(--lav-50)}
-.proof-arrow:first-child{left:8px}
-.proof-arrow:last-of-type{right:8px}
-@media(max-width:640px){.proof-wrap{padding:0 20px}.proof-arrow{display:none}.proof-card{flex-basis:220px}.proof-card img{height:290px}}
+@media(max-width:640px){.proof-card{flex-basis:220px}.proof-card img{height:290px}}
 
 /* ── /proof page grid ────────────────────────────────── */
 .proof-page{background:#fff;min-height:60vh}
