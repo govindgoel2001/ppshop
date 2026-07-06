@@ -6,8 +6,11 @@ import { useEffect } from 'react';
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    posthog.init('phc_DcnPXXtaBQZzZJ5H9sFTtujfzQGeJFJ7bJjG6ZRDAHJ4', {
+    // Public client token for the PostHog project; env wins if set.
+    // Shop traffic is distinguishable in the shared project by $host.
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY ?? 'phc_y7VFBvVgJfSNnmQbm9DtJhcRkHLm8YYQQ6wHD5F5GB9n', {
       api_host: 'https://us.i.posthog.com',
+      defaults: '2025-05-24',
       person_profiles: 'identified_only',
     });
   }, []);
