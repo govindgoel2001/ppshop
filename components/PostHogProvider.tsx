@@ -13,6 +13,9 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       defaults: '2025-05-24',
       person_profiles: 'identified_only',
     });
+    // Components fire conversion events via window.posthog (e.g. WhatsAppOrder
+    // in CartDrawer); the npm SDK doesn't attach itself to window.
+    window.posthog = posthog;
   }, []);
 
   return <PHProvider client={posthog}>{children}</PHProvider>;
