@@ -88,7 +88,7 @@ export async function POST(req: Request) {
   });
 
   if (order.email) {
-    const mail = statusEmail('payment_claimed', ref);
+    const mail = await statusEmail('payment_claimed', ref);
     if (mail) await sendEmail(order.email, mail.subject, mail.html);
   }
 

@@ -110,7 +110,7 @@ export async function PATCH(req: Request) {
 
   // Status changed and we know the customer's email → notify them.
   if (patch.status && data?.email && data?.ref) {
-    const mail = statusEmail(patch.status, data.ref, data.dispatch_tracking, data.eta);
+    const mail = await statusEmail(patch.status, data.ref, data.dispatch_tracking, data.eta);
     if (mail) await sendEmail(data.email, mail.subject, mail.html);
   }
 
