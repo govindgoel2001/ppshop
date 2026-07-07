@@ -18,6 +18,7 @@ export function MobileNav() {
         <a href="/catalogue?cat=Skin+%26+Anti-Aging" onClick={close}>Skin &amp; Anti-Aging</a>
         <a href="/catalogue?cat=GH" onClick={close}>GH</a>
       </div>
+      <a href="/guides" onClick={close}>Guides</a>
       <a href="/coa" onClick={close}>COA</a>
       <a href="/about" onClick={close}>About</a>
       <a href="/contact" onClick={close}>Contact</a>

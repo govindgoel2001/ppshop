@@ -41,6 +41,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 function productJsonLd(p: NonNullable<ReturnType<typeof getProduct>>) {
+  // Offers stay valid to end of next year so Google doesn't flag them as expired.
+  const priceValidUntil = `${new Date().getFullYear() + 1}-12-31`;
+  const shippingDetails = {
+    '@type': 'OfferShippingDetails',
+    shippingRate: { '@type': 'MonetaryAmount', value: 0, currency: 'INR' },
+    shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'IN' },
+    deliveryTime: {
+      '@type': 'ShippingDeliveryTime',
+      handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 1, unitCode: 'DAY' },
+      transitTime: { '@type': 'QuantitativeValue', minValue: 2, maxValue: 4, unitCode: 'DAY' },
+    },
+  };
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -57,9 +69,11 @@ function productJsonLd(p: NonNullable<ReturnType<typeof getProduct>>) {
           name: `${p.name} ${v.ds}`,
           price: v.pr,
           priceCurrency: 'INR',
+          priceValidUntil,
           availability: v.oos || p.oos ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
           areaServed: { '@type': 'Country', name: 'India' },
           url: `https://www.athenabiolabs.com/products/${p.slug}`,
+          shippingDetails,
         })),
       },
       {
@@ -70,6 +84,16 @@ function productJsonLd(p: NonNullable<ReturnType<typeof getProduct>>) {
           { '@type': 'ListItem', position: 3, name: p.name, item: `https://www.athenabiolabs.com/products/${p.slug}` },
         ],
       },
+      ...(p.faqs.length > 0
+        ? [{
+            '@type': 'FAQPage',
+            mainEntity: p.faqs.map(f => ({
+              '@type': 'Question',
+              name: f.q,
+              acceptedAnswer: { '@type': 'Answer', text: f.a },
+            })),
+          }]
+        : []),
     ],
   };
 }

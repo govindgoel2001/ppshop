@@ -35,6 +35,7 @@ export function Header() {
               <a href="/catalogue?cat=Supplies">Supplies</a>
             </div>
           </div>
+          <a href="/guides">Guides</a>
           <a href="/coa">COA</a>
           <a href="/about">About</a>
           <a href="/contact">Contact</a>

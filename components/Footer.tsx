@@ -14,6 +14,7 @@ export function Footer() {
             <a href="/">Home</a>
             <a href="/catalogue">Peptides</a>
             <a href="/buy-peptides-india">Peptides in India</a>
+            <a href="/guides">Research Guides</a>
             <a href="/coa">COA</a>
             <a href="/about">About</a>
             <a href="/contact">Contact</a>
