@@ -198,6 +198,42 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
+    id: 7,
+    slug: 'tesamorelin',
+    name: 'Tesamorelin',
+    category: 'GH',
+    variants: [{ sp: '10mg per vial', ds: '10mg', pr: 2999 }],
+    image: 'tesamorelin.jpg',
+    desc: 'A stabilised 44-amino-acid analogue of growth hormone-releasing hormone (GHRH) — and the only GH-axis secretagogue with FDA approval (as Egrifta, for HIV-associated lipodystrophy). Rather than supplying GH directly, it stimulates the pituitary to release the body\'s own GH in a natural pulsatile pattern. Randomised trials show selective reduction of visceral adipose tissue and liver fat alongside raised IGF-1.',
+    tagline: 'The only FDA-approved GHRH analogue. Endogenous GH, visceral-fat selective.',
+    dose: '1 - 2mg daily, subcutaneous',
+    mw: '5135.9 g/mol',
+    seq: 'GHRH(1-44) analogue · 44 AA (trans-3-hexenoyl-Tyr¹)',
+    cat: 'GH',
+    janoshik: {
+      // Displayed as site-standard "99%+" — replace with the exact HPLC % from
+      // report 153787 when you have it (the verify link below is the source of truth).
+      purity: '99%+',
+      quantity: 'Mass, purity & endotoxin tested',
+      taskNumber: '153787',
+      verifyUrl: 'https://janoshik.com/tests/153787-TESA10_FZ52MTSTUB5J',
+      // Endotoxin (LAL) report: https://janoshik.com/tests/153788-TESA10_1HDFDF14VSD9
+      image: '/img/testing/tesa-hplc.png',
+      date: '', // add the report date from the COA when available
+    },
+    faqs: [
+      { q: 'How is tesamorelin different from growth hormone (GH)?', a: 'Tesamorelin does not supply GH directly. It is a GHRH analogue that stimulates the pituitary to release the body\'s own GH in a natural pulsatile rhythm, raising IGF-1 while preserving physiological feedback. Research use only.' },
+      { q: 'What does the research literature show for tesamorelin?', a: 'In randomised controlled trials of HIV-associated abdominal fat accumulation, daily tesamorelin selectively reduced visceral adipose tissue (~15.2% in the pivotal NEJM 2007 trial vs a rise on placebo) and reduced liver fat (JAMA 2014), while increasing IGF-1. It is the only GHRH analogue with FDA approval (Egrifta).' },
+      ...commonFaqs,
+    ],
+    citations: [
+      { year: '2007', title: 'Metabolic Effects of a Growth Hormone–Releasing Factor in Patients with HIV', journal: 'NEJM · PMID 18057338', url: 'https://pubmed.ncbi.nlm.nih.gov/18057338/' },
+      { year: '2014', title: 'Effect of Tesamorelin on Visceral Fat and Liver Fat in HIV-Infected Patients with Abdominal Fat Accumulation', journal: 'JAMA · doi:10.1001/jama.2014.8334', url: 'https://doi.org/10.1001/jama.2014.8334' },
+      { year: '2019', title: 'Tesamorelin Decreases Muscle Fat and Increases Muscle Area in Adults with HIV', journal: 'J Clin Endocrinol Metab · PMC6766405', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6766405/' },
+      { year: '2011', title: 'Growth Hormone and Tesamorelin in the Management of HIV-Associated Lipodystrophy', journal: 'Review · PMC3218714', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC3218714/' },
+    ],
+  },
+  {
     id: 12,
     slug: 'cjc-ipa-combo',
     name: 'CJC+IPA Combo',
