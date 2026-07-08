@@ -203,7 +203,7 @@ export const PRODUCTS: Product[] = [
     name: 'Tesamorelin',
     category: 'GH',
     variants: [{ sp: '10mg per vial', ds: '10mg', pr: 2999 }],
-    image: 'tesamorelin.jpg',
+    image: 'tesamorelin.png',
     desc: 'A stabilised 44-amino-acid analogue of growth hormone-releasing hormone (GHRH) — and the only GH-axis secretagogue with FDA approval (as Egrifta, for HIV-associated lipodystrophy). Rather than supplying GH directly, it stimulates the pituitary to release the body\'s own GH in a natural pulsatile pattern. Randomised trials show selective reduction of visceral adipose tissue and liver fat alongside raised IGF-1.',
     tagline: 'The only FDA-approved GHRH analogue. Endogenous GH, visceral-fat selective.',
     dose: '1 - 2mg daily, subcutaneous',
